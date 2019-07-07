@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
  */
 final class HelloWorld {
     private HelloWorld() { }
-
+    /**Logger.*/
     private static final Logger LOGGER = LogManager.getLogger(HelloWorld.class);
     /**
      * @param args argument string parameters
@@ -17,6 +17,7 @@ final class HelloWorld {
     public static void main(final String[] args) {
         LOGGER.debug("Debug Message Logged !!!");
         LOGGER.info("Info Message Logged !!! Hello World !!!");
-        LOGGER.error("Error Message Logged !!!", new NullPointerException("NullError"));
+        LOGGER.error("Error Message Logged !!!",
+                        new NullPointerException("NullError"));
     }
 }
