@@ -1,4 +1,4 @@
-package by.training.train._helloworld;
+package by.training._helloworld;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
