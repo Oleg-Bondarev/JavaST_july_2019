@@ -4,7 +4,9 @@ import java.util.Objects;
 
 public abstract class TrainCarriage {
     /**Unique carrriage identifier.*/
-    private static int identificator = 1;
+    private static long identificator;
+    /***/
+    private final long id = ++identificator;
     /**Carriage staff.*/
     private int brigade;
 
@@ -21,8 +23,8 @@ public abstract class TrainCarriage {
 
     /**Getter for carriage ID.
      * @return ID of the carriage.*/
-    public static int getIdentificator() {
-        return identificator;
+    public long getIdentificator() {
+        return id;
     }
 
     /**public static void setIdentificator(int identificator) {
