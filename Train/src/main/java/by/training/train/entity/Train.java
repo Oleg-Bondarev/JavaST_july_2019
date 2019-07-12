@@ -19,7 +19,11 @@ public class Train {
     }
     /**@return list of carriages - train.*/
     public List<TrainCarriage> getTrain() {
-        return train;
+        //return train;
+        return new AraayList<TrainCarriage>(train); 
+        // чтобы не было side effect, может здесь
+        // не очень прям нужно, так как объект изменяемый, но вроде хорошая практика никогда не возвращать 
+        // сам объект, а всегда возвращать его копию
     }
     /**@param newTrain -new train.*/
     public void setTrain(final List<TrainCarriage> newTrain) {
