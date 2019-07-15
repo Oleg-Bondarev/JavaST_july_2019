@@ -11,11 +11,11 @@ public class EconomClassCarriage extends PassengerCarriage {
     /**Type of the economic class carriage.*/
     private EconomClassEnum economClassEnum;
     /**Default count of places in the carriage.*/
-    private static final int DEFAULT_PLACES_IN_BAY = 6;
+    public static final int DEFAULT_PLACES_IN_BAY = 6;
     /**Default count of the bays in the carriage.*/
-    private static final int DEFAULT_COUNT_OF_BAYS = 9;
+    public static final int DEFAULT_COUNT_OF_BAYS = 9;
     /**Maximum baggage weighth(in kg).*/
-    private static final double MAX_BAGGAGE_WEIGHTH = 40.5;
+    public static final double MAX_BAGGAGE_WEIGHTH = 40.5;
 
     /**Def constructor.*/
     public EconomClassCarriage() {
@@ -38,6 +38,16 @@ public class EconomClassCarriage extends PassengerCarriage {
         this.countBays = newBay;
         this.economClassEnum = newEconomClassEnum;
     }
+    /**@param econClassCarriageNew -*/
+    public EconomClassCarriage(final EconomClassCarriage econClassCarriageNew) {
+        super(econClassCarriageNew.getBrigade(),
+                econClassCarriageNew.getCountOfPassengers(),
+                econClassCarriageNew.getBagageOnPassenger(),
+                econClassCarriageNew.isConditioner(),
+                econClassCarriageNew.getServiceEnum());
+        this.countBays = econClassCarriageNew.countBays;
+        this.economClassEnum = econClassCarriageNew.economClassEnum;
+    }
     /**@return count of bays.*/
     public int getCountBays() {
         return countBays;
@@ -55,7 +65,10 @@ public class EconomClassCarriage extends PassengerCarriage {
         this.economClassEnum = economEnum;
     }
 
-    /**@param o -*/
+    /**
+     * @param o - The reference object with which to compare.
+     * @return result of the method.
+     * */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -75,5 +88,13 @@ public class EconomClassCarriage extends PassengerCarriage {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), countBays, economClassEnum);
+    }
+    /**@return string.*/
+    @Override
+    public String toString() {
+        return "EconomClassCarriage{"
+                + "countBays=" + countBays
+                + ", economClassEnum=" + economClassEnum
+                + '}';
     }
 }

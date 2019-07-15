@@ -2,7 +2,6 @@ package by.training.train.entity.carriage;
 
 import java.util.Objects;
 
-import by.training.train.entity.enums.EconomClassEnum;
 import by.training.train.entity.enums.ServiceEnum;
 
 public class RestaurantCarriage extends PassengerCarriage {
@@ -20,14 +19,23 @@ public class RestaurantCarriage extends PassengerCarriage {
      * @param newService - type of the service in carriage.
      * @param hasConditioner - conditioner in the carriage.
      * @param countPlaces - count of places in the train.
-     * @param sitingPlaces - count of the siting places.
+     * @param sitingPlacesNew - count of the siting places.
      */
     public RestaurantCarriage(final int newBrigade,
             final ServiceEnum newService, final double newBaggage,
             final boolean hasConditioner, final int countPlaces,
-            final int sitingPlaces) {
+            final int sitingPlacesNew) {
         super(newBrigade, countPlaces, newBaggage, hasConditioner, newService);
-        this.sitingPlaces = sitingPlaces;
+        this.sitingPlaces = sitingPlacesNew;
+    }
+    /**@param restaurantCarriageNew -*/
+    public RestaurantCarriage(final RestaurantCarriage restaurantCarriageNew) {
+        super(restaurantCarriageNew.getBrigade(),
+                restaurantCarriageNew.getCountOfPassengers(),
+                restaurantCarriageNew.getBagageOnPassenger(),
+                restaurantCarriageNew.isConditioner(),
+                restaurantCarriageNew.getServiceEnum());
+        this.sitingPlaces = restaurantCarriageNew.sitingPlaces;
     }
     /**@return places in the carriage.*/
     public int getSitingPlaces() {
@@ -37,7 +45,10 @@ public class RestaurantCarriage extends PassengerCarriage {
     public void setSitingPlaces(final int newPlaces) {
         this.sitingPlaces = newPlaces;
     }
-    /**@param o -object.*/
+    /**
+     * @param o - The reference object with which to compare.
+     * @return result of the method.
+     * */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -52,12 +63,12 @@ public class RestaurantCarriage extends PassengerCarriage {
         RestaurantCarriage that = (RestaurantCarriage) o;
         return sitingPlaces == that.sitingPlaces;
     }
-    /**@return hash-code.*/
+    /**@return hashCode.*/
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), sitingPlaces);
     }
-    /**@return string.*/
+    /**@return object in string representation.*/
     @Override
     public String toString() {
         return "RestaurantCarriage{"

@@ -10,9 +10,9 @@ public class CompartmentCarriage extends PassengerCarriage {
     /**Default count places in the compartment.*/
     private static final int DEFAULT_PLACES_IN_COMPARTMENT = 4;
     /**Default count of the compartment in the carriage.*/
-    private static final int DEFAULT_COUNT_OF_COMPARTMENT = 9;
+    public static final int DEFAULT_COUNT_OF_COMPARTMENT = 9;
     /**Maximum baggage weighth(in kg).*/
-    private static final double MAX_BAGGAGE_WEIGHTH = 50.5;
+    public static final double MAX_BAGGAGE_WEIGHTH = 50.5;
     /**Def constructor.*/
     public CompartmentCarriage() {
         super();
@@ -30,6 +30,15 @@ public class CompartmentCarriage extends PassengerCarriage {
         newBaggage, hasConditioner, newService);
         this.countCompartments = newCompartments;
     }
+    /**@param compartCarriageNew -*/
+    public CompartmentCarriage(final CompartmentCarriage compartCarriageNew) {
+        super(compartCarriageNew.getBrigade(),
+                compartCarriageNew.getCountOfPassengers(),
+                compartCarriageNew.getBagageOnPassenger(),
+                compartCarriageNew.isConditioner(),
+                compartCarriageNew.getServiceEnum());
+        this.countCompartments = compartCarriageNew.countCompartments;
+    }
     /**@return count of compartments in the carriage.*/
     public int getCountCompartments() {
         return countCompartments;
@@ -38,7 +47,10 @@ public class CompartmentCarriage extends PassengerCarriage {
     public void setCountCompartments(final int compartments) {
         this.countCompartments = countCompartments;
     }
-    /**@param o - object*/
+    /**
+     * @param o - The reference object with which to compare.
+     * @return result of the method.
+     * */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

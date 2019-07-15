@@ -16,9 +16,16 @@ public abstract class TrainCarriage {
     }
 
     /**Constructor  with parameters.
-     * @param newBrigade -count of carriage staff.*/
+     * @param newBrigade -count of carriage staff.
+     * */
     public TrainCarriage(final int newBrigade) {
         this.brigade = newBrigade;
+    }
+
+    /**Constructor with parameters.
+     * @param trainCarriageNew -*/
+    public TrainCarriage(final TrainCarriage trainCarriageNew) {
+        brigade = trainCarriageNew.getBrigade();
     }
 
     /**Getter for carriage ID.

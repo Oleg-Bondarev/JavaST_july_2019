@@ -8,7 +8,7 @@ public class SeatingCarriage extends PassengerCarriage {
     /**The presence in the carriage TV.*/
     private boolean television;
     /**Maximum baggage weighth(in kg).*/
-    private static final double MAX_BAGGAGE_WEIGHTH = 30.5;
+    public static final double MAX_BAGGAGE_WEIGHTH = 30.5;
 
     /**Def constructor.*/
     public SeatingCarriage() {
@@ -29,6 +29,15 @@ public class SeatingCarriage extends PassengerCarriage {
                 newService);
         this.television = hasTV;
     }
+    /**@param seatingCarriageNew -*/
+    public SeatingCarriage(final SeatingCarriage seatingCarriageNew) {
+        super(seatingCarriageNew.getBrigade(),
+                seatingCarriageNew.getCountOfPassengers(),
+                seatingCarriageNew.getBagageOnPassenger(),
+                seatingCarriageNew.isConditioner(),
+                seatingCarriageNew.getServiceEnum());
+        this.television = seatingCarriageNew.television;
+    }
     /**@return does TV on the board.*/
     public boolean isTelevision() {
         return television;
@@ -37,7 +46,10 @@ public class SeatingCarriage extends PassengerCarriage {
     public void setTelevision(final boolean newTV) {
         this.television = television;
     }
-    /**@param o -*/
+    /**
+     * @param o - The reference object with which to compare.
+     * @return result of the method.
+     * */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -57,7 +69,7 @@ public class SeatingCarriage extends PassengerCarriage {
     public int hashCode() {
         return Objects.hash(super.hashCode(), television);
     }
-    /***/
+    /**@return object in string representation.*/
     @Override
     public String toString() {
         return "SeatingCarriage{"

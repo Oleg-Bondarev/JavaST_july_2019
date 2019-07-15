@@ -41,6 +41,15 @@ public abstract class PassengerCarriage extends TrainCarriage {
         this.serviceEnum = newServiceEnum;
     }
 
+    /**@param passengerCarriageNew - */
+    public PassengerCarriage(final PassengerCarriage passengerCarriageNew) {
+        super(passengerCarriageNew.getBrigade());
+        this.countOfPassengers = passengerCarriageNew.countOfPassengers;
+        this.bagageOnPassenger = passengerCarriageNew.bagageOnPassenger;
+        this.conditioner = passengerCarriageNew.conditioner;
+        this.serviceEnum = passengerCarriageNew.serviceEnum;
+    }
+
     /**@return count of passengers.*/
     public int getCountOfPassengers() {
         return countOfPassengers;
@@ -74,7 +83,10 @@ public abstract class PassengerCarriage extends TrainCarriage {
         this.serviceEnum = serviceEnum;
     }
 
-    /**@param o -object to  compare.*/
+    /**
+     * @param o - The reference object with which to compare.
+     * @return result of the method.
+     * */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -93,13 +105,13 @@ public abstract class PassengerCarriage extends TrainCarriage {
                 && conditioner == that.conditioner
                 && serviceEnum == that.serviceEnum;
     }
-    /***/
+    /**@return object hashCode.*/
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), countOfPassengers,
                 bagageOnPassenger, conditioner, serviceEnum);
     }
-    /***/
+    /**@return object in string representation.*/
     @Override
     public String toString() {
         return "PassengerCarriage{"
