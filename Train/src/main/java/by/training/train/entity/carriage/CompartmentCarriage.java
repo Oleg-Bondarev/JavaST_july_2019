@@ -70,4 +70,14 @@ public class CompartmentCarriage extends PassengerCarriage {
     public int hashCode() {
         return Objects.hash(super.hashCode(), countCompartments);
     }
+    /**@return string*/
+    @Override
+    public String toString() {
+        return "CompartmentCarriage{"
+                + "super{"
+                + super.toString()
+                + '}'
+                + "countCompartments=" + countCompartments
+                + '}';
+    }
 }

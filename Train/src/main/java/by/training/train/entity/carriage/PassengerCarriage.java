@@ -115,6 +115,9 @@ public abstract class PassengerCarriage extends TrainCarriage {
     @Override
     public String toString() {
         return "PassengerCarriage{"
+                + "super{"
+                + super.toString()
+                + "}"
                 + "countOfPassengers=" + countOfPassengers
                 + ", bagageOnPassenger=" + bagageOnPassenger
                 + ", conditioner=" + conditioner

@@ -73,6 +73,9 @@ public class SeatingCarriage extends PassengerCarriage {
     @Override
     public String toString() {
         return "SeatingCarriage{"
+                + "super{"
+                + super.toString()
+                + '}'
                 + "television=" + television
                 + '}';
     }

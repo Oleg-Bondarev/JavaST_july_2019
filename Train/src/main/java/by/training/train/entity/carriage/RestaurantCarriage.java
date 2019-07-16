@@ -72,6 +72,9 @@ public class RestaurantCarriage extends PassengerCarriage {
     @Override
     public String toString() {
         return "RestaurantCarriage{"
+                + "super{"
+                + super.toString()
+                + '}'
                 + "sitingPlaces=" + sitingPlaces
                 + '}';
     }

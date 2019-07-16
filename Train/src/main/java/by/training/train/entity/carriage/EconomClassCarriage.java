@@ -10,8 +10,10 @@ public class EconomClassCarriage extends PassengerCarriage {
     private int countBays;
     /**Type of the economic class carriage.*/
     private EconomClassEnum economClassEnum;
-    /**Default count of places in the carriage.*/
-    public static final int DEFAULT_PLACES_IN_BAY = 6;
+    /**Default count of places in the reservedseated type carriage.*/
+    public static final int DEFAULT_PLACES_IN_BAY_RESERVEDSEATED = 6;
+    /**Default count of places in the common type carriage.*/
+    public static final int DEFAULT_PLACES_IN_BAY_COMMON = 9;
     /**Default count of the bays in the carriage.*/
     public static final int DEFAULT_COUNT_OF_BAYS = 9;
     /**Maximum baggage weighth(in kg).*/
@@ -23,6 +25,17 @@ public class EconomClassCarriage extends PassengerCarriage {
         countBays = DEFAULT_COUNT_OF_BAYS;
         economClassEnum = EconomClassEnum.COMMON;
     }
+    /**
+     * @param economClassEnumNew - econom-class of the carriage.
+     * @return count of passengers in carriage.
+     * It's depend from econom-class carriage.
+     * */
+    public static int getCountOfPassengers(final
+                                    EconomClassEnum economClassEnumNew) {
+        return (economClassEnumNew == EconomClassEnum.RESERVEDSEAT)
+                ? DEFAULT_PLACES_IN_BAY_RESERVEDSEATED
+                : DEFAULT_PLACES_IN_BAY_COMMON;
+    }
     /**@param newBrigade - count of the carriage stuff.
      * @param newBaggage - allowed weight of baggage per person(in kg)
      * @param newService - type of the service in carriage.
@@ -33,7 +46,8 @@ public class EconomClassCarriage extends PassengerCarriage {
             final ServiceEnum newService, final double newBaggage,
             final boolean hasConditioner, final int newBay,
             final EconomClassEnum newEconomClassEnum) {
-        super(newBrigade, newBay * DEFAULT_PLACES_IN_BAY,
+        super(newBrigade,
+newBay * EconomClassCarriage.getCountOfPassengers(newEconomClassEnum),
                 newBaggage, hasConditioner, newService);
         this.countBays = newBay;
         this.economClassEnum = newEconomClassEnum;
@@ -93,7 +107,10 @@ public class EconomClassCarriage extends PassengerCarriage {
     @Override
     public String toString() {
         return "EconomClassCarriage{"
-                + "countBays=" + countBays
+                + "super{"
+                + super.toString()
+                + '}'
+                + ", countBays=" + countBays
                 + ", economClassEnum=" + economClassEnum
                 + '}';
     }
