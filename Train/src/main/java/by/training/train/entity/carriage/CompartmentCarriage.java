@@ -8,7 +8,7 @@ public class CompartmentCarriage extends PassengerCarriage {
     /**Number of compartments in the carriage.*/
     private int countCompartments;
     /**Default count places in the compartment.*/
-    private static final int DEFAULT_PLACES_IN_COMPARTMENT = 4;
+    public static final int DEFAULT_PLACES_IN_COMPARTMENT = 4;
     /**Default count of the compartment in the carriage.*/
     public static final int DEFAULT_COUNT_OF_COMPARTMENT = 9;
     /**Maximum baggage weighth(in kg).*/
@@ -22,12 +22,14 @@ public class CompartmentCarriage extends PassengerCarriage {
      * @param newBaggage - allowed weight of baggage per person(in kg)
      * @param newService - type of the service in carriage.
      * @param hasConditioner - conditioner in the carriage.
-     * @param newCompartments - count oof compartments in the train.*/
+     * @param newCompartments - count oof compartments in the train.
+     * @param countPassengersNew - count of passengers in the carriage.*/
     public CompartmentCarriage(final int newBrigade,
-            final ServiceEnum newService, final double newBaggage,
-            final boolean hasConditioner, final int newCompartments) {
-        super(newBrigade, newCompartments * DEFAULT_PLACES_IN_COMPARTMENT,
-        newBaggage, hasConditioner, newService);
+            final ServiceEnum newService, final int countPassengersNew,
+            final double newBaggage, final boolean hasConditioner,
+            final int newCompartments) {
+        super(newBrigade, countPassengersNew, newBaggage, hasConditioner,
+                newService);
         this.countCompartments = newCompartments;
     }
     /**@param compartCarriageNew -*/
@@ -45,7 +47,7 @@ public class CompartmentCarriage extends PassengerCarriage {
     }
     /**@param compartments - count of compartments in the carriage.*/
     public void setCountCompartments(final int compartments) {
-        this.countCompartments = countCompartments;
+        this.countCompartments = compartments;
     }
     /**
      * @param o - The reference object with which to compare.
@@ -73,11 +75,9 @@ public class CompartmentCarriage extends PassengerCarriage {
     /**@return string*/
     @Override
     public String toString() {
-        return "CompartmentCarriage{"
-                + "super{"
+        return "CompartmentCarriage{ "
                 + super.toString()
-                + '}'
                 + "countCompartments=" + countCompartments
-                + '}';
+                + "} ";
     }
 }

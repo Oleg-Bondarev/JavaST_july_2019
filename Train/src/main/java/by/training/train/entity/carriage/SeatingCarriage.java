@@ -19,13 +19,13 @@ public class SeatingCarriage extends PassengerCarriage {
      * @param newBaggage - allowed weight of baggage per person(in kg)
      * @param newService - type of the service in carriage.
      * @param hasConditioner - conditioner in the carriage.
-     * @param newPassengers - count of siting places.
-     * @param hasTV - TV in the carriage.*/
+     * @param hasTV - TV in the carriage.
+     * @param newCountPassengers - count of passengers in the carriage.*/
     public SeatingCarriage(final int newBrigade,
-            final ServiceEnum newService, final int newPassengers,
+            final ServiceEnum newService, final int newCountPassengers,
             final double newBaggage, final Boolean hasConditioner,
             final boolean hasTV) {
-        super(newBrigade, newPassengers, newBaggage, hasConditioner,
+        super(newBrigade, newCountPassengers, newBaggage, hasConditioner,
                 newService);
         this.television = hasTV;
     }
@@ -72,11 +72,9 @@ public class SeatingCarriage extends PassengerCarriage {
     /**@return object in string representation.*/
     @Override
     public String toString() {
-        return "SeatingCarriage{"
-                + "super{"
+        return "SeatingCarriage{ "
                 + super.toString()
-                + '}'
-                + "television=" + television
-                + '}';
+                + ", television=" + television
+                + "} ";
     }
 }

@@ -13,6 +13,13 @@ public enum EconomClassEnum { /**type.*/
         this.classType = classTypeNew;
     }
     /**
+     * @param str - string.
+     * @return Econom-class type.
+     * */
+    public static EconomClassEnum getType(final String str) {
+        return str.toLowerCase().equals("reservedseat") ? RESERVEDSEAT : COMMON;
+    }
+    /**
      * Check if the string contains in the enum.
      * @param label -
      * @return result of checking.

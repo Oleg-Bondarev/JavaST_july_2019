@@ -1,0 +1,160 @@
+==========================
+Wed Jul 24 17:21:39 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:21:39 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:24:32 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:24:32 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:26:45 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:26:45 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:26:52 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:27:28 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:27:56 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:46:35 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 17:48:03 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 18:45:10 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 18:47:47 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 18:50:39 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:13:09 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:13:09 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:13:33 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:14:46 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:16:13 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=30, bagageOnPassenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 24 21:17:59 MSK 2019
+RestaurantCarriage{  id=1, brigade=8, countOfPassengers=0, bagageOnPassenger=0.0, conditioner=true, serviceEnum=BUISINESS, , sitingPlaces=44} 
+CompartmentCarriage{  id=2, brigade=2, countOfPassengers=25, bagageOnPassenger=5.8, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5.0, conditioner=true, serviceEnum=BUISINESS, countCompartments=9} 
+EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
+EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 

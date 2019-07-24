@@ -25,7 +25,7 @@ public class RestaurantCarriage extends PassengerCarriage {
             final ServiceEnum newService, final double newBaggage,
             final boolean hasConditioner, final int countPlaces,
             final int sitingPlacesNew) {
-        super(newBrigade, countPlaces, newBaggage, hasConditioner, newService);
+        super(newBrigade, 0, newBaggage, hasConditioner, newService);
         this.sitingPlaces = sitingPlacesNew;
     }
     /**@param restaurantCarriageNew -*/
@@ -71,11 +71,9 @@ public class RestaurantCarriage extends PassengerCarriage {
     /**@return object in string representation.*/
     @Override
     public String toString() {
-        return "RestaurantCarriage{"
-                + "super{"
+        return "RestaurantCarriage{ "
                 + super.toString()
-                + '}'
-                + "sitingPlaces=" + sitingPlaces
-                + '}';
+                + ", sitingPlaces=" + sitingPlaces
+                + "} ";
     }
 }

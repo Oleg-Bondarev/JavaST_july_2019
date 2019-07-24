@@ -4,14 +4,15 @@ import java.util.Objects;
 
 public abstract class TrainCarriage {
     /**Unique carrriage identifier.*/
-    private static long identificator;
+    private final long identificator;
     /***/
-    private final long id = ++identificator;
+    private static long id = 0;
     /**Carriage staff.*/
     private int brigade;
 
     /**Default constructor.*/
     public TrainCarriage() {
+        identificator = ++id;
         brigade = 2;
     }
 
@@ -19,19 +20,21 @@ public abstract class TrainCarriage {
      * @param newBrigade -count of carriage staff.
      * */
     public TrainCarriage(final int newBrigade) {
+        identificator = ++id;
         this.brigade = newBrigade;
     }
 
     /**Constructor with parameters.
      * @param trainCarriageNew -*/
     public TrainCarriage(final TrainCarriage trainCarriageNew) {
+        identificator = ++id;
         brigade = trainCarriageNew.getBrigade();
     }
 
     /**Getter for carriage ID.
      * @return ID of the carriage.*/
     public long getIdentificator() {
-        return id;
+        return identificator;
     }
 
     /**public static void setIdentificator(int identificator) {
@@ -48,11 +51,6 @@ public abstract class TrainCarriage {
      * @param newBrigade - count of carriage staff.*/
     public void setBrigade(final int newBrigade) {
         this.brigade = newBrigade;
-    }
-
-    /**Increment carriage ID when we create new carriage.*/
-    public static void incrementID() {
-        identificator++;
     }
 
     /**Overriding the equality method.
@@ -80,9 +78,8 @@ public abstract class TrainCarriage {
      * @return string.*/
     @Override
     public String toString() {
-        return "TrainCarriage{"
-                + "id=" + identificator
-                + "brigade=" + brigade
-                + '}';
+        return  " id=" + identificator
+                + ", brigade=" + brigade
+                + ", ";
     }
 }

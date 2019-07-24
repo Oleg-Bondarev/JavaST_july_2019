@@ -4,7 +4,7 @@ public enum ServiceEnum {
     /**Vip service.*/
     VIP("vip"),
     /**Buisness service.*/
-    BUISINESS("buisness"),
+    BUISINESS("buisiness"),
     /**Lux service.*/
     LUX("lux"),
     /**Econom service.*/

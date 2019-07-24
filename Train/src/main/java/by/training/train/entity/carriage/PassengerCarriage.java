@@ -2,6 +2,7 @@ package by.training.train.entity.carriage;
 
 import java.util.Objects;
 
+import by.training.train.dao.PassengerTrainRepository;
 import by.training.train.entity.enums.ServiceEnum;
 
 public abstract class PassengerCarriage extends TrainCarriage {
@@ -17,6 +18,8 @@ public abstract class PassengerCarriage extends TrainCarriage {
     private static final int DEFAULT_COUNT_PASSENGERS = 56;
     /**Default weight of baggage allowance per passenger (in kilograms).*/
     private static final double DEFAULT_WEIGHTHT = 20;
+    /**Observer.*/
+    private PassengerTrainRepository observer;
     /**Default constructor.*/
     public PassengerCarriage() {
         super();
@@ -57,6 +60,7 @@ public abstract class PassengerCarriage extends TrainCarriage {
     /**@param newCountOfPassengers - count of passengers in carriage.*/
     public void setCountOfPassengers(final int newCountOfPassengers) {
         this.countOfPassengers = newCountOfPassengers;
+        notifyObservers();
     }
     /**@return weighth of baggage allowance per passenger(in kg)*/
     public double getBagageOnPassenger() {
@@ -65,6 +69,7 @@ public abstract class PassengerCarriage extends TrainCarriage {
     /**@param newBaggageOnPassenger - baggage weighth.*/
     public void setBagageOnPassenger(final double newBaggageOnPassenger) {
         this.bagageOnPassenger = newBaggageOnPassenger;
+        notifyObservers();
     }
     /**@return does the carriage have air conditioning.*/
     public boolean isConditioner() {
@@ -114,14 +119,60 @@ public abstract class PassengerCarriage extends TrainCarriage {
     /**@return object in string representation.*/
     @Override
     public String toString() {
-        return "PassengerCarriage{"
-                + "super{"
-                + super.toString()
-                + "}"
+        return  super.toString()
                 + "countOfPassengers=" + countOfPassengers
                 + ", bagageOnPassenger=" + bagageOnPassenger
                 + ", conditioner=" + conditioner
                 + ", serviceEnum=" + serviceEnum
-                + '}';
+                + ", ";
     }
+    /**
+     * @param obs -
+     * */
+    public void addObserver(final PassengerTrainRepository obs) {
+        if (observer != null) {
+            this.observer = obs;
+            obs.addObservable(this);
+        }
+    }
+    /***/
+    public void removeObserver() {
+        observer.removeObservable(this);
+        observer = null;
+    }
+    /***/
+    public void notifyObservers() {
+        if (observer != null) {
+            observer.handleEvent(this);
+        }
+    }
+
+    /**
+     * @param obs -
+     * */
+    /*@Override
+    public void addObsserver(final Observer obs) {
+        if (obs != null) {
+            observerList.add(obs);
+        }
+    }*/
+    /**
+     * @param obs -
+     * */
+    /*@Override
+    public void removeObserver(final Observer obs) {
+        if (obs != null) {
+            int index = observerList.indexOf(obs);
+            if (index > -1) {
+                observerList.remove(index);
+            }
+        }
+    }*/
+    /***/
+    /*@Override
+    public void notifyObservers() {
+        for (Observer obj : observerList) {
+            obj.update(this);
+        }
+    }*/
 }
