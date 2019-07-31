@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Playfair+Display|Ubuntu:300&display=swap">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../web/css/style.css">
+
+    <title>Admin</title>
+
+</head>
+<body>
+
+    <header>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="../web/index.html">
+                    <img src="../web/img/logo1.png" alt="Site logo" aria-describedby="logo-description" class="logo__img">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="#">Readers<span class="sr-only">(current)</span></a> </li>
+                        <li class="nav-item"><a class="nav-link" href="#">Staff</a> </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-link dropdown">
+                            <a class="nav-link dropdown-toggle ml-auto" href="#" data-toggle="dropdown">
+                                <i class="fas fa-globe-americas"></i>
+                                <div class="dropdown-menu dropdown-menu-color" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Russian</a>
+                                    <a class="dropdown-item active" href="#">English</a>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-link">
+                            <a class="nav-link" href="../web/login.html">
+                                <i class="fas fa-door-open"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="text-center">Administrator information</h2>
+    </div>
+
+    <div class="container">
+        <div class="card mb-3 div-bg" style="max-width: 1150px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="../web/img/admin.jpg" class="card-img" alt="../web/img/reader1.jpg">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Hlebets Helen Ivanovna</h5>
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleID">ID</label>
+                                <input type="text" class="form-control" id="exampleID" aria-describedby="nameHelp" placeholder="..-..-...">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleName">Name</label>
+                                <input type="text" class="form-control" id="exampleName" aria-describedby="nameHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSurname">Surname</label>
+                                <input type="text" class="form-control" id="exampleSurname" aria-describedby="nameHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="examplePatronumic">Patronymic</label>
+                                <input type="text" class="form-control" id="examplePatronumic" aria-describedby="nameHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="examplePhone">Phone</label>
+                                <input type="text" class="form-control" id="examplePhone" aria-describedby="nameHelp" placeholder="+7-(..)-...-..-..">
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                    <option selected value="1">Admin</option>
+                                    <option value="2">Library staff</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-sm">SAVE</button>
+                                <button type="submit" class="btn btn-warning btn-sm">RESET</button>
+                                <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+                                <button type="submit" class="btn btn-primary btn-sm">WEB PROFILE</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="footer-left">
+                    <a href="#">Terms and conditions</a>
+                    <a href="#">Privacy</a>
+                    <p class="pull-left">Copyright © 2019</p>
+                </div>
+                <div class="footer-right">
+                    <span>Follow us:</span>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../web/js/jquery-3.4.1.min.js"></script>
+    <script src="../web/js/popper.min.js"></script>
+    <script src="../web/js/bootstrap.min.js"></script>
+    <script src="../web/js/main.js"></script>
+    <script src="../web/js/bootstrap-validate.js"></script>
+    <script>
+        bootstrapValidate('#exampleName', 'max:10:Please do not enter more than 10 characters')
+        bootstrapValidate('#exampleName', 'alpha:You can only enter alphabetic characters!')
+        bootstrapValidate('#exampleSurname', 'max:20:Please do not enter more than 20 characters')
+        bootstrapValidate('#exampleSurname', 'alpha:You can only enter alphabetic characters!')
+        bootstrapValidate('#examplePatronumic', 'max:20:Please do not enter more than 20 characters')
+        bootstrapValidate('#examplePatronumic', 'alpha:You can only enter alphabetic characters!')
+    </script>
+</body>
+</html>
