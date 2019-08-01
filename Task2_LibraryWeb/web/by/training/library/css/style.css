@@ -2,7 +2,8 @@
      min-width: 320px;
      font-size: 14px;
      font-family: 'Playfair Display', serif;
-     color: #626262;
+     color: #000000;
+     background-color: #77b853;
  }
 
  img {
@@ -11,7 +12,7 @@
  }
 
  a {
-     color: #b4ad9e;
+     color: #000000;
  }
 a:hover {
     color: #898377;
@@ -48,6 +49,7 @@ header .nav-item a:hover::after {
 .img-service {
     width: 200px;
     height: 200px;
+    padding: 10px;
 }
 
 .align {
@@ -57,6 +59,10 @@ header .nav-item a:hover::after {
 .grid-posts {
     margin-top: 80px;
     margin-bottom: 50px;
+}
+.grid-posts .card-img-top {
+    max-height: 200px;
+    border-right: 0;
 }
 
  .map-container{
@@ -100,9 +106,15 @@ header .nav-item a:hover::after {
  .right-padding {
      padding-right: 20px;
  }
+ .left-padding {
+     padding-left: 20px;
+ }
 
  .div-bg {
      background-color: #b1dfbb;
+ }
+ .div-bg2 {
+    background-color: #7abaff;
  }
 
  .dropdown-menu-color {
@@ -124,4 +136,44 @@ header .nav-item a:hover::after {
  .center-img {
      display: block;
      margin: 0 auto;
+ }
+
+ .search-input {
+     padding: 10px;
+ }
+
+ .img-padding {
+     padding: 10px;
+ }
+
+ .btn-padding {
+     padding: 10px;
+ }
+
+ .shadow {
+     box-shadow: 20px 20px 10px 5px black; /* Параметры тени */
+     padding: 20px;
+ }
+
+
+ @media only screen and (max-width: 318px) {
+     .grid-posts .card-img-top {
+         max-height: 100px;
+         max-width: 100px;
+         border-right: 0;
+     }
+ }
+
+ @media only screen and (max-width: 767px) {
+     .img-profile {
+         max-height: 250px;
+         max-width: 250px;
+         border-right: 0;
+     }
+ }
+
+ @media only screen and (max-width: 1500px) {
+     .login-div {
+         max-width: 450px;
+     }
  }
