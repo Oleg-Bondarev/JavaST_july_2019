@@ -12,6 +12,7 @@
     <title>Reader profile</title>
 </head>
 <body>
+<div id="wrap">
     <header>
         <div>
             <nav class="navbar navbar-expand-md navbar-light">
@@ -48,6 +49,7 @@
         </div>
     </header>
 
+    <main>
     <div class="container">
         <h2 class="text-center">Reader information</h2>
     </div>
@@ -56,7 +58,7 @@
         <div class="card mb-3 div-bg" style="max-width: 1150px;">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="../library/img/reader1.jpg" class="card-img" alt="../library/img/reader1.jpg">
+                    <img src="../library/img/reader1.jpg" class="card-img center-img img-profile" alt="../library/img/reader1.jpg">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -64,7 +66,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="exampleID">ID</label>
-                                <input type="text" class="form-control" id="exampleID" aria-describedby="nameHelp" placeholder="..-..-...">
+                                <input type="text" class="form-control" id="exampleID" aria-describedby="nameHelp">
                             </div>
                             <div class="form-group">
                                 <label for="exampleName">Name</label>
@@ -105,10 +107,10 @@
     </div>
 
     <div class="container">
-        <div class="card mb-3 div-bg" style="max-width: 1150px;">
-            <table class="table table-striped">
-                <thead class="send-button-color">
-                <tr>
+        <div class="card mb-3 div-bg table-responsive" style="max-width: 1150px;">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr class="send-button-color">
                     <th scope="col">Author</th>
                     <th scope="col">Name</th>
                     <th scope="col">Date of issue</th>
@@ -132,6 +134,8 @@
             </table>
         </div>
     </div>
+    </main>
+</div>
 
     <!-- Footer -->
     <footer>
@@ -169,6 +173,8 @@
         bootstrapValidate('#exampleSurname', 'alpha:You can only enter alphabetic characters!')
         bootstrapValidate('#examplePatronumic', 'max:20:Please do not enter more than 20 characters')
         bootstrapValidate('#examplePatronumic', 'alpha:You can only enter alphabetic characters!')
+        bootstrapValidate('#exampleID', 'max:7:Please do not enter more than 7 characters')
+        bootstrapValidate('#exampleID', 'numeric:You can only enter numeric characters!')
     </script>
 </body>
 </html>

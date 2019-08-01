@@ -1,10 +1,18 @@
- body {
+ html, body {
      min-width: 320px;
      font-size: 14px;
      font-family: 'Playfair Display', serif;
      color: #000000;
      background-color: #77b853;
+     height: 100%;
  }
+#wrap {
+    min-height: 100%;
+}
+main {
+    padding-bottom: 100px;
+    /*Высота футера*/
+}
 
  img {
      max-width: 100%;
@@ -83,7 +91,10 @@ header .nav-item a:hover::after {
      background-color: #00A876;
      padding: 40px 0;
      color: #000000;
-     margin-top: 10px;
+     margin-top: -100px;
+     /*Минус Высота футера*/
+     height: 100px;
+     /*Высота футера*/
  }
  .footer-left a {
      color: #000000;
@@ -172,8 +183,45 @@ header .nav-item a:hover::after {
      }
  }
 
- @media only screen and (max-width: 1500px) {
+ @media only screen and (max-width: 5700px) {
      .login-div {
          max-width: 450px;
      }
  }
+
+ @media only screen and (max-width: 453px) {
+     .login-div {
+         max-width: 350px;
+     }
+ }
+
+ @media only screen and (max-width: 155px) {
+     .footer-div-large-admin {
+         position: fixed;
+         bottom: 0;
+         width: 100%;
+     }
+ }
+
+ @media only screen and (max-width: 320px) {
+     .footer-div {
+         position: fixed;
+         bottom: 0;
+         width: 100%;
+     }
+ }
+
+ @media only screen and (max-width: 242px) {
+     .footer-div-login {
+         position: fixed;
+         bottom: 0;
+         width: 100%;
+     }
+ }
+
+ @media only screen and (max-width: 575px) {
+     .contact-card {
+         max-height: 490px;
+     }
+ }
+
