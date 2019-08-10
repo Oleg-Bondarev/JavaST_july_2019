@@ -20,7 +20,7 @@ public class GenerateMatrix {
         int horiz = matr.getHorizontalSize();
         for (int i = 0; i < vert; ++i) {
             for (int j = 0; j < horiz; ++j) {
-                int value = (random.nextInt() * (end - start) + start);
+                int value = (random.nextInt(end - start) + start);
                 matr.setElement(i, j, value);
             }
         }

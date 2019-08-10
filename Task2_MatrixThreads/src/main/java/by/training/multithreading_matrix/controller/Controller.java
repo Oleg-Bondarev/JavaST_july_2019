@@ -1,8 +1,8 @@
 package by.training.multithreading_matrix.controller;
 
 import by.training.multithreading_matrix.entity.Matrix;
-import by.training.multithreading_matrix.service.FileService;
-import by.training.multithreading_matrix.service.MatrixService;
+import by.training.multithreading_matrix.service.interfaces.FileService;
+import by.training.multithreading_matrix.service.interfaces.MatrixService;
 import by.training.multithreading_matrix.service.ServiceException;
 import by.training.multithreading_matrix.service.ServiceFactory;
 import org.apache.logging.log4j.Level;
@@ -90,6 +90,35 @@ public final class Controller {
 
         return matrixResult;
     }
-
-
+    /**
+     * Threads write numbers on matrix diagonal.
+     * @param matr -matrix for work.
+     * @return new matrix.
+     * */
+    public Matrix workWithDiagonal(final  Optional<Matrix> matr) {
+        if (!matr.isPresent()) {
+            LOGGER.log(Level.WARN, "Function arguments must be not null.");
+            throw new IllegalArgumentException("Function arguments must be "
+                    + "not null.");
+        }
+        Matrix matrix = matr.get();
+        if (matrix.getHorizontalSize() != matrix.getVerticalSize()) {
+            LOGGER.log(Level.WARN, "Incorrect input matrix. Count of rows"
+                    + " must be equals count of columns.");
+            throw new IllegalArgumentException("Incorrect input matrix. Count"
+                    + " of rows must be equals count of columns.");
+        }
+        MatrixService matrixService = serviceFactory.getMatrixService();
+        try {
+            matrix = matrixService.fillZeroOnDiagonal(matrix);
+        } catch (ServiceException e) {
+            LOGGER.log(Level.WARN, e.getMessage());
+        }
+        try {
+            matrix = matrixService.transformDiagonalByThreads(matrix);
+        } catch (ServiceException e) {
+            LOGGER.log(Level.WARN, e.getMessage());
+        }
+        return matrix;
+    }
 }

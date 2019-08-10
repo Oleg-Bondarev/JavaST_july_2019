@@ -20,12 +20,12 @@ public class MatrixValidator {
         if (n != (list.size() - 1)) {
             return false;
         }
-        for (int i = 0; i < n; ++i) {
+        for (int i = 1; i < n; i++) {
             elements = list.get(i).trim().split(" ");
             if (elements.length != m) {
                 return false;
             }
-            for (int j = 0; j < m; ++j) {
+            for (int j = 0; j < m; j++) {
                 if (!elements[j].matches(regexForDigit)) {
                     return false;
                 }

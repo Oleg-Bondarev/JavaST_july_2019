@@ -3,8 +3,10 @@ package by.training.multithreading_matrix.view;
 import by.training.multithreading_matrix.controller.Controller;
 import by.training.multithreading_matrix.dao.exceptions.FileReaderException;
 import by.training.multithreading_matrix.dao.exceptions.FileWriterException;
+import by.training.multithreading_matrix.dao.file_reader.DataInputReader;
 import by.training.multithreading_matrix.dao.file_writer.DataOutputWriter;
 import by.training.multithreading_matrix.entity.Matrix;
+import by.training.multithreading_matrix.property.MatrixProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,25 +22,26 @@ public final class Main {
      * @throws FileWriterException -*/
     public static void main(final String[] args) throws FileReaderException,
             FileWriterException {
-       /* DataInputReader reader = new DataInputReader();
+        DataInputReader reader = new DataInputReader();
         List<String> information = reader.
-                readInformationFromFile("data\\input.txt");
+                readInformationFromFile(MatrixProperty
+                                        .PATH_TRANSFORMATION_MATRIX);
         for (String s: information) {
             System.out.println(s);
-        }*/
+        }
 
         Controller controller = Controller.getInstance();
-        List<String> outputList = new ArrayList<>();
+        /*List<String> outputList = new ArrayList<>();
         DataOutputWriter outputWriter = new DataOutputWriter();
         final String outPath1 = "data\\outputA.txt";
         final String outPath2 = "data\\outputB.txt";
         final String outPath3 = "data\\outputC.txt";
         final String outPath4 = "data\\outputNewC.txt";
 
-        Matrix mA = new Matrix(1000, 1000);
-        Matrix mB = new Matrix(1000,1000);
-        /*Matrix A = new Matrix(2, 4);
-        Matrix B = new Matrix(4,3);*/
+        Matrix mA = new Matrix(2000, 2000);
+        Matrix mB = new Matrix(2000,2000);
+        *//*Matrix A = new Matrix(2, 4);
+        Matrix B = new Matrix(4,3);*//*
         mA = controller.generateMatrix(mA, 0, 5);
         mB = controller.generateMatrix(mB, 0, 5);
 
@@ -59,6 +62,12 @@ public final class Main {
                 Optional.of(mB), 8);
         outputList.clear();
         outputList.add(newC.toString());
-        outputWriter.writeInformationToFile(outPath4, outputList);
+        outputWriter.writeInformationToFile(outPath4, outputList);*/
+
+        Matrix matr = controller.ctreateMatrixFromFile(MatrixProperty
+                                            .PATH_TRANSFORMATION_MATRIX);
+        System.out.println(matr);
+        matr = controller.workWithDiagonal(Optional.of(matr));
+        System.out.println(matr);
     }
 }

@@ -1,5 +1,8 @@
 package by.training.multithreading_matrix.service;
 
+import by.training.multithreading_matrix.service.interfaces.FileService;
+import by.training.multithreading_matrix.service.interfaces.MatrixService;
+
 /**Represent service factory.*/
 public final class ServiceFactory {
     /**Instance.*/
