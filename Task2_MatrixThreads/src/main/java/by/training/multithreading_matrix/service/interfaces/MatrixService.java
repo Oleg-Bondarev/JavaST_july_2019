@@ -23,6 +23,17 @@ public interface MatrixService {
      * @throws ServiceException if have incorrect information.
      * @return matrix.
      * */
+    Matrix multiplicationByMultiThreadSecondWay(Matrix matrixA, Matrix matrixB,
+                                                int countThreads)
+                                                throws ServiceException;
+    /**
+     * matrix multiplication.
+     * @param matrixA -first matr.
+     * @param matrixB -second matr.
+     * @param countThreads -count of using threads.
+     * @throws ServiceException if have incorrect information.
+     * @return matrix.
+     * */
     Matrix multiplicateMatrix(Matrix matrixA, Matrix matrixB, int countThreads)
             throws ServiceException;
     /**
@@ -45,10 +56,4 @@ public interface MatrixService {
      * @return modernized matrix.
      * */
     Matrix transformDiagonalByThreads(Matrix matrix);
-    /**
-     * Transform matrix diagonal by threads with semaphores.
-     * @param matrix -input matrix.
-     * @return modernized matrix.
-     * */
-    Matrix transformDiagonalByThreadsSemaphores(Matrix matrix);
 }

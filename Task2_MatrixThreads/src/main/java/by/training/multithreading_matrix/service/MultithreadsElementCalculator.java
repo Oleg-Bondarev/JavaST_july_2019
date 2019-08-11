@@ -4,23 +4,35 @@ import by.training.multithreading_matrix.entity.Matrix;
 
 import java.util.concurrent.Callable;
 
-/**Realisation of the callable interface.*/
+/**
+ * Realisation of the callable interface.
+ * */
 public class MultithreadsElementCalculator implements Callable<Integer> {
-    /**Current row.*/
+    /**
+     * Current row.
+     * */
     private int row;
-    /**Current column.*/
+    /**
+     * Current column.
+     * */
     private int column;
-    /**First matrix.*/
+    /**
+     * First matrix.
+     * */
     private Matrix matrixA;
-    /**second matrix.*/
+    /**
+     * second matrix.
+     * */
     private Matrix matrixB;
 
-    /**Constructor with parameters.
+    /**
+     * Constructor with parameters.
      * @param newRow     -new matrix row.
      * @param newColumn  -new matrix column.
      * @param newMatrixA -new matrix A.
-     * @param newMatrixB -new matrix B.*/
-    public MultithreadsElementCalculator(final int newRow, final int newColumn,
+     * @param newMatrixB -new matrix B.
+     * */
+    MultithreadsElementCalculator(final int newRow, final int newColumn,
                                          final Matrix newMatrixA,
                                          final Matrix newMatrixB) {
         this.row = newRow;
@@ -29,7 +41,9 @@ public class MultithreadsElementCalculator implements Callable<Integer> {
         this.matrixB = newMatrixB;
     }
 
-    /**@return -return value to the calling thread.*/
+    /**
+     * @return -return value to the calling thread.
+     * */
     @Override
     public Integer call() throws Exception {
         int result = 0;

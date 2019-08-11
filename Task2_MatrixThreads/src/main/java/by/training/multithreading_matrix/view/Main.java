@@ -26,9 +26,9 @@ public final class Main {
         List<String> information = reader.
                 readInformationFromFile(MatrixProperty
                                         .PATH_TRANSFORMATION_MATRIX);
-        for (String s: information) {
+        /*for (String s: information) {
             System.out.println(s);
-        }
+        }*/
 
         Controller controller = Controller.getInstance();
         List<String> outputList = new ArrayList<>();
@@ -61,6 +61,13 @@ public final class Main {
         /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath4, outputList);*/
+
+        //second way
+        /*Matrix newCSecondWay = controller.multiplicateMatrixSecondWay(
+                Optional.of(mA), Optional.of(mB),8);
+        outputList.clear();
+        outputList.add(newC.toString());
+        outputWriter.writeInformationToFile(outPath3, outputList);*/
 
         Matrix matr = controller.ctreateMatrixFromFile(MatrixProperty
                                             .PATH_TRANSFORMATION_MATRIX);

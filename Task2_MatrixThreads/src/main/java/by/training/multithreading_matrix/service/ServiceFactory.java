@@ -3,15 +3,25 @@ package by.training.multithreading_matrix.service;
 import by.training.multithreading_matrix.service.interfaces.FileService;
 import by.training.multithreading_matrix.service.interfaces.MatrixService;
 
-/**Represent service factory.*/
+/**
+ * Represent service factory.
+ * */
 public final class ServiceFactory {
-    /**Instance.*/
+    /**
+     * Instance.
+     * */
     private static final ServiceFactory INSTANCE = new ServiceFactory();
-    /**Matrix service.*/
+    /**
+     * Matrix service.
+     * */
     private final MatrixService matrixService = new MatrixServiceImpl();
-    /**File service.*/
+    /**
+     * File service.
+     * */
     private final FileService fileService = new FileServiceImpl();
-    /**Def.constr.*/
+    /**
+     * Default constructor.
+     * */
     private ServiceFactory() { }
     /**
      * @return class instance.

@@ -3,6 +3,7 @@ package by.training.multithreading_matrix.validator;
 import by.training.multithreading_matrix.entity.Matrix;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Validate parameters of the matrix.
@@ -54,12 +55,22 @@ public class MatrixValidator {
                 && (j <= matrix.getVerticalSize() - 1);
     }
     /**
-     * checks the size of the matrices.
+     * Check the size of the matrices.
      * @param matrA -first matrix.
      * @param matrB -second matrix.
      * @return boolean value.
      * */
     public boolean checkDimension(final Matrix matrA, final Matrix matrB) {
         return (matrA.getHorizontalSize() == matrB.getVerticalSize());
+    }
+    /**
+     * Check if matrix are present.
+     * @param matrixA      -first matrix.
+     * @param matrixB      -second matrix.
+     * @return boolean value.
+     *  */
+    public boolean isPresent(final Optional<Matrix> matrixA,
+                             final Optional<Matrix> matrixB) {
+        return (!matrixA.isPresent() || !matrixB.isPresent());
     }
 }

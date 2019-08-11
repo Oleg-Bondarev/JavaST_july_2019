@@ -56,6 +56,27 @@ public class MatrixServiceImpl implements MatrixService {
         }
     }
     /**
+     * @param matrixA -matrix.
+     * @param matrixB -matrix.
+     * @param threads -count threads.
+     * @throws ServiceException if have incorrect information.
+     * */
+    @Override
+    public Matrix multiplicationByMultiThreadSecondWay(final Matrix matrixA,
+                                                       final Matrix matrixB,
+                                                        final int threads)
+                                                    throws ServiceException {
+        if (threads < 1) {
+            throw new ServiceException("Incorrect count of threads: "
+                    + threads);
+        } else {
+            MultiplicateMatrix multiplicateMatrix = new MultiplicateMatrix();
+            return multiplicateMatrix
+                    .multiplicationByMultiThreadSecondWay(matrixA, matrixB,
+                                                                    threads);
+        }
+    }
+    /**
      * @param information -input information.
      * @return matrix.
      * @throws ServiceException if have incorrect information.
@@ -121,17 +142,5 @@ public class MatrixServiceImpl implements MatrixService {
             Thread.currentThread().interrupt();
         }
         return matrix;
-    }
-    /**
-     * @param matrix input matrix.
-     * @return       modernized matrix.
-     * @throws       ServiceException if have interrupt exception.
-     * */
-    @Override
-    public Matrix transformDiagonalByThreadsSemaphores(final Matrix matrix) {
-            WorkWithSemaphore work = new WorkWithSemaphore();
-            work.setMatrix(matrix);
-            ThreadServiceSemaphore.getInstance();
-            return matrix;
     }
 }
