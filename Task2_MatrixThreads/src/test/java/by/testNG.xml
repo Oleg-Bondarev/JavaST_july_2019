@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="none">
+    <test name="Test">
+        <classes>
+            <class name="by.training.multithreading_matrix.dao.file_reader.DataInputReaderTest" />
+            <class name="by.training.multithreading_matrix.service.MatrixServiceImplTest" />
+            <class name="by.training.multithreading_matrix.service.MultiplicateMatrixTest" />
+            <class name="by.training.multithreading_matrix.validator.FileValidatorTest" />
+            <class name="by.training.multithreading_matrix.validator.MatrixValidatorTest" />
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->

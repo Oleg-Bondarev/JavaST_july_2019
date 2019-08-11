@@ -14,12 +14,22 @@ import java.util.Optional;
 
 /**Initiates command execution.*/
 public final class Controller {
-    /**Instance.*/
+    /**
+     * Instance.
+     * */
     private static final Controller INSTANCE = new Controller();
-    /**Logger.*/
-    static final Logger LOGGER = LogManager.getLogger(Controller.class);
-    /**Service factory.*/
+    /**
+     * Logger.
+     * */
+    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+    /**
+     * Service factory.
+     * */
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    /**
+     * Msg. for exception.
+     * */
+    private static final String MSG = "Function arguments must be not null.";
 
     /**Constructor.*/
     private Controller() { }
@@ -46,21 +56,21 @@ public final class Controller {
     public Matrix ctreateMatrixFromFile(final String path) {
         FileService fileService = serviceFactory.getFileService();
         List<String> matrixInList;
-        Matrix matrix = null;
+        Matrix matrix;
         try {
             matrixInList = fileService.read(path);
         } catch (ServiceException e) {
-            LOGGER.log(Level.WARN, "Problems with file: " + e.getMessage());
-            return null; //TODO fix
+            LOGGER.log(Level.ERROR, "Problems with file: " + e.getMessage());
+            throw new RuntimeException(e);
         }
         MatrixService matrixService = serviceFactory.getMatrixService();
         try {
             matrix = matrixService.createMatrix(matrixInList);
         } catch (ServiceException e) {
-            LOGGER.log(Level.WARN, "Problem in creating matrix: "
-                    + e.getMessage());
+            LOGGER.log(Level.ERROR, "Problems with file: " + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return matrix; //TODO fix null
+        return matrix;
     }
 
     /**Multiplication in one thread.
@@ -72,9 +82,8 @@ public final class Controller {
                                         final Optional<Matrix> matrixB,
                                         final int countThreads) {
         if (!matrixA.isPresent() || !matrixB.isPresent()) {
-            LOGGER.log(Level.WARN, "Function arguments must be not null.");
-            throw new IllegalArgumentException("Function arguments must be "
-                    + "not null.");
+            LOGGER.log(Level.WARN, MSG);
+            throw new IllegalArgumentException(MSG);
         }
         int countRows = matrixA.get().getHorizontalSize();
         int countColumns = matrixB.get().getVerticalSize();
@@ -97,7 +106,7 @@ public final class Controller {
      * */
     public Matrix workWithDiagonal(final  Optional<Matrix> matr) {
         if (!matr.isPresent()) {
-            LOGGER.log(Level.WARN, "Function arguments must be not null.");
+            LOGGER.log(Level.WARN, MSG);
             throw new IllegalArgumentException("Function arguments must be "
                     + "not null.");
         }
@@ -114,11 +123,37 @@ public final class Controller {
         } catch (ServiceException e) {
             LOGGER.log(Level.WARN, e.getMessage());
         }
+        matrix = matrixService.transformDiagonalByThreads(matrix);
+        return matrix;
+    }
+
+    /**
+     * Threads write numbers on matrix diagonal(use semaphore).
+     * @param matr -matrix for work.
+     * @return new matrix.
+     * */
+    public Matrix workWithDiagonalSemaphore(final  Optional<Matrix> matr) {
+        if (!matr.isPresent()) {
+            LOGGER.log(Level.WARN, MSG);
+            throw new IllegalArgumentException("Function arguments must be "
+                    + "not null.");
+        }
+        Matrix matrix = matr.get();
+        if (matrix.getHorizontalSize() != matrix.getVerticalSize()) {
+            LOGGER.log(Level.WARN, "Incorrect input matrix. Count of rows"
+                    + " must be equals count of columns.");
+            throw new IllegalArgumentException("Incorrect input matrix. Count"
+                    + " of rows must be equals count of columns.");
+        }
+        MatrixService matrixService = serviceFactory.getMatrixService();
         try {
-            matrix = matrixService.transformDiagonalByThreads(matrix);
+            matrix = matrixService.fillZeroOnDiagonal(matrix);
         } catch (ServiceException e) {
             LOGGER.log(Level.WARN, e.getMessage());
         }
+
+        matrix = matrixService.transformDiagonalByThreadsSemaphores(matrix);
+
         return matrix;
     }
 }

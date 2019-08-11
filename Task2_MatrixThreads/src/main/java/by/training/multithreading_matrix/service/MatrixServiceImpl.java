@@ -3,6 +3,9 @@ package by.training.multithreading_matrix.service;
 import by.training.multithreading_matrix.entity.Matrix;
 import by.training.multithreading_matrix.service.interfaces.MatrixService;
 import by.training.multithreading_matrix.validator.MatrixValidator;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +16,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**Realisation of the Matrix service interface.*/
 public class MatrixServiceImpl implements MatrixService {
-    /**@param matr -matrix to */
+    /**
+     * Logger.
+     * */
+    private static final Logger LOGGER =
+            LogManager.getLogger(MatrixServiceImpl.class);
+    /**
+     * @param matr -matrix to fill random elements.
+     * */
     @Override
     public Matrix generateMatrix(final Matrix matr, final int start,
                                final int end) {
@@ -21,7 +31,8 @@ public class MatrixServiceImpl implements MatrixService {
         generateMatrix.fillRandomizer(matr, start, end);
         return matr;
     }
-    /**@param matrixA -matrix.
+    /**
+     * @param matrixA -matrix.
      * @param matrixB -matrix.
      * @param threads -count threads.
      * @throws ServiceException if have incorrect information.
@@ -44,7 +55,8 @@ public class MatrixServiceImpl implements MatrixService {
             }
         }
     }
-    /**@param information -input information.
+    /**
+     * @param information -input information.
      * @return matrix.
      * @throws ServiceException if have incorrect information.
      * */
@@ -88,11 +100,9 @@ public class MatrixServiceImpl implements MatrixService {
     /**
      * @param matrix input matrix.
      * @return       modernized matrix.
-     * @throws        ServiceException if have interrupt exception.
      * */
     @Override
-    public Matrix transformDiagonalByThreads(final Matrix matrix)
-            throws ServiceException {
+    public Matrix transformDiagonalByThreads(final Matrix matrix) {
         ExecutorService executor = ThreadService.getInstance().getExecutor();
         List<Lock> locksList = new ArrayList<>();
         int countColumns = matrix.getHorizontalSize();
@@ -106,9 +116,22 @@ public class MatrixServiceImpl implements MatrixService {
         try {
             executor.awaitTermination(1, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
-            throw new Servi ceException("Diagonal transformation hasn't been "
+            LOGGER.log(Level.ERROR, "Diagonal transformation hasn't been "
                     + "finished in 1 minute.", e);
+            Thread.currentThread().interrupt();
         }
         return matrix;
+    }
+    /**
+     * @param matrix input matrix.
+     * @return       modernized matrix.
+     * @throws       ServiceException if have interrupt exception.
+     * */
+    @Override
+    public Matrix transformDiagonalByThreadsSemaphores(final Matrix matrix) {
+            WorkWithSemaphore work = new WorkWithSemaphore();
+            work.setMatrix(matrix);
+            ThreadServiceSemaphore.getInstance();
+            return matrix;
     }
 }

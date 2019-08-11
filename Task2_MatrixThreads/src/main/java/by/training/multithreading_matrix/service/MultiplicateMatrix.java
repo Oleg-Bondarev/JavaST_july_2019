@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**represents types of matrix multiplication.*/
-public class MultiplicateMatrix {
+class MultiplicateMatrix {
     /**Logger.*/
     private final Logger logger =
             LogManager.getLogger(MultiplicateMatrix.class);
@@ -25,7 +25,7 @@ public class MultiplicateMatrix {
      * @param matrixB -second matrix.
      * @exception ServiceException -if we have incorrect dimension.
      * @return matrix.*/
-    public Matrix multiplicationByOneThread(final Matrix matrixA,
+    Matrix multiplicationByOneThread(final Matrix matrixA,
                                             final Matrix matrixB)
                                             throws ServiceException {
         if (!matrixValidator.checkDimension(matrixA, matrixB)) {
@@ -52,7 +52,7 @@ public class MultiplicateMatrix {
             }
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("One thread time: " + (endTime - startTime));
+        System.out.println("Single thread time: " + (endTime - startTime));
 
         return resultMatrix;
     }
@@ -63,7 +63,7 @@ public class MultiplicateMatrix {
      * @param countThreads -count of threads for work.
      * @return result of the multiplication.
      * @exception ServiceException if dimensions are incorrect.*/
-    public Matrix multiplicationByMultiThread(final Matrix matrixA,
+    Matrix multiplicationByMultiThread(final Matrix matrixA,
                                               final Matrix matrixB,
                                               final int countThreads)
                                             throws ServiceException {

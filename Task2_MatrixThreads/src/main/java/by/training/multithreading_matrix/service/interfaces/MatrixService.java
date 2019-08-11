@@ -44,5 +44,11 @@ public interface MatrixService {
      * @param matrix -input matrix.
      * @return modernized matrix.
      * */
-    Matrix transformDiagonalByThreads(Matrix matrix) throws ServiceException;
+    Matrix transformDiagonalByThreads(Matrix matrix);
+    /**
+     * Transform matrix diagonal by threads with semaphores.
+     * @param matrix -input matrix.
+     * @return modernized matrix.
+     * */
+    Matrix transformDiagonalByThreadsSemaphores(Matrix matrix);
 }

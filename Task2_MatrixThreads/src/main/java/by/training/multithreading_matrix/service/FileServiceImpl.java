@@ -9,14 +9,20 @@ import by.training.multithreading_matrix.validator.FileValidator;
 
 import java.util.List;
 
-/**Realisation of the file service interface.*/
+/**
+ * Realisation of the file service interface.
+ * */
 public class FileServiceImpl implements FileService {
-    /**File validator.*/
+    /**
+     * File validator.
+     * */
     private FileValidator fileValidator = new FileValidator();
-    /**Read from file.
+    /**
+     * Read from file.
      * @param pathToFile -path.
      * @return list of read information.
-     * @throws ServiceException fail in file reading.*/
+     * @throws ServiceException fail in file reading.
+     * */
     @Override
     public List<String> read(final String pathToFile)
             throws ServiceException {
@@ -33,9 +39,11 @@ public class FileServiceImpl implements FileService {
         }
         return inputInformation;
     }
-    /**Write information in file.
+    /**
+     * Write information in file.
      * @param pathToFile -path.
-     * @exception ServiceException fail in file writing.*/
+     * @exception ServiceException fail in file writing.
+     * */
     @Override
     public void write(final String pathToFile, final List<String> listNew)
             throws ServiceException {

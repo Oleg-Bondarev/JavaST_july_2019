@@ -31,7 +31,7 @@ public final class Main {
         }
 
         Controller controller = Controller.getInstance();
-        /*List<String> outputList = new ArrayList<>();
+        List<String> outputList = new ArrayList<>();
         DataOutputWriter outputWriter = new DataOutputWriter();
         final String outPath1 = "data\\outputA.txt";
         final String outPath2 = "data\\outputB.txt";
@@ -40,27 +40,25 @@ public final class Main {
 
         Matrix mA = new Matrix(2000, 2000);
         Matrix mB = new Matrix(2000,2000);
-        *//*Matrix A = new Matrix(2, 4);
-        Matrix B = new Matrix(4,3);*//*
         mA = controller.generateMatrix(mA, 0, 5);
         mB = controller.generateMatrix(mB, 0, 5);
 
         outputList.add(mA.toString());
         outputWriter.writeInformationToFile(outPath1, outputList);
-        outputList.clear();
+        /*outputList.clear();
         outputList.add(mB.toString());
-        outputWriter.writeInformationToFile(outPath2, outputList);
+        outputWriter.writeInformationToFile(outPath2, outputList);*/
 
         Matrix mC = controller.multiplicateMatrix(Optional.of(mA),
                 Optional.of(mB), 1);
 
-        outputList.clear();
+        /*outputList.clear();
         outputList.add(mC.toString());
-        outputWriter.writeInformationToFile(outPath3, outputList);
+        outputWriter.writeInformationToFile(outPath3, outputList);*/
 
         Matrix newC = controller.multiplicateMatrix(Optional.of(mA),
                 Optional.of(mB), 8);
-        outputList.clear();
+        /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath4, outputList);*/
 
@@ -69,5 +67,12 @@ public final class Main {
         System.out.println(matr);
         matr = controller.workWithDiagonal(Optional.of(matr));
         System.out.println(matr);
+
+        /*Matrix matr = controller.ctreateMatrixFromFile(MatrixProperty
+                                            .PATH_TRANSFORMATION_MATRIX);
+        System.out.println(matr);
+        matr = controller.workWithDiagonalSemaphore(Optional.of(matr));
+        System.out.println(matr);*/
+
     }
 }
