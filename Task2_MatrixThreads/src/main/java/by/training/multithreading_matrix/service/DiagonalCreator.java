@@ -61,9 +61,9 @@ public class DiagonalCreator implements Runnable {
                 Thread.currentThread().interrupt();
             }
             matrix.setElement(position, position, thread.getNumberForThread());
-            System.out.printf("Thread: %s ->[%d] update position (%d, %d)%n",
-                    thread.getName(),  thread.getNumberForThread(), position,
-                    position);
+            LOGGER.log(Level.INFO, "Thread: " + thread.getName() + " ->["
+                    + thread.getNumberForThread() + "] update position ("
+                    + position + "," + position + "\n");
         }
         loksList.get(position).unlock();
     }
