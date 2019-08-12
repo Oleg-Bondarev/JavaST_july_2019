@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class DataOutputWriter {
@@ -19,7 +20,7 @@ public class DataOutputWriter {
     public void writeInformationToFile(final String path,
             final List<String> list) throws FileWriterException {
         Date date = new Date();
-        String spliter = "==========================";
+        String splitter = "==========================";
         File file = new File(path);
         if (!file.exists()) {
             try {
@@ -33,7 +34,7 @@ public class DataOutputWriter {
         }
         try (BufferedWriter writer =
                 new BufferedWriter(new FileWriter(file, false))) {
-            writer.write(spliter + "\n" + date.toString() + "\n");
+            writer.write(splitter + "\n" + date.toString() + "\n");
             int len = list.size();
             for (int i = 0; i < len; i++) {
                 writer.write(list.get(i) + "\n");

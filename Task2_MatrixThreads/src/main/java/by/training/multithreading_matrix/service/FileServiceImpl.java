@@ -35,7 +35,7 @@ public class FileServiceImpl implements FileService {
         try {
             inputInformation = reader.readInformationFromFile(pathToFile);
         } catch (FileReaderException eNew) {
-            throw new ServiceException("Problems with reading file." + eNew);
+            throw new ServiceException("Problems with reading file.", eNew);
         }
         return inputInformation;
     }
@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
         try {
             writer.writeInformationToFile(pathToFile, listNew);
         } catch (FileWriterException eNew) {
-            throw new ServiceException("Problems with writing file." + eNew);
+            throw new ServiceException("Problems with writing file.", eNew);
         }
     }
 }

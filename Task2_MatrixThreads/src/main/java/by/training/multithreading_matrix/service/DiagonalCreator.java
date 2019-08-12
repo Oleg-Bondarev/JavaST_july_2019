@@ -1,6 +1,7 @@
 package by.training.multithreading_matrix.service;
 
 import by.training.multithreading_matrix.entity.Matrix;
+import by.training.multithreading_matrix.entity.MatrixException;
 import by.training.multithreading_matrix.entity.MatrixThread;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -26,8 +27,7 @@ public class DiagonalCreator implements Runnable {
     /**
      * Logger.
      * */
-    private static final Logger LOGGER =
-            LogManager.getLogger(DiagonalCreator.class);
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Constructor.
      * @param newMatrix -matrix for thread work.
@@ -60,10 +60,16 @@ public class DiagonalCreator implements Runnable {
                 LOGGER.log(Level.ERROR, "Error during thread sleeping.", e);
                 Thread.currentThread().interrupt();
             }
-            matrix.setElement(position, position, thread.getNumberForThread());
+            try {
+                matrix.setElement(position, position,
+                                                thread.getNumberForThread());
+            } catch (MatrixException e) {
+                LOGGER.log(Level.ERROR, e.getMessage());
+                Thread.currentThread().interrupt();
+            }
             LOGGER.log(Level.INFO, "Thread: " + thread.getName() + " ->["
                     + thread.getNumberForThread() + "] update position ("
-                    + position + "," + position + "\n");
+                    + position + "," + position + ")");
         }
         loksList.get(position).unlock();
     }

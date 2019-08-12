@@ -1,5 +1,7 @@
 package by.training.multithreading_matrix.entity;
 
+import by.training.multithreading_matrix.validator.MatrixValidator;
+
 import java.util.Arrays;
 
 /**
@@ -9,26 +11,26 @@ public class Matrix {
     /**
      * Integer matrix.
      * */
-    private int[][] matr;
+    private int[][] matrix;
     /**
      * Constructor.
      * @param n -count of rows.
      * @param m -count of columns.
      * */
     public Matrix(final int n, final int m) {
-        matr = new int[n][m];
+        matrix = new int[n][m];
     }
     /**
      * @return count of the rows.
      * */
     public int getVerticalSize() {
-        return matr.length;
+        return matrix.length;
     }
     /**
      * @return count of the columns.
      * */
     public int getHorizontalSize() {
-        return matr[0].length;
+        return matrix[0].length;
     }
     /**
      * @return matrix element on (i,j) position.
@@ -36,15 +38,22 @@ public class Matrix {
      * @param j -coordinate.
      * */
     public int getElement(final int i, final int j) {
-            return matr[i][j];
+            return matrix[i][j];
     }
     /**
      * @param i -first coordinate.
      * @param j -second coordinate.
      * @param value -value on (i,j) position.
+     * @throws MatrixException -if have some problems in matrix.
      * */
-    public void setElement(final int i, final int j, final int value) {
-            matr[i][j] = value;
+    public void setElement(final int i, final int j, final int value)
+                                        throws MatrixException {
+        MatrixValidator validator = new MatrixValidator();
+        if (!validator.checkRange(this, i, j)) {
+            throw new MatrixException("Incorrect coordinates of element: ("
+                    + i + "," + j + ")");
+        }
+        matrix[i][j] = value;
     }
     /**
      * @param o  -object.
@@ -58,13 +67,13 @@ public class Matrix {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Matrix matrix = (Matrix) o;
-        if (matr.length != matrix.matr.length) {
+        Matrix m = (Matrix) o;
+        if (matrix.length != m.matrix.length) {
             return false;
         } else {
-            int len = matr.length;
+            int len = matrix.length;
             for (int i = 0; i < len; i++) {
-                if (!Arrays.equals(matr[i], matrix.matr[i])) {
+                if (!Arrays.equals(matrix[i], m.matrix[i])) {
                     return false;
                 }
             }
@@ -77,7 +86,7 @@ public class Matrix {
      * */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(matr);
+        return Arrays.hashCode(matrix);
     }
 
     /**toString method.
@@ -85,9 +94,9 @@ public class Matrix {
     @Override
     public String toString() {
         StringBuilder s =
-                new StringBuilder("\nMatrix : (" + matr.length + "x"
-                        + matr[0].length + ")\n");
-        for (int[] row : matr) {
+                new StringBuilder("\nMatrix : (" + matrix.length + "x"
+                        + matrix[0].length + ")\n");
+        for (int[] row : matrix) {
             for (int value : row) {
                 s.append(value);
                 s.append(" ");

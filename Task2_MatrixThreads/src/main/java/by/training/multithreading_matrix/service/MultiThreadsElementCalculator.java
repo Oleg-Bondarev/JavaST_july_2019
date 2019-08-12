@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 /**
  * Realisation of the callable interface.
  * */
-public class MultithreadsElementCalculator implements Callable<Integer> {
+public class MultiThreadsElementCalculator implements Callable<Integer> {
     /**
      * Current row.
      * */
@@ -32,7 +32,7 @@ public class MultithreadsElementCalculator implements Callable<Integer> {
      * @param newMatrixA -new matrix A.
      * @param newMatrixB -new matrix B.
      * */
-    MultithreadsElementCalculator(final int newRow, final int newColumn,
+    MultiThreadsElementCalculator(final int newRow, final int newColumn,
                                          final Matrix newMatrixA,
                                          final Matrix newMatrixB) {
         this.row = newRow;
@@ -45,7 +45,7 @@ public class MultithreadsElementCalculator implements Callable<Integer> {
      * @return -return value to the calling thread.
      * */
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         int result = 0;
         int temp = matrixB.getVerticalSize();
 

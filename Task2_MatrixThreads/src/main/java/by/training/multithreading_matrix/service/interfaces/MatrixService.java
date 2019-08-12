@@ -13,8 +13,10 @@ public interface MatrixService {
      * @param start     -start of the generation.
      * @param end stop genetayion.
      * @return matrix
+     * @throws ServiceException -if have problems.
      * */
-    Matrix generateMatrix(Matrix matr, int start, int end);
+    Matrix generateMatrix(Matrix matr, int start, int end)
+            throws ServiceException;
     /**
      * matrix multiplication.
      * @param matrixA -first matr.

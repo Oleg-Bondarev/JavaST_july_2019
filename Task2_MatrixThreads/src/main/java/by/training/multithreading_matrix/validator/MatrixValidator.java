@@ -50,18 +50,18 @@ public class MatrixValidator {
      * @param matrix -matrix.
      * @return matrix.
      * */
-    boolean checkRange(final Matrix matrix, final int i, final int j) {
-        return (i >= 0) && (i <= matrix.getHorizontalSize() - 1) && (j >= 0)
-                && (j <= matrix.getVerticalSize() - 1);
+    public boolean checkRange(final Matrix matrix, final int i, final int j) {
+        return (i >= 0) && (i <= matrix.getVerticalSize() - 1) && (j >= 0)
+                && (j <= matrix.getHorizontalSize() - 1);
     }
     /**
      * Check the size of the matrices.
-     * @param matrA -first matrix.
-     * @param matrB -second matrix.
+     * @param matrixA -first matrix.
+     * @param matrixB -second matrix.
      * @return boolean value.
      * */
-    public boolean checkDimension(final Matrix matrA, final Matrix matrB) {
-        return (matrA.getHorizontalSize() == matrB.getVerticalSize());
+    public boolean checkDimension(final Matrix matrixA, final Matrix matrixB) {
+        return (matrixA.getHorizontalSize() == matrixB.getVerticalSize());
     }
     /**
      * Check if matrix are present.

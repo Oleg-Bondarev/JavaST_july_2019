@@ -1,6 +1,7 @@
 package by.training.multithreading_matrix.service;
 
 import by.training.multithreading_matrix.entity.Matrix;
+import by.training.multithreading_matrix.entity.MatrixException;
 import by.training.multithreading_matrix.validator.MatrixValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -20,8 +21,7 @@ class MultiplicateMatrix {
     /**
      * Logger.
      * */
-    private static final Logger LOGGER =
-            LogManager.getLogger(MultiplicateMatrix.class);
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Message.
      * */
@@ -60,7 +60,11 @@ class MultiplicateMatrix {
                     value += matrixA.getElement(i, k)
                             * matrixB.getElement(k, j);
                 }
-                resultMatrix.setElement(i, j, value);
+                try {
+                    resultMatrix.setElement(i, j, value);
+                } catch (MatrixException e) {
+                    throw new ServiceException(e.getMessage());
+                }
             }
         }
         long endTime = System.currentTimeMillis();
@@ -96,7 +100,7 @@ class MultiplicateMatrix {
         for (int i = 0; i < countRows; i++) {
             for (int j = 0; j < countColumns; j++) {
                 resultCalculationList.add(executor
-                        .submit(new MultithreadsElementCalculator(i, j,
+                        .submit(new MultiThreadsElementCalculator(i, j,
                                 matrixA, matrixB)));
             }
         }
@@ -111,7 +115,7 @@ class MultiplicateMatrix {
                 }  catch (InterruptedException e) {
                     LOGGER.log(Level.WARN, "Interrupted!");
                     Thread.currentThread().interrupt();
-                } catch (ExecutionException e) {
+                } catch (ExecutionException | MatrixException e) {
                     throw new ServiceException("Execution exception."
                             + e.getMessage());
                 }
@@ -158,8 +162,8 @@ class MultiplicateMatrix {
     private void startThreads(final  ArrayList<ArrayList<Thread>> list,
                               final int countThreads) {
         for (int i = 0; i < countThreads; i++) {
-            for (Thread mult : list.get(i)) {
-                mult.start();
+            for (Thread multiplication : list.get(i)) {
+                multiplication.start();
             }
         }
     }
@@ -172,8 +176,8 @@ class MultiplicateMatrix {
                              final int countThreads) {
         try {
             for (int i = 0; i < countThreads; i++) {
-                for (Thread mult : list.get(i)) {
-                    mult.join();
+                for (Thread multiplication : list.get(i)) {
+                    multiplication.join();
                 }
             }
         } catch (InterruptedException e) {

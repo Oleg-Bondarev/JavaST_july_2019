@@ -1,6 +1,7 @@
 package by.training.multithreading_matrix.service;
 
 import by.training.multithreading_matrix.entity.Matrix;
+import by.training.multithreading_matrix.entity.MatrixException;
 import by.training.multithreading_matrix.service.interfaces.MatrixService;
 import by.training.multithreading_matrix.validator.MatrixValidator;
 import org.apache.logging.log4j.Level;
@@ -19,17 +20,17 @@ public class MatrixServiceImpl implements MatrixService {
     /**
      * Logger.
      * */
-    private static final Logger LOGGER =
-            LogManager.getLogger(MatrixServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
-     * @param matr -matrix to fill random elements.
+     * @param matrix -matrix to fill random elements.
+     * @throws ServiceException -have some problems.
      * */
     @Override
-    public Matrix generateMatrix(final Matrix matr, final int start,
-                               final int end) {
+    public Matrix generateMatrix(final Matrix matrix, final int start,
+                               final int end) throws ServiceException {
         GenerateMatrix generateMatrix = new GenerateMatrix();
-        generateMatrix.fillRandomizer(matr, start, end);
-        return matr;
+        generateMatrix.fillRandomize(matrix, start, end);
+        return matrix;
     }
     /**
      * @param matrixA -matrix.
@@ -101,7 +102,11 @@ public class MatrixServiceImpl implements MatrixService {
             elements =
                     information.get(i + 1).trim().split(regexForSplitElements);
             for (int j = 0; j < columns; j++) {
-                matrix.setElement(i, j, Integer.parseInt(elements[j]));
+                try {
+                    matrix.setElement(i, j, Integer.parseInt(elements[j]));
+                } catch (MatrixException e) {
+                    throw new ServiceException(e.getMessage());
+                }
             }
         }
         return matrix;
@@ -109,12 +114,18 @@ public class MatrixServiceImpl implements MatrixService {
     /**
      * @param matrix -input matrix.
      * @return modernized matrix.
+     * @throws ServiceException -have somme problems.
      * */
     @Override
-    public Matrix fillZeroOnDiagonal(final Matrix matrix) {
+    public Matrix fillZeroOnDiagonal(final Matrix matrix)
+            throws ServiceException {
         int dimensiomn = matrix.getHorizontalSize();
         for (int i = 0; i < dimensiomn; i++) {
-            matrix.setElement(i, i, 0);
+            try {
+                matrix.setElement(i, i, 0);
+            } catch (MatrixException e) {
+                throw new ServiceException(e.getMessage());
+            }
         }
         return matrix;
     }

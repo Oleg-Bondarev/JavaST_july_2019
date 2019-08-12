@@ -22,7 +22,7 @@ public final class Controller {
     /**
      * Logger.
      * */
-    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Service factory.
      * */
@@ -36,21 +36,28 @@ public final class Controller {
      * */
     private MatrixValidator validator = new MatrixValidator();
 
-    /**Constructor.*/
+    /**
+     * Constructor.
+     * */
     private Controller() { }
-    /**Getter for instance.
-     * @return instance.*/
+    /**
+     * Getter for instance.
+     * @return instance.
+     * */
     public static Controller getInstance() {
         return INSTANCE;
     }
 
-    /**Init matrix by random elements.
+    /**
+     * Init matrix by random elements.
      * @param matrix -matrix.
      * @param start -start of generation.
      * @param end -end of generation.
-     * @return matrix with random elements.*/
+     * @return matrix with random elements.
+     * @throws ServiceException -if have some problems.
+     * */
     public Matrix generateMatrix(final Matrix matrix, final int start,
-                                 final int end) {
+                                 final int end) throws ServiceException {
         MatrixService matrixService = serviceFactory.getMatrixService();
         return matrixService.generateMatrix(matrix, start, end);
     }

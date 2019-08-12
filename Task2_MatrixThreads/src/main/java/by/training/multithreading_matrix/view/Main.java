@@ -7,28 +7,35 @@ import by.training.multithreading_matrix.dao.file_reader.DataInputReader;
 import by.training.multithreading_matrix.dao.file_writer.DataOutputWriter;
 import by.training.multithreading_matrix.entity.Matrix;
 import by.training.multithreading_matrix.property.MatrixProperty;
+import by.training.multithreading_matrix.service.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**Main class.*/
+/**
+ * Main class.
+ * */
 public final class Main {
-    /**Def.constr.*/
+    /**
+     * Default constructor.
+     * */
     private Main() { }
-    /**Main method.
+    /**
+     * Main method.
      * @param args -program args.
-     * @throws FileReaderException -
-     * @throws FileWriterException -*/
+     * @throws FileReaderException -if have exception in file reading.
+     * @throws FileWriterException -if have exception in writing to file.
+     * */
     public static void main(final String[] args) throws FileReaderException,
             FileWriterException {
         DataInputReader reader = new DataInputReader();
         List<String> information = reader.
                 readInformationFromFile(MatrixProperty
                                         .PATH_TRANSFORMATION_MATRIX);
-        /*for (String s: information) {
+        for (String s: information) {
             System.out.println(s);
-        }*/
+        }
 
         Controller controller = Controller.getInstance();
         List<String> outputList = new ArrayList<>();
@@ -40,12 +47,17 @@ public final class Main {
 
         Matrix mA = new Matrix(2000, 2000);
         Matrix mB = new Matrix(2000,2000);
-        mA = controller.generateMatrix(mA, 0, 5);
-        mB = controller.generateMatrix(mB, 0, 5);
+        try {
+            mA = controller.generateMatrix(mA, 0, 5);
+            mB = controller.generateMatrix(mB, 0, 5);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
-        outputList.add(mA.toString());
+
+        /*outputList.add(mA.toString());
         outputWriter.writeInformationToFile(outPath1, outputList);
-        /*outputList.clear();
+        outputList.clear();
         outputList.add(mB.toString());
         outputWriter.writeInformationToFile(outPath2, outputList);*/
 
