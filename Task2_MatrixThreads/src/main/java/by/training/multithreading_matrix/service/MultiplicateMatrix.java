@@ -68,8 +68,8 @@ class MultiplicateMatrix {
             }
         }
         long endTime = System.currentTimeMillis();
-        LOGGER.log(Level.INFO, "Single thread time: "
-                + (endTime - startTime));
+        LOGGER.log(Level.INFO, "Single thread time: {0}",
+                (endTime - startTime));
 
         return resultMatrix;
     }
@@ -102,11 +102,6 @@ class MultiplicateMatrix {
                 resultCalculationList.add(executor
                         .submit(new MultiThreadsElementCalculator(i, j,
                                 matrixA, matrixB)));
-            }
-        }
-
-        for (int i = 0; i < countRows; i++) {
-            for (int j = 0; j < countColumns; j++) {
                 elementPosition = i * countColumns + j;
                 try {
                     elementToInsert =
@@ -140,45 +135,62 @@ class MultiplicateMatrix {
         int countColumns = matrixB.getHorizontalSize();
         Matrix resultMatrix = new Matrix(countRows, countColumns);
         long startTime = System.currentTimeMillis();
-        ArrayList<ArrayList<Thread>> multiplic =
-                new ArrayList<>(countThreads);
-        for (int i = 0; i < countRows; i++) {
-            multiplic.get(i % countThreads)
-                .add(new Thread(new WorkerMultiplication(i, matrixA, matrixB,
-                            resultMatrix)));
-        }
-        startThreads(multiplic, countThreads);
-        joinThreads(multiplic, countThreads);
+        Thread[] arrayOfThreads = new Thread[countThreads];
+        initThreadArray(matrixA.getVerticalSize(), countThreads, arrayOfThreads,
+                resultMatrix, matrixA, matrixB);
+        startThreads(arrayOfThreads);
+        joinThreads(arrayOfThreads);
         long stopTime = System.currentTimeMillis();
         LOGGER.log(Level.INFO, "Multithreading second way time: "
                 + (stopTime - startTime));
         return resultMatrix;
     }
     /**
-     * Starting threads.
-     * @param list          -list of threads.
-     * @param countThreads  -count threads.
+     * @param rows -count of rows.
+     * @param countThreads -count of threads for work.
+     * @param arrayThreads -array of threads.
+     * @param matrixA -first matrix.
+     * @param matrixB -second matrix.
+     * @param resultMatrix -result matrix.
      * */
-    private void startThreads(final  ArrayList<ArrayList<Thread>> list,
-                              final int countThreads) {
+    private void initThreadArray(final int rows, final int countThreads,
+                                 final Thread[] arrayThreads,
+                                 final Matrix resultMatrix,
+                                 final Matrix matrixA, final Matrix matrixB) {
+        int countRows = rows / countThreads;
+        int additional = rows % countThreads;
+        int start = 0;
+        int temp = 1;
         for (int i = 0; i < countThreads; i++) {
-            for (Thread multiplication : list.get(i)) {
-                multiplication.start();
+            if (additional == 0) {
+                temp = 0;
+            } else {
+                --additional;
             }
+            int count = countRows + temp;
+            int end = start + count - 1;
+            arrayThreads[i] = new Thread(new WorkerMultiplication(matrixA,
+                    matrixB, resultMatrix, start, end));
+            start += count;
         }
     }
     /**
-     * Join threads.
-     * @param list          -list of threads.
-     * @param countThreads  -count threads.
+     * Starting threads.
+     * @param arrayThreads -array of threads.
      * */
-    private void joinThreads(final  ArrayList<ArrayList<Thread>> list,
-                             final int countThreads) {
+    private void startThreads(final Thread[] arrayThreads) {
+       for (Thread thread : arrayThreads) {
+           thread.start();
+       }
+    }
+    /**
+     * Join threads.
+     * @param arrayThreads -array of threads.
+     * */
+    private void joinThreads(final Thread[] arrayThreads) {
         try {
-            for (int i = 0; i < countThreads; i++) {
-                for (Thread multiplication : list.get(i)) {
-                    multiplication.join();
-                }
+            for (Thread thread : arrayThreads) {
+                thread.join();
             }
         } catch (InterruptedException e) {
             LOGGER.error(e);

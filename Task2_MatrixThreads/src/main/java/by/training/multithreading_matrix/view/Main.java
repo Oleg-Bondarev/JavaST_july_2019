@@ -44,12 +44,14 @@ public final class Main {
         final String outPath2 = "data\\outputB.txt";
         final String outPath3 = "data\\outputC.txt";
         final String outPath4 = "data\\outputNewC.txt";
-
-        Matrix mA = new Matrix(2000, 2000);
-        Matrix mB = new Matrix(2000,2000);
+        final int dim = 2000;
+        final int bound = 5;
+        final int countThreads = 8;
+        Matrix mA = new Matrix(dim, dim);
+        Matrix mB = new Matrix(dim, dim);
         try {
-            mA = controller.generateMatrix(mA, 0, 5);
-            mB = controller.generateMatrix(mB, 0, 5);
+            mA = controller.generateMatrix(mA, 0, bound);
+            mB = controller.generateMatrix(mB, 0, bound);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -69,15 +71,15 @@ public final class Main {
         outputWriter.writeInformationToFile(outPath3, outputList);*/
 
         Matrix newC = controller.multiplicateMatrix(Optional.of(mA),
-                Optional.of(mB), 8);
+                Optional.of(mB), countThreads);
         /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath4, outputList);*/
 
         //second way
-        /*Matrix newCSecondWay = controller.multiplicateMatrixSecondWay(
-                Optional.of(mA), Optional.of(mB),8);
-        outputList.clear();
+        Matrix newCSecondWay = controller.multiplicateMatrixSecondWay(
+                Optional.of(mA), Optional.of(mB), countThreads);
+        /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath3, outputList);*/
 
@@ -86,12 +88,6 @@ public final class Main {
         System.out.println(matr);
         matr = controller.workWithDiagonal(Optional.of(matr));
         System.out.println(matr);
-
-        /*Matrix matr = controller.ctreateMatrixFromFile(MatrixProperty
-                                            .PATH_TRANSFORMATION_MATRIX);
-        System.out.println(matr);
-        matr = controller.workWithDiagonalSemaphore(Optional.of(matr));
-        System.out.println(matr);*/
 
     }
 }

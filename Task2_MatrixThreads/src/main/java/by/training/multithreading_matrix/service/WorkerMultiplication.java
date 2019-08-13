@@ -27,36 +27,39 @@ public class WorkerMultiplication implements Runnable {
      * */
     private Matrix matrixC;
     /**
-     * Number of row for thread.
+     * Start row.
      * */
-    private int rowNumber;
+    private int startRow;
+    /**
+     * Stop row.
+     * */
+    private int stopRow;
     /**
      * Constructor.
-     * @param rowNum -number of row for thread.
      * @param mA     -first matrix.
      * @param mB     -second matrix.
      * @param mC     -result matrix.
+     * @param start  -start row.
+     * @param stop    -end row.
      */
-    WorkerMultiplication(final int rowNum, final Matrix mA,
-                                final Matrix mB,
-                                final Matrix mC) {
-        this.rowNumber = rowNum;
+    WorkerMultiplication(final Matrix mA, final Matrix mB, final Matrix mC,
+                         final int start, final int stop) {
         this.matrixA = mA;
         this.matrixB = mB;
         this.matrixC = mC;
+        this.startRow = start;
+        this.stopRow = stop;
     }
     /**Run method.*/
     @Override
     public void run() {
-        int temp = matrixB.getVerticalSize();
-        int columns = matrixA.getVerticalSize();
-        for (int i = 0; i <= temp; i++) {
-            for (int j = 0; j < columns; j++) {
+        int columns = matrixC.getHorizontalSize();
+        for (int i = startRow; i <= stopRow; ++i) {
+            for (int j = 0; j < columns; ++j) {
                 try {
                     matrixC.setElement(i, j, calculateElement(i, j));
                 } catch (MatrixException e) {
                     LOGGER.log(Level.ERROR, e.getMessage());
-                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -68,7 +71,8 @@ public class WorkerMultiplication implements Runnable {
      */
     private int calculateElement(final int row, final int col) {
         int result = 0;
-        for (int i = 0; i < matrixB.getVerticalSize(); ++i) {
+        int rows = matrixB.getVerticalSize();
+        for (int i = 0; i < rows; ++i) {
             result += matrixA.getElement(row, i)
                     * matrixB.getElement(i, col);
         }
