@@ -63,29 +63,29 @@ public final class Main {
         outputList.add(mB.toString());
         outputWriter.writeInformationToFile(outPath2, outputList);*/
 
-        Matrix mC = controller.multiplicateMatrix(Optional.of(mA),
-                Optional.of(mB), 1);
+       /* Matrix mC = controller.multiplicateMatrix(Optional.of(mA),
+                Optional.of(mB), 1);*/
 
         /*outputList.clear();
         outputList.add(mC.toString());
         outputWriter.writeInformationToFile(outPath3, outputList);*/
 
-        Matrix newC = controller.multiplicateMatrix(Optional.of(mA),
-                Optional.of(mB), countThreads);
+        /*Matrix newC = controller.multiplicateMatrix(Optional.of(mA),
+                Optional.of(mB), countThreads);*/
         /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath4, outputList);*/
 
         //second way
-        Matrix newCSecondWay = controller.multiplicateMatrixSecondWay(
-                Optional.of(mA), Optional.of(mB), countThreads);
+        /*Matrix newCSecondWay = controller.multiplicateMatrixSecondWay(
+                Optional.of(mA), Optional.of(mB), countThreads);*/
         /*outputList.clear();
         outputList.add(newC.toString());
         outputWriter.writeInformationToFile(outPath3, outputList);*/
 
         Matrix matr = controller.ctreateMatrixFromFile(MatrixProperty
                                             .PATH_TRANSFORMATION_MATRIX);
-        System.out.println(matr);
+        //System.out.println(matr);
         matr = controller.workWithDiagonal(Optional.of(matr));
         System.out.println(matr);
 

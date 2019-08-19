@@ -7,9 +7,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
+/**
+ * File writer class.
+ * */
 public class DataOutputWriter {
     /**
      * Read information.

@@ -2,8 +2,6 @@ package by.training.multithreading_matrix.service;
 
 import by.training.multithreading_matrix.entity.Matrix;
 import by.training.multithreading_matrix.entity.MatrixException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.security.SecureRandom;
 import java.util.Random;

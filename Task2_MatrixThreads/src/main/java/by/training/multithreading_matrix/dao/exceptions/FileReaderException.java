@@ -1,5 +1,8 @@
 package by.training.multithreading_matrix.dao.exceptions;
 
+/**
+ * File reader class.
+ * */
 public class FileReaderException extends Exception {
     /**Constructor without parameters.*/
     public FileReaderException() {

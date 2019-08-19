@@ -2,6 +2,9 @@ package by.training.multithreading_matrix.validator;
 
 import java.io.File;
 
+/**
+ * File validator class.
+ * */
 public class FileValidator {
     /**
      * @param pathNew - path to file.

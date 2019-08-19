@@ -1,5 +1,8 @@
 package by.training.multithreading_matrix.dao.exceptions;
 
+/**
+ * Exception class.
+ * */
 public class FileWriterException extends Exception {
     /**Constructor without parameters.*/
     public FileWriterException() {

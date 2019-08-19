@@ -68,7 +68,7 @@ class MultiplicateMatrix {
             }
         }
         long endTime = System.currentTimeMillis();
-        LOGGER.log(Level.INFO, "Single thread time: {0}",
+        LOGGER.log(Level.INFO, "Single thread time: {}",
                 (endTime - startTime));
 
         return resultMatrix;
@@ -118,11 +118,18 @@ class MultiplicateMatrix {
         }
         executor.shutdown();
         long endTime = System.currentTimeMillis();
-        LOGGER.log(Level.INFO, "Multithreading time: "
-                + (endTime - startTime));
+        LOGGER.log(Level.INFO, "Multithreading time: {}",
+                (endTime - startTime));
         return matrixC;
     }
-
+    /**
+     * Second way of multithread multiplication.
+     * @param matrixA -first matrix.
+     * @param matrixB -second matrix.
+     * @param countThreads -count of threads.
+     * @return matrix.
+     * @throws ServiceException -if have problems.
+     * */
     Matrix multiplicationByMultiThreadSecondWay(final Matrix matrixA,
                                                 final Matrix matrixB,
                                                 final int countThreads)
@@ -141,8 +148,8 @@ class MultiplicateMatrix {
         startThreads(arrayOfThreads);
         joinThreads(arrayOfThreads);
         long stopTime = System.currentTimeMillis();
-        LOGGER.log(Level.INFO, "Multithreading second way time: "
-                + (stopTime - startTime));
+        LOGGER.log(Level.INFO, "Multithreading second way time: {}",
+                (stopTime - startTime));
         return resultMatrix;
     }
     /**
