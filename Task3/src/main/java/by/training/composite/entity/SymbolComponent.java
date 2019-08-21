@@ -1,13 +1,13 @@
 package by.training.composite.entity;
 
 /**
- * Represent characters of the word.
+ * Symbol component class.
  * */
-public class Symbol extends AbstractComposite {
+public class SymbolComponent implements Component {
     /**
      * Component type.
      * */
-    private final ComponentType componentType = ComponentType.SYMBOL;
+    private ComponentType componentType = ComponentType.SYMBOL;
     /**
      * Character.
      * */
@@ -15,14 +15,22 @@ public class Symbol extends AbstractComposite {
 
     /**
      * Constructor.
+     * @param newCharacter -new character.
      * */
-    public Symbol(final char newCharacter) {
+    public SymbolComponent(final char newCharacter) {
         this.character = newCharacter;
     }
-    @Override
+    /**
+     * Getter.
+     * @return component type.
+     * */
     public ComponentType getComponentType() {
         return this.componentType;
     }
+    /**
+     * For gathering string.
+     * @return string.
+     * */
     @Override
     public String compose() {
         return String.valueOf(character);

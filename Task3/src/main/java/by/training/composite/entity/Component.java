@@ -1,35 +1,37 @@
 package by.training.composite.entity;
 
-import java.util.List;
-
 /**
- * Represent interface for using pattern.
+ * Represent interface of composite.
  * */
 public interface Component {
+    /**
+     * Gather text.
+     * @return text.
+     * */
     String compose();
-
-    ComponentType getComponentType();
-
+    /**
+     * @param component -new component.
+     * */
     default void add(Component component) {
         throw new UnsupportedOperationException();
     }
-
-    default void addComponents(List<Component> components) {
-        throw new UnsupportedOperationException();
-    }
-
+    /**
+     * @param component -component that we want to remove.
+     * */
     default void remove(Component component) {
         throw new UnsupportedOperationException();
     }
-
-    default void removeAll() {
-        throw new UnsupportedOperationException();
-    }
-
+    /**
+     * @param index -component index.
+     * @return child component.
+     * */
     default Component getChild(int index) {
         throw new UnsupportedOperationException();
     }
-
+    /**
+     * Amount of children.
+     * @return amount.
+     * */
     default int amountOfChildren() {
         return 1;
     }

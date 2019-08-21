@@ -2,8 +2,8 @@ package by.training.composite.view;
 
 import by.training.composite.dao.DataInputReader;
 import by.training.composite.dao.exceptions.FileReaderException;
-import by.training.composite.entity.Lexeme;
-import by.training.composite.entity.Text;
+import by.training.composite.entity.SymbolComponent;
+import by.training.composite.entity.TextComponent;
 import by.training.composite.service.parser.*;
 
 public class Main {
@@ -19,17 +19,19 @@ public class Main {
         }
         System.out.println(str);
 
-        TextParser textParser = TextParser.getInstance();
-        ParagraphParser paragraphParser = ParagraphParser.getInstance();
-        SentenceParser sentenceParser = SentenceParser.getInstance();
-        LexemeParser lexemeParser = LexemeParser.getInstance();
-        WordParser wordParser = WordParser.getInstance();
+        TextParser textParser = new TextParser();
+        ParagraphParser paragraphParser = new ParagraphParser();
+        SentenceParser sentenceParser = new SentenceParser();
+        LexemeParser lexemeParser = new LexemeParser();
+        WordParser wordParser = new WordParser();
+        SymbolParser symbolParser = new SymbolParser();
 
         textParser.setNextParser(paragraphParser);
         paragraphParser.setNextParser(sentenceParser);
         sentenceParser.setNextParser(lexemeParser);
         lexemeParser.setNextParser(wordParser);
-        Text text = new Text();
+        wordParser.setNextParser(symbolParser);
+        TextComponent text = new TextComponent();
 
         textParser.parse(text, str);
     }

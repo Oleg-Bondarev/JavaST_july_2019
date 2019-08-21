@@ -1,43 +1,35 @@
 package by.training.composite.service.parser;
 
 import by.training.composite.entity.Component;
-import by.training.composite.entity.Paragraph;
-import by.training.composite.entity.Sentence;
+import by.training.composite.entity.ParagraphComponent;
+import by.training.composite.entity.TextComponent;
 
 /**
  * Represent paragraph parsing on sentences.
  * */
 public class ParagraphParser extends AbstractParse {
-    /**
-     * Instance.
+     /**
+     * Delimiter for parsing text on paragraphs.
      * */
-    private static final ParagraphParser INSTANCE = new ParagraphParser();
+    private static final String PARAGRAPH_REGEX = "(\t)|[ ]{4}";
     /**
-     * Regex for split paragraph.
-     * Split !!! , ??? , ... , ?! , ?!
-     * TODO . , ? , !
+     * Paragraph parsing.
+     * @param component -component.
+     * @param part -text for parsing.
      * */
-    private final String SENTENCE_REGEX = "(?<=[.])|(?<=[?])|(?<=[!])|(?<=\\?!)";
-    /**
-     * Constructor.
-     * */
-    private ParagraphParser() { }
-    /**
-     * Getter for instance.
-     * @return class instance.
-     * */
-    public static ParagraphParser getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public void parse(final Component component, final String part) {
-        Paragraph paragraph = (Paragraph) component;
-        String[] sentencesArray = part.split(SENTENCE_REGEX);
-        for (String tempStr : sentencesArray) {
-            Sentence sentence = new Sentence();
-            paragraph.add(sentence);
-            chain(sentence, tempStr.trim());
+        String[] paragraphArray = part.split(PARAGRAPH_REGEX);
+        if (component instanceof TextComponent) {
+            TextComponent text = (TextComponent) component;
+            for (String tempStr : paragraphArray) {
+                if (tempStr.equals("")) {
+                    continue;
+                }
+                ParagraphComponent paragraph = new ParagraphComponent();
+                text.add(paragraph);
+                chain(paragraph, tempStr.trim());
+            }
         }
     }
 }

@@ -1,44 +1,33 @@
 package by.training.composite.service.parser;
 
 import by.training.composite.entity.Component;
-import by.training.composite.entity.Lexeme;
-import by.training.composite.entity.Sentence;
-
-import java.util.ArrayList;
-import java.util.List;
+import by.training.composite.entity.ParagraphComponent;
+import by.training.composite.entity.SentenceComponent;
 
 /**
  * Represent sentence parser.
  * */
 public class SentenceParser extends AbstractParse {
-    /**
-     * Instance.
+     /**
+     * Regex for split paragraph.
      * */
-    private static final SentenceParser INSTANCE = new SentenceParser();
+    private static final String SENTENCE_REGEX = "(?<=[.])|(?<=[?])|(?<=[!])|"
+             + "(?<=\\?!)";
     /**
-     * Regex for split sentence.
+     * Parsing method.
+     * @param component -component.
+     * @param part -text.
      * */
-    private final String LEXEMES_REGEX = "[ ]+";
-    /**
-     * Constructor.
-     * */
-    private SentenceParser() { }
-    /**
-     * Getter for instance.
-     * @return class instance.
-     * */
-    public static SentenceParser getInstance() {
-        return INSTANCE;
-    }
-
     @Override
-    public void parse(Component component, String part) {
-        Sentence sentence = (Sentence) component;
-        String[] lexemesArray = part.split(LEXEMES_REGEX);
-        for (String tempStr : lexemesArray) {
-            Lexeme lexeme = new Lexeme();
-            sentence.add(lexeme);
-            chain(lexeme, tempStr.trim());
+    public void parse(final Component component, final String part) {
+        String[] sentencesArray = part.split(SENTENCE_REGEX);
+        if (component instanceof ParagraphComponent) {
+            ParagraphComponent paragraph = (ParagraphComponent) component;
+            for (String tempStr : sentencesArray) {
+                SentenceComponent sentence = new SentenceComponent();
+                paragraph.add(sentence);
+                chain(sentence, tempStr.trim());
+            }
         }
     }
 }
