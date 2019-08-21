@@ -11,8 +11,7 @@ public class SentenceParser extends AbstractParse {
      /**
      * Regex for split paragraph.
      * */
-    private static final String SENTENCE_REGEX = "(?<=[.])|(?<=[?])|(?<=[!])|"
-             + "(?<=\\?!)";
+    private static final String SENTENCE_REGEX = "(?<=[\\.\\!\\?\\t])\\s";
     /**
      * Parsing method.
      * @param component -component.

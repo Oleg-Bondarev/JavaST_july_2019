@@ -17,18 +17,6 @@ public class ParagraphComponent implements Component {
      * */
     private static final String SENTENCE_DELIMITER = " ";
     /**
-     * Component type.
-     * */
-    private ComponentType componentType = ComponentType.SENTENCE;
-
-    /**
-     * Getter.
-     * @return component type.
-     * */
-    public ComponentType getComponentType() {
-        return componentType;
-    }
-    /**
      * For gathering text.
      * @return text.
      * */

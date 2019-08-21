@@ -13,21 +13,9 @@ public class PunctuationComponent implements Component {
      * */
     private List<Component> symbolsList = new ArrayList<>();
     /**
-     * Type of component.
-     * */
-    private ComponentType componentType = ComponentType.PUNCTUATION;
-    /**
      * Default delimiter.
      * */
     private static final String DEFAULT_DELIMITER = "";
-
-    /**
-     * Getter.
-     * @return type of component.
-     * */
-    public ComponentType getTypeComponent() {
-        return componentType;
-    }
 
     /**
      * For gathering text.

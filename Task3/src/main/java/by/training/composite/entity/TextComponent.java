@@ -13,10 +13,6 @@ public class TextComponent implements Component {
      * */
     private List<Component> paragraphsList = new ArrayList<>();
     /**
-     * Component type.
-     * */
-    private ComponentType componentType = ComponentType.TEXT;
-    /**
      * Delimiter for text.
      * */
     private static final String TEXT_DELIMITER = "\n\t";
@@ -27,15 +23,7 @@ public class TextComponent implements Component {
     /**
      * \n for last paragraph.
      * */
-    private static final String LAST_NEW_LINE = "\n";
-
-    /**
-     * Getter.
-     * @return component type.
-     * */
-    public ComponentType getComponentType() {
-        return componentType;
-    }
+    private static final String LAST = "";
     /**
      * For gathering text.
      * @return text.
@@ -43,7 +31,7 @@ public class TextComponent implements Component {
     @Override
     public String compose() {
         StringJoiner stringJoiner = new StringJoiner(TEXT_DELIMITER,
-                FIRST_TAB, LAST_NEW_LINE);
+                FIRST_TAB, LAST);
         paragraphsList.forEach(tempComponent
                 -> stringJoiner.add(tempComponent.compose()));
         return stringJoiner.toString();

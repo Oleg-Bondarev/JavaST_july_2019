@@ -1,14 +1,21 @@
 package by.training.composite.view;
 
-import by.training.composite.dao.DataInputReader;
-import by.training.composite.dao.exceptions.FileReaderException;
-import by.training.composite.entity.SymbolComponent;
-import by.training.composite.entity.TextComponent;
-import by.training.composite.service.parser.*;
+import by.training.composite.controller.Controller;
 
-public class Main {
-    public static void main(String[] args) {
-        String path = "data\\input.txt";
+/**
+ * Main class.
+ * */
+public final class Main {
+    /**
+     * Constructor.
+     * */
+    private Main() { }
+    /**
+     * Main method.
+     * @param args -args.
+     * */
+    public static void main(final String[] args) {
+        /*String path = "data\\input.txt";
         DataInputReader dataInputReader = new DataInputReader();
         String str = null;
 
@@ -16,24 +23,18 @@ public class Main {
             str = dataInputReader.readInformationFromFile(path);
         } catch (FileReaderException e) {
             e.printStackTrace();
-        }
-        System.out.println(str);
+        }*/
+        //System.out.println(str);
 
-        TextParser textParser = new TextParser();
-        ParagraphParser paragraphParser = new ParagraphParser();
-        SentenceParser sentenceParser = new SentenceParser();
-        LexemeParser lexemeParser = new LexemeParser();
-        WordParser wordParser = new WordParser();
-        SymbolParser symbolParser = new SymbolParser();
 
-        textParser.setNextParser(paragraphParser);
-        paragraphParser.setNextParser(sentenceParser);
-        sentenceParser.setNextParser(lexemeParser);
-        lexemeParser.setNextParser(wordParser);
-        wordParser.setNextParser(symbolParser);
-        TextComponent text = new TextComponent();
+        /*TextComponent text = new TextComponent();
 
         textParser.parse(text, str);
-    }
+        String st = text.compose();
+        System.out.println(st);*/
 
+        Controller controller = new Controller();
+        controller.execute("LOAD_FROM_FILE_TEXT");
+        controller.execute("PRINT_TEXT");
+    }
 }

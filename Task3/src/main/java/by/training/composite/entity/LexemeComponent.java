@@ -13,21 +13,9 @@ public class LexemeComponent implements Component {
      * */
     private List<Component> symbolsList = new ArrayList<>();
     /**
-     * Type of component.
-     * */
-    private ComponentType componentType = ComponentType.LEXEME;
-    /**
      * Default delimiter.
      * */
     private static final String DEFAULT_DELIMITER = "";
-
-    /**
-     * Getter.
-     * @return type of component.
-     * */
-    public ComponentType getTypeComponent() {
-        return componentType;
-    }
 
     /**
      * For gathering text.

@@ -17,17 +17,6 @@ public class SentenceComponent implements Component {
      * */
     private static final String SENTENCE_DELIMITER = " ";
     /**
-     * Type of component.
-     */
-    private ComponentType typeComponent = ComponentType.SENTENCE;
-
-    /**
-     * @return type of component.
-     */
-    public ComponentType getTypeComponent() {
-        return typeComponent;
-    }
-    /**
      * For gathering strings.
      * @return string.
      * */

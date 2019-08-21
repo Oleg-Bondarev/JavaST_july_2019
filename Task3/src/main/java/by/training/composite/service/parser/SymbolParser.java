@@ -2,7 +2,6 @@ package by.training.composite.service.parser;
 
 import by.training.composite.entity.Component;
 import by.training.composite.entity.WordComponent;
-import by.training.composite.entity.NewLineSymbol;
 import by.training.composite.entity.SymbolComponent;
 import by.training.composite.entity.PunctuationComponent;
 
@@ -19,31 +18,21 @@ public class SymbolParser extends AbstractParse {
     public void parse(final Component component, final String part) {
         if (component instanceof WordComponent) {
             WordComponent word = (WordComponent) component;
-            String[] symbolsArr = part.split("");
-            for (String symbolStr : symbolsArr) {
-                if (symbolStr.isEmpty()) {
-                    NewLineSymbol symbol = new NewLineSymbol("\r\n".getBytes());
-                    word.add(symbol);
-                } else {
-                    SymbolComponent symbol =
-                            new SymbolComponent(symbolStr.toCharArray()[0]);
-                    word.add(symbol);
-                }
+            char[] charArr = part.toCharArray();
+            for (char character : charArr) {
+                SymbolComponent symbol =
+                        new SymbolComponent(character);
+                word.add(symbol);
             }
         }
         if (component instanceof PunctuationComponent) {
-            PunctuationComponent punctuationMark =
+            PunctuationComponent punctuation =
                     (PunctuationComponent) component;
-            String[] symbolsArr = part.split("");
-            for (String symbolStr : symbolsArr) {
-                if (symbolStr.isEmpty()) {
-                    NewLineSymbol symbol = new NewLineSymbol("\r\n".getBytes());
-                    punctuationMark.add(symbol);
-                } else {
-                    SymbolComponent symbol =
-                            new SymbolComponent(symbolStr.toCharArray()[0]);
-                    punctuationMark.add(symbol);
-                }
+            char[] charArr = part.toCharArray();
+            for (char character : charArr) {
+                SymbolComponent symbol =
+                        new SymbolComponent(character);
+                punctuation.add(symbol);
             }
         }
     }

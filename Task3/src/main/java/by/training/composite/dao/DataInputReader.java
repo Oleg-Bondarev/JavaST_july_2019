@@ -33,7 +33,7 @@ public class DataInputReader {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String tempStr;
             while ((tempStr = reader.readLine()) != null) {
-                stringBuilder.append(tempStr);
+                stringBuilder.append(tempStr + "\n");
             }
         } catch (IOException e) {
             throw new FileReaderException("Incorrect input file: " + file, e);

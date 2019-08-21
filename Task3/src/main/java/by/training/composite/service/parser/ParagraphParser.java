@@ -9,9 +9,11 @@ import by.training.composite.entity.TextComponent;
  * */
 public class ParagraphParser extends AbstractParse {
      /**
-     * Delimiter for parsing text on paragraphs.
-     * */
-    private static final String PARAGRAPH_REGEX = "(\t)|[ ]{4}";
+      * Delimiter for parsing text on paragraphs.
+      * (?<=\n)(\s{4,}|\t)(?=\w)  (?!^)(?m)(?=^\s{4})
+      * */
+    private static final String PARAGRAPH_REGEX
+             = "(?<=\\n)(\\s{4,}|\\t)(?=\\w)";
     /**
      * Paragraph parsing.
      * @param component -component.

@@ -5,10 +5,6 @@ package by.training.composite.entity;
  * */
 public class SymbolComponent implements Component {
     /**
-     * Component type.
-     * */
-    private ComponentType componentType = ComponentType.SYMBOL;
-    /**
      * Character.
      * */
     private char character;
@@ -19,13 +15,6 @@ public class SymbolComponent implements Component {
      * */
     public SymbolComponent(final char newCharacter) {
         this.character = newCharacter;
-    }
-    /**
-     * Getter.
-     * @return component type.
-     * */
-    public ComponentType getComponentType() {
-        return this.componentType;
     }
     /**
      * For gathering string.
