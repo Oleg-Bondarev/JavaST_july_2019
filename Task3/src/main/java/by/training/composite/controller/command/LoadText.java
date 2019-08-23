@@ -3,7 +3,7 @@ package by.training.composite.controller.command;
 import by.training.composite.controller.Command;
 import by.training.composite.dao.TextRepository;
 import by.training.composite.entity.Component;
-import by.training.composite.service.FileService;
+import by.training.composite.service.interfaces.FileService;
 import by.training.composite.service.ServiceException;
 import by.training.composite.service.ServiceFactory;
 import org.apache.logging.log4j.Level;

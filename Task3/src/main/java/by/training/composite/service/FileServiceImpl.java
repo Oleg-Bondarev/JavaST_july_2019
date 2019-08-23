@@ -2,6 +2,7 @@ package by.training.composite.service;
 
 import by.training.composite.dao.DataInputReader;
 import by.training.composite.dao.exceptions.FileReaderException;
+import by.training.composite.service.interfaces.FileService;
 import by.training.composite.validator.FileValidator;
 
 /**

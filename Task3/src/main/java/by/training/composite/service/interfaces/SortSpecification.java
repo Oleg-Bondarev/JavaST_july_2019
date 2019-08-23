@@ -1,4 +1,6 @@
-package by.training.composite.service;
+package by.training.composite.service.interfaces;
+
+import by.training.composite.entity.Component;
 
 import java.util.Comparator;
 
@@ -14,6 +16,7 @@ public interface SortSpecification<T> extends Specification<T> {
     Comparator<T> getComparator();
     /**
      * Sorting.
-     * //TODO sort
+     * @param newComponent -new compnent.
      * */
+    void sort(Component newComponent);
 }

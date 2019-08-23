@@ -1,4 +1,6 @@
-package by.training.composite.service;
+package by.training.composite.service.interfaces;
+
+import by.training.composite.service.ServiceException;
 
 /**
  * File service interface.

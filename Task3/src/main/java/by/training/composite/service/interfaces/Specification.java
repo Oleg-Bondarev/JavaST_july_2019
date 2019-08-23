@@ -1,4 +1,4 @@
-package by.training.composite.service;
+package by.training.composite.service.interfaces;
 
 /**
  * Specification interface.

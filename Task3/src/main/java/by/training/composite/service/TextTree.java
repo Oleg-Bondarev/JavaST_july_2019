@@ -7,7 +7,22 @@ import by.training.composite.service.parser.*;
 /**
  * Represent creating text tree.
  * */
-public class TextTree {
+public final class TextTree {
+    /**
+     * Instance.
+     * */
+    private static final TextTree INSTANCE = new TextTree();
+    /**
+     * Constructor.
+     * */
+    private TextTree() { }
+    /**
+     * Getter.
+     * @return text tree.
+     * */
+    public static TextTree getInstance() {
+        return INSTANCE;
+    }
     /**
      * Creating tree.
      * @param text -text in string.

@@ -3,17 +3,19 @@ package by.training.composite.controller.command;
 import by.training.composite.controller.Command;
 import by.training.composite.dao.TextRepository;
 import by.training.composite.entity.Component;
-import by.training.composite.service.interfaces.ConsoleService;
 import by.training.composite.service.ServiceFactory;
+import by.training.composite.service.interfaces.SortSpecification;
+import by.training.composite.service.sort.SortWordsInSentByLength;
 
 /**
- * Print text.
+ * Sorting words in paragraph sentences by their length.
  * */
-public class PrintText implements Command {
+public class SortWordInSentencesByLength implements Command {
     /**
      * Service factory.
      * */
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
+
     /**
      * Execute method.
      * */
@@ -21,7 +23,7 @@ public class PrintText implements Command {
     public void execute() {
         TextRepository textRepository = serviceFactory.getTextRepository();
         Component component = textRepository.getTextComponent();
-        ConsoleService consoleService = serviceFactory.getConsoleService();
-        consoleService.print(component.compose());
+        SortSpecification sortWords = new SortWordsInSentByLength();
+        sortWords.sort(component);
     }
 }

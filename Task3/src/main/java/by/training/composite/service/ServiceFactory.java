@@ -1,6 +1,8 @@
 package by.training.composite.service;
 
 import by.training.composite.dao.TextRepository;
+import by.training.composite.service.interfaces.ConsoleService;
+import by.training.composite.service.interfaces.FileService;
 import by.training.composite.service.properties.PropertiesReader;
 
 /**
@@ -16,9 +18,13 @@ public final class ServiceFactory {
      * */
     private final FileService fileService = new FileServiceImpl();
     /**
+     * Console service.
+     * */
+    private final ConsoleService consoleService = new ConsoleServiceImpl();
+    /**
      * Creating text tree.
      * */
-    private final TextTree textTree = new TextTree();
+    private final TextTree textTree = TextTree.getInstance();
     /**
      * Text repository.
      * */
@@ -39,6 +45,12 @@ public final class ServiceFactory {
      * */
     public FileService getFileService() {
         return fileService;
+    }
+    /**
+     * @return console service.
+     * */
+    public ConsoleService getConsoleService() {
+        return consoleService;
     }
     /**
      * @return text tree.
