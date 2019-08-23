@@ -25,12 +25,9 @@ public class Controller {
             LOGGER.log(Level.ERROR, "Incorrect parameter:"
                     + " request. It should be different from null and "
                     + "empty string.");
-            throw new RuntimeException("Incorrect parameter:"
-                    + " request. It should be different from null and "
-                    + "empty string.");
         }
         Command command =
-                controlProvider.findCommand(request.toUpperCase());
+                controlProvider.findCommand(request);
         command.execute();
     }
 }

@@ -2,7 +2,12 @@ package by.training.composite.service;
 
 import by.training.composite.entity.Component;
 import by.training.composite.entity.TextComponent;
-import by.training.composite.service.parser.*;
+import by.training.composite.service.parser.LexemeParser;
+import by.training.composite.service.parser.ParagraphParser;
+import by.training.composite.service.parser.SentenceParser;
+import by.training.composite.service.parser.TextParser;
+import by.training.composite.service.parser.WordParser;
+import by.training.composite.service.parser.SymbolParser;
 
 /**
  * Represent creating text tree.

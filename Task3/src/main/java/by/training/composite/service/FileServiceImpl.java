@@ -34,7 +34,8 @@ public class FileServiceImpl implements FileService {
         try {
             text = reader.readInformationFromFile(pathToFile);
         } catch (FileReaderException e) {
-            throw new ServiceException("Problems with reading file.", e);
+            throw new ServiceException("Problems with reading file."
+                    + e.getMessage());
         }
         return text;
     }

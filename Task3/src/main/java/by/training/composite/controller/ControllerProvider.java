@@ -1,6 +1,11 @@
 package by.training.composite.controller;
 
-import by.training.composite.controller.command.*;
+import by.training.composite.controller.command.LoadText;
+import by.training.composite.controller.command.PrintText;
+import by.training.composite.controller.command.SortParagraphsByCountOfSentence;
+import by.training.composite.controller.command.WrongCommand;
+import by.training.composite.controller.command.SortWordInSentencesByLength;
+import by.training.composite.controller.command.SortSentencesInParagraphByCountWord;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

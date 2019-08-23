@@ -27,7 +27,8 @@ public class DataInputReader {
             throws FileReaderException {
         File file = new File(path);
         if (!fileValidator.validateFile(file)) {
-            throw new FileReaderException("Incorrect input file: " + file);
+            throw new FileReaderException("Incorrect input file: " + file
+                                + "\t File must be not null and not empty.");
         }
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

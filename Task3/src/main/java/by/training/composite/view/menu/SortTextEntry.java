@@ -18,7 +18,7 @@ public class SortTextEntry extends MenuEntry {
      * */
     @Override
     public void run() {
-        ResourceManager resourceManager = ResourceManager.INSTANCE;
+        ResourceManager resourceManager = ResourceManager.getInstance();
         Menu menu = new Menu();
         menu.addEntryMenu(new SortParagraphsByCountSentenceEntry(
                 resourceManager.getString("sort_par_by_count_sent")));
@@ -27,6 +27,10 @@ public class SortTextEntry extends MenuEntry {
         menu.addEntryMenu(new SortSentenceInParagraphByCountWordEntry(
                 resourceManager.getString(
                         "sort_sent_in_par_by_count_words")));
+        menu.addEntryMenu(new SortLexemesByCharEntry(
+                resourceManager.getString("sort_lex_in_sent_by_char")));
+        menu.addEntryMenu(new PrintTextEntry(resourceManager
+                .getString("printing_text")));
         menu.run();
     }
 }

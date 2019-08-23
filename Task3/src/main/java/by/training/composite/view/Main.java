@@ -20,25 +20,10 @@ public final class Main {
      * @param args -args.
      * */
     public static void main(final String[] args) {
-//        Controller controller = new Controller();
-//        controller.execute("LOAD_FROM_FILE_TEXT");
-//        controller.execute("PRINT_TEXT");
-//        System.out.println("==============================");
-//        controller.execute("SORT_PARAGRAPHS_BY_COUNT_OF_SENTENCE");
-//        controller.execute("PRINT_TEXT");
-
-//        controller.execute("SORT_WORDS_IN_SENTENCES_BY_LENGTH");
-//        controller.execute("PRINT_TEXT");
-
-//        controller.execute("WRONG_COMMAND");
-
-//        controller.execute("SORT_SENTENCES_IN_PARAGRAPH_BY_COUNT_OF_WORD");
-//        controller.execute("PRINT_TEXT");
-
         Controller controller = new Controller();
         controller.execute("LOAD_FROM_FILE_TEXT");
         Menu localMenu = new Menu();
-        ResourceManager resourceManager = ResourceManager.INSTANCE;
+        ResourceManager resourceManager = ResourceManager.getInstance();
         localMenu.addEntryMenu(new LocaleEntry("english"));
         localMenu.addEntryMenu(new LocaleEntry("russian"));
         localMenu.addEntryMenu(new LocaleEntry("belorussian"));

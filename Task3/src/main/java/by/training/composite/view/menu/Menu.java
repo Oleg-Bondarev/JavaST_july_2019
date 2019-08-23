@@ -32,7 +32,7 @@ public class Menu {
      * Constructor.
      * */
     public Menu() {
-        ResourceManager resourceManager = ResourceManager.INSTANCE;
+        ResourceManager resourceManager = ResourceManager.getInstance();
         menuEntryList.add(new MenuEntry(resourceManager
                 .getString("exit")) {
             @Override
@@ -119,7 +119,7 @@ public class Menu {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < menuEntryList.size(); i++) {
-            builder.append(String.format("%s - %s;%n", i,
+            builder.append(String.format("%d- %s;%n", i,
                     menuEntryList.get(i).getMenuTitle()));
         }
         return builder.toString();

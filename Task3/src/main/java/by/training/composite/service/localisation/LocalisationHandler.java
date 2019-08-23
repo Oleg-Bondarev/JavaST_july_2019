@@ -28,7 +28,7 @@ public class LocalisationHandler {
      * */
     public void locale(final String key) {
         Locale locale = MAP_OF_LOCALES.get(key);
-        ResourceManager resourceManager = ResourceManager.INSTANCE;
+        ResourceManager resourceManager = ResourceManager.getInstance();
         resourceManager.changeLocale(locale);
     }
 }

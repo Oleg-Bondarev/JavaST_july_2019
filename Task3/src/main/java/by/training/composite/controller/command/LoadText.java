@@ -1,8 +1,8 @@
 package by.training.composite.controller.command;
 
 import by.training.composite.controller.Command;
-import by.training.composite.dao.TextRepository;
 import by.training.composite.entity.Component;
+import by.training.composite.entity.TextStorage;
 import by.training.composite.service.interfaces.FileService;
 import by.training.composite.service.ServiceException;
 import by.training.composite.service.ServiceFactory;
@@ -37,15 +37,15 @@ public class LoadText implements Command {
             throw new RuntimeException("Can't find file to continue program.");
         }
         FileService fileService = serviceFactory.getFileService();
-        TextRepository textRepository = serviceFactory.getTextRepository();
+        TextStorage textStorage = TextStorage.getInstance();
         try {
             String tempStr = fileService.read(path);
-            textRepository.addText(tempStr);
             Component component
                     = serviceFactory.getTextTree().createTree(tempStr);
-            textRepository.setTextComponent(component);
+            textStorage.setTextComponent(component);
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, e.getMessage());
+            throw new RuntimeException("Can't work with empty or null file.");
         }
     }
 }
