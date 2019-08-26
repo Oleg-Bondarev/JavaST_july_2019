@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.example.com/flowers"
+         xsi:schemaLocation="http://www.example.com/flowers  flowers.xsd">
+
+    <WildFlower id="001" name="Hanger blue" is_medicinal="true" soil="podzolic"
+                is_lightening="true" is_protected="true"
+                multiplying="cuttings">
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <average_size>45</average_size>
+        <temperature>5-36</temperature>
+        <watering>560</watering>
+        <discovery_year>1876-03-12</discovery_year>
+        <regions>
+            European Russia,
+            Caucasus,
+            Far East,
+            Central Asia
+        </regions>
+    </WildFlower>
+
+    <WildFlower id="002" name="Althaea officinalis" is_medicinal="true"
+                 soil="unpaved" is_lightening="true"
+                 is_protected="true">
+        <steam_color>green</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>110</average_size>
+        <temperature>3-40</temperature>
+        <watering>356</watering>
+        <discovery_year>1890-11-16</discovery_year>
+        <regions>
+            the Caucasus,
+            Crimea,
+            southern and middle strip of Russia,
+            Central Asia,
+            Western and Eastern Siberia
+        </regions>
+    </WildFlower>
+
+    <!-- without regions -->
+    <WildFlower id="003" name="Iris" is_medicinal="true" soil="sod-podzolic"
+                is_lightening="true" is_protected="false"
+                multiplying="leafs">
+        <steam_color>green</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>34</average_size>
+        <temperature>20-33</temperature>
+        <watering>350</watering>
+        <discovery_year>1900-09-12</discovery_year>
+        <regions>
+            mountains of Central Asia,
+            Western Siberia,
+            the Caucasus
+        </regions>
+    </WildFlower>
+
+    <WildFlower id="004" name="Saint-John's-wort" is_medicinal="true"
+                 soil="sod-podzolic" is_lightening="true" is_protected="false">
+        <steam_color>green</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>65</average_size>
+        <temperature>25-40</temperature>
+        <watering>560</watering>
+        <discovery_year>1878-08-01</discovery_year>
+        <regions>
+            European part of Russia,
+            mountains of Central Asia,
+            Western Siberia,
+            the Caucasus
+        </regions>
+    </WildFlower>
+    
+    <WildFlower id="005" name="Delphinium" is_medicinal="false" soil="podzolic"
+                is_lightening="true" is_protected="false"
+                multiplying="cuttings">
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <average_size>125</average_size>
+        <temperature>10-28</temperature>
+        <watering>1500</watering>
+        <discovery_year>1800-03-10</discovery_year>
+        <regions>
+            highlands of Africa,
+            temperate zone of the Northern Hemisphere
+        </regions>
+    </WildFlower>
+
+    <!-- without multiplying -->
+    <WildFlower id="006" name="Wild strawberries" is_medicinal="false"
+                 soil="podzolic" is_lightening="true" is_protected="false">
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <average_size>15</average_size>
+        <temperature>22-28</temperature>
+        <watering>400</watering>
+        <discovery_year>1806-01-23</discovery_year>
+        <regions>
+            forest and forest-steppe zones of Russia,
+            the Caucasus,
+            Siberia
+        </regions>
+    </WildFlower>
+
+    <WildFlower id="007" name="Polygonum aviculare" is_medicinal="true"
+                 soil="podzolic" is_lightening="false" is_protected="false">
+        <steam_color>brown</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <average_size>15</average_size>
+        <temperature>14-33</temperature>
+        <watering>480</watering>
+        <discovery_year>1888-05-19</discovery_year>
+        <regions>
+            throughout Russia,
+            Ukraine
+        </regions>
+    </WildFlower>
+
+    <WildFlower id="008" name="Matricaria" is_medicinal="true"
+                 soil="sod-podzolic" is_lightening="false" is_protected="false">
+        <steam_color>dark green</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>25</average_size>
+        <temperature>11-33</temperature>
+        <watering>650</watering>
+        <discovery_year>1876-02-28</discovery_year>
+        <regions>
+            America,
+            Eurasia,
+            South Africa
+        </regions>
+    </WildFlower>
+
+    <!--without mult -->
+    <ArtificialFlower id="009" name="Eustoma" is_medicinal="false"
+                       soil="podzolic" is_lightening="false">
+        <steam_color>dark green</steam_color>
+        <leaf_color>blue</leaf_color>
+        <average_size>40</average_size>
+        <temperature>25-30</temperature>
+        <watering>500</watering>
+        <discovery_year>1979-12-12</discovery_year>
+        <discovers_names>
+            E. Crogh,
+            McDonald Gibs
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="010" name="Agapantus" is_medicinal="false"
+                       soil="unpaved" is_lightening="true" multiplying="leafs">
+        <steam_color>brown</steam_color>
+        <leaf_color>orange</leaf_color>
+        <average_size>25</average_size>
+        <temperature>20-28</temperature>
+        <watering>540</watering>
+        <discovery_year>1990-03-02</discovery_year>
+        <discovers_names>
+            G. Emellman,
+            Y. Halinski,
+            L. Dios
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="011" name="Sovetus Socialistus" is_medicinal="false"
+                       soil="unpaved" is_lightening="false"
+                      multiplying="cuttings">
+        <steam_color>red</steam_color>
+        <leaf_color>yellow</leaf_color>
+        <average_size>34</average_size>
+        <temperature>13-26</temperature>
+        <watering>670</watering>
+        <discovery_year>1976-02-27</discovery_year>
+        <discovers_names>
+            M. Moscal,
+            B. Bulbash,
+            H. Hohol,
+            P. Psheck
+        </discovers_names>
+    </ArtificialFlower>
+
+    <!-- mult -->
+    <ArtificialFlower id="012" name="Alstromeria" is_medicinal="false"
+                       soil="unpaved" is_lightening="true">
+        <steam_color>dark brown</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <average_size>28</average_size>
+        <temperature>25-30</temperature>
+        <watering>560</watering>
+        <discovery_year>1998-03-08</discovery_year>
+        <discovers_names>
+            Fr. Astrimeri
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="013" name="Anturium" is_medicinal="false"
+                       soil="unpaved" is_lightening="true" multiplying="leafs">
+        <steam_color>dark green</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>27</average_size>
+        <temperature>22-27</temperature>
+        <watering>640</watering>
+        <discovery_year>2003-12-10</discovery_year>
+        <discovers_names>
+            U. Gobs,
+            R. Solovey
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="014" name="Buvardia" is_medicinal="false"
+                       soil="podzolic" is_lightening="false"
+                      multiplying="cuttings">
+        <steam_color>dark green</steam_color>
+        <leaf_color>dark blue</leaf_color>
+        <average_size>20</average_size>
+        <temperature>20-24</temperature>
+        <watering>290</watering>
+        <discovery_year>1999-07-07</discovery_year>
+        <discovers_names>
+            N. Russinski,
+            L. Pivovarov,
+            O. McDonald
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="015" name="Krassula" is_medicinal="false"
+                       soil="unpaved" is_lightening="false"
+                      multiplying="cuttings">
+        <steam_color>light brown</steam_color>
+        <leaf_color>green</leaf_color>
+        <average_size>15</average_size>
+        <temperature>20-25</temperature>
+        <watering>430</watering>
+        <discovery_year>1987-06-26</discovery_year>
+        <discovers_names>
+            K. Ismut,
+            D. Lebedev,
+            T. Korolov
+        </discovers_names>
+    </ArtificialFlower>
+
+    <ArtificialFlower id="016" name="Eucalypti Baby-Blue" is_medicinal="false"
+                       soil="sod-podzolic" is_lightening="true"
+                      multiplying="leafs">
+        <steam_color>dark green</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <average_size>13</average_size>
+        <temperature>22-28</temperature>
+        <watering>540</watering>
+        <discovery_year>1940-03-22</discovery_year>
+        <discovers_names>
+            L. Sonaev
+        </discovers_names>
+    </ArtificialFlower>
+</Flowers>
