@@ -14,9 +14,20 @@
         <classes>
             <class name="by.training.composite.dao.DataInputReader"/>
             <class name="by.training.composite.service.parser.SymbolParserTest"/>
-            <class name="by.training.composite.entity.SymbolComponentTest"/>
+            <class name="by.training.composite.entity.TextComponentTest"/>
+            <class name="by.training.composite.entity.ParagraphComponentTest"/>
+            <class name="by.training.composite.entity.SentenceComponentTest"/>
+            <class name="by.training.composite.entity.LexemeComponentTest"/>
             <class name="by.training.composite.entity.WordComponentTest"/>
+            <class name="by.training.composite.entity.SymbolComponentTest"/>
             <class name="by.training.composite.service.sort.SortParByCountSentTest"/>
+            <class name="by.training.composite.service.sort.SortLexemesByCharacterEntryTest"/>
+            <class name="by.training.composite.service.sort.SortSentInParagraphByCountWordsTest"/>
+            <class name="by.training.composite.service.sort.SortWordsInSentByLengthTest"/>
+            <class name="by.training.composite.service.parser.ParagraphParserTest"/>
+            <class name="by.training.composite.service.parser.SentenceParserTest"/>
+            <class name="by.training.composite.service.parser.LexemeParserTest"/>
+            <class name="by.training.composite.service.parser.WordParserTest"/>
             <class name="by.training.composite.service.parser.SymbolParserTest"/>
             <class name="by.training.composite.validator.FileValidator"/>
             <class name="by.training.composite.validator.ValidatorTest"/>

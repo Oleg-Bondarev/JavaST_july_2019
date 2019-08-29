@@ -15,9 +15,9 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Testing paragraphs sorting.
+ * Testing sentence sorting.
  * */
-public class SortParByCountSentTest {
+public class SortSentInParagraphByCountWordsTest {
     /**
      * @return data for test.
      */
@@ -40,17 +40,16 @@ public class SortParByCountSentTest {
         lexemeParser.setNextParser(wordParser);
         wordParser.setNextParser(symbolParser);
 
-        textParser.parse(component1, "\tOne. Two?\n\tSome text... "
-                + "Really?!\n\tNew top paragraph!\n");
+        textParser.parse(component1, "\tDo not pay attention to him."
+                + " Ebe eae.");
         textParser.parse(component2, "");
         textParser.parse(component3, "Word");
-        SortSpecification sorter = new SortParByCountSent();
+        SortSpecification sorter = new SortSentInParagraphByCountWords();
         sorter.sort(component1);
         sorter.sort(component2);
         sorter.sort(component3);
         return new Object[][] {
-                {component1, "\tNew top paragraph!\n\tOne. Two?"
-                        + "\n\tSome text... Really?!"},
+                {component1, "\tEbe eae. Do not pay attention to him."},
                 {component2, "\t"},
                 {component3, "\tWord"}
         };

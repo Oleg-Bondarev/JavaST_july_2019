@@ -15,17 +15,18 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Testing paragraphs sorting.
+ * Sorting lexemes by entering character.
  * */
-public class SortParByCountSentTest {
+public class SortLexemesByCharacterEntryTest {
     /**
-     * @return data for test.
-     */
+    * @return data for test.
+    */
     @DataProvider(name = "DataForSortText")
     public Object[][] testSortProvider() {
         Component component1 = new TextComponent();
         Component component2 = new TextComponent();
         Component component3 = new TextComponent();
+        Component component4 = new TextComponent();
 
         TextParser textParser = new TextParser();
         ParagraphParser paragraphParser = new ParagraphParser();
@@ -40,22 +41,21 @@ public class SortParByCountSentTest {
         lexemeParser.setNextParser(wordParser);
         wordParser.setNextParser(symbolParser);
 
-        textParser.parse(component1, "\tOne. Two?\n\tSome text... "
-                + "Really?!\n\tNew top paragraph!\n");
+        textParser.parse(component1, "\tZene not dene attention to him."
+                + " Ebe eae.");
         textParser.parse(component2, "");
-        textParser.parse(component3, "Word");
-        SortSpecification sorter = new SortParByCountSent();
+        textParser.parse(component3, "CCC BBB AAA, DDD. EEE,"
+                + " FFF GGG HHH.");
+        SortSpecification sorter = new SortLexemesByCharacterEntry('e');
         sorter.sort(component1);
         sorter.sort(component2);
         sorter.sort(component3);
         return new Object[][] {
-                {component1, "\tNew top paragraph!\n\tOne. Two?"
-                        + "\n\tSome text... Really?!"},
+                {component1, "\tZene dene attention him. not to eae. Ebe"},
                 {component2, "\t"},
-                {component3, "\tWord"}
+                {component3, "\tAAA, BBB CCC DDD. EEE, FFF GGG HHH."}
         };
     }
-
     /**
      * @param component actual component.
      * @param expect result string.

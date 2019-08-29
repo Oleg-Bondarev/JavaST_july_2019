@@ -15,17 +15,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Testing paragraphs sorting.
+ * Sorting words test.
  * */
-public class SortParByCountSentTest {
+public class SortWordsInSentByLengthTest {
     /**
-     * @return data for test.
-     */
+     * @return two-dimension array.
+     * */
     @DataProvider(name = "DataForSortText")
-    public Object[][] testSortProvider() {
-        Component component1 = new TextComponent();
-        Component component2 = new TextComponent();
-        Component component3 = new TextComponent();
+    public Object[][] testComposeMethod() {
+        TextComponent component1 = new TextComponent();
+        TextComponent component2 = new TextComponent();
+        TextComponent component3 = new TextComponent();
 
         TextParser textParser = new TextParser();
         ParagraphParser paragraphParser = new ParagraphParser();
@@ -40,17 +40,17 @@ public class SortParByCountSentTest {
         lexemeParser.setNextParser(wordParser);
         wordParser.setNextParser(symbolParser);
 
-        textParser.parse(component1, "\tOne. Two?\n\tSome text... "
-                + "Really?!\n\tNew top paragraph!\n");
+        textParser.parse(component1, "\tDo not pay attention to him."
+                + " Ebe eae.\n\tSome english text.");
         textParser.parse(component2, "");
         textParser.parse(component3, "Word");
-        SortSpecification sorter = new SortParByCountSent();
+        SortSpecification sorter = new SortWordsInSentByLength();
         sorter.sort(component1);
         sorter.sort(component2);
         sorter.sort(component3);
         return new Object[][] {
-                {component1, "\tNew top paragraph!\n\tOne. Two?"
-                        + "\n\tSome text... Really?!"},
+                {component1, "\tDo to not pay him. attention Ebe eae.\n\t"
+                        + "Some text. english"},
                 {component2, "\t"},
                 {component3, "\tWord"}
         };
