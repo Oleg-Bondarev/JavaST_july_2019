@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://www.example.com/flowers"
-         xsi:schemaLocation="http://www.example.com/flowers  flowers.xsd">
+         xmlns="http://www.training.by/flowers"
+         xsi:schemaLocation="http://www.training.by/flowers  flowers.xsd">
 
     <WildFlower id="001" name="Hanger blue" is_medicinal="true" soil="podzolic"
                 is_lightening="true" is_protected="true"
@@ -38,7 +38,6 @@
         </regions>
     </WildFlower>
 
-    <!-- without regions -->
     <WildFlower id="003" name="Iris" is_medicinal="true" soil="sod-podzolic"
                 is_lightening="true" is_protected="false"
                 multiplying="leafs">

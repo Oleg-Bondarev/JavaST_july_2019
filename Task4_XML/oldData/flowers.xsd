@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema version="1.0"
         xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:tns="http://www.example.com/flowers"
-        targetNamespace="http://www.example.com/flowers"
+        xmlns:tns="http://www.training.by/flowers"
+        targetNamespace="http://www.training.by/flowers"
         elementFormDefault="qualified">
 
     <element name="flower" type="tns:AbstractFlower" abstract="true"/>
@@ -10,6 +10,8 @@
              substitutionGroup="tns:flower"/>-->
     <!--<element name="artificial_flower" type="tns:ArtificialFlower"
              substitutionGroup="tns:flower"/>-->
+
+    <!-- minInclusive value="mindate" -->
 
     <element name="Flowers">
         <complexType>

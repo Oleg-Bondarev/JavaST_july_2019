@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.epam.training.by/flowers2"
+        xsi:schemaLocation="http://www.epam.training.by/flowers2  flowers2.xsd">
+
+    <WildFlower id="A001" name="Hanger blue" isMedical="true"
+                multiplying="cuttings">
+        <soil>podzolic</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <avg_size>45</avg_size>
+        <temperature>5-36</temperature>
+        <watering>560</watering>
+        <discovery_year>1876-03-12</discovery_year>
+        <isProtected>true</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A002" name="Althaea officinalis" isMedical="true">
+        <soil>unpaved</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <avg_size>110</avg_size>
+        <temperature>3-40</temperature>
+        <watering>356</watering>
+        <discovery_year>1890-11-16</discovery_year>
+        <isProtected>true</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A003" name="Iris" isMedical="true"
+                multiplying="leafs">
+        <soil>sod-podzolic</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>green</leaf_color>
+        <avg_size>34</avg_size>
+        <temperature>20-33</temperature>
+        <watering>350</watering>
+        <discovery_year>1900-09-12</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A004" name="Saint-John's-wort" isMedical="true">
+        <soil>sod-podzolic</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>green</leaf_color>
+        <avg_size>65</avg_size>
+        <temperature>25-40</temperature>
+        <watering>560</watering>
+        <discovery_year>1878-08-12</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A005" name="Delphinium" isMedical="false"
+                multiplying="cuttings">
+        <soil>podzolic</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <avg_size>125</avg_size>
+        <temperature>10-28</temperature>
+        <watering>1500</watering>
+        <discovery_year>1800-03-10</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A006" name="Wild strawberries" isMedical="false">
+        <soil>podzolic</soil>
+        <steam_color>green</steam_color>
+        <leaf_color>light green</leaf_color>
+        <avg_size>15</avg_size>
+        <temperature>22-28</temperature>
+        <watering>400</watering>
+        <discovery_year>1806-01-23</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A007" name="Polygonum aviculare" isMedical="true">
+        <soil>podzolic</soil>
+        <steam_color>brown</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <avg_size>15</avg_size>
+        <temperature>14-36</temperature>
+        <watering>480</watering>
+        <discovery_year>1888-05-19</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <WildFlower id="A008" name="Matricaria" isMedical="true">
+        <soil>sod-podzolic</soil>
+        <steam_color>dark green</steam_color>
+        <leaf_color>green</leaf_color>
+        <avg_size>25</avg_size>
+        <temperature>14-36</temperature>
+        <watering>650</watering>
+        <discovery_year>1876-02-28</discovery_year>
+        <isProtected>false</isProtected>
+    </WildFlower>
+
+    <ArtificialFlower  name="Eustoma" id="B009" isMedical="false">
+        <soil>podzolic</soil>
+        <steam_color>dark green</steam_color>
+        <leaf_color>blue</leaf_color>
+        <avg_size>40</avg_size>
+        <temperature>15-30</temperature>
+        <watering>550</watering>
+        <discovery_year>1979-12-12</discovery_year>
+        <scientist_name>
+            <scientist>E. Crogh</scientist>
+            <scientist>McDonald Gibs</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Agapantus" id="B010" isMedical="false"
+                       multiplying="leafs">
+        <soil>unpaved</soil>
+        <steam_color>brown</steam_color>
+        <leaf_color>orange</leaf_color>
+        <avg_size>25</avg_size>
+        <temperature>20-30</temperature>
+        <watering>540</watering>
+        <discovery_year>1990-03-02</discovery_year>
+        <scientist_name>
+            <scientist>G. Emellman</scientist>
+            <scientist>Y. Halinski</scientist>
+            <scientist>L. Dios</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Sovetus Socialistus" id="B011" isMedical="false"
+                       multiplying="cuttings">
+        <soil>unpaved</soil>
+        <steam_color>red</steam_color>
+        <leaf_color>yellow</leaf_color>
+        <avg_size>34</avg_size>
+        <temperature>11-30</temperature>
+        <watering>670</watering>
+        <discovery_year>1976-02-27</discovery_year>
+        <scientist_name>
+            <scientist>M. Moscal</scientist>
+            <scientist>B. Bulbash</scientist>
+            <scientist>H. Hohol</scientist>
+            <scientist>P. Psheck</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Alstromeria" id="B012" isMedical="false">
+        <soil>unpaved</soil>
+        <steam_color>dark brown</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <avg_size>28</avg_size>
+        <temperature>25-30</temperature>
+        <watering>560</watering>
+        <discovery_year>1998-03-08</discovery_year>
+        <scientist_name>
+            <scientist>Fr. Astrimeri</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Anturium" id="B013" isMedical="false"
+                       multiplying="leafs">
+        <soil>unpaved</soil>
+        <steam_color>dark green</steam_color>
+        <leaf_color>green</leaf_color>
+        <avg_size>27</avg_size>
+        <temperature>22-27</temperature>
+        <watering>640</watering>
+        <discovery_year>2003-12-10</discovery_year>
+        <scientist_name>
+            <scientist> U. Gobs</scientist>
+            <scientist>R. Solovey</scientist>
+            <scientist>L. Dios</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Buvardia" id="B014" isMedical="false"
+                       multiplying="cuttings">
+        <soil>podzolic</soil>
+        <steam_color>dark green</steam_color>
+        <leaf_color>dark blue</leaf_color>
+        <avg_size>20</avg_size>
+        <temperature>20-24</temperature>
+        <watering>290</watering>
+        <discovery_year>1999-07-07</discovery_year>
+        <scientist_name>
+            <scientist>N. Russinski</scientist>
+            <scientist>Y. Halinski</scientist>
+            <scientist>O. McDonald</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Krassula" id="B015" isMedical="false"
+                       multiplying="cuttings">
+        <soil>unpaved</soil>
+        <steam_color>light brown</steam_color>
+        <leaf_color>green</leaf_color>
+        <avg_size>15</avg_size>
+        <temperature>20-25</temperature>
+        <watering>430</watering>
+        <discovery_year>1987-06-26</discovery_year>
+        <scientist_name>
+            <scientist>K. Ismut</scientist>
+            <scientist>D. Lebedev</scientist>
+            <scientist>T. Korolov</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+    <ArtificialFlower  name="Eucalypti Baby-Blue" id="B016" isMedical="false"
+                       multiplying="leafs">
+        <soil>sod-podzolic</soil>
+        <steam_color>dark green</steam_color>
+        <leaf_color>dark green</leaf_color>
+        <avg_size>13</avg_size>
+        <temperature>22-28</temperature>
+        <watering>540</watering>
+        <discovery_year>1940-03-22</discovery_year>
+        <scientist_name>
+            <scientist>L. Sonaev</scientist>
+        </scientist_name>
+    </ArtificialFlower>
+
+</Flowers>

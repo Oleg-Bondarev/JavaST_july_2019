@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://www.epam.training.by/flowers2"
+        targetNamespace="http://www.epam.training.by/flowers2"
+        elementFormDefault="qualified">
+    <element name="abstractFlower" type="tns:AbstractFlower" abstract="true"/>
+
+    <element name="Flowers">
+        <complexType mixed="true">
+            <sequence>
+                <element ref="tns:abstractFlower" maxOccurs="16"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="AbstractFlower" mixed="true">
+        <sequence>
+            <element name="soil" type="tns:Soil"/>
+            <element name="steam_color" type="string"/>
+            <element name="leaf_color" type="string"/>
+            <element name="avg_size" type="positiveInteger"/>
+            <element name="temperature" type="tns:Temperature"/>
+            <element name="watering" type="positiveInteger"/>
+            <element name="discovery_year" type="date"/>
+        </sequence>
+        <attribute name="id" type="tns:ID" use="required"/>
+        <attribute name="name" type="string" use="required"/>
+        <attribute name="isMedical" type="boolean" use="required"/>
+        <attribute name="multiplying" type="tns:Multiplying" default="seeds"/>
+    </complexType>
+
+    <element name="WildFlower" substitutionGroup="tns:abstractFlower">
+        <complexType mixed="true">
+            <complexContent>
+                <extension base="tns:AbstractFlower">
+                    <sequence>
+                        <element name="isProtected" type="boolean"/>
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+
+    <element name="ArtificialFlower" substitutionGroup="tns:abstractFlower">
+        <complexType mixed="true">
+            <complexContent>
+                <extension base="tns:AbstractFlower">
+                    <sequence>
+                        <element name="scientist_name" type="tns:Scientist"/>
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+
+    <complexType name="Scientist">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="scientist" type="string"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="Soil">
+        <restriction base="string">
+            <enumeration value="podzolic"/>
+            <enumeration value="unpaved"/>
+            <enumeration value="sod-podzolic"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="ID">
+        <restriction base="ID">
+            <pattern value="[A-Z][0-9]{1,3}"/>
+        </restriction>
+    </simpleType>
+    
+    <simpleType name="Temperature">
+        <restriction base="string" >
+            <pattern value="(\d{1,3})-(\d{1,3})"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Multiplying">
+        <restriction base="string">
+            <enumeration value="seeds"/>
+            <enumeration value="cuttings"/>
+            <enumeration value="leafs"/>
+        </restriction>
+    </simpleType>
+</schema>
