@@ -6,7 +6,13 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class for parsing data.
  * */
-public class DataParser {
+class DateParser {
+    /**
+     * Constr.
+     * */
+    DateParser() {
+    }
+
     /**
      * Parsing data.
      * @param date -date.

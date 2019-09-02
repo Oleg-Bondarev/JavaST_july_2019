@@ -1,20 +1,20 @@
-package by.training.flowers.entity;
+package by.training.flowers.parser;
 
 /**
- * Unknown type exception class.
+ * Parsing exception class.
  * */
-public class UnknownTypeException extends Exception {
+public class ParserException extends Exception {
     /**
      * Constructor without parameters.
      * */
-    public UnknownTypeException() {
+    public ParserException() {
         super();
     }
     /**
      * Constr. with one parameter.
      * @param message message.
      */
-    public UnknownTypeException(final String message) {
+    public ParserException(final String message) {
         super(message);
     }
     /**
@@ -22,15 +22,16 @@ public class UnknownTypeException extends Exception {
      * @param message message.
      * @param cause   cause.
      */
-    public UnknownTypeException(final String message,
-                               final Throwable cause) {
+    public ParserException(final String message,
+                                final Throwable cause) {
         super(message, cause);
     }
     /**
      * Constr. with one parameter.
      * @param cause cause.
      */
-    public UnknownTypeException(final Throwable cause) {
+    public ParserException(final Throwable cause) {
         super(cause);
     }
+
 }

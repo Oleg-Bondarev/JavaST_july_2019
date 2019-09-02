@@ -11,6 +11,7 @@
         <avg_size>45</avg_size>
         <temperature>5-36</temperature>
         <watering>560</watering>
+        <lighting>true</lighting>
         <discovery_year>1876-03-12</discovery_year>
         <isProtected>true</isProtected>
     </WildFlower>
@@ -22,6 +23,7 @@
         <avg_size>110</avg_size>
         <temperature>3-40</temperature>
         <watering>356</watering>
+        <lighting>false</lighting>
         <discovery_year>1890-11-16</discovery_year>
         <isProtected>true</isProtected>
     </WildFlower>
@@ -34,6 +36,7 @@
         <avg_size>34</avg_size>
         <temperature>20-33</temperature>
         <watering>350</watering>
+        <lighting>true</lighting>
         <discovery_year>1900-09-12</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -45,6 +48,7 @@
         <avg_size>65</avg_size>
         <temperature>25-40</temperature>
         <watering>560</watering>
+        <lighting>false</lighting>
         <discovery_year>1878-08-12</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -57,6 +61,7 @@
         <avg_size>125</avg_size>
         <temperature>10-28</temperature>
         <watering>1500</watering>
+        <lighting>true</lighting>
         <discovery_year>1800-03-10</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -68,6 +73,7 @@
         <avg_size>15</avg_size>
         <temperature>22-28</temperature>
         <watering>400</watering>
+        <lighting>false</lighting>
         <discovery_year>1806-01-23</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -79,6 +85,7 @@
         <avg_size>15</avg_size>
         <temperature>14-36</temperature>
         <watering>480</watering>
+        <lighting>true</lighting>
         <discovery_year>1888-05-19</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -90,6 +97,7 @@
         <avg_size>25</avg_size>
         <temperature>14-36</temperature>
         <watering>650</watering>
+        <lighting>false</lighting>
         <discovery_year>1876-02-28</discovery_year>
         <isProtected>false</isProtected>
     </WildFlower>
@@ -101,10 +109,10 @@
         <avg_size>40</avg_size>
         <temperature>15-30</temperature>
         <watering>550</watering>
+        <lighting>true</lighting>
         <discovery_year>1979-12-12</discovery_year>
         <scientist_name>
-            <scientist>E. Crogh</scientist>
-            <scientist>McDonald Gibs</scientist>
+            E. Crogh, McDonald Gibs
         </scientist_name>
     </ArtificialFlower>
 
@@ -116,11 +124,10 @@
         <avg_size>25</avg_size>
         <temperature>20-30</temperature>
         <watering>540</watering>
+        <lighting>false</lighting>
         <discovery_year>1990-03-02</discovery_year>
         <scientist_name>
-            <scientist>G. Emellman</scientist>
-            <scientist>Y. Halinski</scientist>
-            <scientist>L. Dios</scientist>
+            G. Emellman, Y. Halinski, L. Dios
         </scientist_name>
     </ArtificialFlower>
 
@@ -132,12 +139,10 @@
         <avg_size>34</avg_size>
         <temperature>11-30</temperature>
         <watering>670</watering>
+        <lighting>false</lighting>
         <discovery_year>1976-02-27</discovery_year>
         <scientist_name>
-            <scientist>M. Moscal</scientist>
-            <scientist>B. Bulbash</scientist>
-            <scientist>H. Hohol</scientist>
-            <scientist>P. Psheck</scientist>
+            M. Moscal, B. Bulbash, H. Hohol, P. Psheck
         </scientist_name>
     </ArtificialFlower>
 
@@ -148,9 +153,10 @@
         <avg_size>28</avg_size>
         <temperature>25-30</temperature>
         <watering>560</watering>
+        <lighting>true</lighting>
         <discovery_year>1998-03-08</discovery_year>
         <scientist_name>
-            <scientist>Fr. Astrimeri</scientist>
+            Fr. Astrimeri
         </scientist_name>
     </ArtificialFlower>
 
@@ -162,11 +168,10 @@
         <avg_size>27</avg_size>
         <temperature>22-27</temperature>
         <watering>640</watering>
+        <lighting>false</lighting>
         <discovery_year>2003-12-10</discovery_year>
         <scientist_name>
-            <scientist> U. Gobs</scientist>
-            <scientist>R. Solovey</scientist>
-            <scientist>L. Dios</scientist>
+            U. Gobs, R. Solovey, L. Dios
         </scientist_name>
     </ArtificialFlower>
 
@@ -178,11 +183,10 @@
         <avg_size>20</avg_size>
         <temperature>20-24</temperature>
         <watering>290</watering>
+        <lighting>true</lighting>
         <discovery_year>1999-07-07</discovery_year>
         <scientist_name>
-            <scientist>N. Russinski</scientist>
-            <scientist>Y. Halinski</scientist>
-            <scientist>O. McDonald</scientist>
+            N. Russinski, Y. Halinski, O. McDonald
         </scientist_name>
     </ArtificialFlower>
 
@@ -194,11 +198,10 @@
         <avg_size>15</avg_size>
         <temperature>20-25</temperature>
         <watering>430</watering>
+        <lighting>false</lighting>
         <discovery_year>1987-06-26</discovery_year>
         <scientist_name>
-            <scientist>K. Ismut</scientist>
-            <scientist>D. Lebedev</scientist>
-            <scientist>T. Korolov</scientist>
+            K. Ismut, D. Lebedev, T. Korolov
         </scientist_name>
     </ArtificialFlower>
 
@@ -210,9 +213,10 @@
         <avg_size>13</avg_size>
         <temperature>22-28</temperature>
         <watering>540</watering>
+        <lighting>true</lighting>
         <discovery_year>1940-03-22</discovery_year>
         <scientist_name>
-            <scientist>L. Sonaev</scientist>
+            L. Sonaev
         </scientist_name>
     </ArtificialFlower>
 

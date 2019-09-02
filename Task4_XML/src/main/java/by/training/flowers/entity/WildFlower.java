@@ -1,6 +1,5 @@
 package by.training.flowers.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,49 +10,50 @@ public class WildFlower extends AbstractFlower {
      * Is protected.
      * */
     private boolean isProtected;
-
-    private List<String> regions;
-
+    /**
+     * @return boolean.
+     * */
     public boolean isProtected() {
         return isProtected;
     }
-
-    public List<String> getRegions() {
-        return regions;
+    /**
+     * @param protect -boolean value.
+     * */
+    public void setProtected(final boolean protect) {
+        isProtected = protect;
     }
-
-    public void setRegion(final String region) {
-        regions.add(region);
-    }
-
-    public void setRegions(List<String> regions) {
-        this.regions = regions;
-    }
-
-    public void setProtected(boolean aProtected) {
-        isProtected = aProtected;
-    }
-
+    /**
+     * @param o -obj.
+     * @return bool.
+     * */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         WildFlower that = (WildFlower) o;
-        return isProtected == that.isProtected &&
-                regions.equals(that.regions);
+        return isProtected == that.isProtected;
     }
-
+    /**
+     * @return hashcode.
+     * */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), isProtected, regions);
+        return Objects.hash(super.hashCode(), isProtected);
     }
-
+    /**
+     * @return string.
+     * */
     @Override
     public String toString() {
-        return "WildFlower{" +
-                "isProtected=" + isProtected +
-                ", regions=" + regions +
-                '}';
+        StringBuilder builder = new StringBuilder(super.toString());
+        builder.append(" WildFlower{ isProtected=" + isProtected + "}\n");
+        return builder.toString();
     }
 }
