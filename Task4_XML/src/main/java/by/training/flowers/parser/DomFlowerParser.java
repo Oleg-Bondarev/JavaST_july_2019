@@ -15,7 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -44,7 +44,7 @@ public class DomFlowerParser {
      * @throws ParserException -if have problems.
      * */
     public DomFlowerParser() throws ParserException {
-        this.flowersSet = new HashSet<>();
+        this.flowersSet = new LinkedHashSet<>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             documentBuilder = factory.newDocumentBuilder();
@@ -136,7 +136,7 @@ public class DomFlowerParser {
         flower.setLeafColor(getElementTextContent(element,
                 FlowersTagName.LEAF_COLOR.getValue()));
         flower.setAvgSize(Integer.parseInt(getElementTextContent(element,
-                FlowersTagName.AVERAGE_SIZE.getValue())));
+                FlowersTagName.AVG_SIZE.getValue())));
         flower.setTemperature(getElementTextContent(element,
                 FlowersTagName.TEMPERATURE.getValue()));
         flower.setWatering(Integer.parseInt(getElementTextContent(element,

@@ -37,7 +37,7 @@
             <complexContent>
                 <extension base="tns:AbstractFlower">
                     <sequence>
-                        <element name="isProtected" type="boolean"/>
+                        <element name="is-protected" type="boolean"/>
                     </sequence>
                 </extension>
             </complexContent>
@@ -49,18 +49,18 @@
             <complexContent>
                 <extension base="tns:AbstractFlower">
                     <sequence>
-                        <element name="scientist_name" type="string"/>
+                        <element name="scientist_name" type="tns:Scientist"/>
                     </sequence>
                 </extension>
             </complexContent>
         </complexType>
     </element>
 
-    <!--<complexType name="Scientist">
+    <complexType name="Scientist">
         <sequence minOccurs="1" maxOccurs="unbounded">
             <element name="scientist" type="string"/>
         </sequence>
-    </complexType>-->
+    </complexType>
 
     <simpleType name="Soil">
         <restriction base="string">

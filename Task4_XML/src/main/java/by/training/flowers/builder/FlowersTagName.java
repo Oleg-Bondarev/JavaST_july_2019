@@ -25,7 +25,7 @@ public enum FlowersTagName {
     /**Tag.*/
     LEAF_COLOR("leaf_color"),
     /**Tag.*/
-    AVERAGE_SIZE("avg_size"),
+    AVG_SIZE("avg_size"),
     /**Tag.*/
     TEMPERATURE("temperature"),
     /**Tag.*/
@@ -35,7 +35,9 @@ public enum FlowersTagName {
     /**Tag.*/
     DISCOVERY_YEAR("discovery_year"),
     /**Tag.*/
-    IS_PROTECTED("isProtected"),
+    IS_PROTECTED("is-protected"),
+    /**Tag.*/
+    SCIENTIST("scientist"),
     /**Tag.*/
     SCIENTIST_NAME("scientist_name");
     /**

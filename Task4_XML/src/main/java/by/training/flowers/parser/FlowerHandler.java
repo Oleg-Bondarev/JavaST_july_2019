@@ -9,9 +9,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Handler class.
@@ -24,7 +22,7 @@ public class FlowerHandler extends DefaultHandler {
     /**
      * Set of all flowers.
      * */
-    private Set<AbstractFlower> allFlowersSet = new HashSet<>();
+    private Set<AbstractFlower> allFlowersSet = new LinkedHashSet<>();
     /**
      * Current flower.
      * */
@@ -34,7 +32,7 @@ public class FlowerHandler extends DefaultHandler {
      * */
     private EnumSet<FlowersTagName> abstractFlowerAttribute =
             EnumSet.range(FlowersTagName.FLOWERS,
-                    FlowersTagName.SCIENTIST_NAME);
+                    FlowersTagName.SCIENTIST);
     /**
      * Tag enum.
      * */
@@ -47,7 +45,6 @@ public class FlowerHandler extends DefaultHandler {
      * Class 2.
      * */
     private String className2 = "ArtificialFlower";
-
     /**
      * Constructor.
      * */
@@ -90,12 +87,10 @@ public class FlowerHandler extends DefaultHandler {
      * @param attributes - The attributes attached to the element.  If
      *                     there are no attributes, it shall be an empty
      *                     Attributes object.
-     * @throws SAXException -exception.
      * */
     @Override
     public void startElement(final String uri, final String localName,
-                             final String qName, final Attributes attributes)
-            throws SAXException {
+                             final String qName, final Attributes attributes) {
         if (className1.equals(localName) || className2.equals(localName)) {
             if (className1.equals(localName)) {
                 currentFlower = new WildFlower();
@@ -187,7 +182,7 @@ public class FlowerHandler extends DefaultHandler {
                 case LEAF_COLOR:
                     currentFlower.setLeafColor(str);
                     break;
-                case AVERAGE_SIZE:
+                case AVG_SIZE:
                     currentFlower.setAvgSize(Integer.parseInt(str));
                     break;
                 case TEMPERATURE:
@@ -196,6 +191,9 @@ public class FlowerHandler extends DefaultHandler {
                 case WATERING:
                     currentFlower.setWatering(Integer.parseInt(str));
                     break;
+                case LIGHTING:
+                    currentFlower.setLighting(Boolean.parseBoolean(str));
+                    break;
                 case DISCOVERY_YEAR:
                     currentFlower.setDiscoveryYear(DateParser.parseDate(str));
                     break;
@@ -203,7 +201,7 @@ public class FlowerHandler extends DefaultHandler {
                     ((WildFlower) currentFlower)
                             .setProtected(Boolean.parseBoolean(str));
                     break;
-                case SCIENTIST_NAME:
+                case SCIENTIST:
                     ((ArtificialFlower) currentFlower).setScientistName(str);
                     break;
                 default:
