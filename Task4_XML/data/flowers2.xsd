@@ -37,7 +37,7 @@
             <complexContent>
                 <extension base="tns:AbstractFlower">
                     <sequence>
-                        <element name="is-protected" type="boolean"/>
+                        <element name="is_protected" type="boolean"/>
                     </sequence>
                 </extension>
             </complexContent>

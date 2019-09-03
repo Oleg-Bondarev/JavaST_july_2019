@@ -1,6 +1,5 @@
 package by.training.flowers.parser;
 
-import by.training.flowers.entity.AbstractFlower;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -11,24 +10,15 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
 /**
  * SAX parser class.
  * */
-public class SaxFlowerParser {
-    /**
-     * Set of flowers.
-     * */
-    private Set<AbstractFlower> flowersSet;
+public class SaxFlowerParser extends AbstractFlowerParser {
     /**
      * Handler.
      * */
     private FlowerHandler handler;
-    /**
-     * XML reader.
-     * */
-    private XMLReader reader;
     /**
      * Schema.
      * */
@@ -40,20 +30,21 @@ public class SaxFlowerParser {
      * */
     private SchemaFactory schemaFactory = SchemaFactory.newInstance(constant);
     /**
+     * XML reader.
+     * */
+    private XMLReader reader;
+    /**
      * SAX parser factory.
      * */
     private SAXParserFactory parserFactory = SAXParserFactory.newInstance();
     /**
-     * Constructor.
-     * */
-    public SaxFlowerParser() { }
-    /**
-     * @param file -xsd schema.
      * @throws ParserException -exception.
      * */
-    public SaxFlowerParser(final File file) throws ParserException {
+    public SaxFlowerParser() throws ParserException {
+        super();
         try {
-            schema = schemaFactory.newSchema(file);
+            schema = schemaFactory.newSchema(
+                    new File("data/flowers2.xsd"));
             handler = new FlowerHandler();
             parserFactory.setNamespaceAware(true);
             parserFactory.setValidating(false);
@@ -65,17 +56,11 @@ public class SaxFlowerParser {
         }
     }
     /**
-     * @return flowers set.
-     * */
-    public Set<AbstractFlower> getFlowersSet() {
-        return flowersSet;  //TODO copy
-    }
-    /**
      * Parsing method.
      * @param fileName -xml file.
      * @throws ParserException - exception.
      * */
-    public void buildFlower(final String fileName) throws ParserException {
+    public void buildFlowerSet(final String fileName) throws ParserException {
         try {
             reader.parse(fileName);
         } catch (SAXException e) {

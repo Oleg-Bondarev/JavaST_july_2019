@@ -1,6 +1,5 @@
 package by.training.flowers.parser;
 
-import by.training.flowers.builder.FlowersTagName;
 import by.training.flowers.entity.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -61,16 +60,12 @@ public class FlowerHandler extends DefaultHandler {
     /**
      * @throws SAXException -exception.
      * */
-    public void starDocument() throws SAXException {
-        LOGGER.log(Level.INFO, "Parsing SAX start.");
-    }
+    public void starDocument() throws SAXException { }
     /**
      * @throws SAXException -exception.
      * */
     @Override
-    public void endDocument() throws SAXException {
-        LOGGER.log(Level.INFO, "Parsing SAX end.");
-    }
+    public void endDocument() throws SAXException { }
     /**
      * Reports the start of the analysis of the document,
      * provides the application with information about

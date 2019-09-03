@@ -1,10 +1,6 @@
 package by.training.flowers.parser;
 
-import by.training.flowers.builder.FlowersTagName;
 import by.training.flowers.entity.*;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,30 +12,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * DOM parser.
  * */
-public class DomFlowerParser {
-    /**
-     * Logger.
-     * */
-    private static final Logger LOGGER = LogManager.getLogger();
-    /**
-     * Set.
-     * */
-    private Set<AbstractFlower> flowersSet;
+public class DomFlowerParser extends AbstractFlowerParser {
     /**
      * Document builder object.
      * */
     private DocumentBuilder documentBuilder;
-    /**
-     * @return set.
-     * */
-    public Set<AbstractFlower> getFlowersSet() {
-        return flowersSet; //TODO copy?
-    }
     /**
      * @throws ParserException -if have problems.
      * */
@@ -49,7 +30,6 @@ public class DomFlowerParser {
         try {
             documentBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            LOGGER.log(Level.ERROR, "Exception in DOM configuration: {}", e);
             throw new ParserException("Exception in DOM configuration: " + e);
         }
     }
@@ -57,7 +37,7 @@ public class DomFlowerParser {
      * @param fileName -input file.
      * @throws ParserException -if have problems.
      * */
-    public void buildSetFlowers(final String fileName) throws ParserException {
+    public void buildFlowerSet(final String fileName) throws ParserException {
         Document document = null;
         try {
             document = documentBuilder.parse(fileName);

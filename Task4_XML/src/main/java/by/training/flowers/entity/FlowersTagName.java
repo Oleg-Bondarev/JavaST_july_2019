@@ -1,4 +1,4 @@
-package by.training.flowers.builder;
+package by.training.flowers.entity;
 
 /**
  * Tag enum.
@@ -7,9 +7,9 @@ public enum FlowersTagName {
     /**Tag.*/
     FLOWERS("flowers"),
     /**Tag.*/
-    WILD_FLOWER("wild"),
+    WILD_FLOWER("WildFlower"),
     /**Tag.*/
-    ARTIFICATIONAL_FLOWER("artificial"),
+    ARTIFICATIONAL_FLOWER("ArtificialFlower"),
     /**Tag.*/
     NAME("name"),
     /**Tag.*/
@@ -35,7 +35,7 @@ public enum FlowersTagName {
     /**Tag.*/
     DISCOVERY_YEAR("discovery_year"),
     /**Tag.*/
-    IS_PROTECTED("is-protected"),
+    IS_PROTECTED("is_protected"),
     /**Tag.*/
     SCIENTIST("scientist"),
     /**Tag.*/

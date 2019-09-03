@@ -13,7 +13,7 @@
         <watering>560</watering>
         <lighting>true</lighting>
         <discovery_year>1876-03-12</discovery_year>
-        <is-protected>true</is-protected>
+        <is_protected>true</is_protected>
     </WildFlower>
 
     <WildFlower id="A002" name="Althaea officinalis" isMedical="true">
@@ -25,7 +25,7 @@
         <watering>356</watering>
         <lighting>false</lighting>
         <discovery_year>1890-11-16</discovery_year>
-        <is-protected>true</is-protected>
+        <is_protected>true</is_protected>
     </WildFlower>
 
     <WildFlower id="A003" name="Iris" isMedical="true"
@@ -38,7 +38,7 @@
         <watering>350</watering>
         <lighting>true</lighting>
         <discovery_year>1900-09-12</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>false</is_protected>
     </WildFlower>
 
     <WildFlower id="A004" name="Saint-John's-wort" isMedical="true">
@@ -50,7 +50,7 @@
         <watering>560</watering>
         <lighting>false</lighting>
         <discovery_year>1878-08-12</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>false</is_protected>
     </WildFlower>
 
     <WildFlower id="A005" name="Delphinium" isMedical="false"
@@ -63,7 +63,7 @@
         <watering>1500</watering>
         <lighting>true</lighting>
         <discovery_year>1800-03-10</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>false</is_protected>
     </WildFlower>
 
     <WildFlower id="A006" name="Wild strawberries" isMedical="false">
@@ -75,7 +75,7 @@
         <watering>400</watering>
         <lighting>false</lighting>
         <discovery_year>1806-01-23</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>false</is_protected>
     </WildFlower>
 
     <WildFlower id="A007" name="Polygonum aviculare" isMedical="true">
@@ -87,7 +87,7 @@
         <watering>480</watering>
         <lighting>true</lighting>
         <discovery_year>1888-05-19</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>false</is_protected>
     </WildFlower>
 
     <WildFlower id="A008" name="Matricaria" isMedical="true">
@@ -99,7 +99,7 @@
         <watering>650</watering>
         <lighting>false</lighting>
         <discovery_year>1876-02-28</discovery_year>
-        <is-protected>false</is-protected>
+        <is_protected>true</is_protected>
     </WildFlower>
 
     <ArtificialFlower  name="Eustoma" id="B009" isMedical="false">
