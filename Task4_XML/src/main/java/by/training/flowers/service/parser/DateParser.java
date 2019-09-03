@@ -1,4 +1,4 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class for parsing data.
  * */
-class DateParser {
+final class DateParser {
     /**
-     * Constr.
+     * Constructor.
      * */
-    DateParser() {
+    private DateParser() {
     }
 
     /**
@@ -18,7 +18,7 @@ class DateParser {
      * @param date -date.
      * @return LocalDate object.
      * */
-    public static LocalDate parseDate(final String date) {
+    static LocalDate parseDate(final String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(date, formatter);
     }

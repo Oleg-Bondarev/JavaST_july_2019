@@ -32,7 +32,7 @@
         <attribute name="multiplying" type="tns:Multiplying" default="seeds"/>
     </complexType>
 
-    <element name="WildFlower" substitutionGroup="tns:abstractFlower">
+    <element name="Wild_Flower" substitutionGroup="tns:abstractFlower">
         <complexType mixed="true">
             <complexContent>
                 <extension base="tns:AbstractFlower">
@@ -44,7 +44,7 @@
         </complexType>
     </element>
 
-    <element name="ArtificialFlower" substitutionGroup="tns:abstractFlower">
+    <element name="Artificial_Flower" substitutionGroup="tns:abstractFlower">
         <complexType mixed="true">
             <complexContent>
                 <extension base="tns:AbstractFlower">

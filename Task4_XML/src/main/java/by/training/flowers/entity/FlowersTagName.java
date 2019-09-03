@@ -7,9 +7,9 @@ public enum FlowersTagName {
     /**Tag.*/
     FLOWERS("flowers"),
     /**Tag.*/
-    WILD_FLOWER("WildFlower"),
+    WILD_FLOWER("Wild_Flower"),
     /**Tag.*/
-    ARTIFICATIONAL_FLOWER("ArtificialFlower"),
+    ARTIFICIAL_FLOWER("Artificial_Flower"),
     /**Tag.*/
     NAME("name"),
     /**Tag.*/

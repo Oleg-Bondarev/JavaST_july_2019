@@ -1,4 +1,4 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;

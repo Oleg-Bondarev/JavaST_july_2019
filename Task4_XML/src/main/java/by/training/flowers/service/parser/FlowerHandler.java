@@ -1,24 +1,25 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
-import by.training.flowers.entity.*;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.training.flowers.entity.ArtificialFlower;
+import by.training.flowers.entity.FlowersTagName;
+import by.training.flowers.entity.WildFlower;
+import by.training.flowers.entity.AbstractFlower;
+import by.training.flowers.entity.Multiplying;
+import by.training.flowers.entity.Soil;
+import by.training.flowers.entity.UnknownTypeException;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.*;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.EnumSet;
 
 /**
  * Handler class.
  * */
 public class FlowerHandler extends DefaultHandler {
-    /**
-     * Logger.
-     * */
-    private static final Logger LOGGER = LogManager.getLogger();
-    /**
+   /**
      * Set of all flowers.
      * */
     private Set<AbstractFlower> allFlowersSet = new LinkedHashSet<>();
@@ -39,11 +40,11 @@ public class FlowerHandler extends DefaultHandler {
     /**
      * Class 1.
      * */
-    private String className1 = "WildFlower";
+    private String className1 = "Wild_Flower";
     /**
      * Class 2.
      * */
-    private String className2 = "ArtificialFlower";
+    private String className2 = "Artificial_Flower";
     /**
      * Constructor.
      * */
@@ -54,18 +55,16 @@ public class FlowerHandler extends DefaultHandler {
      * Getter.
      * @return set of flowers.
      * */
-    public Set<AbstractFlower> getAllFlowersSet() {
+    Set<AbstractFlower> getAllFlowersSet() {
         return allFlowersSet; //TODO copy
     }
     /**
-     * @throws SAXException -exception.
-     * */
-    public void starDocument() throws SAXException { }
-    /**
-     * @throws SAXException -exception.
+     * End document method.
      * */
     @Override
-    public void endDocument() throws SAXException { }
+    public void endDocument() {
+        //Nothing doing.
+    }
     /**
      * Reports the start of the analysis of the document,
      * provides the application with information about
@@ -163,6 +162,8 @@ public class FlowerHandler extends DefaultHandler {
         if (tagEnum != null) {
             switch (tagEnum) {
                 case FLOWERS:
+                case WILD_FLOWER:
+                case ARTIFICIAL_FLOWER:
                     break;
                 case SOIL:
                     try {

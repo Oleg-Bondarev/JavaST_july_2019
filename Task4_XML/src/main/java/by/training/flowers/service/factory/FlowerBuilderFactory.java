@@ -1,8 +1,12 @@
-package by.training.flowers.factory;
+package by.training.flowers.service.factory;
 
-import by.training.flowers.parser.*;
+import by.training.flowers.service.parser.DomFlowerParser;
+import by.training.flowers.service.parser.SaxFlowerParser;
+import by.training.flowers.service.parser.StaxFlowerParser;
+import by.training.flowers.service.parser.AbstractFlowerParser;
+import by.training.flowers.service.parser.ParserException;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -22,10 +26,10 @@ public final class FlowerBuilderFactory {
      * Factory that organized like a map.
      * */
     private final Map<ParserType, AbstractFlowerParser> factory =
-            new HashMap<>();
+            new EnumMap<>(ParserType.class);
     /**
      * Constructor.
-     * @throws ParserException -exception.
+     * //@throws ParserException -exception.
      * */
     private FlowerBuilderFactory() {
         try {

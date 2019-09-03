@@ -1,22 +1,14 @@
 package main;
 
-import by.training.flowers.entity.AbstractFlower;
-import by.training.flowers.factory.FlowerBuilderFactory;
-import by.training.flowers.factory.UnknownParserTypeException;
-import by.training.flowers.parser.AbstractFlowerParser;
-import by.training.flowers.parser.ParserException;
+import by.training.flowers.service.factory.FlowerBuilderFactory;
+import by.training.flowers.service.factory.UnknownParserTypeException;
+import by.training.flowers.service.parser.AbstractFlowerParser;
+import by.training.flowers.service.parser.ParserException;
+import by.training.flowers.service.properties.PropertiesReader;
+import by.training.flowers.service.properties.PropertyException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 /**
  * Main class.
@@ -36,11 +28,19 @@ public final class Main {
             e.printStackTrace();
         }*/
         FlowerBuilderFactory flowerFactory = FlowerBuilderFactory.getInstance();
+        String propertyPath = "property/config.properties";
+        String pathXML = null;
+        try {
+            pathXML = PropertiesReader
+                    .takeProperty(propertyPath, "fileXML");
+        } catch (PropertyException e) {
+            e.printStackTrace();
+        }
         //DOM
 //        try {
 //            AbstractFlowerParser domBuilder =
 //                    flowerFactory.createFlowerBuilder("DOM");
-//            domBuilder.buildFlowerSet("data/flowers2.xml");
+//            domBuilder.buildFlowerSet(pathXML);
 //            System.out.println(domBuilder.getFlowersSet());
 //        } catch (ParserException | UnknownParserTypeException e) {
 //            LOGGER.log(Level.WARN, e.getMessage());
@@ -50,7 +50,7 @@ public final class Main {
 //        try {
 //            AbstractFlowerParser saxFlowerParser =
 //                    flowerFactory.createFlowerBuilder("SAX");
-//            saxFlowerParser.buildFlowerSet("data/flowers2.xml");
+//            saxFlowerParser.buildFlowerSet(pathXML);
 //            System.out.println(saxFlowerParser.getFlowersSet());
 //        } catch (ParserException | UnknownParserTypeException e) {
 //            LOGGER.log(Level.WARN, e.getMessage());
@@ -60,7 +60,7 @@ public final class Main {
         try {
             AbstractFlowerParser staxFlowerParser =
                     flowerFactory.createFlowerBuilder("STAX");
-            staxFlowerParser.buildFlowerSet("data/flowers2.xml");
+            staxFlowerParser.buildFlowerSet(pathXML);
             System.out.println(staxFlowerParser.getFlowersSet());
         } catch (UnknownParserTypeException | ParserException e) {
             LOGGER.log(Level.WARN, e.getMessage());

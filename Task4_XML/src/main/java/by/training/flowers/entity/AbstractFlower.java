@@ -55,11 +55,6 @@ public class AbstractFlower {
      * Discovery year.
      * */
     private LocalDate discoveryYear;
-
-    /**
-     * Default constructor.
-     * */
-    public AbstractFlower() { }
     /**
      * @return boolean.
      * */

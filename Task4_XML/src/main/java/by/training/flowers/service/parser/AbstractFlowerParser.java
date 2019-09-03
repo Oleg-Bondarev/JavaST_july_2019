@@ -1,4 +1,4 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
 import by.training.flowers.entity.AbstractFlower;
 import java.util.LinkedHashSet;

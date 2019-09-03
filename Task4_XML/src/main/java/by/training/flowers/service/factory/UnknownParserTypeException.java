@@ -1,4 +1,4 @@
-package by.training.flowers.factory;
+package by.training.flowers.service.factory;
 /**
  * Parser type exception.
  * */

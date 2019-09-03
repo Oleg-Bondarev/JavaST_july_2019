@@ -1,20 +1,20 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.properties;
 
 /**
- * Parsing exception class.
+ * Property exception class.
  * */
-public class ParserException extends Exception {
+public class PropertyException extends Exception {
     /**
      * Constructor without parameters.
      * */
-    public ParserException() {
+    public PropertyException() {
         super();
     }
     /**
      * Constr. with one parameter.
      * @param message message.
      */
-    public ParserException(final String message) {
+    public PropertyException(final String message) {
         super(message);
     }
     /**
@@ -22,15 +22,15 @@ public class ParserException extends Exception {
      * @param message message.
      * @param cause   cause.
      */
-    public ParserException(final String message,
-                                final Throwable cause) {
+    public PropertyException(final String message,
+                           final Throwable cause) {
         super(message, cause);
     }
     /**
      * Constr. with one parameter.
      * @param cause cause.
      */
-    public ParserException(final Throwable cause) {
+    public PropertyException(final Throwable cause) {
         super(cause);
     }
 

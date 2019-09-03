@@ -1,6 +1,12 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
-import by.training.flowers.entity.*;
+import by.training.flowers.entity.ArtificialFlower;
+import by.training.flowers.entity.FlowersTagName;
+import by.training.flowers.entity.WildFlower;
+import by.training.flowers.entity.AbstractFlower;
+import by.training.flowers.entity.Multiplying;
+import by.training.flowers.entity.Soil;
+import by.training.flowers.entity.UnknownTypeException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -38,13 +44,15 @@ public class DomFlowerParser extends AbstractFlowerParser {
      * @throws ParserException -if have problems.
      * */
     public void buildFlowerSet(final String fileName) throws ParserException {
-        Document document = null;
+        Document document;
         try {
             document = documentBuilder.parse(fileName);
             Element root = document.getDocumentElement();
-            NodeList wildFlowersList = root.getElementsByTagName("WildFlower");
+            NodeList wildFlowersList = root.getElementsByTagName(
+                    FlowersTagName.WILD_FLOWER.getValue());
             NodeList artificialFlowerList =
-                    root.getElementsByTagName("ArtificialFlower");
+                    root.getElementsByTagName(FlowersTagName
+                            .ARTIFICIAL_FLOWER.getValue());
             int len = wildFlowersList.getLength();
             for (int i = 0; i <  len; i++) {
                 Element wildFlowerElement = (Element) wildFlowersList.item(i);
@@ -59,7 +67,7 @@ public class DomFlowerParser extends AbstractFlowerParser {
                         (Element) artificialFlowerList.item(i);
                 ArtificialFlower artificialFlower =
                         (ArtificialFlower) buildFlower(artificialFlowerElement,
-                        FlowersTagName.ARTIFICATIONAL_FLOWER.getValue());
+                        FlowersTagName.ARTIFICIAL_FLOWER.getValue());
                 flowersSet.add(artificialFlower);
             }
         } catch (SAXException | IOException e) {

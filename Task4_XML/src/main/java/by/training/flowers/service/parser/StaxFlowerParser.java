@@ -1,6 +1,12 @@
-package by.training.flowers.parser;
+package by.training.flowers.service.parser;
 
-import by.training.flowers.entity.*;
+import by.training.flowers.entity.ArtificialFlower;
+import by.training.flowers.entity.FlowersTagName;
+import by.training.flowers.entity.WildFlower;
+import by.training.flowers.entity.AbstractFlower;
+import by.training.flowers.entity.Multiplying;
+import by.training.flowers.entity.Soil;
+import by.training.flowers.entity.UnknownTypeException;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -9,8 +15,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.io.IOException;
 
 /**
  * STAX parser class.
@@ -21,21 +26,11 @@ public class StaxFlowerParser extends AbstractFlowerParser {
      * */
     private XMLInputFactory inputFactory;
     /**
-     * Flowers set.
-     * */
-    private Set<AbstractFlower> flowerSet = new LinkedHashSet<>();
-    /**
      * Constructor.
      * */
     public StaxFlowerParser() {
         super();
         inputFactory = XMLInputFactory.newInstance();
-    }
-    /**
-     * @return flowers set.
-     * */
-    public Set<AbstractFlower> getFlowerSet() {
-        return flowerSet;   //TODO copy?
     }
     /**
      * @param fileName -xml file.
@@ -44,7 +39,7 @@ public class StaxFlowerParser extends AbstractFlowerParser {
     @Override
     public void buildFlowerSet(final String fileName) throws ParserException {
         FileInputStream inputStream = null;
-        XMLStreamReader reader = null;
+        XMLStreamReader reader;
         String name;
         try {
             inputStream = new FileInputStream(new File(fileName));
@@ -58,17 +53,28 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                     if (name.equals(FlowersTagName.WILD_FLOWER.getValue())) {
                         flower = buildWildFlower(reader);
                     }
-                    if (name.equals(FlowersTagName.ARTIFICATIONAL_FLOWER
+                    if (name.equals(FlowersTagName.ARTIFICIAL_FLOWER
                             .getValue())) {
                         flower = buildArtificialFlower(reader);
                     }
                     if (flower != null) {
-                        flowerSet.add(flower);
+                        flowersSet.add(flower);
                     }
                 }
             }
-        } catch (XMLStreamException | FileNotFoundException e) {
-            throw new ParserException(e);
+        } catch (XMLStreamException e) {
+            throw new ParserException("StAx parsing error: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new ParserException("File " + fileName + " not found! " + e);
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                throw new ParserException("Impossible close file " + fileName
+                                            + " : " + e);
+            }
         }
     }
     /**
@@ -77,16 +83,16 @@ public class StaxFlowerParser extends AbstractFlowerParser {
      * @throws ParserException -exception.
      * @throws XMLStreamException -exception.
      * */
-    private AbstractFlower buildWildFlower(final XMLStreamReader reader)
+    private WildFlower buildWildFlower(final XMLStreamReader reader)
             throws ParserException, XMLStreamException {
         WildFlower wildFlower = new WildFlower();
         /*attributes.*/
         wildFlower.setIdentificator(reader.getAttributeValue(null,
                         FlowersTagName.ID.getValue()));
         wildFlower.setFlowerName(reader.getAttributeValue(null,
-                FlowersTagName.NAME.getValue()));
-        wildFlower.setMedical(Boolean.parseBoolean(reader.getAttributeValue(null,
-                FlowersTagName.IS_MEDICAL.getValue())));
+                        FlowersTagName.NAME.getValue()));
+        wildFlower.setMedical(Boolean.parseBoolean(reader.getAttributeValue(
+            null, FlowersTagName.IS_MEDICAL.getValue())));
         try {
             if ((reader.getAttributeValue(null,
                     FlowersTagName.MULTIPLYING.getValue())) != null) {
@@ -106,7 +112,6 @@ public class StaxFlowerParser extends AbstractFlowerParser {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    System.out.println(name);
                     switch (FlowersTagName.valueOf(name.toUpperCase())) {
                         case SOIL:
                             try {
@@ -145,6 +150,8 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                             wildFlower.setProtected(Boolean.parseBoolean(
                                     getXMLText(reader)));
                             break;
+                        default:
+                            break;
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
@@ -153,6 +160,8 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                             == FlowersTagName.WILD_FLOWER) {
                         return wildFlower;
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -164,7 +173,7 @@ public class StaxFlowerParser extends AbstractFlowerParser {
      * @throws ParserException -exception.
      * @throws XMLStreamException -exception.
      * */
-    private AbstractFlower buildArtificialFlower(final XMLStreamReader reader)
+    private ArtificialFlower buildArtificialFlower(final XMLStreamReader reader)
             throws ParserException, XMLStreamException {
         ArtificialFlower artificialFlower = new ArtificialFlower();
         /*attributes.*/
@@ -172,13 +181,15 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                 FlowersTagName.ID.getValue()));
         artificialFlower.setFlowerName(reader.getAttributeValue(null,
                 FlowersTagName.NAME.getValue()));
-        artificialFlower.setMedical(Boolean.parseBoolean(reader.getAttributeValue(null,
-                FlowersTagName.IS_MEDICAL.getValue())));
+        artificialFlower.setMedical(Boolean.parseBoolean(reader
+                .getAttributeValue(null,
+                        FlowersTagName.IS_MEDICAL.getValue())));
         try {
-            String tag;
-            if ((tag = reader.getAttributeValue(null,
-                    FlowersTagName.MULTIPLYING.getValue())) != null) {
-                artificialFlower.setMultiplying(Multiplying.takeMultiplying(tag));
+            if (reader.getAttributeValue(null,
+                    FlowersTagName.MULTIPLYING.getValue()) != null) {
+                artificialFlower.setMultiplying(Multiplying.takeMultiplying(
+                        reader.getAttributeValue(null,
+                                FlowersTagName.MULTIPLYING.getValue())));
             } else {
                 artificialFlower.setMultiplying(Multiplying.SEEDS);
             }
@@ -223,24 +234,30 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                                     getXMLText(reader)));
                             break;
                         case DISCOVERY_YEAR:
-                            artificialFlower.setDiscoveryYear(DateParser.parseDate(
-                                    getXMLText(reader)));
+                            artificialFlower.setDiscoveryYear(
+                                    DateParser.parseDate(getXMLText(reader)));
                             break;
-                        case SCIENTIST_NAME:
-                            artificialFlower.setScientistName(getXMLText(reader));
+                        case SCIENTIST:
+                            artificialFlower.setScientistName(
+                                    getXMLText(reader));
+                            break;
+                        default:
                             break;
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
                     if (FlowersTagName.valueOf(name.toUpperCase())
-                            == FlowersTagName.ARTIFICATIONAL_FLOWER) {
+                            == FlowersTagName.ARTIFICIAL_FLOWER) {
                         return artificialFlower;
                     }
                     break;
+                default:
+                    break;
             }
         }
-        throw new XMLStreamException("Unknown element in tag wild flower.");
+        throw new XMLStreamException("Unknown element in tag artificial"
+                + " flower.");
     }
     /**
      * @param reader - XML stream reader.
