@@ -38,14 +38,6 @@ public class FlowerHandler extends DefaultHandler {
      * */
     private FlowersTagName tagEnum = null;
     /**
-     * Class 1.
-     * */
-    private String className1 = "Wild_Flower";
-    /**
-     * Class 2.
-     * */
-    private String className2 = "Artificial_Flower";
-    /**
      * Constructor.
      * */
     public FlowerHandler() {
@@ -85,11 +77,13 @@ public class FlowerHandler extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String localName,
                              final String qName, final Attributes attributes) {
-        if (className1.equals(localName) || className2.equals(localName)) {
-            if (className1.equals(localName)) {
+        if (FlowersTagName.WILD_FLOWER.getValue().equals(localName)
+                || FlowersTagName.ARTIFICIAL_FLOWER.getValue()
+                .equals(localName)) {
+            if (FlowersTagName.WILD_FLOWER.getValue().equals(localName)) {
                 currentFlower = new WildFlower();
             }
-            if (className2.equals(localName)) {
+            if (FlowersTagName.ARTIFICIAL_FLOWER.getValue().equals(localName)) {
                 currentFlower = new ArtificialFlower();
             }
             String id =  attributes.getValue("id");
@@ -109,8 +103,8 @@ public class FlowerHandler extends DefaultHandler {
             currentFlower.setMedical(isMedicinal);
             currentFlower.setMultiplying(multiplying);
         } else {
-            FlowersTagName temp = FlowersTagName.valueOf(localName
-                    .replace("-", "_").toUpperCase());
+            FlowersTagName temp =
+                    FlowersTagName.valueOf(localName.toUpperCase());
             if (abstractFlowerAttribute.contains(temp)) {
                 tagEnum = temp;
             }
@@ -132,12 +126,13 @@ public class FlowerHandler extends DefaultHandler {
      *                  performed.
      * @param qName     - The qualified name (with prefix), or the
      *                  empty string if qualified names are not available.
-     * @throws SAXException -exception.
      * */
     @Override
     public void endElement(final String uri, final String localName,
-                           final String qName) throws SAXException {
-        if (localName.equals(className1) || localName.equals(className2)) {
+                           final String qName) {
+        if (localName.equals(FlowersTagName.WILD_FLOWER.getValue())
+                || localName.equals(FlowersTagName.ARTIFICIAL_FLOWER
+                .getValue())) {
             allFlowersSet.add(currentFlower);
         }
     }

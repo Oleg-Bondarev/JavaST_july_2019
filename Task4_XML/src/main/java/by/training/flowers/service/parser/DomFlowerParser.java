@@ -17,7 +17,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * DOM parser.
@@ -86,15 +88,13 @@ public class DomFlowerParser extends AbstractFlowerParser {
         AbstractFlower flower;
         if (tag.equals(FlowersTagName.WILD_FLOWER.getValue())) {
             flower = new WildFlower();
-            //TODO check
             ((WildFlower) flower).setProtected(Boolean.parseBoolean(
                     getElementTextContent(element,
                             FlowersTagName.IS_PROTECTED.getValue())));
         } else {
             flower = new ArtificialFlower();
-            ((ArtificialFlower) flower).setScientistName(
-                    getElementTextContent(element,
-                            FlowersTagName.SCIENTIST_NAME.getValue()));
+            ((ArtificialFlower) flower).setScientistsNames(getXMLScientistList(
+                    element));
         }
         if (element.getAttribute(FlowersTagName.MULTIPLYING.getValue())
                 .isEmpty()) {
@@ -145,5 +145,20 @@ public class DomFlowerParser extends AbstractFlowerParser {
         NodeList nodeList = element.getElementsByTagName(elementName);
         Node node = nodeList.item(0);
         return node.getTextContent();
+    }
+    /**
+     * @param element -element.
+     * @return list of scientists.
+     * */
+    private static List<String> getXMLScientistList(final Element element) {
+        List<String> list = new ArrayList<>();
+        Element scientistElement = (Element) element.getElementsByTagName(
+                "scientist_name").item(0);
+        NodeList nodeList = scientistElement.getElementsByTagName("scientist");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            list.add(node.getTextContent());
+        }
+        return list;
     }
 }
