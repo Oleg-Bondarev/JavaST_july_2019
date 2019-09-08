@@ -7,6 +7,9 @@ import by.training.flowers.entity.AbstractFlower;
 import by.training.flowers.entity.Multiplying;
 import by.training.flowers.entity.Soil;
 import by.training.flowers.entity.UnknownTypeException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -19,6 +22,10 @@ import java.util.EnumSet;
  * Handler class.
  * */
 public class FlowerHandler extends DefaultHandler {
+    /**
+     * Logger.
+     * */
+    private static final Logger LOGGER = LogManager.getLogger();
    /**
     * Set of all flowers.
     * */
@@ -48,7 +55,7 @@ public class FlowerHandler extends DefaultHandler {
      * @return set of flowers.
      * */
     Set<AbstractFlower> getAllFlowersSet() {
-        return allFlowersSet; //TODO copy
+        return allFlowersSet;
     }
     /**
      * End document method.
@@ -98,7 +105,7 @@ public class FlowerHandler extends DefaultHandler {
                     multiplying = Multiplying.takeMultiplying(attributes
                             .getValue("multiplying"));
                 } catch (UnknownTypeException e) {
-                    e.printStackTrace();  //TODO catching excption
+                    LOGGER.log(Level.WARN, e.getMessage());  //TODO excption
                 }
             }
             currentFlower.setIdentificator(id);
@@ -133,8 +140,8 @@ public class FlowerHandler extends DefaultHandler {
     @Override
     public void endElement(final String uri, final String localName,
                            final String qName) {
-        if (localName.equals(FlowersTagName.WILD_FLOWER.getValue())
-                || localName.equals(FlowersTagName.ARTIFICIAL_FLOWER
+        if (qName.equals(FlowersTagName.WILD_FLOWER.getValue())
+                || qName.equals(FlowersTagName.ARTIFICIAL_FLOWER
                 .getValue())) {
             allFlowersSet.add(currentFlower);
         }
@@ -167,7 +174,7 @@ public class FlowerHandler extends DefaultHandler {
                     try {
                         currentFlower.setSoil(Soil.takeSoilType(str));
                     } catch (UnknownTypeException e) {
-                        e.printStackTrace();        //TODO exception
+                        LOGGER.log(Level.WARN, e.getMessage()); //TODO exception
                     }
                     break;
                 case STEAM_COLOR:

@@ -11,14 +11,12 @@
     <title>Result Page</title>
 </head>
 <body>
-    <div>
-        <h1>Results using ${parser}</h1><br>
+    <div align="center">
+        <h1>Results using ${parser} parser.</h1><br>
     </div>
-<%--    <p>${wild}</p>--%>
-<%--    <p>${artificial}</p>--%>
-    <div>
-        <h2>Wild flowers</h2>
-        <table border="5px" align="center">
+    <div align="center">
+        <h1>Wild flowers</h1>
+        <table border="5px" align="center" bgcolor="#deb887">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -58,9 +56,9 @@
         </table>
         <br>
     </div>
-    <div>
-        <h2>Artificial flowers</h2>
-        <table border="5px" align="center">
+    <div align="center">
+        <h1>Artificial flowers</h1>
+        <table border="5px" align="center" bgcolor="#deb887">
             <thead>
             <tr>
                 <th>ID</th>

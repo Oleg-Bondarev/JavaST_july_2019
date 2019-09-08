@@ -3,12 +3,8 @@ package by.training.flowers.service.parser;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -19,10 +15,6 @@ public class SaxFlowerParser extends AbstractFlowerParser {
      * Handler.
      * */
     private FlowerHandler handler;
-    /**
-     * Schema.
-     * */
-    private Schema schema;
     /**
      * XML reader.
      * */

@@ -110,7 +110,7 @@ public class AbstractFlower {
         return multiplying;
     }
     /**
-     * @param mult -mult.
+     * @param mult -multiplying.
      * */
     public void setMultiplying(final Multiplying mult) {
         this.multiplying = mult;

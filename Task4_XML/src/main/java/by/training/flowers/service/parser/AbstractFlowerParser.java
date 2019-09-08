@@ -28,7 +28,7 @@ public abstract class AbstractFlowerParser {
      * @return set.
      * */
     public Set<AbstractFlower> getFlowersSet() {
-        return flowersSet;  //TODO copy?
+        return flowersSet;
     }
     /**
      * Abstract method.

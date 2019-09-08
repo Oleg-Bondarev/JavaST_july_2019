@@ -22,15 +22,16 @@
     </style>
 </head>
 <body>
-    <h1 align="center">Parsing XML document.</h1>
-    <form name="XML WebParser" method="get" action="parsing" enctype="multipart/form-data">
-        <input type="radio" name="parserType" value="DOM" checked>DOM parser<br>
-        <input type="radio" name="parserType" value="SAX">SAX parser<br>
-        <input type="radio" name="parserType" value="STAX">StAX parser<br>
-<%--        <textarea name="xmlText" rows="10" cols="30">xml file in tomcat bin folder</textarea><br>--%>
-        <input type="text" name="xmlText"/>
+    <div align="center">
+        <h1 align="center">Parsing XML document.</h1>
+        <form name="XML WebParser" method="get" action="parsing" enctype="multipart/form-data">
+            <input type="radio" name="parserType" value="DOM" checked>DOM parser<br>
+            <input type="radio" name="parserType" value="SAX">SAX parser<br>
+            <input type="radio" name="parserType" value="STAX">StAX parser<br>
+            <input type="text" name="xmlText"/>
 
-        <input type="submit" value="Upload"/>
-    </form>
+            <input type="submit" value="Parse"/>
+        </form>
+    </div>
 </body>
 </html>

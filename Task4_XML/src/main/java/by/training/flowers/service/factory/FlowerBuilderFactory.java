@@ -5,6 +5,7 @@ import by.training.flowers.service.parser.SaxFlowerParser;
 import by.training.flowers.service.parser.StaxFlowerParser;
 import by.training.flowers.service.parser.AbstractFlowerParser;
 import by.training.flowers.service.parser.ParserException;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +16,10 @@ import java.util.Map;
  * Factory for parsers.
  * */
 public final class FlowerBuilderFactory {
-    private static final Logger LOG = LogManager.getLogger();
+    /**
+     * Logger.
+     * */
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Parsers types.
      * */
@@ -40,7 +44,7 @@ public final class FlowerBuilderFactory {
             factory.put(ParserType.SAX, new SaxFlowerParser());
             factory.put(ParserType.STAX, new StaxFlowerParser());
         } catch (ParserException e) {
-            e.printStackTrace(); //TODO check
+            LOGGER.log(Level.WARN, e.getMessage()); //TODO check
         }
     }
     /**
@@ -57,12 +61,12 @@ public final class FlowerBuilderFactory {
      * */
     public AbstractFlowerParser createFlowerBuilder(final String parser)
             throws UnknownParserTypeException {
-        LOG.info("parser="+parser);
         ParserType type = ParserType.valueOf(parser.toUpperCase());
         if (factory.containsKey(type)) {
             return factory.get(type);
         } else {
-            throw new UnknownParserTypeException("Unknown parser type: " + type);
+            throw new UnknownParserTypeException("Unknown parser type: "
+                    + type);
         }
     }
 }

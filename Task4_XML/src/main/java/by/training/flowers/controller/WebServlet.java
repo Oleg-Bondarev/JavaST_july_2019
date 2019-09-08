@@ -29,10 +29,6 @@ public class WebServlet extends HttpServlet {
      * */
     private static final Logger LOGGER = LogManager.getLogger();
     /**
-     * XSD scheme.
-     * */
-    //private static final String XSD_SCHEME = "data/flowers2.xsd";
-    /**
      * @param request -request.
      * @param response -response.
      * @throws ServletException -some servlet exception.
@@ -67,8 +63,10 @@ public class WebServlet extends HttpServlet {
                                final HttpServletResponse response)
             throws ServletException, IOException {
         String parserType = request.getParameter("parserType");
-        String xmlPath = request.getParameter("xmlText");
-        Set<AbstractFlower> flowers = new LinkedHashSet<>();
+        request.setAttribute("parser", parserType);
+        String xmlPath = request.getParameter("xmlText")
+                .replaceAll("\\\\", "/");
+        Set<AbstractFlower> flowers;
         Set<AbstractFlower> wildFlowers = new LinkedHashSet<>();
         Set<AbstractFlower> artificialFlower = new LinkedHashSet<>();
         try {
