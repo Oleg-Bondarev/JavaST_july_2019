@@ -9,18 +9,18 @@ public class WildFlower extends AbstractFlower {
     /**
      * Is protected.
      * */
-    private boolean isProtected;
+    private boolean protect;
     /**
      * @return boolean.
      * */
-    public boolean isProtected() {
-        return isProtected;
+    public boolean isProtect() {
+        return protect;
     }
     /**
-     * @param protect -boolean value.
+     * @param newProtect -boolean value.
      * */
-    public void setProtected(final boolean protect) {
-        isProtected = protect;
+    public void setProtect(final boolean newProtect) {
+        protect = newProtect;
     }
     /**
      * @param o -obj.
@@ -38,14 +38,14 @@ public class WildFlower extends AbstractFlower {
             return false;
         }
         WildFlower that = (WildFlower) o;
-        return isProtected == that.isProtected;
+        return protect == that.protect;
     }
     /**
      * @return hashcode.
      * */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), isProtected);
+        return Objects.hash(super.hashCode(), protect);
     }
     /**
      * @return string.
@@ -53,7 +53,7 @@ public class WildFlower extends AbstractFlower {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(super.toString());
-        builder.append(" WildFlower{ isProtected=" + isProtected + "}\n");
+        builder.append(" WildFlower{ isProtected=" + protect + "}\n");
         return builder.toString();
     }
 }

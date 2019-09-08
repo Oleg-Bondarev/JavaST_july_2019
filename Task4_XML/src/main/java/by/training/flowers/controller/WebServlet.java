@@ -74,7 +74,6 @@ public class WebServlet extends HttpServlet {
         try {
             AbstractFlowerParser parser = FlowerBuilderFactory.getInstance()
                     .createFlowerBuilder(parserType);
-            //getServletContext().getResource(XSD_SCHEME).getPath();
             LOGGER.log(Level.INFO, xmlPath);
             parser.buildFlowerSet(xmlPath);
             flowers = parser.getFlowersSet();

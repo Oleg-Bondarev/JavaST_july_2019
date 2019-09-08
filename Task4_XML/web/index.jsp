@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <title>WebParserForFlowers</title>
     <style>
-        body{background-color: aquamarine;}
+        body{background-color: green;}
         h1{
             color: black;
             font-family: "Arial Narrow";
@@ -23,11 +23,14 @@
 </head>
 <body>
     <h1 align="center">Parsing XML document.</h1>
-    <form name="XML WebParser" method="post" action="parse">
-        <input type="radio" name="parserType" value="DOM" checked required>DOM parser<br>
-        <input type="radio" name="parserType" value="SAX" required>SAX parser<br>
-        <input type="radio" name="parserType" value="STAX" required>StAX parser<br>
-        <textarea name="xmlText" rows="10" cols="30">xml file in tomcat bin folder</textarea><br>
+    <form name="XML WebParser" method="get" action="parsing" enctype="multipart/form-data">
+        <input type="radio" name="parserType" value="DOM" checked>DOM parser<br>
+        <input type="radio" name="parserType" value="SAX">SAX parser<br>
+        <input type="radio" name="parserType" value="STAX">StAX parser<br>
+<%--        <textarea name="xmlText" rows="10" cols="30">xml file in tomcat bin folder</textarea><br>--%>
+        <input type="text" name="xmlText"/>
+
+        <input type="submit" value="Upload"/>
     </form>
 </body>
 </html>

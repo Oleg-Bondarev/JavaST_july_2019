@@ -14,6 +14,8 @@
     <div>
         <h1>Results using ${parser}</h1><br>
     </div>
+<%--    <p>${wild}</p>--%>
+<%--    <p>${artificial}</p>--%>
     <div>
         <h2>Wild flowers</h2>
         <table border="5px" align="center">
@@ -28,6 +30,7 @@
                     <th>Leaf color</th>
                     <th>Average size</th>
                     <th>Temperature</th>
+                    <th>Lightning</th>
                     <th>Watering</th>
                     <th>Discovery year</th>
                     <th>Protected</th>
@@ -38,17 +41,17 @@
                     <tr>
                         <td><c:out value="${flower.identificator}"/></td>
                         <td><c:out value="${flower.flowerName}"/></td>
-                        <td><c:out value="${flower.isMedical}"/></td>
+                        <td><c:out value="${flower.medical}"/></td>
                         <td><c:out value="${flower.multiplying}"/></td>
                         <td><c:out value="${flower.soil}"/></td>
                         <td><c:out value="${flower.steamColor}"/></td>
                         <td><c:out value="${flower.leafColor}"/></td>
                         <td><c:out value="${flower.avgSize}"/></td>
                         <td><c:out value="${flower.temperature}"/></td>
-                        <td><c:out value="${flower.watering}"/></td>
                         <td><c:out value="${flower.lighting}"/></td>
+                        <td><c:out value="${flower.watering}"/></td>
                         <td><c:out value="${flower.discoveryYear}"/></td>
-                        <td><c:out value="${flower.isProtected}"/></td>
+                        <td><c:out value="${flower.protect}"/></td>
                     </tr>
                 </tbody>
             </c:forEach>
@@ -69,25 +72,26 @@
                 <th>Leaf color</th>
                 <th>Average size</th>
                 <th>Temperature</th>
+                <th>Lightning</th>
                 <th>Watering</th>
                 <th>Discovery year</th>
                 <th>Scientists names</th>
             </tr>
             </thead>
-            <c:forEach var="flower" items="${wild}">
+            <c:forEach var="flower" items="${artificial}">
                 <tbody>
                 <tr>
                     <td><c:out value="${flower.identificator}"/></td>
                     <td><c:out value="${flower.flowerName}"/></td>
-                    <td><c:out value="${flower.isMedical}"/></td>
+                    <td><c:out value="${flower.medical}"/></td>
                     <td><c:out value="${flower.multiplying}"/></td>
                     <td><c:out value="${flower.soil}"/></td>
                     <td><c:out value="${flower.steamColor}"/></td>
                     <td><c:out value="${flower.leafColor}"/></td>
                     <td><c:out value="${flower.avgSize}"/></td>
                     <td><c:out value="${flower.temperature}"/></td>
-                    <td><c:out value="${flower.watering}"/></td>
                     <td><c:out value="${flower.lighting}"/></td>
+                    <td><c:out value="${flower.watering}"/></td>
                     <td><c:out value="${flower.discoveryYear}"/></td>
                     <td>
                         <c:forEach var="scientists" items="${flower.scientistsNames}">

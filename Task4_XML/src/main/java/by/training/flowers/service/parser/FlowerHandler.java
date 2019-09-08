@@ -20,8 +20,8 @@ import java.util.EnumSet;
  * */
 public class FlowerHandler extends DefaultHandler {
    /**
-     * Set of all flowers.
-     * */
+    * Set of all flowers.
+    * */
     private Set<AbstractFlower> allFlowersSet = new LinkedHashSet<>();
     /**
      * Current flower.
@@ -77,13 +77,13 @@ public class FlowerHandler extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String localName,
                              final String qName, final Attributes attributes) {
-        if (FlowersTagName.WILD_FLOWER.getValue().equals(localName)
+        if (FlowersTagName.WILD_FLOWER.getValue().equals(qName)
                 || FlowersTagName.ARTIFICIAL_FLOWER.getValue()
-                .equals(localName)) {
-            if (FlowersTagName.WILD_FLOWER.getValue().equals(localName)) {
+                .equals(qName)) {
+            if (FlowersTagName.WILD_FLOWER.getValue().equals(qName)) {
                 currentFlower = new WildFlower();
             }
-            if (FlowersTagName.ARTIFICIAL_FLOWER.getValue().equals(localName)) {
+            if (FlowersTagName.ARTIFICIAL_FLOWER.getValue().equals(qName)) {
                 currentFlower = new ArtificialFlower();
             }
             String id =  attributes.getValue("id");
@@ -91,7 +91,7 @@ public class FlowerHandler extends DefaultHandler {
             boolean isMedicinal =
                 Boolean.parseBoolean(attributes.getValue("isMedical"));
             Multiplying multiplying = null;
-            if (attributes.getValue("multiplying").isEmpty()) {
+            if (attributes.getValue("multiplying") == null) {
                 multiplying = Multiplying.SEEDS;
             } else {
                 try {
@@ -107,7 +107,7 @@ public class FlowerHandler extends DefaultHandler {
             currentFlower.setMultiplying(multiplying);
         } else {
             FlowersTagName temp =
-                    FlowersTagName.valueOf(localName.toUpperCase());
+                    FlowersTagName.valueOf(qName.toUpperCase());
             if (abstractFlowerAttribute.contains(temp)) {
                 tagEnum = temp;
             }
@@ -193,7 +193,7 @@ public class FlowerHandler extends DefaultHandler {
                     break;
                 case IS_PROTECTED:
                     ((WildFlower) currentFlower)
-                            .setProtected(Boolean.parseBoolean(str));
+                            .setProtect(Boolean.parseBoolean(str));
                     break;
                 case SCIENTIST:
                     ((ArtificialFlower) currentFlower).setScientistName(str);

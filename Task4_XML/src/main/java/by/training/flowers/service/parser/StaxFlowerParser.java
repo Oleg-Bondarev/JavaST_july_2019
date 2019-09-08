@@ -147,7 +147,7 @@ public class StaxFlowerParser extends AbstractFlowerParser {
                                     getXMLText(reader)));
                             break;
                         case IS_PROTECTED:
-                            wildFlower.setProtected(Boolean.parseBoolean(
+                            wildFlower.setProtect(Boolean.parseBoolean(
                                     getXMLText(reader)));
                             break;
                         default:

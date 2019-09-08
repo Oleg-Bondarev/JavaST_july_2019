@@ -5,7 +5,7 @@ package by.training.flowers.entity;
  * */
 public enum FlowersTagName {
     /**Tag.*/
-    FLOWERS("flowers"),
+    FLOWERS("Flowers"),
     /**Tag.*/
     WILD_FLOWER("Wild_Flower"),
     /**Tag.*/

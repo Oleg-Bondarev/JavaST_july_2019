@@ -89,7 +89,7 @@ public class DomFlowerParser extends AbstractFlowerParser {
         AbstractFlower flower;
         if (tag.equals(FlowersTagName.WILD_FLOWER.getValue())) {
             flower = new WildFlower();
-            ((WildFlower) flower).setProtected(Boolean.parseBoolean(
+            ((WildFlower) flower).setProtect(Boolean.parseBoolean(
                     getElementTextContent(element,
                             FlowersTagName.IS_PROTECTED.getValue())));
         } else {

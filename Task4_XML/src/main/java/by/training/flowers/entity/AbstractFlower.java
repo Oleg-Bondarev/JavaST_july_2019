@@ -18,7 +18,7 @@ public class AbstractFlower {
     /**
      * Type of flower in medical using.
      * */
-    private boolean isMedical;
+    private boolean medical;
     /**
      * Type of flower multiplying.
      * */
@@ -58,7 +58,7 @@ public class AbstractFlower {
     /**
      * @return boolean.
      * */
-    public boolean getLightning() {
+    public boolean isLighting() {
         return lighting;
     }
     /**
@@ -95,13 +95,13 @@ public class AbstractFlower {
      * @return bool.
      * */
     public boolean isMedical() {
-        return isMedical;
+        return medical;
     }
     /**
-     * @param medical -bool.
+     * @param med -bool.
      * */
-    public void setMedical(final boolean medical) {
-        isMedical = medical;
+    public void setMedical(final boolean med) {
+        medical = med;
     }
     /**
      * @return mult.
@@ -212,7 +212,7 @@ public class AbstractFlower {
             return false;
         }
         AbstractFlower that = (AbstractFlower) o;
-        return isMedical == that.isMedical && avgSize == that.avgSize
+        return medical == that.medical && avgSize == that.avgSize
                 && temperature == that.temperature && watering == that.watering
                 && identificator.equals(that.identificator)
                 && flowerName.equals(that.flowerName)
@@ -226,7 +226,7 @@ public class AbstractFlower {
      * */
     @Override
     public int hashCode() {
-        return Objects.hash(identificator, flowerName, isMedical, multiplying,
+        return Objects.hash(identificator, flowerName, medical, multiplying,
                 soil, steamColor, leafColor, avgSize, temperature, watering,
                 discoveryYear);
     }
@@ -237,7 +237,7 @@ public class AbstractFlower {
     public String toString() {
         return "AbstractFlower{"
                 + "identificator='" + identificator + '\'' + ", flowerName='"
-                + flowerName + '\'' + ", isMedical=" + isMedical
+                + flowerName + '\'' + ", isMedical=" + medical
                 + ", multiplying=" + multiplying + ", soil=" + soil
                 + ", steamColor='" + steamColor + '\'' + ", leafColor='"
                 + leafColor + '\'' + ", avgSize=" + avgSize + ", temperature="
