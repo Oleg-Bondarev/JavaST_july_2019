@@ -22,11 +22,16 @@ import java.util.Set;
 /**
  * Represent servlet.
  * */
+@javax.servlet.annotation.WebServlet("/parsing")
 public class WebServlet extends HttpServlet {
     /**
      * Logger.
      * */
     private static final Logger LOGGER = LogManager.getLogger();
+    /**
+     * XSD scheme.
+     * */
+    //private static final String XSD_SCHEME = "data/flowers2.xsd";
     /**
      * @param request -request.
      * @param response -response.
@@ -69,6 +74,8 @@ public class WebServlet extends HttpServlet {
         try {
             AbstractFlowerParser parser = FlowerBuilderFactory.getInstance()
                     .createFlowerBuilder(parserType);
+            //getServletContext().getResource(XSD_SCHEME).getPath();
+            LOGGER.log(Level.INFO, xmlPath);
             parser.buildFlowerSet(xmlPath);
             flowers = parser.getFlowersSet();
             for (AbstractFlower flower : flowers) {

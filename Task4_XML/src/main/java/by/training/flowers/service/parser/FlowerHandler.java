@@ -91,13 +91,16 @@ public class FlowerHandler extends DefaultHandler {
             boolean isMedicinal =
                 Boolean.parseBoolean(attributes.getValue("isMedical"));
             Multiplying multiplying = null;
-            try {
-                multiplying = Multiplying.takeMultiplying(attributes
-                                            .getValue("multiplying"));
-            } catch (UnknownTypeException e) {
-                e.printStackTrace();  //TODO catching excption
+            if (attributes.getValue("multiplying").isEmpty()) {
+                multiplying = Multiplying.SEEDS;
+            } else {
+                try {
+                    multiplying = Multiplying.takeMultiplying(attributes
+                            .getValue("multiplying"));
+                } catch (UnknownTypeException e) {
+                    e.printStackTrace();  //TODO catching excption
+                }
             }
-
             currentFlower.setIdentificator(id);
             currentFlower.setFlowerName(name);
             currentFlower.setMedical(isMedicinal);

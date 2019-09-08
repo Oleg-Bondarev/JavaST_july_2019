@@ -47,6 +47,7 @@ public class DomFlowerParser extends AbstractFlowerParser {
      * */
     public void buildFlowerSet(final String fileName) throws ParserException {
         Document document;
+
         try {
             document = documentBuilder.parse(fileName);
             Element root = document.getDocumentElement();

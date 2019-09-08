@@ -23,32 +23,18 @@ public class SaxFlowerParser extends AbstractFlowerParser {
      * Schema.
      * */
     private Schema schema;
-    /***/
-    private String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-    /**
-     * Schema factory.
-     * */
-    private SchemaFactory schemaFactory = SchemaFactory.newInstance(constant);
     /**
      * XML reader.
      * */
     private XMLReader reader;
     /**
-     * SAX parser factory.
-     * */
-    private SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-    /**
      * @throws ParserException -exception.
      * */
     public SaxFlowerParser() throws ParserException {
         super();
+        handler = new FlowerHandler();
         try {
-            schema = schemaFactory.newSchema(
-                    new File("data/flowers2.xsd"));
-            handler = new FlowerHandler();
-            parserFactory.setNamespaceAware(true);
-            parserFactory.setValidating(false);
-            parserFactory.setSchema(schema);
+            SAXParserFactory parserFactory = SAXParserFactory.newInstance();
             reader = parserFactory.newSAXParser().getXMLReader();
             reader.setContentHandler(handler);
         } catch (SAXException | ParserConfigurationException e) {

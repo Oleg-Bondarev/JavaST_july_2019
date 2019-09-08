@@ -5,6 +5,8 @@ import by.training.flowers.service.parser.SaxFlowerParser;
 import by.training.flowers.service.parser.StaxFlowerParser;
 import by.training.flowers.service.parser.AbstractFlowerParser;
 import by.training.flowers.service.parser.ParserException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
  * Factory for parsers.
  * */
 public final class FlowerBuilderFactory {
+    private static final Logger LOG = LogManager.getLogger();
     /**
      * Parsers types.
      * */
@@ -54,11 +57,12 @@ public final class FlowerBuilderFactory {
      * */
     public AbstractFlowerParser createFlowerBuilder(final String parser)
             throws UnknownParserTypeException {
+        LOG.info("parser="+parser);
         ParserType type = ParserType.valueOf(parser.toUpperCase());
-       if (factory.containsKey(type)) {
-           return factory.get(type);
-       } else {
-           throw new UnknownParserTypeException("Unknown parser type: " + type);
-       }
+        if (factory.containsKey(type)) {
+            return factory.get(type);
+        } else {
+            throw new UnknownParserTypeException("Unknown parser type: " + type);
+        }
     }
 }
