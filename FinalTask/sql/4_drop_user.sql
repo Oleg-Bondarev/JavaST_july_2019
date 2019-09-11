@@ -1,0 +1,1 @@
+drop user 'stock_admin'@'%';
