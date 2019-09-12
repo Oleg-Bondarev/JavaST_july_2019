@@ -1,1 +1,1 @@
-DROP DATABASE IF EXISTS `stock_gift_coupons_db`;
+DROP DATABASE IF EXISTS stock_gift_coupons_db;
