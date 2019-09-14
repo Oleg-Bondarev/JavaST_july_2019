@@ -5,19 +5,24 @@ import java.util.Objects;
 /**
  * Represent admin and user account.
  * */
-public class Account {
+public class User extends Entity{
+    private String pathToAvatar;
+    /**
+     * User role.
+     * */
+    private byte role;
     /**
      * Login.
      * */
-    private String accountLogin;
+    private String login;
     /**
      * Password.
      * */
-    private String accountPassword;
+    private String password;
     /**
      * E-mail.
      * */
-    private String accountEmail;
+    private String email;
     /**
      * First name.
      * */
@@ -33,48 +38,46 @@ public class Account {
     /**
      * Default constructor.
      * */
-    public Account() { }
-    /**
-     * Getter.
-     * @return login.
-     * */
-    public String getAccountLogin() {
-        return accountLogin;
+    public User() { }
+
+    public String getPathToAvatar() {
+        return pathToAvatar;
     }
-    /**
-     * Setter.
-     * @param newAccountLogin -new login.
-     * */
-    public void setAccountLogin(final String newAccountLogin) {
-        accountLogin = newAccountLogin;
+
+    public void setPathToAvatar(final String newPathToAvatar) {
+        pathToAvatar = newPathToAvatar;
     }
-    /**
-     * Getter.
-     * @return password.
-     * */
-    public String getAccountPassword() {
-        return accountPassword;
+
+    public byte getRole() {
+        return role;
     }
-    /**
-     * Setter.
-     * @param newAccountPassword -new password.
-     * */
-    public void setAccountPassword(final String newAccountPassword) {
-        accountPassword = newAccountPassword;
+
+    public void setRole(final byte newRole) {
+        role = newRole;
     }
-    /**
-     * Getter.
-     * @return e-mail.
-     * */
-    public String getAccountEmail() {
-        return accountEmail;
+
+    public String getLogin() {
+        return login;
     }
-    /**
-     * Setter.
-     * @param newAccountEmail -new e-mail.
-     * */
-    public void setAccountEmail(final String newAccountEmail) {
-        accountEmail = newAccountEmail;
+
+    public void setLogin(final String newLogin) {
+        login = newLogin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(final String newPassword) {
+        password = newPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(final String newEmail) {
+        email = newEmail;
     }
     /**
      * Getter.
@@ -131,13 +134,13 @@ public class Account {
         if (newO == null || getClass() != newO.getClass()) {
             return false;
         }
-        Account account = (Account) newO;
-        return accountLogin.equals(account.accountLogin)
-                && accountPassword.equals(account.accountPassword)
-                && accountEmail.equals(account.accountEmail)
-                && firstName.equals(account.firstName)
-                && secondName.equals(account.secondName)
-                && mobilePhone.equals(account.mobilePhone);
+        User user = (User) newO;
+        return role == user.role && login.equals(user.login)
+                && password.equals(user.password)
+                && pathToAvatar.equals(user.pathToAvatar)
+                && email.equals(user.email) && firstName.equals(user.firstName)
+                && secondName.equals(user.secondName)
+                && mobilePhone.equals(user.mobilePhone);
     }
     /**
      * HashCode method.
@@ -145,8 +148,8 @@ public class Account {
      * */
     @Override
     public int hashCode() {
-        return Objects.hash(accountLogin, accountPassword, accountEmail,
-                firstName, secondName, mobilePhone);
+        return Objects.hash(super.hashCode(), pathToAvatar, role, login,
+                password, email, firstName, secondName, mobilePhone);
     }
     /**
      * To string method.
@@ -156,17 +159,20 @@ public class Account {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Account{");
-        builder.append("accountLogin=");
-        builder.append(accountLogin);
-        builder.append(", accountPassword=");
-        builder.append(accountPassword);
-        builder.append(", accountEmail=");
-        builder.append(accountEmail);
-        builder.append(", firstName=");
+        builder.append(super.toString());
+        builder.append(", role=");
+        builder.append(role);
+        builder.append(", login=");
+        builder.append(login);
+        builder.append(", password=");
+        builder.append(password);
+        builder.append(", e-mail=");
+        builder.append(email);
+        builder.append(", first name=");
         builder.append(firstName);
-        builder.append(", secondName=");
+        builder.append(", second name=");
         builder.append(secondName);
-        builder.append(", mobilePhone=");
+        builder.append(", mobile phone=");
         builder.append(mobilePhone);
         builder.append("}");
         return builder.toString();

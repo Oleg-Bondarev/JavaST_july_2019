@@ -1,20 +1,18 @@
 package by.training.final_task.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * Represents coupon.
  * */
-public class Coupon {
+public class Coupon extends Entity {
+    private String pathToImg;
     /**
      * Coupon name.
      * */
     private String couponName;
-    /**
-     * Coupon category.
-     * */
-    private String couponCategory;
     /**
      * Coupon description.
      * */
@@ -22,12 +20,7 @@ public class Coupon {
     /**
      * Coupon price.
      * */
-    private double couponPrice;
-    /**
-     * Coupon rating.
-     * Count stars. Min - 0; Max - 5;
-     * */
-    private int countStars;
+    private BigDecimal couponPrice;
     /**
      * Coupon add date.
      * */
@@ -36,12 +29,23 @@ public class Coupon {
      * Holding address.
      * */
     private String holdingAddress;
-    /**
-     * Default constructor.
-     * */
-    public Coupon() {
-        this.countStars = 0;
+
+    public String getPathToImg() {
+        return pathToImg;
     }
+
+    public void setPathToImg(final String newPathToImg) {
+        pathToImg = newPathToImg;
+    }
+
+    public BigDecimal getCouponPrice() {
+        return couponPrice;
+    }
+
+    public void setCouponPrice(final BigDecimal newCouponPrice) {
+        couponPrice = newCouponPrice;
+    }
+
     /**
      * Getter.
      * @return coupon name.
@@ -58,20 +62,6 @@ public class Coupon {
     }
     /**
      * Getter.
-     * @return coupon category.
-     * */
-    public String getCouponCategory() {
-        return couponCategory;
-    }
-    /**
-     * Setter.
-     * @param newCouponCategory -new category.
-     * */
-    public void setCouponCategory(final String newCouponCategory) {
-        couponCategory = newCouponCategory;
-    }
-    /**
-     * Getter.
      * @return coupon description.
      * */
     public String getCouponDescription() {
@@ -83,34 +73,6 @@ public class Coupon {
      * */
     public void setCouponDescription(final String newCouponDescription) {
         couponDescription = newCouponDescription;
-    }
-    /**
-     * Getter.
-     * @return coupon price.
-     * */
-    public double getCouponPrice() {
-        return couponPrice;
-    }
-    /**
-     * Setter.
-     * @param newCouponPrice -new price.
-     * */
-    public void setCouponPrice(final double newCouponPrice) {
-        couponPrice = newCouponPrice;
-    }
-    /**
-     * Getter.
-     * @return coupon rating.
-     * */
-    public int getCountStars() {
-        return countStars;
-    }
-    /**
-     * Setter.
-     * @param newCountStars -new coupon rating.
-     * */
-    public void setCountStars(final int newCountStars) {
-        countStars = newCountStars;
     }
     /**
      * Getter.
@@ -152,12 +114,11 @@ public class Coupon {
             return false;
         }
         Coupon coupon = (Coupon) newO;
-        return Double.compare(coupon.couponPrice, couponPrice) == 0
-                && countStars == coupon.countStars
-                && couponName.equals(coupon.couponName)
-                && couponCategory.equals(coupon.couponCategory)
+        return couponName.equals(coupon.couponName)
                 && couponDescription.equals(coupon.couponDescription)
+                && couponPrice.equals(coupon.couponPrice)
                 && couponAddDate.equals(coupon.couponAddDate)
+                && pathToImg.equals(coupon.pathToImg)
                 && holdingAddress.equals(coupon.holdingAddress);
     }
     /**
@@ -166,8 +127,8 @@ public class Coupon {
      * */
     @Override
     public int hashCode() {
-        return Objects.hash(couponName, couponCategory, couponDescription,
-                couponPrice, countStars, couponAddDate, holdingAddress);
+        return Objects.hash(super.hashCode(), pathToImg, couponName,
+                couponDescription, couponPrice, couponAddDate, holdingAddress);
     }
     /**
      * To string method.
@@ -177,16 +138,13 @@ public class Coupon {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Coupon{");
+        builder.append(super.toString());
         builder.append("coupon mame=");
         builder.append(couponName);
-        builder.append(", coupon category=");
-        builder.append(couponCategory);
         builder.append(", coupon description=");
         builder.append(couponDescription);
         builder.append(", coupon price=");
         builder.append(couponPrice);
-        builder.append(", count stars=");
-        builder.append(countStars);
         builder.append(", coupon add date=");
         builder.append(couponAddDate);
         builder.append(", holding address=");

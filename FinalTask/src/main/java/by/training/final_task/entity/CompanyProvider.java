@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represent the provider of the coupon.
  * */
-public class CompanyProvider {
+public class CompanyProvider extends Entity {
     /**
      * Company name.
      * */
@@ -66,7 +66,7 @@ public class CompanyProvider {
      * */
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, companyAddress);
+        return Objects.hash(super.hashCode(), companyName, companyAddress);
     }
     /**
      * @return string class representation.
@@ -75,7 +75,8 @@ public class CompanyProvider {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Company provider{");
-        builder.append("company mame=");
+        builder.append(super.toString());
+        builder.append(", company mame=");
         builder.append(companyName);
         builder.append(", company address=");
         builder.append(companyAddress);
