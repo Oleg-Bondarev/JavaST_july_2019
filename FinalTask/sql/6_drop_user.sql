@@ -1,1 +1,1 @@
-drop user 'stock_user'@'%';
+drop user 'stock_user'@'localhost';
