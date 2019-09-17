@@ -1,59 +1,37 @@
 package by.training.final_task.entity;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * Represent admin and user account.
  * */
-public class User extends Entity{
-    private String pathToAvatar;
-    /**
-     * User role.
-     * */
-    private byte role;
-    /**
-     * Login.
-     * */
+public class User extends Entity {
     private String login;
-    /**
-     * Password.
-     * */
     private String password;
-    /**
-     * E-mail.
-     * */
+    private byte role;
     private String email;
-    /**
-     * First name.
-     * */
+    private String pathToAvatar;
     private String firstName;
-    /**
-     * Second name.
-     * */
     private String secondName;
-    /**
-     * Mobile phone.
-     * */
-    private String mobilePhone;
-    /**
-     * Default constructor.
-     * */
-    public User() { }
+    private int mobilePhone;
+    private Date registrationDate;
 
-    public String getPathToAvatar() {
-        return pathToAvatar;
-    }
-
-    public void setPathToAvatar(final String newPathToAvatar) {
-        pathToAvatar = newPathToAvatar;
-    }
-
-    public byte getRole() {
-        return role;
-    }
-
-    public void setRole(final byte newRole) {
+    public User(final int id, final String newLogin, final String newPassword,
+                final byte newRole, final String newEmail,
+                final String newPathToAvatar, final String newFirstName,
+                final String newSecondName, final int newMobilePhone,
+                final Date newRegistrationDate) {
+        this.id = id;
+        login = newLogin;
+        password = newPassword;
         role = newRole;
+        email = newEmail;
+        pathToAvatar = newPathToAvatar;
+        firstName = newFirstName;
+        secondName = newSecondName;
+        mobilePhone = newMobilePhone;
+        registrationDate = newRegistrationDate;
     }
 
     public String getLogin() {
@@ -72,6 +50,14 @@ public class User extends Entity{
         password = newPassword;
     }
 
+    public byte getRole() {
+        return role;
+    }
+
+    public void setRole(final byte newRole) {
+        role = newRole;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -79,53 +65,47 @@ public class User extends Entity{
     public void setEmail(final String newEmail) {
         email = newEmail;
     }
-    /**
-     * Getter.
-     * @return first name.
-     * */
+
+    public String getPathToAvatar() {
+        return pathToAvatar;
+    }
+
+    public void setPathToAvatar(final String newPathToAvatar) {
+        pathToAvatar = newPathToAvatar;
+    }
+
     public String getFirstName() {
         return firstName;
     }
-    /**
-     * Setter.
-     * @param newFirstName -new first name.
-     * */
+
     public void setFirstName(final String newFirstName) {
         firstName = newFirstName;
     }
-    /**
-     * Getter.
-     * @return second name.
-     * */
+
     public String getSecondName() {
         return secondName;
     }
-    /**
-     * Setter.
-     * @param newSecondName -new second name.
-     * */
+
     public void setSecondName(final String newSecondName) {
         secondName = newSecondName;
     }
-    /**
-     * Getter.
-     * @return mobile number.
-     * */
-    public String getMobilePhone() {
+
+    public int getMobilePhone() {
         return mobilePhone;
     }
-    /**
-     * Setter.
-     * @param newMobilePhone -new mobile number.
-     * */
-    public void setMobilePhone(final String newMobilePhone) {
+
+    public void setMobilePhone(final int newMobilePhone) {
         mobilePhone = newMobilePhone;
     }
-    /**
-     * Equals method.
-     * @param newO -object to compare.
-     * @return boolean value.
-     * */
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(final Date newRegistrationDate) {
+        registrationDate = newRegistrationDate;
+    }
+
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -134,23 +114,26 @@ public class User extends Entity{
         if (newO == null || getClass() != newO.getClass()) {
             return false;
         }
+        if (!super.equals(newO)) {
+            return false;
+        }
         User user = (User) newO;
-        return role == user.role && login.equals(user.login)
-                && password.equals(user.password)
+        return role == user.role && mobilePhone == user.mobilePhone
+                && login.equals(user.login) && password.equals(user.password)
+                && email.equals(user.email)
                 && pathToAvatar.equals(user.pathToAvatar)
-                && email.equals(user.email) && firstName.equals(user.firstName)
+                && firstName.equals(user.firstName)
                 && secondName.equals(user.secondName)
-                && mobilePhone.equals(user.mobilePhone);
+                && registrationDate.equals(user.registrationDate);
     }
-    /**
-     * HashCode method.
-     * @return hashcode.
-     * */
+
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pathToAvatar, role, login,
-                password, email, firstName, secondName, mobilePhone);
+        return Objects.hash(super.hashCode(), login, password, role, email,
+                pathToAvatar, firstName, secondName, mobilePhone,
+                registrationDate);
     }
+
     /**
      * To string method.
      * @return string class representation.
@@ -174,6 +157,8 @@ public class User extends Entity{
         builder.append(secondName);
         builder.append(", mobile phone=");
         builder.append(mobilePhone);
+        builder.append(", registration date=");
+        builder.append(registrationDate);
         builder.append("}");
         return builder.toString();
     }

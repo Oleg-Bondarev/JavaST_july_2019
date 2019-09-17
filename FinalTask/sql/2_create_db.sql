@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS stock_gift_coupons_db;
+CREATE DATABASE IF NOT EXISTS stock_gift_coupons_db; #default charset utf8;
 
 CREATE USER IF NOT EXISTS 'stock_user'@'localhost' IDENTIFIED BY 'password';
 

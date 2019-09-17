@@ -1,41 +1,59 @@
 package by.training.final_task.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * Represents coupon.
  * */
 public class Coupon extends Entity {
-    private String pathToImg;
-    /**
-     * Coupon name.
-     * */
     private String couponName;
-    /**
-     * Coupon description.
-     * */
+    private String pathToPicture;
     private String couponDescription;
-    /**
-     * Coupon price.
-     * */
     private BigDecimal couponPrice;
-    /**
-     * Coupon add date.
-     * */
-    private LocalDateTime couponAddDate;
-    /**
-     * Holding address.
-     * */
+    private Date couponAddDate;
     private String holdingAddress;
+    private int categoryId;
+    private int companyProviderId;
 
-    public String getPathToImg() {
-        return pathToImg;
+    public Coupon(final String newCouponName, final String newPathToPicture,
+                  final String newCouponDescription,
+                  final BigDecimal newCouponPrice, final Date newCouponAddDate,
+                  final String newHoldingAddress, final int newCategoryId,
+                  final int newCompanyProviderId) {
+        couponName = newCouponName;
+        pathToPicture = newPathToPicture;
+        couponDescription = newCouponDescription;
+        couponPrice = newCouponPrice;
+        couponAddDate = newCouponAddDate;
+        holdingAddress = newHoldingAddress;
+        categoryId = newCategoryId;
+        companyProviderId = newCompanyProviderId;
     }
 
-    public void setPathToImg(final String newPathToImg) {
-        pathToImg = newPathToImg;
+    public String getCouponName() {
+        return couponName;
+    }
+
+    public void setCouponName(final String newCouponName) {
+        couponName = newCouponName;
+    }
+
+    public String getPathToPicture() {
+        return pathToPicture;
+    }
+
+    public void setPathToPicture(final String newPathToPicture) {
+        pathToPicture = newPathToPicture;
+    }
+
+    public String getCouponDescription() {
+        return couponDescription;
+    }
+
+    public void setCouponDescription(final String newCouponDescription) {
+        couponDescription = newCouponDescription;
     }
 
     public BigDecimal getCouponPrice() {
@@ -46,65 +64,38 @@ public class Coupon extends Entity {
         couponPrice = newCouponPrice;
     }
 
-    /**
-     * Getter.
-     * @return coupon name.
-     * */
-    public String getCouponName() {
-        return couponName;
-    }
-    /**
-     * Setter.
-     * @param newCouponName -new coupon name.
-     * */
-    public void setCouponName(final String newCouponName) {
-        couponName = newCouponName;
-    }
-    /**
-     * Getter.
-     * @return coupon description.
-     * */
-    public String getCouponDescription() {
-        return couponDescription;
-    }
-    /**
-     * Setter.
-     * @param newCouponDescription -coupon description.
-     * */
-    public void setCouponDescription(final String newCouponDescription) {
-        couponDescription = newCouponDescription;
-    }
-    /**
-     * Getter.
-     * @return registration date.
-     * */
-    public LocalDateTime getCouponAddDate() {
+    public Date getCouponAddDate() {
         return couponAddDate;
     }
-    /**
-     * Setter.
-     * @param newCouponAddDate -registration date.
-     * */
-    public void setCouponAddDate(final LocalDateTime newCouponAddDate) {
+
+    public void setCouponAddDate(final Date newCouponAddDate) {
         couponAddDate = newCouponAddDate;
     }
-    /**
-     * Getter.
-     * @return holding address.
-     * */
+
     public String getHoldingAddress() {
         return holdingAddress;
     }
-    /**
-     * Setter.
-     * @param newHoldingAddress -new holding address.
-     * */
+
     public void setHoldingAddress(final String newHoldingAddress) {
         holdingAddress = newHoldingAddress;
     }
-    /**
-     * @param newO -object to compare.
-     * */
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(final int newCategoryId) {
+        categoryId = newCategoryId;
+    }
+
+    public int getCompanyProviderId() {
+        return companyProviderId;
+    }
+
+    public void setCompanyProviderId(final int newCompanyProviderId) {
+        companyProviderId = newCompanyProviderId;
+    }
+
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -113,23 +104,27 @@ public class Coupon extends Entity {
         if (newO == null || getClass() != newO.getClass()) {
             return false;
         }
+        if (!super.equals(newO)) {
+            return false;
+        }
         Coupon coupon = (Coupon) newO;
         return couponName.equals(coupon.couponName)
+                && pathToPicture.equals(coupon.pathToPicture)
                 && couponDescription.equals(coupon.couponDescription)
                 && couponPrice.equals(coupon.couponPrice)
                 && couponAddDate.equals(coupon.couponAddDate)
-                && pathToImg.equals(coupon.pathToImg)
-                && holdingAddress.equals(coupon.holdingAddress);
+                && holdingAddress.equals(coupon.holdingAddress)
+                && categoryId == coupon.categoryId
+                && companyProviderId == coupon.companyProviderId;
     }
-    /**
-     * HashCode method.
-     * @return hashcode.
-     * */
+
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pathToImg, couponName,
-                couponDescription, couponPrice, couponAddDate, holdingAddress);
+        return Objects.hash(super.hashCode(), couponName, pathToPicture,
+                couponDescription, couponPrice, couponAddDate, holdingAddress,
+                categoryId, companyProviderId);
     }
+
     /**
      * To string method.
      * @return string class representation.
@@ -149,6 +144,10 @@ public class Coupon extends Entity {
         builder.append(couponAddDate);
         builder.append(", holding address=");
         builder.append(holdingAddress);
+        builder.append(", category id");
+        builder.append(categoryId);
+        builder.append(", company provider id=");
+        builder.append(companyProviderId);
         builder.append("}");
         return builder.toString();
     }

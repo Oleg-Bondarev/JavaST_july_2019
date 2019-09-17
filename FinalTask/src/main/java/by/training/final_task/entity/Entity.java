@@ -3,7 +3,7 @@ package by.training.final_task.entity;
 import java.util.Objects;
 
 public class Entity {
-    private long id;
+    protected long id;
 
     public long getId() {
         return id;

@@ -6,49 +6,42 @@ import java.util.Objects;
  * Represent the provider of the coupon.
  * */
 public class CompanyProvider extends Entity {
-    /**
-     * Company name.
-     * */
-    private String companyName;
-    /**
-     * Company address.
-     * */
     private String companyAddress;
-    /**
-     * Default constructor.
-     * */
-    public CompanyProvider() { }
-    /**
-     * Getter.
-     * @return company name.
-     * */
-    public String getCompanyName() {
-        return companyName;
-    }
-    /**
-     * Setter.
-     * @param newCompanyName -new name.
-     * */
-    public void setCompanyName(final String newCompanyName) {
+    private String companyName;
+    private int mobilePhone;
+
+    public CompanyProvider(final String newCompanyAddress,
+                           final String newCompanyName,
+                           final int newMobilePhone) {
+        companyAddress = newCompanyAddress;
         companyName = newCompanyName;
+        mobilePhone = newMobilePhone;
     }
-    /**
-     * Getter.
-     * @return address.
-     * */
+
     public String getCompanyAddress() {
         return companyAddress;
     }
-    /**
-     * Setter.
-     * @param newCompanyAddress -new address.
-     * */
+
     public void setCompanyAddress(final String newCompanyAddress) {
         companyAddress = newCompanyAddress;
     }
-    /**
-     * @param newO -object to compare.
-     * */
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(final String newCompanyName) {
+        companyName = newCompanyName;
+    }
+
+    public int getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(final int newMobilePhone) {
+        mobilePhone = newMobilePhone;
+    }
+/////////id????
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -57,20 +50,21 @@ public class CompanyProvider extends Entity {
         if (newO == null || getClass() != newO.getClass()) {
             return false;
         }
+        if (!super.equals(newO)) {
+            return false;
+        }
         CompanyProvider that = (CompanyProvider) newO;
-        return companyName.equals(that.companyName)
-                && companyAddress.equals(that.companyAddress);
+        return mobilePhone == that.mobilePhone
+                && companyAddress.equals(that.companyAddress)
+                && companyName.equals(that.companyName);
     }
-    /**
-     * @return hashcode.
-     * */
+
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyName, companyAddress);
+        return Objects.hash(super.hashCode(), companyAddress, companyName,
+                mobilePhone);
     }
-    /**
-     * @return string class representation.
-     * */
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

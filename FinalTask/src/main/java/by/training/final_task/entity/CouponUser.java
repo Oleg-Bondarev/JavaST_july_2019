@@ -1,29 +1,30 @@
 package by.training.final_task.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * Represents class.
  * */
-public class CouponUser {
+public class CouponUser extends  Entity {
     /**
      * Registration date time.
      * */
-    private LocalDateTime registrationDateTime;
+    private Date registrationDateTime;
     /**
      * Identify.
      * */
     private int registrationId;
+    private int couponId;
+    private int userId;
     /***/
     public CouponUser() { }
 
-    public LocalDateTime getRegistrationDateTime() {
+    public Date getRegistrationDateTime() {
         return registrationDateTime;
     }
 
-    public void setRegistrationDateTime(final LocalDateTime
-                                                newRegistrationDateTime) {
+    public void setRegistrationDateTime(final Date newRegistrationDateTime) {
         registrationDateTime = newRegistrationDateTime;
     }
 
@@ -33,6 +34,22 @@ public class CouponUser {
 
     public void setRegistrationId(final int newRegistrationId) {
         registrationId = newRegistrationId;
+    }
+
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(final int newCouponId) {
+        couponId = newCouponId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(final int newUserId) {
+        userId = newUserId;
     }
 
     @Override
@@ -45,12 +62,14 @@ public class CouponUser {
         }
         CouponUser that = (CouponUser) newO;
         return registrationId == that.registrationId
-                && registrationDateTime.equals(that.registrationDateTime);
+                && registrationDateTime.equals(that.registrationDateTime)
+                && couponId == that.couponId && userId == that.userId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(registrationDateTime, registrationId);
+        return Objects.hash(registrationDateTime, registrationId, couponId,
+                userId);
     }
 
     @Override
@@ -61,6 +80,10 @@ public class CouponUser {
         builder.append(registrationId);
         builder.append(", registration date and time=");
         builder.append(registrationDateTime);
+        builder.append("coupon id=");
+        builder.append(couponId);
+        builder.append(", user id=");
+        builder.append(userId);
         builder.append("}");
         return builder.toString();
     }
