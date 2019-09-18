@@ -8,19 +8,19 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CouponDAO extends DAO<Coupon> {
-    Coupon get(int id) throws PersistentException;
+    Coupon get(long id) throws PersistentException;
     List<Coupon> getAll(int offset, int limit) throws PersistentException;
-    List<Coupon> getAllBought(int offset, int limit) throws PersistentException;
-    //нужно ли имя компании?
-    List<Coupon> getAllByCompanyProvider(int companyId, int offset, int limit)
+    //List<Coupon> getAllBought(int offset, int limit) throws PersistentException;
+    //нужно ли имя компании or id?
+    List<Coupon> getAllByCompanyProvider(String name, int offset, int limit)
         throws PersistentException;
     List<Coupon> getAllByCategory(Category category, int offset, int limit)
             throws PersistentException;
     List<Coupon> getAllByName(String name, int offset, int limit)
         throws PersistentException;
     List<Coupon> getAllByPriceRange(BigDecimal minBorder, BigDecimal maxBorder,
-                                    int offset, int limit);
-    boolean delete(int id) throws PersistentException;
+                                    int offset, int limit) throws PersistentException;
+    boolean delete(long id) throws PersistentException;
 
     int getAmountOfAllCoupons() throws PersistentException;
     int getAmountOfAllBoughtCoupons() throws PersistentException;
@@ -30,5 +30,6 @@ public interface CouponDAO extends DAO<Coupon> {
     int getAmountByCompanyProvider(String companyName)
             throws PersistentException;
     int getAmountByName(String name) throws PersistentException;
-    int getAmountByPriceRange(BigDecimal minBorder, BigDecimal maxBorder);
+    int getAmountByPriceRange(BigDecimal minBorder, BigDecimal maxBorder)
+            throws PersistentException;
 }

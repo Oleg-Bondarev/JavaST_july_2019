@@ -1,7 +1,7 @@
 package by.training.final_task.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -14,14 +14,15 @@ public class Coupon extends Entity {
     private BigDecimal couponPrice;
     private Date couponAddDate;
     private String holdingAddress;
-    private int categoryId;
-    private int companyProviderId;
+    private long categoryId;
+    private long companyProviderId;
 
-    public Coupon(final String newCouponName, final String newPathToPicture,
+    public Coupon(final long newId, final String newCouponName, final String newPathToPicture,
                   final String newCouponDescription,
                   final BigDecimal newCouponPrice, final Date newCouponAddDate,
-                  final String newHoldingAddress, final int newCategoryId,
-                  final int newCompanyProviderId) {
+                  final String newHoldingAddress, final long newCategoryId,
+                  final long newCompanyProviderId) {
+        id = newId;
         couponName = newCouponName;
         pathToPicture = newPathToPicture;
         couponDescription = newCouponDescription;
@@ -80,19 +81,19 @@ public class Coupon extends Entity {
         holdingAddress = newHoldingAddress;
     }
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(final int newCategoryId) {
+    public void setCategoryId(final long newCategoryId) {
         categoryId = newCategoryId;
     }
 
-    public int getCompanyProviderId() {
+    public long getCompanyProviderId() {
         return companyProviderId;
     }
 
-    public void setCompanyProviderId(final int newCompanyProviderId) {
+    public void setCompanyProviderId(final long newCompanyProviderId) {
         companyProviderId = newCompanyProviderId;
     }
 

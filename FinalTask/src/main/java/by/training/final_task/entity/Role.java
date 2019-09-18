@@ -23,4 +23,12 @@ public enum Role {
         }
         throw new WrongEnumTupeException(newValue);
     }
+
+    public static Role valueOf(final int index) {
+        return Role.values()[index];
+    }
+
+    public int getOrdinal() {
+        return ordinal();
+    }
 }

@@ -1,6 +1,6 @@
 package by.training.final_task.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -9,7 +9,7 @@ import java.util.Objects;
 public class User extends Entity {
     private String login;
     private String password;
-    private byte role;
+    private Role role;
     private String email;
     private String pathToAvatar;
     private String firstName;
@@ -17,12 +17,12 @@ public class User extends Entity {
     private int mobilePhone;
     private Date registrationDate;
 
-    public User(final int id, final String newLogin, final String newPassword,
-                final byte newRole, final String newEmail,
+    public User(final long newId, final String newLogin, final String newPassword,
+                final Role newRole, final String newEmail,
                 final String newPathToAvatar, final String newFirstName,
                 final String newSecondName, final int newMobilePhone,
                 final Date newRegistrationDate) {
-        this.id = id;
+        id = newId;
         login = newLogin;
         password = newPassword;
         role = newRole;
@@ -50,11 +50,11 @@ public class User extends Entity {
         password = newPassword;
     }
 
-    public byte getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(final byte newRole) {
+    public void setRole(final Role newRole) {
         role = newRole;
     }
 

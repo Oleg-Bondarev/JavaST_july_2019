@@ -13,7 +13,6 @@ public interface DAO<T extends Entity> {
 
     int create(T element) throws PersistentException;
     T get() throws PersistentException;
-    T getEntityById(int id) throws PersistentException;
     boolean update(T element) throws PersistentException;
     boolean delete(T element) throws PersistentException;
 
