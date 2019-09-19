@@ -49,7 +49,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
     public ReviewsDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
-
+    //+
     @Override
     public List<Reviews> getAllReviewsCurrentUser(final long userId,
             final int offset, final int limit) throws PersistentException {
@@ -70,7 +70,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public List<Reviews> getAllReviewsCurrentCoupon(final long couponId,
             final int offset, final int limit) throws PersistentException {
@@ -91,7 +91,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getAllCount() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -105,7 +105,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getCountReviewsCurrentUser(final long userId)
             throws PersistentException {
@@ -121,7 +121,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getCountReviewsCurrentCoupon(final long couponId)
             throws PersistentException {
@@ -161,12 +161,12 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
         }
         return 0;
     }
-
+    //+
     @Override
     public Reviews get() throws PersistentException {
         return get(1);
     }
-
+    //+
     @Override
     public Reviews get(final long id) throws PersistentException {
         Reviews review = null;
@@ -184,7 +184,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
         }
         return review;
     }
-
+    //+
     @Override
     public List<Reviews> getAll(final int offset, final int limit)
             throws PersistentException {

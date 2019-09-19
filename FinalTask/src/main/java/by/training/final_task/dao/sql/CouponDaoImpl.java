@@ -24,20 +24,20 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     private static final String GET_ALL_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_COUPONS_BY_COMPANY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ? ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_COUPONS_BY_CATEGORY = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.category_id = ? LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COUPONS_BY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ?";
-    private static final String GET_ALL_COUPONS_BY_PRICE_RANGE = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.price BETWEEN ? AND ? LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ? LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_PRICE_RANGE = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.price BETWEEN ? AND ?";
     /**Check*/
     private static final String GET_ALL_AVAILABLE_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM company_provider JOIN coupon ON company_provider.id = coupon.company_provider_id WHERE company_provider.blocking = false LIMIT ? OFFSET ?";
     private static final String GET_AMOUNT_OF_ALL_COUPON = "SELECT COUNT(coupon.id) FROM coupon";
-    private static final String GET_AMOUNT_BY_CATEGORY = "SELECT COUNT(coupon.id) FROM coupon INNER JOIN category ON(category.id = coupon.id) WHERE category.name = ?";
+    private static final String GET_AMOUNT_BY_CATEGORY = "SELECT COUNT(coupon.id) FROM coupon JOIN category ON(category.id = coupon.category_id) WHERE category.id = ?";
     private static final String GET_AMOUNT_BY_COMPANY_PROVIDER = "SELECT COUNT(coupon.id) FROM coupon INNER JOIN company_provider ON(company_provider.id = coupon.id) WHERE company_provider.name = ?";
-    private static final String GET_AMOUNT_BY_COMPANY_NAME = "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.name = ?";
+    private static final String GET_AMOUNT_BY_COUPON_NAME = "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.name = ?";
 
 
     public CouponDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
-
+    //+
     @Override
     public Coupon get(final long id) throws PersistentException {
         Coupon coupon = null;
@@ -55,7 +55,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
         return coupon;
     }
-
+    //+
     @Override
     public List<Coupon> getAll(final int offset, final int limit)
             throws PersistentException {
@@ -75,12 +75,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public List<Coupon> getAllByCompanyProvider(final String name,
-                                                final int offset,
-                                                final int limit)
-            throws PersistentException {
+            final int offset,  final int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_COUPONS_BY_COMPANY_NAME)) {
@@ -98,13 +96,14 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
-    public List<Coupon> getAllByCategory(Category category, int offset, int limit) throws PersistentException {
+    public List<Coupon> getAllByCategory(Category category, int offset, int limit)
+            throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_COUPONS_BY_CATEGORY)) {
-            preparedStatement.setNString(1, category.getValue());
+            preparedStatement.setInt(1, category.ordinal() + 1);
             preparedStatement.setInt(2, limit);
             preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -118,7 +117,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public List<Coupon> getAllByName(final String name, final int offset,
                                      final int limit) throws PersistentException {
@@ -139,11 +138,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public List<Coupon> getAllByPriceRange(final BigDecimal minBorder,
-                                           final BigDecimal maxBorder,
-                                           final int offset, int limit)
+            final BigDecimal maxBorder, final int offset, int limit)
             throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
@@ -163,11 +161,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public List<Coupon> getAllAvailableCoupons(final int offset,
-                                               final int limit)
-            throws PersistentException {
+           final int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_AVAILABLE_COUPONS)) {
@@ -197,7 +194,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getAmountOfAllCoupons() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -211,34 +208,13 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getAmountByCategory(final Category category)
             throws PersistentException {
-        return getAmountWithStringParameter(GET_AMOUNT_BY_CATEGORY, category.getValue());
-    }
-
-    @Override
-    public int getAmountByCompanyProvider(final String companyName)
-            throws PersistentException {
-        String query = GET_AMOUNT_BY_COMPANY_PROVIDER;
-        return getAmountWithStringParameter(query, companyName);
-    }
-
-    @Override
-    public int getAmountByName(final String name) throws PersistentException {
-        String query = GET_AMOUNT_BY_COMPANY_NAME;
-        return getAmountWithStringParameter(query, name);
-    }
-
-    @Override
-    public int getAmountByPriceRange(final BigDecimal minBorder,
-                                     final BigDecimal maxBorder)
-            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_ALL_COUPONS_BY_PRICE_RANGE)) {
-            preparedStatement.setBigDecimal(1, minBorder);
-            preparedStatement.setBigDecimal(2, maxBorder);
+                .prepareStatement(GET_AMOUNT_BY_CATEGORY)) {
+            preparedStatement.setInt(1, category.ordinal() + 1);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return resultSet.getInt(1);
@@ -247,6 +223,38 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
         }
+    }
+    //+
+    @Override
+    public int getAmountByCompanyProvider(final String companyName)
+            throws PersistentException {
+        String query = GET_AMOUNT_BY_COMPANY_PROVIDER;
+        return getAmountWithStringParameter(query, companyName);
+    }
+    //+
+    @Override
+    public int getAmountByName(final String name) throws PersistentException {
+        String query = GET_AMOUNT_BY_COUPON_NAME;
+        return getAmountWithStringParameter(query, name);
+    }
+    //+
+    @Override
+    public int getAmountByPriceRange(final BigDecimal minBorder,
+            final BigDecimal maxBorder) throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_ALL_COUPONS_BY_PRICE_RANGE)) {
+            preparedStatement.setBigDecimal(1, minBorder);
+            preparedStatement.setBigDecimal(2, maxBorder);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+        return 0;
     }
 
     @Override
@@ -271,7 +279,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
         return 0;
     }
-
+    //+
     @Override
     public Coupon get() throws PersistentException {
         return get(1);
@@ -329,8 +337,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     }
 
     private int getAmountWithStringParameter(final String query,
-                                          final String byWhatSearch)
-            throws PersistentException {
+            final String byWhatSearch) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(query)) {
             preparedStatement.setNString(1, byWhatSearch);

@@ -24,10 +24,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             + " user.first_name=?, user.second_name=?, user.mobile_phone=?,"
             + " user.registration_date_time=?, user.blocking=? WHERE user.id=?";
     private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
+
     private static final String GET_USER = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
             + " user.registration_date_time, user.blocking FROM user WHERE id = ?";
+
     private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user.id,"
             + " user.login, user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
@@ -58,9 +60,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     private static final String GET_ALL_ACTIVE_USERS =
             "SELECT user.id, user.login, user.password, user.role, user.email," +
             " user.avatar, user.first_name, user.second_name," +
-            " user.mobile_phone, user.registration_date_time, user.blocking FROM user WHERE user.blocking = false";
+            " user.mobile_phone, user.registration_date_time, user.blocking" +
+            " FROM user WHERE user.blocking = false ORDER BY id LIMIT ? OFFSET ?";
 
-    UserDaoImpl(final Connection newConnection) {
+    public UserDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
 
@@ -140,6 +143,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public User get() throws PersistentException {
         User user = null;
@@ -158,20 +162,26 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         return user;
     }
 
+    //+
     @Override
     public User get(final long userId) throws PersistentException {
+        User user = null;
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_USER)) {
             preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return getUser(resultSet);
+                if (resultSet.next()) {
+                    user =  getUser(resultSet);
+                }
             }
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
         }
+        return user;
     }
 
+    //+
     @Override
     public User get(final String login, final String password)
             throws PersistentException {
@@ -192,6 +202,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         return user;
     }
 
+    //+
     @Override
     public List<User> getAll(final int offset, final int limit)
             throws PersistentException {
@@ -201,7 +212,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     users.add(getUser(resultSet));
                 }
             }
@@ -225,6 +236,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public int getAmountOfAllUsersByRole(final Role role)
             throws PersistentException {
@@ -241,6 +253,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
                                                      final Role role)
@@ -259,6 +272,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public int getAmountOfAllUsersByEmail(final String email) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -274,6 +288,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public List<User> getAllUsersByRole(final Role newRole, int offset, int limit)
             throws PersistentException {
@@ -295,6 +310,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
                                                       final String secondName)
@@ -316,12 +332,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
+    //+
     @Override
-    public List<User> getAllActiveUsers(final int limit, final int offset)
+    public List<User> getAllActiveUsers(final int offset, final int limit)
             throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME)) {
+                .prepareStatement(GET_ALL_ACTIVE_USERS)) {
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -337,7 +354,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     }
 
     private User getUser(final ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong("id");
+        long id = resultSet.getLong(1);
         String login = resultSet.getNString("login");
         String password = resultSet.getNString("password");
         Role role = Role.valueOf(resultSet.getInt("role"));

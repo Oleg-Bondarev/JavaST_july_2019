@@ -26,7 +26,8 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
                 " coupon.name, coupon.picture, coupon.description, coupon.price," +
                 " coupon.adding_date_time, coupon.holding_address, coupon_user.id," +
                 " coupon_user.registration_date_time" +
-                " FROM coupon JOIN coupon_user ON coupon_user.coupon_id = coupon.id JOIN user ON user.id = coupon_user.user_id WHERE user.id = ? LIMIT ? OFFSET ?";
+                " FROM coupon JOIN coupon_user ON coupon_user.coupon_id = coupon.id" +
+                " JOIN user ON user.id = coupon_user.user_id WHERE user.id = ? LIMIT ? OFFSET ?";
     private static final String GET_ALL_COUPONS_BETWEEN_DATES_FOR_CURRENT_USER =
             "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
                 " coupon.name, coupon.picture, coupon.description, coupon.price," +
@@ -62,7 +63,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     public CouponUserDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
-
+    //+
     @Override
     public List<Coupon> getAllCouponsCurrentUser(final long userId,
              final int offset, final int limit) throws PersistentException {
@@ -83,7 +84,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //TODO check date format
     @Override
     public List<Coupon> getAllBetweenDatesCurrentUser(final long userId,
               final Date startDate, final Date endDate, final int offset,
@@ -107,7 +108,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getCountCouponNameCurrentUser(final long userId) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -123,6 +124,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         }
     }
 
+    //TODO check date format
     @Override
     public int getCountBetweenDatesCurrentUser(long userId, Date startDate, Date endDate) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -139,7 +141,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public int getAllCount() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -177,12 +179,12 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         }
         return 0;
     }
-
+    //+
     @Override
     public CouponUser get() throws PersistentException {
         return get(1);
     }
-
+    //+
     @Override
     public CouponUser get(final long id) throws PersistentException {
         CouponUser couponUser = null;
@@ -200,7 +202,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         }
         return couponUser;
     }
-
+    //+
     @Override
     public List<CouponUser> getAll(final int offset, final int limit)
             throws PersistentException {

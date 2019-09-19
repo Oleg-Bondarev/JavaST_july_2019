@@ -34,6 +34,7 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
         super(newConnection);
     }
 
+    //+
     @Override
     public CompanyProvider getByAddress(final String address)
             throws PersistentException {
@@ -52,7 +53,7 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
         }
         return company;
     }
-
+    //+
     @Override
     public CompanyProvider getByPhone(final int phone)
             throws PersistentException {
@@ -71,30 +72,26 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
         }
         return company;
     }
-
+    //+
     @Override
     public List<CompanyProvider> getAll(final int offset, final int limit)
             throws PersistentException {
-        //TODO check throving exception.
         return getListByQuery(offset, limit, GET_ALL_COMPANY);
     }
-
+    //+
     @Override
     public List<CompanyProvider> getAllAvailableCompany(int offset, int limit)
             throws PersistentException {
-        //TODO check throving exception.
         return getListByQuery(offset, limit, GET_ALL_AVAILABLE_COMPANY);
     }
-
+    //+
     @Override
     public int getAmountOfCompany() throws PersistentException {
-        //TODO check throving exception.
         return getAmountByQuery(GET_AMOUNT_OF_ALL_COMPANY);
     }
-
+    //+
     @Override
     public int getAmountOfAvailableCompany() throws PersistentException {
-        //TODO check throving exception.
         return getAmountByQuery(GET_AMOUNT_OF_ALL_AVAILABLE_COMPANY);
     }
 
@@ -122,12 +119,12 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
         }
         return 0;
     }
-
+    //+
     @Override
     public CompanyProvider get() throws PersistentException {
         return get(1);
     }
-
+    //+
     @Override
     public CompanyProvider get(final long id) throws PersistentException {
         CompanyProvider coupon = null;

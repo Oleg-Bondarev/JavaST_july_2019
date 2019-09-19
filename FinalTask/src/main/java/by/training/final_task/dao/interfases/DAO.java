@@ -19,12 +19,4 @@ public interface DAO<T extends Entity> {
     boolean update(T element) throws PersistentException;
     boolean delete(T element) throws PersistentException;
     boolean delete(long id) throws PersistentException;
-
-    default void close(Statement newStatement) throws PersistentException {
-        try {
-            newStatement.close();
-        } catch (SQLException newE) {
-            throw new PersistentException(newE);
-        }
-    }
 }
