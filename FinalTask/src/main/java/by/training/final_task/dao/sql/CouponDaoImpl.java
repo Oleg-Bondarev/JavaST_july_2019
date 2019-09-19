@@ -17,26 +17,43 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private static final String ADD_COUPON = "INSERT INTO coupon (category_id, company_provider_id, name, picture, description, price, adding_date_time, holding_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_COUPON = "UPDATE coupon SET category_id=?, company_provider_id=?, name=?, picture=?, description=?, price=?, adding_date_time=?, holding_address=? WHERE coupon.id=?";
+    private static final String DELETE_COUPON = "DELETE FROM coupon WHERE id = ?";
+    private static final String GET_COUPON = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.id = ?";
+    private static final String GET_ALL_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_COMPANY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ? ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_CATEGORY = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.category_id = ? LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ?";
+    private static final String GET_ALL_COUPONS_BY_PRICE_RANGE = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.price BETWEEN ? AND ? LIMIT ? OFFSET ?";
+    /**Check*/
+    private static final String GET_ALL_AVAILABLE_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM company_provider JOIN coupon ON company_provider.id = coupon.company_provider_id WHERE company_provider.blocking = false LIMIT ? OFFSET ?";
+    private static final String GET_AMOUNT_OF_ALL_COUPON = "SELECT COUNT(coupon.id) FROM coupon";
+    private static final String GET_AMOUNT_BY_CATEGORY = "SELECT COUNT(coupon.id) FROM coupon INNER JOIN category ON(category.id = coupon.id) WHERE category.name = ?";
+    private static final String GET_AMOUNT_BY_COMPANY_PROVIDER = "SELECT COUNT(coupon.id) FROM coupon INNER JOIN company_provider ON(company_provider.id = coupon.id) WHERE company_provider.name = ?";
+    private static final String GET_AMOUNT_BY_COMPANY_NAME = "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.name = ?";
+
+
     public CouponDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
 
     @Override
     public Coupon get(final long id) throws PersistentException {
+        Coupon coupon = null;
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getCouponDAO"))) {
+                .prepareStatement(GET_COUPON)) {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return getNewCoupon(resultSet);
+                    coupon =  getNewCoupon(resultSet);
                 }
             }
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
         }
-        //TODO return nul??
-        return null;
+        return coupon;
     }
 
     @Override
@@ -44,9 +61,9 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getAllCouponsDAO"))) {
-            preparedStatement.setInt(1, offset);
-            preparedStatement.setInt(2, limit);
+                .prepareStatement(GET_ALL_COUPONS)) {
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     coupons.add(getNewCoupon(resultSet));
@@ -59,11 +76,6 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
     }
 
-    /*@Override
-    public List<Coupon> getAllBought(int offset, int limit) throws PersistentException {
-        return null;
-    }*/
-
     @Override
     public List<Coupon> getAllByCompanyProvider(final String name,
                                                 final int offset,
@@ -71,10 +83,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getAllCouponsByCompanyNameDAO"))) {
+                .prepareStatement(GET_ALL_COUPONS_BY_COMPANY_NAME)) {
             preparedStatement.setNString(1, name);
-            preparedStatement.setInt(2, offset);
-            preparedStatement.setInt(3, limit);
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     coupons.add(getNewCoupon(resultSet));
@@ -91,10 +103,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     public List<Coupon> getAllByCategory(Category category, int offset, int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getAllCouponsByCategoryDAO"))) {
+                .prepareStatement(GET_ALL_COUPONS_BY_CATEGORY)) {
             preparedStatement.setNString(1, category.getValue());
-            preparedStatement.setInt(2, offset);
-            preparedStatement.setInt(3, limit);
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     coupons.add(getNewCoupon(resultSet));
@@ -112,10 +124,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
                                      final int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getAllCouponsByNameDAO"))) {
+                .prepareStatement(GET_ALL_COUPONS_BY_NAME)) {
             preparedStatement.setNString(1, name);
-            preparedStatement.setInt(2, offset);
-            preparedStatement.setInt(3, limit);
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     coupons.add(getNewCoupon(resultSet));
@@ -135,12 +147,32 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString(
-                        "getAllCouponsByPriceRangeDAO"))) {
+                .prepareStatement(GET_ALL_COUPONS_BY_PRICE_RANGE)) {
             preparedStatement.setBigDecimal(1, minBorder);
             preparedStatement.setBigDecimal(2, maxBorder);
-            preparedStatement.setInt(3, offset);
-            preparedStatement.setInt(4, limit);
+            preparedStatement.setInt(3, limit);
+            preparedStatement.setInt(4, offset);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    coupons.add(getNewCoupon(resultSet));
+                }
+            }
+            return coupons;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+    }
+
+    @Override
+    public List<Coupon> getAllAvailableCoupons(final int offset,
+                                               final int limit)
+            throws PersistentException {
+        List<Coupon> coupons = new LinkedList<>();
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_ALL_AVAILABLE_COUPONS)) {
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     coupons.add(getNewCoupon(resultSet));
@@ -156,7 +188,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     @Override
     public boolean delete(final long id) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("deleteCouponDAO"))) {
+                .prepareStatement(DELETE_COUPON)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             return true;
@@ -169,7 +201,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     @Override
     public int getAmountOfAllCoupons() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("getAmountOfAllCouponDAO"))) {
+                .prepareStatement(GET_AMOUNT_OF_ALL_COUPON)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return resultSet.getInt(1);
@@ -179,29 +211,23 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //TODO
-    @Override
-    public int getAmountOfAllBoughtCoupons() throws PersistentException {
-        return 0;
-    }
 
     @Override
     public int getAmountByCategory(final Category category)
             throws PersistentException {
-        String query = getResourceBundle().getString("getAmountByCategoryDAO");
-        return getAmountWithStringParameter(query, category.getValue());
+        return getAmountWithStringParameter(GET_AMOUNT_BY_CATEGORY, category.getValue());
     }
 
     @Override
     public int getAmountByCompanyProvider(final String companyName)
             throws PersistentException {
-        String query = getResourceBundle().getString("getAmountByCompanyProviderDAO");
+        String query = GET_AMOUNT_BY_COMPANY_PROVIDER;
         return getAmountWithStringParameter(query, companyName);
     }
 
     @Override
     public int getAmountByName(final String name) throws PersistentException {
-        String query = getResourceBundle().getString("getAmountByCouponNameDAO");
+        String query = GET_AMOUNT_BY_COMPANY_NAME;
         return getAmountWithStringParameter(query, name);
     }
 
@@ -210,8 +236,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
                                      final BigDecimal maxBorder)
             throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString(
-                        "getAllCouponsByPriceRangeDAO"))) {
+                .prepareStatement(GET_ALL_COUPONS_BY_PRICE_RANGE)) {
             preparedStatement.setBigDecimal(1, minBorder);
             preparedStatement.setBigDecimal(2, maxBorder);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -227,8 +252,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     @Override
     public int create(Coupon newCoupon) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("addCouponDAO"),
-                        PreparedStatement.RETURN_GENERATED_KEYS)) {
+                .prepareStatement(ADD_COUPON, PreparedStatement.RETURN_GENERATED_KEYS)) {
             setPreparedStatement(newCoupon, preparedStatement);
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
@@ -254,22 +278,24 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     }
 
     @Override
-    public boolean update(Coupon newCoupon) throws PersistentException {
+    public boolean update(final Coupon newCoupon)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString("updateCouponDAO"))) {
+                .prepareStatement(UPDATE_COUPON)) {
             setPreparedStatement(newCoupon, preparedStatement);
             preparedStatement.setLong(9, newCoupon.getId());
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE);
-            throw new PersistentException("Fail in updating user!\n"
+            throw new PersistentException("Fail in updating coupon!\n"
                     + newE.getMessage(), newE);
         }
     }
 
     @Override
-    public boolean delete(Coupon newCoupon) throws PersistentException {
+    public boolean delete(final Coupon newCoupon)
+            throws PersistentException {
         return delete(newCoupon.getId());
     }
 
@@ -303,9 +329,10 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     }
 
     private int getAmountWithStringParameter(final String query,
-                                          final String byWhatSearch) throws PersistentException {
+                                          final String byWhatSearch)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(getResourceBundle().getString(query))) {
+                .prepareStatement(query)) {
             preparedStatement.setNString(1, byWhatSearch);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();

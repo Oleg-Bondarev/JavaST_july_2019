@@ -9,13 +9,16 @@ public class CompanyProvider extends Entity {
     private String companyAddress;
     private String companyName;
     private int mobilePhone;
+    private boolean blocking;
 
-    public CompanyProvider(final String newCompanyAddress,
+    public CompanyProvider(long newId, final String newCompanyAddress,
                            final String newCompanyName,
-                           final int newMobilePhone) {
+                           final int newMobilePhone, final boolean newBlocking) {
+        id = newId;
         companyAddress = newCompanyAddress;
         companyName = newCompanyName;
         mobilePhone = newMobilePhone;
+        blocking = newBlocking;
     }
 
     public String getCompanyAddress() {
@@ -41,7 +44,16 @@ public class CompanyProvider extends Entity {
     public void setMobilePhone(final int newMobilePhone) {
         mobilePhone = newMobilePhone;
     }
-/////////id????
+
+    public boolean getBlocking() {
+        return blocking;
+    }
+
+    public void setBlocking(final boolean newBlocking) {
+        blocking = newBlocking;
+    }
+
+    /////////id????
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -56,13 +68,14 @@ public class CompanyProvider extends Entity {
         CompanyProvider that = (CompanyProvider) newO;
         return mobilePhone == that.mobilePhone
                 && companyAddress.equals(that.companyAddress)
-                && companyName.equals(that.companyName);
+                && companyName.equals(that.companyName)
+                && blocking == that.blocking;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), companyAddress, companyName,
-                mobilePhone);
+                mobilePhone, blocking);
     }
 
     @Override
@@ -74,6 +87,8 @@ public class CompanyProvider extends Entity {
         builder.append(companyName);
         builder.append(", company address=");
         builder.append(companyAddress);
+        builder.append(", blocking=");
+        builder.append(blocking);
         builder.append("}");
         return builder.toString();
     }

@@ -16,12 +16,13 @@ public class User extends Entity {
     private String secondName;
     private int mobilePhone;
     private Date registrationDate;
+    private boolean blocking;
 
     public User(final long newId, final String newLogin, final String newPassword,
                 final Role newRole, final String newEmail,
                 final String newPathToAvatar, final String newFirstName,
                 final String newSecondName, final int newMobilePhone,
-                final Date newRegistrationDate) {
+                final Date newRegistrationDate, final boolean newBlocking) {
         id = newId;
         login = newLogin;
         password = newPassword;
@@ -32,6 +33,7 @@ public class User extends Entity {
         secondName = newSecondName;
         mobilePhone = newMobilePhone;
         registrationDate = newRegistrationDate;
+        blocking = newBlocking;
     }
 
     public String getLogin() {
@@ -106,6 +108,14 @@ public class User extends Entity {
         registrationDate = newRegistrationDate;
     }
 
+    public boolean getBlocking() {
+        return blocking;
+    }
+
+    public void setBlocking(final boolean newBlocking) {
+        blocking = newBlocking;
+    }
+
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -124,14 +134,15 @@ public class User extends Entity {
                 && pathToAvatar.equals(user.pathToAvatar)
                 && firstName.equals(user.firstName)
                 && secondName.equals(user.secondName)
-                && registrationDate.equals(user.registrationDate);
+                && registrationDate.equals(user.registrationDate)
+                && blocking == user.blocking;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), login, password, role, email,
                 pathToAvatar, firstName, secondName, mobilePhone,
-                registrationDate);
+                registrationDate, blocking);
     }
 
     /**
@@ -159,6 +170,8 @@ public class User extends Entity {
         builder.append(mobilePhone);
         builder.append(", registration date=");
         builder.append(registrationDate);
+        builder.append(", blocking=");
+        builder.append(blocking);
         builder.append("}");
         return builder.toString();
     }

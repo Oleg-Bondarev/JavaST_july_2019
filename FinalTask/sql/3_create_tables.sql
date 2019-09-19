@@ -12,6 +12,7 @@ CREATE TABLE company_provider
     address      varchar(255) NOT NULL,
     name         varchar(255) NOT NULL,
     mobile_phone int          NOT NULL,
+    blocking     boolean      NOT NULL,
 
     CONSTRAINT PK_company_provider PRIMARY KEY (id),
     CONSTRAINT UC_company_provider_mobile UNIQUE (mobile_phone),
@@ -54,6 +55,7 @@ CREATE TABLE user
     second_name            varchar(50)  NOT NULL,
     mobile_phone           int          NOT NULL,
     registration_date_time datetime     NOT NULL,
+    blocking               boolean      NOT NULL,
 
     CONSTRAINT UC_user_email UNIQUE (email),
     CONSTRAINT PK_user PRIMARY KEY (id),

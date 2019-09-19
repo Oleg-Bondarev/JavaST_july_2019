@@ -20,6 +20,7 @@ public class Main {
         prop.put("autoReconnect", "true");
         prop.put("characterEncoding", "UTF-8");
         prop.put("useUnicode", "true");
+        prop.put("useSSl", "false");//check
         Connection cn = null;
 
         try {
