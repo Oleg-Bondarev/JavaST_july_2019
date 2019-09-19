@@ -10,10 +10,18 @@ public class Reviews extends Entity {
      * Review.
      * */
     private String review;
-    private int couponId;
-    private int userId;
+    private long couponId;
+    private long userId;
 
     public Reviews() { }
+
+    public Reviews(final long newId, final String newReview,
+                   final long newCouponId, final long newUserId) {
+        id = newId;
+        review = newReview;
+        couponId = newCouponId;
+        userId = newUserId;
+    }
 
     public String getReview() {
         return review;
@@ -23,19 +31,19 @@ public class Reviews extends Entity {
         review = newReview;
     }
 
-    public int getCouponId() {
+    public long getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(final int newCouponId) {
+    public void setCouponId(final long newCouponId) {
         couponId = newCouponId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(final int newUserId) {
+    public void setUserId(final long newUserId) {
         userId = newUserId;
     }
 

@@ -1,6 +1,6 @@
 package by.training.final_task.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -14,11 +14,18 @@ public class CouponUser extends  Entity {
     /**
      * Identify.
      * */
-    private int registrationId;
-    private int couponId;
-    private int userId;
+    private long couponId;
+    private long userId;
     /***/
     public CouponUser() { }
+
+    public CouponUser(final long newId, final Date newRegDate,
+                      final long newCouponId, final long newUserId) {
+        id = newId;
+        registrationDateTime = newRegDate;
+        couponId = newCouponId;
+        userId = newUserId;
+    }
 
     public Date getRegistrationDateTime() {
         return registrationDateTime;
@@ -28,15 +35,7 @@ public class CouponUser extends  Entity {
         registrationDateTime = newRegistrationDateTime;
     }
 
-    public int getRegistrationId() {
-        return registrationId;
-    }
-
-    public void setRegistrationId(final int newRegistrationId) {
-        registrationId = newRegistrationId;
-    }
-
-    public int getCouponId() {
+    public long getCouponId() {
         return couponId;
     }
 
@@ -44,7 +43,7 @@ public class CouponUser extends  Entity {
         couponId = newCouponId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -61,14 +60,13 @@ public class CouponUser extends  Entity {
             return false;
         }
         CouponUser that = (CouponUser) newO;
-        return registrationId == that.registrationId
-                && registrationDateTime.equals(that.registrationDateTime)
+        return registrationDateTime.equals(that.registrationDateTime)
                 && couponId == that.couponId && userId == that.userId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(registrationDateTime, registrationId, couponId,
+        return Objects.hash(super.hashCode(), registrationDateTime, couponId,
                 userId);
     }
 
@@ -76,8 +74,7 @@ public class CouponUser extends  Entity {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Coupon user{");
-        builder.append("registration id=");
-        builder.append(registrationId);
+        builder.append(super.toString());
         builder.append(", registration date and time=");
         builder.append(registrationDateTime);
         builder.append("coupon id=");
