@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,26 +19,82 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String ADD_COUPON = "INSERT INTO coupon (category_id, company_provider_id, name, picture, description, price, adding_date_time, holding_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_COUPON = "UPDATE coupon SET category_id=?, company_provider_id=?, name=?, picture=?, description=?, price=?, adding_date_time=?, holding_address=? WHERE coupon.id=?";
-    private static final String DELETE_COUPON = "DELETE FROM coupon WHERE id = ?";
-    private static final String GET_COUPON = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.id = ?";
-    private static final String GET_ALL_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon ORDER BY id LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COUPONS_BY_COMPANY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ? ORDER BY id LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COUPONS_BY_CATEGORY = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.category_id = ? LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COUPONS_BY_NAME = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.name = ? LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COUPONS_BY_PRICE_RANGE = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM coupon WHERE coupon.price BETWEEN ? AND ?";
-    /**Check*/
-    private static final String GET_ALL_AVAILABLE_COUPONS = "SELECT coupon.id, coupon.category_id, coupon.company_provider_id, coupon.name, coupon.picture, coupon.description, coupon.price, coupon.adding_date_time, coupon.holding_address FROM company_provider JOIN coupon ON company_provider.id = coupon.company_provider_id WHERE company_provider.blocking = false LIMIT ? OFFSET ?";
-    private static final String GET_AMOUNT_OF_ALL_COUPON = "SELECT COUNT(coupon.id) FROM coupon";
-    private static final String GET_AMOUNT_BY_CATEGORY = "SELECT COUNT(coupon.id) FROM coupon JOIN category ON(category.id = coupon.category_id) WHERE category.id = ?";
-    private static final String GET_AMOUNT_BY_COMPANY_PROVIDER = "SELECT COUNT(coupon.id) FROM coupon INNER JOIN company_provider ON(company_provider.id = coupon.id) WHERE company_provider.name = ?";
-    private static final String GET_AMOUNT_BY_COUPON_NAME = "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.name = ?";
+    private static final String ADD_COUPON =
+            "INSERT INTO coupon (category_id, company_provider_id, name," +
+            " picture, description, price, adding_date_time, holding_address, blocking)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_COUPON =
+            "UPDATE coupon SET category_id=?, company_provider_id=?, name=?," +
+            " picture=?, description=?, price=?, adding_date_time=?, holding_address=?, blocking=?" +
+            " WHERE coupon.id=?";
+    private static final String UPDATE_COUPON_STATUS =
+            "UPDATE coupon SET blocking = true WHERE coupon.id=?";
+    //private static final String DELETE_COUPON = "DELETE FROM coupon WHERE id = ?";
+    private static final String GET_COUPON =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon WHERE coupon.id = ?";
+    private static final String GET_ALL_COUPONS =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon WHERE coupon.blocking = false ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_COMPANY_NAME =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon JOIN company_provider cp on coupon.company_provider_id = cp.id " +
+            "WHERE cp.name = ? AND coupon.blocking=false" +
+            " ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_CATEGORY =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon WHERE coupon.category_id = ? AND coupon.blocking=false " +
+            "LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_NAME =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon WHERE coupon.name = ? AND coupon.blocking=false " +
+            "LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COUPONS_BY_PRICE_RANGE =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM coupon WHERE coupon.blocking=false AND coupon.price BETWEEN ? AND ?" +
+            " LIMIT ? OFFSET ?";
+    private static final String GET_ALL_AVAILABLE_COUPONS =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
+            " coupon.name, coupon.picture, coupon.description, coupon.price," +
+            " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
+            " FROM company_provider JOIN coupon" +
+            " ON company_provider.id = coupon.company_provider_id" +
+            " WHERE company_provider.blocking = false AND coupon.blocking=false" +
+            " LIMIT ? OFFSET ?";
+    private static final String GET_AMOUNT_OF_ALL_COUPON =
+            "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.blocking=false";
+    private static final String GET_AMOUNT_BY_CATEGORY =
+            "SELECT COUNT(coupon.id) FROM coupon JOIN category" +
+            " ON(category.id = coupon.category_id)" +
+            " WHERE category.id = ? AND coupon.blocking=false";
+    private static final String GET_AMOUNT_BY_PRICE_RANGE =
+            "SELECT COUNT(coupon.id) FROM coupon" +
+            " WHERE coupon.blocking=false AND coupon.price BETWEEN ? AND ?";
+    private static final String GET_AMOUNT_BY_COMPANY_PROVIDER =
+            "SELECT COUNT(coupon.id) FROM coupon INNER JOIN company_provider" +
+            " ON(company_provider.id = coupon.id) WHERE company_provider.name = ?" +
+            " AND coupon.blocking=false";
+    private static final String GET_AMOUNT_BY_COUPON_NAME =
+            "SELECT COUNT(coupon.id) FROM coupon WHERE coupon.name = ?" +
+            " AND coupon.blocking=false";
 
 
     public CouponDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
+
     //+
     @Override
     public Coupon get(final long id) throws PersistentException {
@@ -46,7 +104,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    coupon =  getNewCoupon(resultSet);
+                    coupon = getNewCoupon(resultSet);
                 }
             }
         } catch (SQLException newE) {
@@ -55,6 +113,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
         return coupon;
     }
+
     //+
     @Override
     public List<Coupon> getAll(final int offset, final int limit)
@@ -75,10 +134,11 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public List<Coupon> getAllByCompanyProvider(final String name,
-            final int offset,  final int limit) throws PersistentException {
+            final int offset, final int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_COUPONS_BY_COMPANY_NAME)) {
@@ -182,18 +242,6 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
     }
 
-    @Override
-    public boolean delete(final long id) throws PersistentException {
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(DELETE_COUPON)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
-    }
     //+
     @Override
     public int getAmountOfAllCoupons() throws PersistentException {
@@ -237,16 +285,17 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         String query = GET_AMOUNT_BY_COUPON_NAME;
         return getAmountWithStringParameter(query, name);
     }
+
     //+
     @Override
     public int getAmountByPriceRange(final BigDecimal minBorder,
-            final BigDecimal maxBorder) throws PersistentException {
+             final BigDecimal maxBorder) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_ALL_COUPONS_BY_PRICE_RANGE)) {
+                .prepareStatement(GET_AMOUNT_BY_PRICE_RANGE)) {
             preparedStatement.setBigDecimal(1, minBorder);
             preparedStatement.setBigDecimal(2, maxBorder);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if(resultSet.next()) {
+                if (resultSet.next()) {
                     return resultSet.getInt(1);
                 }
             }
@@ -256,9 +305,24 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
         return 0;
     }
+    //+
+    @Override
+    public boolean updateAvailableStatus(final long id)
+            throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(UPDATE_COUPON_STATUS)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE);
+            throw new PersistentException("Fail in updating coupon status!\n"
+                    + newE.getMessage(), newE);
+        }
+    }
 
     @Override
-    public int create(Coupon newCoupon) throws PersistentException {
+    public int create(final Coupon newCoupon) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(ADD_COUPON, PreparedStatement.RETURN_GENERATED_KEYS)) {
             setPreparedStatement(newCoupon, preparedStatement);
@@ -279,7 +343,7 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         }
         return 0;
     }
-    //+
+    //нужен ли?
     @Override
     public Coupon get() throws PersistentException {
         return get(1);
@@ -304,12 +368,20 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
     @Override
     public boolean delete(final Coupon newCoupon)
             throws PersistentException {
-        return delete(newCoupon.getId());
+        LOGGER.log(Level.WARN, "Invalid operation to delete coupon.");
+        throw new PersistentException("Invalid operation to delete coupon." +
+               " You can change coupon status on unavailable.");
+    }
+
+    @Override
+    public boolean delete(final long id) throws PersistentException {
+        LOGGER.log(Level.WARN, "Invalid operation to delete coupon.");
+        throw new PersistentException("Invalid operation to delete coupon." +
+                " You can change coupon status on unavailable.");
     }
 
     private void setPreparedStatement(final Coupon newCoupon,
-                              final PreparedStatement newPreparedStatement)
-            throws SQLException {
+            final PreparedStatement newPreparedStatement) throws SQLException {
         //newPreparedStatement.setLong(1, newCoupon.getId());
         newPreparedStatement.setLong(1, newCoupon.getCategoryId());
         newPreparedStatement.setLong(2, newCoupon.getCompanyProviderId());
@@ -317,7 +389,8 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         newPreparedStatement.setNString(4, newCoupon.getPathToPicture());
         newPreparedStatement.setNString(5, newCoupon.getCouponDescription());
         newPreparedStatement.setBigDecimal(6, newCoupon.getCouponPrice());
-        newPreparedStatement.setDate(7, newCoupon.getCouponAddDate());
+        Date date = Date.valueOf(newCoupon.getCouponAddDate());
+        newPreparedStatement.setDate(7, date);
         newPreparedStatement.setNString(8, newCoupon.getHoldingAddress());
     }
 
@@ -330,14 +403,16 @@ public class CouponDaoImpl extends BaseDaoImpl implements CouponDAO {
         String pathToPicture = newResultSet.getNString("picture");
         String description = newResultSet.getNString("description");
         BigDecimal price = newResultSet.getBigDecimal("price");
-        Date adding_date_time = newResultSet.getDate("adding_date_time");
+        LocalDate adding_date_time = newResultSet.getDate("adding_date_time").toLocalDate();
         String holding_address = newResultSet.getNString("holding_address");
+        boolean blocking = newResultSet.getBoolean("blocking");
         return new Coupon(id, name, pathToPicture, description, price,
-            adding_date_time, holding_address, category_id, company_provider_id);
+            adding_date_time, holding_address, category_id, company_provider_id,
+            blocking);
     }
 
     private int getAmountWithStringParameter(final String query,
-            final String byWhatSearch) throws PersistentException {
+             final String byWhatSearch) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(query)) {
             preparedStatement.setNString(1, byWhatSearch);

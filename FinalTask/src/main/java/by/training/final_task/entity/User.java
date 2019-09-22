@@ -1,6 +1,6 @@
 package by.training.final_task.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -15,14 +15,14 @@ public class User extends Entity {
     private String firstName;
     private String secondName;
     private int mobilePhone;
-    private Date registrationDate;
+    private LocalDate registrationDate;
     private boolean blocking;
 
     public User(final long newId, final String newLogin, final String newPassword,
                 final Role newRole, final String newEmail,
                 final String newPathToAvatar, final String newFirstName,
                 final String newSecondName, final int newMobilePhone,
-                final Date newRegistrationDate, final boolean newBlocking) {
+                final LocalDate newRegistrationDate, final boolean newBlocking) {
         id = newId;
         login = newLogin;
         password = newPassword;
@@ -100,11 +100,11 @@ public class User extends Entity {
         mobilePhone = newMobilePhone;
     }
 
-    public Date getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(final Date newRegistrationDate) {
+    public void setRegistrationDate(final LocalDate newRegistrationDate) {
         registrationDate = newRegistrationDate;
     }
 

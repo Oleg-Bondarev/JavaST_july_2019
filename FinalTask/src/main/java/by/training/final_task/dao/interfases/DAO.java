@@ -3,8 +3,6 @@ package by.training.final_task.dao.interfases;
 import by.training.final_task.entity.Entity;
 import by.training.final_task.exception.PersistentException;
 
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**

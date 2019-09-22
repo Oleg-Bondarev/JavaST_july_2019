@@ -5,15 +5,16 @@ import by.training.final_task.entity.CouponUser;
 import by.training.final_task.exception.PersistentException;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CouponUserDAO extends DAO<CouponUser> {
     List<Coupon> getAllCouponsCurrentUser(long userId, int offset, int limit)
         throws PersistentException;
-    List<Coupon> getAllBetweenDatesCurrentUser(long userId, Date startDate,
-        Date endDate, int offset, int limit) throws PersistentException;
+    List<Coupon> getAllBetweenDatesCurrentUser(long userId, LocalDate startDate,
+        LocalDate endDate, int offset, int limit) throws PersistentException;
     int getCountCouponNameCurrentUser(long userId)throws PersistentException;
-    int getCountBetweenDatesCurrentUser(long userId, Date startDate,
-        Date endDate) throws PersistentException;
+    int getCountBetweenDatesCurrentUser(long userId, LocalDate startDate,
+        LocalDate endDate) throws PersistentException;
     int getAllCount() throws PersistentException;
 }

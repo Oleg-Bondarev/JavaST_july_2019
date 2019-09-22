@@ -1,7 +1,7 @@
 package by.training.final_task.entity;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -12,16 +12,17 @@ public class Coupon extends Entity {
     private String pathToPicture;
     private String couponDescription;
     private BigDecimal couponPrice;
-    private Date couponAddDate;
+    private LocalDate couponAddDate;
     private String holdingAddress;
     private long categoryId;
     private long companyProviderId;
+    private boolean blocking;
 
     public Coupon(final long newId, final String newCouponName, final String newPathToPicture,
                   final String newCouponDescription,
-                  final BigDecimal newCouponPrice, final Date newCouponAddDate,
+                  final BigDecimal newCouponPrice, final LocalDate newCouponAddDate,
                   final String newHoldingAddress, final long newCategoryId,
-                  final long newCompanyProviderId) {
+                  final long newCompanyProviderId, final boolean newBlocking) {
         id = newId;
         couponName = newCouponName;
         pathToPicture = newPathToPicture;
@@ -31,6 +32,7 @@ public class Coupon extends Entity {
         holdingAddress = newHoldingAddress;
         categoryId = newCategoryId;
         companyProviderId = newCompanyProviderId;
+        blocking = newBlocking;
     }
 
     public String getCouponName() {
@@ -65,11 +67,11 @@ public class Coupon extends Entity {
         couponPrice = newCouponPrice;
     }
 
-    public Date getCouponAddDate() {
+    public LocalDate  getCouponAddDate() {
         return couponAddDate;
     }
 
-    public void setCouponAddDate(final Date newCouponAddDate) {
+    public void setCouponAddDate(final LocalDate newCouponAddDate) {
         couponAddDate = newCouponAddDate;
     }
 
@@ -97,6 +99,14 @@ public class Coupon extends Entity {
         companyProviderId = newCompanyProviderId;
     }
 
+    public boolean isBlocking() {
+        return blocking;
+    }
+
+    public void setBlocking(final boolean newBlocking) {
+        blocking = newBlocking;
+    }
+
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -116,14 +126,15 @@ public class Coupon extends Entity {
                 && couponAddDate.equals(coupon.couponAddDate)
                 && holdingAddress.equals(coupon.holdingAddress)
                 && categoryId == coupon.categoryId
-                && companyProviderId == coupon.companyProviderId;
+                && companyProviderId == coupon.companyProviderId
+                && blocking == coupon.blocking;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), couponName, pathToPicture,
                 couponDescription, couponPrice, couponAddDate, holdingAddress,
-                categoryId, companyProviderId);
+                categoryId, companyProviderId, blocking);
     }
 
     /**
@@ -149,6 +160,8 @@ public class Coupon extends Entity {
         builder.append(categoryId);
         builder.append(", company provider id=");
         builder.append(companyProviderId);
+        builder.append(", blocking=");
+        builder.append(blocking);
         builder.append("}");
         return builder.toString();
     }

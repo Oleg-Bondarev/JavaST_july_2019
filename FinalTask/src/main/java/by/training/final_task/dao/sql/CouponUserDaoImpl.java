@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
                 " coupon.name, coupon.picture, coupon.description, coupon.price," +
                 " coupon.adding_date_time, coupon.holding_address, coupon_user.id," +
-                " coupon_user.registration_date_time" +
+                " coupon_user.registration_date_time, user.blocking" +
                 " FROM coupon JOIN coupon_user ON coupon_user.coupon_id = coupon.id" +
                 " JOIN user ON user.id = coupon_user.user_id WHERE user.id = ? LIMIT ? OFFSET ?";
     private static final String GET_ALL_COUPONS_BETWEEN_DATES_FOR_CURRENT_USER =
@@ -35,7 +36,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
                 " coupon_user.registration_date_time" +
                 " FROM coupon JOIN coupon_user ON coupon_user.coupon_id = coupon.id" +
                 " JOIN user ON user.id = coupon_user.user_id WHERE user.id = ?" +
-                " AND coupon_user.registration_date_time BETWEEN ? AND ? LIMIT ? OFFSET ?";
+                " AND (coupon_user.registration_date_time BETWEEN ? AND ?) LIMIT ? OFFSET ?";
     private static final String GET_AMOUNT_COUPONS_FOR_CURRENT_USER =
             "SELECT COUNT(coupon.id) FROM coupon JOIN coupon_user cu ON coupon.id = cu.coupon_id " +
                 "JOIN user u ON cu.user_id = u.id WHERE u.id = ?";
@@ -57,8 +58,8 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             "coupon_user.id=?, coupon_user.registration_date_time=?, " +
             "coupon_user.coupon_id=?, coupon_user.user_id=?" +
             " WHERE coupon_user.id = ?";
-    private static final String DELETE_COUPON_USER = "DELETE FROM coupon_user " +
-            "WHERE coupon_user.id = ?";
+    /*private static final String DELETE_COUPON_USER = "DELETE FROM coupon_user " +
+            "WHERE coupon_user.id = ?";*/
 
     public CouponUserDaoImpl(final Connection newConnection) {
         super(newConnection);
@@ -87,14 +88,16 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     //TODO check date format
     @Override
     public List<Coupon> getAllBetweenDatesCurrentUser(final long userId,
-              final Date startDate, final Date endDate, final int offset,
+              final LocalDate startDate, final LocalDate endDate, final int offset,
               final int limit) throws PersistentException {
         List<Coupon> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
             .prepareStatement(GET_ALL_COUPONS_BETWEEN_DATES_FOR_CURRENT_USER)) {
             preparedStatement.setLong(1, userId);
-            preparedStatement.setDate(2, startDate);
-            preparedStatement.setDate(3, endDate);
+            Date startingDate = Date.valueOf(startDate);
+            preparedStatement.setDate(2, startingDate);
+            Date endingDate = Date.valueOf(startDate);
+            preparedStatement.setDate(3, endingDate);
             preparedStatement.setInt(4, limit);
             preparedStatement.setInt(5, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -126,12 +129,14 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
 
     //TODO check date format
     @Override
-    public int getCountBetweenDatesCurrentUser(long userId, Date startDate, Date endDate) throws PersistentException {
+    public int getCountBetweenDatesCurrentUser(long userId, LocalDate startDate, LocalDate endDate) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_COUPONS_FOR_CURRENT_USER_BETWEEN_DATES)) {
             preparedStatement.setLong(1, userId);
-            preparedStatement.setDate(2, startDate);
-            preparedStatement.setDate(3, endDate);
+            Date startingDate = Date.valueOf(startDate);
+            preparedStatement.setDate(2, startingDate);
+            Date endingDate = Date.valueOf(startDate);
+            preparedStatement.setDate(3, endingDate);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return resultSet.getInt(1);
@@ -245,15 +250,8 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
 
     @Override
     public boolean delete(final long id) throws PersistentException {
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(DELETE_COUPON_USER)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
+        LOGGER.log(Level.WARN, "Invalid operation to delete coupon_user.");
+        throw new PersistentException("Invalid operation to delete coupon_user.");
     }
 
     private Coupon takeNewCoupon(final ResultSet newResultSet)
@@ -265,15 +263,17 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         String pathToPicture = newResultSet.getNString("picture");
         String description = newResultSet.getNString("description");
         BigDecimal price = newResultSet.getBigDecimal("price");
-        java.sql.Date adding_date_time = newResultSet.getDate("adding_date_time");
+        LocalDate adding_date_time = newResultSet.getDate("adding_date_time").toLocalDate();
         String holding_address = newResultSet.getNString("holding_address");
+        boolean blocking = newResultSet.getBoolean("blocking");
         return new Coupon(id, name, pathToPicture, description, price,
-                adding_date_time, holding_address, category_id, company_provider_id);
+            adding_date_time, holding_address, category_id, company_provider_id,
+            blocking);
     }
 
     private void setPreparedStatement(final CouponUser coupUser,
             final PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.setDate(1, coupUser.getRegistrationDateTime());
+        preparedStatement.setDate(1, Date.valueOf(coupUser.getRegistrationDateTime()));
         preparedStatement.setLong(2, coupUser.getCouponId());
         preparedStatement.setLong(3, coupUser.getUserId());
     }
@@ -281,7 +281,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     private CouponUser takeNewCouponUser(final ResultSet newSet)
             throws SQLException {
         long id = newSet.getLong("id");
-        Date reg_date = newSet.getDate("registration_date_time");
+        LocalDate reg_date = newSet.getDate("registration_date_time").toLocalDate();
         long couponId = newSet.getLong("coupon_id");
         long user_id = newSet.getLong("user_id");
         return new CouponUser(id, reg_date, couponId, user_id);

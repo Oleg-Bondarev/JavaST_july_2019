@@ -28,4 +28,5 @@ public interface CouponDAO extends DAO<Coupon> {
     int getAmountByName(String name) throws PersistentException;
     int getAmountByPriceRange(BigDecimal minBorder, BigDecimal maxBorder)
             throws PersistentException;
+    boolean updateAvailableStatus(long id) throws PersistentException;
 }

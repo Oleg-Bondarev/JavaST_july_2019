@@ -21,15 +21,16 @@ CREATE TABLE company_provider
 
 CREATE TABLE coupon
 (
-    id                  int           NOT NULL AUTO_INCREMENT,
+    id                  int            NOT NULL AUTO_INCREMENT,
     category_id         int,
     company_provider_id int,
-    name                varchar(255)  NOT NULL,
+    name                varchar(255)   NOT NULL,
     picture             varchar(4096)  NOT NULL,
     description         varchar (1000) NOT NULL,
-    price               decimal(5, 2) NOT NUll,
-    adding_date_time    DATETIME      NOT NULL,
-    holding_address     VARCHAR(255),
+    price               decimal(5, 2)  NOT NUll,
+    adding_date_time    date       NOT NULL,
+    holding_address     VARCHAR(255)   NOT NULL,
+    blocking            boolean        NOT NULL,
 
     CONSTRAINT PK_coupon PRIMARY KEY (id),
     CONSTRAINT CH_coupon_price CHECK (price > 0),
@@ -54,7 +55,7 @@ CREATE TABLE user
     first_name             varchar(50)  NOT NULL,
     second_name            varchar(50)  NOT NULL,
     mobile_phone           int          NOT NULL,
-    registration_date_time datetime     NOT NULL,
+    registration_date_time date         NOT NULL,
     blocking               boolean      NOT NULL,
 
     CONSTRAINT UC_user_email UNIQUE (email),
@@ -68,7 +69,7 @@ CREATE UNIQUE INDEX IDX_user_login ON user (login);
 CREATE TABLE coupon_user
 (
     id                     int      NOT NULL AUTO_INCREMENT,
-    registration_date_time datetime NOT NULL,
+    registration_date_time date     NOT NULL,
     coupon_id              int,
     user_id                int,
 

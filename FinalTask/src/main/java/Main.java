@@ -1,6 +1,7 @@
 import by.training.final_task.dao.sql.*;
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.Role;
+import by.training.final_task.entity.User;
 import by.training.final_task.exception.PersistentException;
 
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Properties;
 
 public class Main {
@@ -24,9 +26,15 @@ public class Main {
 
         try {
             cn = DriverManager.getConnection(url, prop);
+            /*User user = new User(8, "user6", "password",
+                    Role.USER, "email@mail.ru", "passtoavatar/ru",
+                    "Fridrih", "Brown", 336494955,
+                    LocalDate.of(2018,01,15), false);*/
 
-            ReviewsDaoImpl comp = new ReviewsDaoImpl(cn);
-            System.out.println(comp.getAll(0, 9));
+            CouponUserDaoImpl comp = new CouponUserDaoImpl(cn);
+            System.out.println(comp.getAllBetweenDatesCurrentUser(5, LocalDate.of(2017, 11, 26),
+                    LocalDate.of(2018, 1, 2), 0, 10));
+            //System.out.println(comp.getAllCouponsCurrentUser(4, 0, 10));
 
         } catch (SQLException e) { // для 1-го блока try
             System.err.println("DB connection error: " + e);

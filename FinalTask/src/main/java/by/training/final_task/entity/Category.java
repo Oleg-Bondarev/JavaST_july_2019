@@ -45,4 +45,12 @@ public enum Category {
         }
         throw new WrongEnumTupeException(newValue);
     }
+
+    public static Category valueOf(final int index) {
+        return Category.values()[index];
+    }
+
+    public int getOrdinal() {
+        return ordinal();
+    }
 }

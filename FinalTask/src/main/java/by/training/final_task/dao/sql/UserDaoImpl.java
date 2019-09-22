@@ -4,6 +4,8 @@ import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.exception.PersistentException;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +25,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             + " user.password=?, user.role=?, user.email=?, user.avatar=?,"
             + " user.first_name=?, user.second_name=?, user.mobile_phone=?,"
             + " user.registration_date_time=?, user.blocking=? WHERE user.id=?";
-    private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
-
+    //private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
+    private static final String UPDATE_USER_STATUS =
+            "UPDATE user SET blocking = true WHERE user.id=?";
     private static final String GET_USER = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
@@ -38,24 +41,29 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
-            + " user.registration_date_time, user.blocking FROM user ORDER BY id LIMIT ? OFFSET ?";
+            + " user.registration_date_time, user.blocking FROM user" +
+            " WHERE user.blocking=false ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_ROLE = "SELECT"
-            + " COUNT(user.role) FROM user WHERE user.role = ?";
+            + " COUNT(user.role) FROM user WHERE user.role = ?" +
+            " AND user.blocking = false";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE =
             "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?"
                     + " AND user.role = ?";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_EMAIL =
-            "SELECT COUNT(user.email) FROM user WHERE user.email = ?";
+            "SELECT COUNT(user.email) FROM user WHERE user.email = ?" +
+            " AND user.blocking = false";
     private static final String GET_ALL_USERS_BY_ROLE =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
             + " user.avatar, user.first_name, user.second_name,"
-            + " user.mobile_phone, user.registration_date_time, user.blocking FROM user"
-            + " WHERE user.role = ? ORDER BY id LIMIT ? OFFSET ?";
+            + " user.mobile_phone, user.registration_date_time, user.blocking" +
+            " FROM user WHERE user.blocking=false AND user.role = ?" +
+            " ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
             + " user.avatar, user.first_name, user.second_name,"
-            + " user.mobile_phone, user.registration_date_time, user.blocking FROM user"
-            + " WHERE (user.first_name = ? AND user.second_name = ?) ORDER BY id";
+            + " user.mobile_phone, user.registration_date_time, user.blocking"
+            + " FROM user WHERE user.blocking=false AND (user.first_name = ?" +
+            " AND user.second_name = ?) ORDER BY id";
 
     private static final String GET_ALL_ACTIVE_USERS =
             "SELECT user.id, user.login, user.password, user.role, user.email," +
@@ -66,7 +74,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     public UserDaoImpl(final Connection newConnection) {
         super(newConnection);
     }
-
+    //+
     @Override
     public int create(final User newUser) throws PersistentException {
         if (newUser == null) {
@@ -75,7 +83,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         try (PreparedStatement preparedStatement = getConnection()
             .prepareStatement(ADD_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, newUser.getLogin());
-            preparedStatement.setString(2, newUser.getPassword());
+
+            preparedStatement.setString(2, passwordHash(newUser.getPassword()));
             preparedStatement.setInt(3, newUser.getRole().getOrdinal());
             preparedStatement.setString(4, newUser.getEmail());
             preparedStatement.setString(5, newUser.getPathToAvatar());
@@ -83,10 +92,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setString(7, newUser.getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
             //TODO check cast
-            preparedStatement.setDate(9, newUser.getRegistrationDate());
+            preparedStatement.setDate(9, Date.valueOf(newUser.getRegistrationDate()));
             preparedStatement.setBoolean(10, newUser.getBlocking());
             preparedStatement.executeUpdate();
-            //?
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
@@ -96,7 +104,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
                 throw new PersistentException("Could not get generated keys!\n"
                     + newE.getMessage(), newE);
             }
-            //return -1;
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException("Fail in adding row!\n"
@@ -118,7 +125,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setString(7, newUser.getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
             //TODO check cast
-            preparedStatement.setDate(9, newUser.getRegistrationDate());
+            preparedStatement.setDate(9, Date.valueOf(newUser.getRegistrationDate()));
             preparedStatement.setBoolean(10, newUser.getBlocking());
             preparedStatement.setLong(11, newUser.getId());
             preparedStatement.executeUpdate();
@@ -132,34 +139,15 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
 
     @Override
     public boolean delete(final User user) throws PersistentException {
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(DELETE_USER)) {
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
+        LOGGER.log(Level.WARN, "Invalid operation to delete user.");
+        throw new PersistentException("Invalid operation to delete user." +
+                " You can change coupon status on unavailable.");
     }
 
-    //+
+    //+нужен ли?
     @Override
     public User get() throws PersistentException {
-        User user = null;
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_USER)) {
-            preparedStatement.setLong(1, 1);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    user = getUser(resultSet);
-                }
-            }
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
-        return user;
+        return get(1);
     }
 
     //+
@@ -171,7 +159,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user =  getUser(resultSet);
+                    user =  takeUser(resultSet);
                 }
             }
         } catch (SQLException newE) {
@@ -180,9 +168,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
         return user;
     }
-
     //+
-    @Override
+    /*@Override
     public User get(final String login, final String password)
             throws PersistentException {
         User user = null;
@@ -192,7 +179,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setNString(2, password);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = getUser(resultSet);
+                    user = takeUser(resultSet);
                 }
             }
         } catch (SQLException newE) {
@@ -200,8 +187,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
         return user;
-    }
-
+    }*/
     //+
     @Override
     public List<User> getAll(final int offset, final int limit)
@@ -213,7 +199,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(getUser(resultSet));
+                    users.add(takeUser(resultSet));
                 }
             }
             return users;
@@ -222,20 +208,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
     @Override
     public boolean delete(final long userId) throws PersistentException {
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(DELETE_USER)) {
-            preparedStatement.setLong(1, userId);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
+        LOGGER.log(Level.WARN, "Invalid operation to delete user.");
+        throw new PersistentException("Invalid operation to delete user." +
+                " You can change coupon status on unavailable.");
     }
-
     //+
     @Override
     public int getAmountOfAllUsersByRole(final Role role)
@@ -252,12 +231,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
     //+
     @Override
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
-                                                     final Role role)
-            throws PersistentException {
+            final Role role) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE)) {
             preparedStatement.setNString(1, firstName);
@@ -272,9 +249,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
-    //+
+    
     @Override
-    public int getAmountOfAllUsersByEmail(final String email) throws PersistentException {
+    public int getAmountOfAllUsersByEmail(final String email)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_OF_ALL_USERS_BY_EMAIL)) {
             preparedStatement.setString(1, email);
@@ -287,7 +265,20 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-
+    //+
+    @Override
+    public boolean updateUserState(final long id) throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(UPDATE_USER_STATUS)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE);
+            throw new PersistentException("Fail in updating user status!\n"
+                    + newE.getMessage(), newE);
+        }
+    }
     //+
     @Override
     public List<User> getAllUsersByRole(final Role newRole, int offset, int limit)
@@ -300,7 +291,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(getUser(resultSet));
+                    users.add(takeUser(resultSet));
                 }
             }
             return users;
@@ -313,8 +304,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     //+
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
-                                                      final String secondName)
-            throws PersistentException {
+            final String secondName) throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME)) {
@@ -322,7 +312,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setNString(2, secondName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(getUser(resultSet));
+                    users.add(takeUser(resultSet));
                 }
             }
             return users;
@@ -332,7 +322,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
-    //+
+    //+ //get customers and admins
     @Override
     public List<User> getAllActiveUsers(final int offset, final int limit)
             throws PersistentException {
@@ -343,7 +333,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(getUser(resultSet));
+                    users.add(takeUser(resultSet));
                 }
             }
             return users;
@@ -353,7 +343,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         }
     }
 
-    private User getUser(final ResultSet resultSet) throws SQLException {
+    private User takeUser(final ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong(1);
         String login = resultSet.getNString("login");
         String password = resultSet.getNString("password");
@@ -366,7 +356,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         Date registrationDateTime = resultSet.getDate("registration_date_time");
         boolean blocking = resultSet.getBoolean("blocking");
         return new User(id, login, password, role, email, avatar,
-                name, surname, mobilePhone, registrationDateTime,
+                name, surname, mobilePhone, registrationDateTime.toLocalDate(),
                 blocking);
+    }
+    private String passwordHash(final String newPassword) {
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String password = argon2.hash(4, 1024 * 1024, 4,
+                newPassword);
+        return password;
     }
 }

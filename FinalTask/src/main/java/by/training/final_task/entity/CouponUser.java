@@ -1,6 +1,7 @@
 package by.training.final_task.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ public class CouponUser extends  Entity {
     /**
      * Registration date time.
      * */
-    private Date registrationDateTime;
+    private LocalDate registrationDateTime;
     /**
      * Identify.
      * */
@@ -19,7 +20,7 @@ public class CouponUser extends  Entity {
     /***/
     public CouponUser() { }
 
-    public CouponUser(final long newId, final Date newRegDate,
+    public CouponUser(final long newId, final LocalDate newRegDate,
                       final long newCouponId, final long newUserId) {
         id = newId;
         registrationDateTime = newRegDate;
@@ -27,11 +28,11 @@ public class CouponUser extends  Entity {
         userId = newUserId;
     }
 
-    public Date getRegistrationDateTime() {
+    public LocalDate getRegistrationDateTime() {
         return registrationDateTime;
     }
 
-    public void setRegistrationDateTime(final Date newRegistrationDateTime) {
+    public void setRegistrationDateTime(final LocalDate newRegistrationDateTime) {
         registrationDateTime = newRegistrationDateTime;
     }
 
