@@ -32,9 +32,7 @@ public class Main {
                     LocalDate.of(2018,01,15), false);*/
 
             CouponUserDaoImpl comp = new CouponUserDaoImpl(cn);
-            System.out.println(comp.getAllBetweenDatesCurrentUser(5, LocalDate.of(2017, 11, 26),
-                    LocalDate.of(2018, 1, 2), 0, 10));
-            //System.out.println(comp.getAllCouponsCurrentUser(4, 0, 10));
+            System.out.println(comp.getAllCount());
 
         } catch (SQLException e) { // для 1-го блока try
             System.err.println("DB connection error: " + e);

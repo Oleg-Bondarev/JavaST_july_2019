@@ -33,7 +33,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
                 " coupon.name, coupon.picture, coupon.description, coupon.price," +
                 " coupon.adding_date_time, coupon.holding_address, coupon_user.id," +
-                " coupon_user.registration_date_time" +
+                " coupon_user.registration_date_time, user.blocking" +
                 " FROM coupon JOIN coupon_user ON coupon_user.coupon_id = coupon.id" +
                 " JOIN user ON user.id = coupon_user.user_id WHERE user.id = ?" +
                 " AND (coupon_user.registration_date_time BETWEEN ? AND ?) LIMIT ? OFFSET ?";
@@ -85,7 +85,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //TODO check date format
+    //+
     @Override
     public List<Coupon> getAllBetweenDatesCurrentUser(final long userId,
               final LocalDate startDate, final LocalDate endDate, final int offset,
@@ -95,8 +95,10 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
             .prepareStatement(GET_ALL_COUPONS_BETWEEN_DATES_FOR_CURRENT_USER)) {
             preparedStatement.setLong(1, userId);
             Date startingDate = Date.valueOf(startDate);
+            LOGGER.log(Level.DEBUG, startingDate);
             preparedStatement.setDate(2, startingDate);
-            Date endingDate = Date.valueOf(startDate);
+            Date endingDate = Date.valueOf(endDate);
+            LOGGER.log(Level.DEBUG, endingDate);
             preparedStatement.setDate(3, endingDate);
             preparedStatement.setInt(4, limit);
             preparedStatement.setInt(5, offset);
@@ -113,7 +115,8 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     }
     //+
     @Override
-    public int getCountCouponNameCurrentUser(final long userId) throws PersistentException {
+    public int getCountCouponNameCurrentUser(final long userId)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_COUPONS_FOR_CURRENT_USER)) {
             preparedStatement.setLong(1, userId);
@@ -127,15 +130,18 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         }
     }
 
-    //TODO check date format
+    //+
     @Override
-    public int getCountBetweenDatesCurrentUser(long userId, LocalDate startDate, LocalDate endDate) throws PersistentException {
+    public int getCountBetweenDatesCurrentUser(long userId, LocalDate startDate,
+           LocalDate endDate) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_COUPONS_FOR_CURRENT_USER_BETWEEN_DATES)) {
             preparedStatement.setLong(1, userId);
             Date startingDate = Date.valueOf(startDate);
+            LOGGER.log(Level.DEBUG, startingDate);
             preparedStatement.setDate(2, startingDate);
-            Date endingDate = Date.valueOf(startDate);
+            Date endingDate = Date.valueOf(endDate);
+            LOGGER.log(Level.DEBUG, endingDate);
             preparedStatement.setDate(3, endingDate);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
@@ -245,13 +251,14 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
 
     @Override
     public boolean delete(final CouponUser element) throws PersistentException {
-        return delete(element.getId());
+        LOGGER.log(Level.WARN, "Invalid operation to delete coupon user information.");
+        throw new PersistentException("Invalid operation to delete  coupon user information.");
     }
 
     @Override
     public boolean delete(final long id) throws PersistentException {
-        LOGGER.log(Level.WARN, "Invalid operation to delete coupon_user.");
-        throw new PersistentException("Invalid operation to delete coupon_user.");
+        LOGGER.log(Level.WARN, "Invalid operation to delete  coupon user information.");
+        throw new PersistentException("Invalid operation to delete  coupon user information.");
     }
 
     private Coupon takeNewCoupon(final ResultSet newResultSet)

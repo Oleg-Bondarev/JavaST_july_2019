@@ -12,4 +12,5 @@ public interface CompanyProviderDAO extends DAO<CompanyProvider> {
             throws PersistentException;
     int getAmountOfCompany() throws PersistentException;
     int getAmountOfAvailableCompany() throws PersistentException;
+    boolean updateCompanyStatus(final long id) throws PersistentException;
 }

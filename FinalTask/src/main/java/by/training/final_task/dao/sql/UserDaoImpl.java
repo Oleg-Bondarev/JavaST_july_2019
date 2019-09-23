@@ -4,8 +4,6 @@ import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.exception.PersistentException;
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -84,7 +82,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             .prepareStatement(ADD_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, newUser.getLogin());
 
-            preparedStatement.setString(2, passwordHash(newUser.getPassword()));
+            preparedStatement.setString(2, newUser.getPassword());
             preparedStatement.setInt(3, newUser.getRole().getOrdinal());
             preparedStatement.setString(4, newUser.getEmail());
             preparedStatement.setString(5, newUser.getPathToAvatar());
@@ -358,11 +356,5 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         return new User(id, login, password, role, email, avatar,
                 name, surname, mobilePhone, registrationDateTime.toLocalDate(),
                 blocking);
-    }
-    private String passwordHash(final String newPassword) {
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String password = argon2.hash(4, 1024 * 1024, 4,
-                newPassword);
-        return password;
     }
 }

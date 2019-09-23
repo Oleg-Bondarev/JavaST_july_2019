@@ -76,7 +76,7 @@ public class CategoryDaoImpl extends BaseDaoImpl implements CategoryDAO {
         }    }
     //+
     @Override
-    public int GetAmountOfCategory() throws PersistentException {
+    public int getAmountOfCategory() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_AMOUNT_OF_ALL_CATEGORY)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

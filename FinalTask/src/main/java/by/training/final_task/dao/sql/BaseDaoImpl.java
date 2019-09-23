@@ -3,7 +3,7 @@ package by.training.final_task.dao.sql;
 import java.sql.Connection;
 import java.util.ResourceBundle;
 
-abstract class BaseDaoImpl {
+abstract public class BaseDaoImpl {
     private final String pathForProperty = "SQL_queries.properties";
     private Connection connection;
     private ResourceBundle resourceBundle;

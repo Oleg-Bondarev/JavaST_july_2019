@@ -28,7 +28,8 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
     private static final String ADD_COMPANY = "INSERT INTO company_provider (address, name, mobile_phone, blocking) VALUES (?, ?, ?, ?)";
     private static final String GET_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.id = ?";
     private static final String UPDATE_COMPANY = "UPDATE company_provider SET company_provider.id=?, company_provider.address=?, company_provider.name=?, company_provider.mobile_phone=?, company_provider.blocking=? WHERE company_provider.id=?";
-    private static final String DELETE_COMPANY = "DELETE FROM company_provider WHERE id = ?";
+    private static final String UPDATE_COMPANY_STATUS = "UPDATE company_provider SET company_provider.blocking = false WHERE company_provider.id=?";
+    //private static final String DELETE_COMPANY = "DELETE FROM company_provider WHERE id = ?";
 
     public CompanyProviderDaoImpl(final Connection newConnection) {
         super(newConnection);
@@ -93,6 +94,20 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
     @Override
     public int getAmountOfAvailableCompany() throws PersistentException {
         return getAmountByQuery(GET_AMOUNT_OF_ALL_AVAILABLE_COMPANY);
+    }
+
+    @Override
+    public boolean updateCompanyStatus(final long id) throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(UPDATE_COMPANY_STATUS)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE);
+            throw new PersistentException("Fail in updating company provider!\n"
+                    + newE.getMessage(), newE);
+        }
     }
 
     @Override
@@ -167,7 +182,7 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
 
     @Override
     public boolean delete(final long id) throws PersistentException {
-        try (PreparedStatement preparedStatement = getConnection()
+        /*try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(DELETE_COMPANY)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -175,7 +190,9 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
-        }
+        }*/
+        throw new PersistentException("Incorrect operation for Company provider" +
+                " type.");
     }
 
     private CompanyProvider getNewCompany(ResultSet newResultSet)
