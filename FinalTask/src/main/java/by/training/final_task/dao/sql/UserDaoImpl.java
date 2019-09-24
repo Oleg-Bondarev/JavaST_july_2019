@@ -3,7 +3,7 @@ package by.training.final_task.dao.sql;
 import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,7 +81,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         try (PreparedStatement preparedStatement = getConnection()
             .prepareStatement(ADD_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, newUser.getLogin());
-
             preparedStatement.setString(2, newUser.getPassword());
             preparedStatement.setInt(3, newUser.getRole().getOrdinal());
             preparedStatement.setString(4, newUser.getEmail());

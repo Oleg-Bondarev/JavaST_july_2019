@@ -1,4 +1,4 @@
-package by.training.final_task.exception;
+package by.training.final_task.dao;
 
 /**
  * Persistent exception class.

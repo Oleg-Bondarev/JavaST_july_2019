@@ -17,11 +17,6 @@ public class ServiceImpl implements Service {
 
     private static final Logger LOGGER = LogManager.getLogger();
     protected Connection connection;
-    /*private static Map<DAOEnum, BaseDaoImpl> classesMap =
-            new HashMap<>();
-    static {
-        classesMap.put(DAOEnum.USER, UserDaoImpl(connection))
-    }*/
 
     public ServiceImpl(final Connection newConnection) {
         connection = newConnection;

@@ -3,7 +3,7 @@ package by.training.final_task.service.implimentation;
 import by.training.final_task.dao.interfases.CompanyProviderDAO;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.CompanyProvider;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.CompanyProviderService;
 import org.apache.logging.log4j.Level;

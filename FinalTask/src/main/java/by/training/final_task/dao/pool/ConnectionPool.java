@@ -1,6 +1,6 @@
 package by.training.final_task.dao.pool;
 
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

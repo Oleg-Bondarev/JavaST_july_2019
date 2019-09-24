@@ -3,7 +3,7 @@ package by.training.final_task.dao.sql;
 import by.training.final_task.dao.interfases.CouponUserDAO;
 import by.training.final_task.entity.Coupon;
 import by.training.final_task.entity.CouponUser;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -257,7 +257,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
 
     @Override
     public boolean delete(final long id) throws PersistentException {
-        LOGGER.log(Level.WARN, "Invalid operation to delete  coupon user information.");
+        LOGGER.log(Level.WARN, "Invalid operation to delete  coupon user in.");
         throw new PersistentException("Invalid operation to delete  coupon user information.");
     }
 

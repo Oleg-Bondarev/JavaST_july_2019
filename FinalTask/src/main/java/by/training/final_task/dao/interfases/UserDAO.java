@@ -2,7 +2,7 @@ package by.training.final_task.dao.interfases;
 
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 
 import java.util.List;
 

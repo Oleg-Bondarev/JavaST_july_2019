@@ -4,7 +4,7 @@ import by.training.final_task.dao.interfases.CouponDAO;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.Coupon;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.CouponService;
 import org.apache.logging.log4j.Level;

@@ -3,7 +3,7 @@ package by.training.final_task.dao.sql;
 import by.training.final_task.dao.interfases.CategoryDAO;
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.WrongEnumTupeException;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

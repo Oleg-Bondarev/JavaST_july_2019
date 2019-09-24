@@ -4,7 +4,7 @@ import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
 import de.mkammerer.argon2.Argon2;
@@ -26,18 +26,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         super(aliveConnection);
     }
 
-    //TODO check if/else
+
     @Override
     public int create(final User newUser) throws ServiceException {
         try {
-            prepareUserDao(DAOEnum.USER);
-            if (newUser.getPassword() != null ) {
-                newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
-            } else {
-                //TODO check, if it need to be
-                User oldUser = userDAO.get(newUser.getId());
-                newUser.setPassword(oldUser.getPassword());
-            }
+            newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
             int userId = userDAO.create(newUser);
             commitAndChangeAutoCommit();
             return userId;

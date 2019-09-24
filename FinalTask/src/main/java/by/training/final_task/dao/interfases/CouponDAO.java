@@ -2,7 +2,7 @@ package by.training.final_task.dao.interfases;
 
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.Coupon;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 
 import java.math.BigDecimal;
 import java.util.List;

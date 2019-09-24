@@ -2,7 +2,7 @@ package by.training.final_task.dao.sql;
 
 import by.training.final_task.dao.interfases.CompanyProviderDAO;
 import by.training.final_task.entity.CompanyProvider;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

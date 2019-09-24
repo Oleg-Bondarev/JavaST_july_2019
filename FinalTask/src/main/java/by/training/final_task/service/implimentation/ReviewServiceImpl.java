@@ -3,7 +3,7 @@ package by.training.final_task.service.implimentation;
 import by.training.final_task.dao.interfases.ReviewsDAO;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Reviews;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.ReviewService;
 import org.apache.logging.log4j.Level;

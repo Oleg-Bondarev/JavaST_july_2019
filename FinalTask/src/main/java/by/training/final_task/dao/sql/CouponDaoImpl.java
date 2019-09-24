@@ -3,7 +3,7 @@ package by.training.final_task.dao.sql;
 import by.training.final_task.dao.interfases.CouponDAO;
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.Coupon;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 

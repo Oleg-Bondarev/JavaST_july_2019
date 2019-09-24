@@ -2,9 +2,8 @@ package by.training.final_task.dao.interfases;
 
 import by.training.final_task.entity.Coupon;
 import by.training.final_task.entity.CouponUser;
-import by.training.final_task.exception.PersistentException;
+import by.training.final_task.dao.PersistentException;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
