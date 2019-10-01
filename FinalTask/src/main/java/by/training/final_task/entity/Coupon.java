@@ -14,15 +14,17 @@ public class Coupon extends Entity {
     private BigDecimal couponPrice;
     private LocalDate couponAddDate;
     private String holdingAddress;
-    private long categoryId;
-    private long companyProviderId;
+    private Category category;
+    private CompanyProvider companyProvider;
     private boolean blocking;
+
+    public Coupon() { }
 
     public Coupon(final long newId, final String newCouponName, final String newPathToPicture,
                   final String newCouponDescription,
                   final BigDecimal newCouponPrice, final LocalDate newCouponAddDate,
-                  final String newHoldingAddress, final long newCategoryId,
-                  final long newCompanyProviderId, final boolean newBlocking) {
+                  final String newHoldingAddress, final Category newCategory,
+                  final CompanyProvider newCompanyProvider, final boolean newBlocking) {
         id = newId;
         couponName = newCouponName;
         pathToPicture = newPathToPicture;
@@ -30,8 +32,8 @@ public class Coupon extends Entity {
         couponPrice = newCouponPrice;
         couponAddDate = newCouponAddDate;
         holdingAddress = newHoldingAddress;
-        categoryId = newCategoryId;
-        companyProviderId = newCompanyProviderId;
+        category = newCategory;
+        companyProvider = newCompanyProvider;
         blocking = newBlocking;
     }
 
@@ -83,20 +85,20 @@ public class Coupon extends Entity {
         holdingAddress = newHoldingAddress;
     }
 
-    public long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(final long newCategoryId) {
-        categoryId = newCategoryId;
+    public void setCategory(final Category newCategory) {
+        category = newCategory;
     }
 
-    public long getCompanyProviderId() {
-        return companyProviderId;
+    public CompanyProvider getCompanyProvider() {
+        return companyProvider;
     }
 
-    public void setCompanyProviderId(final long newCompanyProviderId) {
-        companyProviderId = newCompanyProviderId;
+    public void setCompanyProvider(final CompanyProvider newCompanyProvider) {
+        companyProvider = newCompanyProvider;
     }
 
     public boolean isBlocking() {
@@ -125,8 +127,8 @@ public class Coupon extends Entity {
                 && couponPrice.equals(coupon.couponPrice)
                 && couponAddDate.equals(coupon.couponAddDate)
                 && holdingAddress.equals(coupon.holdingAddress)
-                && categoryId == coupon.categoryId
-                && companyProviderId == coupon.companyProviderId
+                && category.equals(coupon.category)
+                && companyProvider.equals(coupon.companyProvider)
                 && blocking == coupon.blocking;
     }
 
@@ -134,7 +136,7 @@ public class Coupon extends Entity {
     public int hashCode() {
         return Objects.hash(super.hashCode(), couponName, pathToPicture,
                 couponDescription, couponPrice, couponAddDate, holdingAddress,
-                categoryId, companyProviderId, blocking);
+                category, companyProvider, blocking);
     }
 
     /**
@@ -156,10 +158,10 @@ public class Coupon extends Entity {
         builder.append(couponAddDate);
         builder.append(", holding address=");
         builder.append(holdingAddress);
-        builder.append(", category id");
-        builder.append(categoryId);
-        builder.append(", company provider id=");
-        builder.append(companyProviderId);
+        builder.append(", category =");
+        builder.append(category);
+        builder.append(", company provider=");
+        builder.append(companyProvider);
         builder.append(", blocking=");
         builder.append(blocking);
         builder.append("}");

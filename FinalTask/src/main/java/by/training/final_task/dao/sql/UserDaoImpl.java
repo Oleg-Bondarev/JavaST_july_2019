@@ -1,5 +1,6 @@
 package by.training.final_task.dao.sql;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
@@ -12,7 +13,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
+public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -34,8 +35,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
     private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user.id,"
             + " user.login, user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
-            + " user.registration_date_time, user.blocking FROM user WHERE user.login = ?"
-            + " AND user.password = ?";
+            + " user.registration_date_time, user.blocking FROM user" +
+            " WHERE user.login = ? AND user.password = ?";
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
@@ -69,7 +70,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             " user.mobile_phone, user.registration_date_time, user.blocking" +
             " FROM user WHERE user.blocking = false ORDER BY id LIMIT ? OFFSET ?";
 
-    public UserDaoImpl(final Connection newConnection) {
+    public UserDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
     //+
@@ -166,8 +167,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
         return user;
     }
     //+
-    /*@Override
-    public User get(final String login, final String password)
+    @Override
+    public User getUserByLoginAndPassword(final String login,
+                                          final String password)
             throws PersistentException {
         User user = null;
         try (PreparedStatement preparedStatement = getConnection()
@@ -184,7 +186,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
         return user;
-    }*/
+    }
     //+
     @Override
     public List<User> getAll(final int offset, final int limit)

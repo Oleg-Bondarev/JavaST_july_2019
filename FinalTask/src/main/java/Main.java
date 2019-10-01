@@ -1,11 +1,15 @@
+import by.training.final_task.dao.interfases.DaoFactory;
+import by.training.final_task.dao.interfases.UserDAO;
 import by.training.final_task.dao.sql.*;
-import by.training.final_task.entity.Role;
-import by.training.final_task.entity.User;
+import by.training.final_task.entity.*;
 import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.implimentation.CategoryServiceImpl;
+import by.training.final_task.service.implimentation.CouponServiceImpl;
+import by.training.final_task.service.implimentation.UserServiceImpl;
 import by.training.final_task.service.interfaces.CategoryService;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -26,13 +30,20 @@ public class Main {
 
         try {
             cn = DriverManager.getConnection(url, prop);
-            User user = new User(8, "user6", "password",
+            User user = new User(7, "user5", "password",
                     Role.USER, "email@mail.ru", "passtoavatar/ru",
                     "Fridrih", "Brown", 336494955,
                     LocalDate.of(2018,01,15), false);
+            Coupon coupon = new Coupon(4, "Name",
+                    "path", "description",
+                    new BigDecimal(222.02), LocalDate.of(2019, 9, 1),
+                    "address", new Category(1), new CompanyProvider(1), false);
 
-            CategoryServiceImpl comp = new CategoryServiceImpl(cn);
-            System.out.println(comp.getAll());
+
+            DaoFactory dao = new DaoFactoryImpl();
+
+            CouponServiceImpl comp = new CouponServiceImpl(dao);
+            System.out.println(comp.create(coupon));
 
         } catch (SQLException e) { // для 1-го блока try
             System.err.println("DB connection error: " + e);

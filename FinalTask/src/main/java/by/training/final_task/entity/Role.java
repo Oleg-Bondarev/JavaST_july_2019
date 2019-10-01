@@ -2,8 +2,9 @@ package by.training.final_task.entity;
 
 public enum Role {
     ADMIN("admin"),
-    USER("user");
-    //GUEST
+    USER("user"),
+    GUEST("guest");
+
     private String value;
 
     Role(final String newValue) {

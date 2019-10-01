@@ -1,7 +1,9 @@
 package by.training.final_task.service.implimentation;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
+import by.training.final_task.dao.interfases.DaoFactory;
 import by.training.final_task.dao.interfases.UserDAO;
-import by.training.final_task.dao.sql.DAOEnum;
+import by.training.final_task.dao.sql.ConnectionManager;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.dao.PersistentException;
@@ -9,84 +11,115 @@ import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-public class UserServiceImpl extends ServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractService
+        implements UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-    private UserDAO userDAO;
-
-    UserServiceImpl(final Connection aliveConnection) {
-        super(aliveConnection);
+    public UserServiceImpl(final DaoFactory newFactory) {
+        super(newFactory);
     }
-
 
     @Override
     public int create(final User newUser) throws ServiceException {
-        try {
-            newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
-            int userId = userDAO.create(newUser);
-            commitAndChangeAutoCommit();
-            return userId;
+        try (AbstractConnectionManager connectionManager =
+                new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
+                int userId = userDAO.create(newUser);
+                newUser.setId(userId);
+                connectionManager.commitChange();
+                return userId;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean update(final User newUser) throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            boolean updateState = userDAO.update(newUser);
-            commitAndChangeAutoCommit();
-            return updateState;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
+                boolean statement = userDAO.update(newUser);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean updateUserState(final long id) throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            boolean updateState = userDAO.updateUserState(id);
-            commitAndChangeAutoCommit();
-            return updateState;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                boolean statement = userDAO.updateUserState(id);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public User get(final long id) throws ServiceException {
-        userDAO = (UserDAO) createDAO(DAOEnum.USER);
-        try {
-            return userDAO.get(id);
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.get(id);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
+    public User getUserByLoginAndPassword(final String login, final String password)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getUserByLoginAndPassword(login, password);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public List<User> getAll(final int offset, final int limit)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            List<User> usersList = userDAO.getAll(offset, limit);
-            commitAndChangeAutoCommit();
-            return usersList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAll(offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -94,15 +127,16 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public List<User> getAllUsersByRole(final Role newRole, final int offset,
                                         final int limit)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            List<User> userList = userDAO.getAllUsersByRole(newRole, offset,
-                                                            limit);
-            commitAndChangeAutoCommit();
-            return userList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAllUsersByRole(newRole, offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -110,43 +144,48 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
                                                       final String secondName)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            List<User> userList = userDAO
-                    .getAllUsersByFirstAndSecondName(firstName, secondName);
-            commitAndChangeAutoCommit();
-            return userList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAllUsersByFirstAndSecondName(firstName, secondName);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public List<User> getAllActiveUsers(final int offset, final int limit)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            List<User> userList = userDAO.getAllActiveUsers(offset, limit);
-            commitAndChangeAutoCommit();
-            return userList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAllActiveUsers(offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountOfAllUsersByRole(final Role newRole)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            int amount = userDAO.getAmountOfAllUsersByRole(newRole);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByRole(newRole);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -154,52 +193,32 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
                                                      final Role role)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            int amount = userDAO
-                    .getAmountOfAllUsersByFirstNameAndRole(firstName, role);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByFirstNameAndRole(firstName, role);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountOfAllUsersByEmail(final String email)
             throws ServiceException {
-        try {
-            prepareUserDao(DAOEnum.USER);
-            int amount = userDAO.getAmountOfAllUsersByEmail(email);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByEmail(email);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void prepareUserDao(final DAOEnum classType) throws ServiceException {
-        try {
-            connection.setAutoCommit(false);
-            userDAO = (UserDAO) createDAO(classType);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void commitAndChangeAutoCommit() throws ServiceException {
-        try {
-            connection.setAutoCommit(true);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 

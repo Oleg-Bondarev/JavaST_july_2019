@@ -1,6 +1,9 @@
 package by.training.final_task.service.implimentation;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CompanyProviderDAO;
+import by.training.final_task.dao.interfases.DaoFactory;
+import by.training.final_task.dao.sql.ConnectionManager;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.CompanyProvider;
 import by.training.final_task.dao.PersistentException;
@@ -14,40 +17,45 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CompanyProviderImpl extends ServiceImpl
+public class CompanyProviderImpl extends AbstractService
                                 implements CompanyProviderService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-    private CompanyProviderDAO companyProviderDAO;
+    public CompanyProviderImpl() {
+        super();
+    }
 
-    public CompanyProviderImpl(Connection newConnection) {
-        super(newConnection);
+    public CompanyProviderImpl(final DaoFactory newFactory) {
+        super(newFactory);
     }
 
     @Override
     public CompanyProvider getByAddress(final String address)
             throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            CompanyProvider company = companyProviderDAO.getByAddress(address);
-            commitAndChangeAutoCommit();
-            return company;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getByAddress(address);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public CompanyProvider getByPhone(final int phone) throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            CompanyProvider company = companyProviderDAO.getByPhone(phone);
-            commitAndChangeAutoCommit();
-            return company;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getByPhone(phone);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -55,105 +63,99 @@ public class CompanyProviderImpl extends ServiceImpl
     public List<CompanyProvider> getAllAvailableCompany(final int offset,
                                                         final int limit)
             throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COUPON);
-            List<CompanyProvider> couponList = companyProviderDAO
-                    .getAllAvailableCompany(offset, limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getAllAvailableCompany(offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountOfCompany() throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            int amount = companyProviderDAO.getAmountOfCompany();
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getAmountOfCompany();
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountOfAvailableCompany() throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            int amount = companyProviderDAO.getAmountOfAvailableCompany();
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getAmountOfAvailableCompany();
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int create(final CompanyProvider company) throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            int index = companyProviderDAO.create(company);
-            commitAndChangeAutoCommit();
-            return index;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                int companyProviderId = companyProviderDAO.create(company);
+                company.setId(companyProviderId);
+                connectionManager.commitChange();
+                return companyProviderId;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean update(final CompanyProvider company)
             throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            boolean statement = companyProviderDAO.update(company);
-            commitAndChangeAutoCommit();
-            return statement;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                boolean statement = companyProviderDAO.update(company);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean updateCompanyStatus(final long id) throws ServiceException {
-        try {
-            prepareCompanyDao(DAOEnum.COMPANYPROVIDER);
-            boolean statement = companyProviderDAO.updateCompanyStatus(id);
-            commitAndChangeAutoCommit();
-            return statement;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                boolean statement = companyProviderDAO.updateCompanyStatus(id);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void prepareCompanyDao(final DAOEnum classType)
-            throws ServiceException {
-        try {
-            connection.setAutoCommit(false);
-            companyProviderDAO = (CompanyProviderDAO) createDAO(classType);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void commitAndChangeAutoCommit() throws ServiceException {
-        try {
-            connection.setAutoCommit(true);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 }

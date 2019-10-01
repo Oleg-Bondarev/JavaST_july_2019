@@ -1,15 +1,60 @@
 package by.training.final_task.entity;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represent coupon category.
  * */
+public class Category extends  Entity{
+    private String name;
+
+    public Category() { }
+
+    public Category(final long newId) {
+        id = newId;
+    }
+
+    public Category(final long newId, final String newName) {
+        id = newId;
+        name = newName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String newName) {
+        name = newName;
+    }
+
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
+        if (!super.equals(newO)) {
+            return false;
+        }
+        Category category = (Category) newO;
+        return name.equals(category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" + super.toString() +
+                "name='" + name + '\'' +
+                '}';
+    }
+}
+/*
 public enum Category {
     ENTERTAINMENT("entertainment and showprogram"),
     EXCLUSIVE("exclusive"),
@@ -54,3 +99,4 @@ public enum Category {
         return ordinal();
     }
 }
+*/

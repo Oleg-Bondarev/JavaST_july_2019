@@ -16,11 +16,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private String url;
-    private String login;
-    private String password;
-    private int connectionTimeLimit;
-    private int maxCountConnection;
+    //TODO hardCode
+    private String url = "jdbc:mysql://localhost:3306/stock_gift_coupons_db?serverTimezone=UTC";
+    private String login = "root";
+    private String password = "root";
+    private int connectionTimeLimit = 0;
+    private int maxCountConnection = 1000;
     private ReentrantLock classLocker = new ReentrantLock();
     private static ConnectionPool INSTANCE = null;
     private Queue<PooledConnection> freeConnections = new LinkedList<>();
@@ -64,8 +65,9 @@ public final class ConnectionPool {
                     throw new PersistentException();
                 }
             } catch (SQLException newE) {
-                LOGGER.log(Level.ERROR, "Cannot connect to database.",
-                        newE);
+                LOGGER.log(Level.ERROR, "Cannot connect to database." +
+                                " SQL state: {}, SQL message: {}",
+                        newE.getSQLState(), newE.getMessage());
                 throw new PersistentException(newE.getMessage(), newE);
             }
         }

@@ -1,8 +1,8 @@
-package by.training.final_task.controller;
+package by.training.final_task.controller.servlet;
 
+import by.training.final_task.controller.ControllerException;
 import by.training.final_task.dao.PersistentException;
 import by.training.final_task.dao.pool.ConnectionPool;
-import by.training.final_task.service.ServiceException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

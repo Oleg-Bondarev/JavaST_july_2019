@@ -1,11 +1,9 @@
 package by.training.final_task.service.interfaces;
 
+import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.service.ServiceException;
 
-import java.sql.Connection;
-
 public interface ServiceFactory {
-    <T extends Service> T getService(Class<T> key) throws ServiceException;
-    Connection getConnection();
+    Service createService(DAOEnum key) throws ServiceException;
     void close() throws ServiceException;
 }

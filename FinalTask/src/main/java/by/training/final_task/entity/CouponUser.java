@@ -12,20 +12,17 @@ public class CouponUser extends  Entity {
      * Registration date time.
      * */
     private LocalDate registrationDateTime;
-    /**
-     * Identify.
-     * */
-    private long couponId;
-    private long userId;
+    private Coupon coupon;
+    private User user;
     /***/
     public CouponUser() { }
 
     public CouponUser(final long newId, final LocalDate newRegDate,
-                      final long newCouponId, final long newUserId) {
+                      final Coupon newCoupon, final User newUser) {
         id = newId;
         registrationDateTime = newRegDate;
-        couponId = newCouponId;
-        userId = newUserId;
+        coupon = newCoupon;
+        user = newUser;
     }
 
     public LocalDate getRegistrationDateTime() {
@@ -36,20 +33,20 @@ public class CouponUser extends  Entity {
         registrationDateTime = newRegistrationDateTime;
     }
 
-    public long getCouponId() {
-        return couponId;
+    public Coupon getCoupon() {
+        return coupon;
     }
 
-    public void setCouponId(final int newCouponId) {
-        couponId = newCouponId;
+    public void setCoupon(final Coupon newCoupon) {
+        coupon = newCoupon;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(final int newUserId) {
-        userId = newUserId;
+    public void setUser(final User newUser) {
+        user = newUser;
     }
 
     @Override
@@ -62,13 +59,13 @@ public class CouponUser extends  Entity {
         }
         CouponUser that = (CouponUser) newO;
         return registrationDateTime.equals(that.registrationDateTime)
-                && couponId == that.couponId && userId == that.userId;
+                && coupon.equals(that.coupon) && user.equals(that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), registrationDateTime, couponId,
-                userId);
+        return Objects.hash(super.hashCode(), registrationDateTime, coupon,
+                user);
     }
 
     @Override
@@ -78,10 +75,10 @@ public class CouponUser extends  Entity {
         builder.append(super.toString());
         builder.append(", registration date and time=");
         builder.append(registrationDateTime);
-        builder.append("coupon id=");
-        builder.append(couponId);
-        builder.append(", user id=");
-        builder.append(userId);
+        builder.append("coupon=");
+        builder.append(coupon);
+        builder.append(", user=");
+        builder.append(user);
         builder.append("}");
         return builder.toString();
     }

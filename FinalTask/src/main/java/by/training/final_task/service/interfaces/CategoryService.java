@@ -9,4 +9,6 @@ public interface CategoryService extends Service {
     Category get(long id) throws ServiceException;
     List<Category> getAll() throws ServiceException;
     int getAmountOfCategory() throws ServiceException;
+    int create(Category category) throws ServiceException;
+    boolean update(Category category) throws ServiceException;
 }

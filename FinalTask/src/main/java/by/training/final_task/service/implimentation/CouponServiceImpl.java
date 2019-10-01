@@ -1,6 +1,9 @@
 package by.training.final_task.service.implimentation;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CouponDAO;
+import by.training.final_task.dao.interfases.DaoFactory;
+import by.training.final_task.dao.sql.ConnectionManager;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Category;
 import by.training.final_task.entity.Coupon;
@@ -12,17 +15,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-public class CouponServiceImpl extends ServiceImpl implements CouponService {
+public class CouponServiceImpl extends AbstractService implements CouponService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-    private CouponDAO couponDAO;
+    public CouponServiceImpl() {
+        super();
+    }
 
-    public CouponServiceImpl(Connection newConnection) {
-        super(newConnection);
+    public CouponServiceImpl(final DaoFactory newFactory) {
+        super(newFactory);
     }
 
     @Override
@@ -30,15 +32,16 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
                                                 final int offset,
                                                 final int limit)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            List<Coupon> couponList = couponDAO.getAllByCompanyProvider(name,
-                                                                offset, limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAllByCompanyProvider(name, offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -47,15 +50,16 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
                                          final int offset,
                                          final int limit)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            List<Coupon> couponList = couponDAO.getAllByCategory(category,
-                                                                offset, limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAllByCategory(category, offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -63,15 +67,16 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     public List<Coupon> getAllByName(final String name, final int offset,
                                      final int limit)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            List<Coupon> couponList = couponDAO.getAllByName(name, offset,
-                                                            limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAllByName(name, offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -80,15 +85,17 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
                                            final BigDecimal maxBorder,
                                            final int offset, final int limit)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            List<Coupon> couponList = couponDAO.getAllByPriceRange(minBorder,
-                                            maxBorder, offset, limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAllByPriceRange(minBorder, maxBorder,
+                        offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -96,69 +103,78 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     public List<Coupon> getAllAvailableCoupons(final int offset,
                                                final int limit)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            List<Coupon> couponList = couponDAO.getAllAvailableCoupons(offset,
-                                                                        limit);
-            commitAndChangeAutoCommit();
-            return couponList;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAllAvailableCoupons(offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountOfAllCoupons() throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int amount = couponDAO.getAmountOfAllCoupons();
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAmountOfAllCoupons();
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountByCategory(final Category category)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int amount = couponDAO.getAmountByCategory(category);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAmountByCategory(category);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountByCompanyProvider(final String companyName)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int amount = couponDAO.getAmountByCompanyProvider(companyName);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAmountByCompanyProvider(companyName);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int getAmountByName(final String name) throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int amount = couponDAO.getAmountByName(name);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAmountByName(name);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
@@ -166,78 +182,69 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     public int getAmountByPriceRange(final BigDecimal minBorder,
                                      final BigDecimal maxBorder)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int amount = couponDAO.getAmountByPriceRange(minBorder, maxBorder);
-            commitAndChangeAutoCommit();
-            return amount;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.getAmountByPriceRange(minBorder, maxBorder);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public int create(final Coupon coupon) throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            int index = couponDAO.create(coupon);
-            commitAndChangeAutoCommit();
-            return index;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                int couponId = couponDAO.create(coupon);
+                coupon.setId(couponId);
+                connectionManager.commitChange();
+                return couponId;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean update(final Coupon coupon) throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            boolean state = couponDAO.update(coupon);
-            commitAndChangeAutoCommit();
-            return state;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                boolean statement = couponDAO.update(coupon);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 
     @Override
     public boolean updateAvailableStatus(final long id)
             throws ServiceException {
-        try {
-            prepareCouponDao(DAOEnum.COUPON);
-            boolean state = couponDAO.updateAvailableStatus(id);
-            commitAndChangeAutoCommit();
-            return state;
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                boolean statement = couponDAO.updateAvailableStatus(id);
+                connectionManager.commitChange();
+                return statement;
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
         } catch (PersistentException newE) {
-            rollbackTransaction();
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void prepareCouponDao(final DAOEnum classType)
-            throws ServiceException {
-        try {
-            connection.setAutoCommit(false);
-            couponDAO = (CouponDAO) createDAO(classType);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
-        }
-    }
-
-    private void commitAndChangeAutoCommit() throws ServiceException {
-        try {
-            connection.setAutoCommit(true);
-        } catch (SQLException newE) {
-            rollbackTransaction();
-            LOGGER.log(Level.ERROR, "Have some problems in setting" +
-                    " autocommit transaction property.", newE);
-            throw new ServiceException(newE.getMessage(), newE);
+            throw new ServiceException(newE);
         }
     }
 }

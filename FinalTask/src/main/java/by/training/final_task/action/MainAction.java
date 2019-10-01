@@ -1,0 +1,15 @@
+package by.training.final_task.action;
+
+import by.training.final_task.service.ServiceException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class MainAction extends Action {
+    @Override
+    public Forward executeRequest(final HttpServletRequest request,
+                                  final HttpServletResponse response)
+            throws ServiceException {
+        return new Forward("/index.html");
+    }
+}

@@ -1,8 +1,11 @@
 package by.training.final_task.dao.sql;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.ReviewsDAO;
+import by.training.final_task.entity.Coupon;
 import by.training.final_task.entity.Reviews;
 import by.training.final_task.dao.PersistentException;
+import by.training.final_task.entity.User;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +17,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
+public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -46,7 +49,7 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
     private static final String DELETE_REVIEW = "DELETE FROM reviews " +
             "WHERE reviews.id = ?";
 
-    public ReviewsDaoImpl(final Connection newConnection) {
+    public ReviewsDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
     //+
@@ -244,13 +247,17 @@ public class ReviewsDaoImpl extends BaseDaoImpl implements ReviewsDAO {
         String review = newResultSet.getNString("review");
         long couponId = newResultSet.getLong("coupon_id");
         long userId = newResultSet.getLong("user_id");
-        return new Reviews(id, review, couponId, userId);
+        Coupon coupon = new Coupon();
+        User user = new User();
+        coupon.setId(couponId);
+        user.setId(userId);
+        return new Reviews(id, review, coupon, user);
     }
 
     private void setPreparedStatement(final Reviews newReview,
             final PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setNString(1, newReview.getReview());
-        preparedStatement.setLong(2, newReview.getCouponId());
-        preparedStatement.setLong(3, newReview.getUserId());
+        preparedStatement.setLong(2, newReview.getCoupon().getId());
+        preparedStatement.setLong(3, newReview.getUser().getId());
     }
 }

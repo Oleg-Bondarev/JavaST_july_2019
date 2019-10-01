@@ -7,7 +7,8 @@ import by.training.final_task.dao.PersistentException;
 import java.util.List;
 
 public interface UserDAO  extends DAO<User> {
-    //User get(String login, String password) throws PersistentException;
+    User getUserByLoginAndPassword(String login, String password)
+            throws PersistentException;
     List<User> getAllUsersByRole(Role role, int offset, int limit)
             throws PersistentException;
     List<User> getAllUsersByFirstAndSecondName(String firstName,

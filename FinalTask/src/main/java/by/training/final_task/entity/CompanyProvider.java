@@ -21,6 +21,14 @@ public class CompanyProvider extends Entity {
         blocking = newBlocking;
     }
 
+    public CompanyProvider() {
+
+    }
+
+    public CompanyProvider(final long newId) {
+        id = newId;
+    }
+
     public String getCompanyAddress() {
         return companyAddress;
     }

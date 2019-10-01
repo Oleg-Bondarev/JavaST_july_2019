@@ -36,6 +36,9 @@ public class User extends Entity {
         blocking = newBlocking;
     }
 
+    public User() {
+    }
+
     public String getLogin() {
         return login;
     }

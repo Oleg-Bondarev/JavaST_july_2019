@@ -10,17 +10,17 @@ public class Reviews extends Entity {
      * Review.
      * */
     private String review;
-    private long couponId;
-    private long userId;
+    private Coupon coupon;
+    private User user;
 
     public Reviews() { }
 
     public Reviews(final long newId, final String newReview,
-                   final long newCouponId, final long newUserId) {
+                   final Coupon newCoupon, final User newUser) {
         id = newId;
         review = newReview;
-        couponId = newCouponId;
-        userId = newUserId;
+        coupon = newCoupon;
+        user = newUser;
     }
 
     public String getReview() {
@@ -31,20 +31,20 @@ public class Reviews extends Entity {
         review = newReview;
     }
 
-    public long getCouponId() {
-        return couponId;
+    public Coupon getCoupon() {
+        return coupon;
     }
 
-    public void setCouponId(final long newCouponId) {
-        couponId = newCouponId;
+    public void setCoupon(final Coupon newCoupon) {
+        coupon = newCoupon;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(final long newUserId) {
-        userId = newUserId;
+    public void setUser(final User newUser) {
+        user = newUser;
     }
 
     @Override
@@ -56,13 +56,13 @@ public class Reviews extends Entity {
             return false;
         }
         Reviews rewiews = (Reviews) newO;
-        return review.equals(rewiews.review) && couponId == rewiews.couponId
-                && userId == rewiews.userId;
+        return review.equals(rewiews.review) && coupon.equals(rewiews.coupon)
+                && user.equals(rewiews.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), review, couponId, userId);
+        return Objects.hash(super.hashCode(), review, coupon, user);
     }
 
     @Override
@@ -72,10 +72,10 @@ public class Reviews extends Entity {
         builder.append(super.toString());
         builder.append(", review=");
         builder.append(review);
-        builder.append(", coupon id=");
-        builder.append(couponId);
-        builder.append(", user id=");
-        builder.append(userId);
+        builder.append(", coupon=");
+        builder.append(coupon);
+        builder.append(", user=");
+        builder.append(user);
         builder.append("}");
         return builder.toString();
     }

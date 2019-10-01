@@ -1,8 +1,8 @@
 package by.training.final_task.dao.sql;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CouponUserDAO;
-import by.training.final_task.entity.Coupon;
-import by.training.final_task.entity.CouponUser;
+import by.training.final_task.entity.*;
 import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
+public class CouponUserDaoImpl extends AbstractDao<CouponUser> implements CouponUserDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -61,7 +61,7 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     /*private static final String DELETE_COUPON_USER = "DELETE FROM coupon_user " +
             "WHERE coupon_user.id = ?";*/
 
-    public CouponUserDaoImpl(final Connection newConnection) {
+    public CouponUserDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
     //+
@@ -264,8 +264,12 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
     private Coupon takeNewCoupon(final ResultSet newResultSet)
             throws SQLException {
         long id = newResultSet.getLong("id");
+        Category category = new Category();
+        CompanyProvider companyProvider = new CompanyProvider();
         long category_id = newResultSet.getLong("category_id");
         long company_provider_id = newResultSet.getLong("company_provider_id");
+        category.setId(category_id);
+        companyProvider.setId(company_provider_id);
         String name = newResultSet.getNString("name");
         String pathToPicture = newResultSet.getNString("picture");
         String description = newResultSet.getNString("description");
@@ -274,15 +278,15 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         String holding_address = newResultSet.getNString("holding_address");
         boolean blocking = newResultSet.getBoolean("blocking");
         return new Coupon(id, name, pathToPicture, description, price,
-            adding_date_time, holding_address, category_id, company_provider_id,
+            adding_date_time, holding_address, category, companyProvider,
             blocking);
     }
 
     private void setPreparedStatement(final CouponUser coupUser,
             final PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setDate(1, Date.valueOf(coupUser.getRegistrationDateTime()));
-        preparedStatement.setLong(2, coupUser.getCouponId());
-        preparedStatement.setLong(3, coupUser.getUserId());
+        preparedStatement.setLong(2, coupUser.getCoupon().getId());
+        preparedStatement.setLong(3, coupUser.getUser().getId());
     }
 
     private CouponUser takeNewCouponUser(final ResultSet newSet)
@@ -291,6 +295,8 @@ public class CouponUserDaoImpl extends BaseDaoImpl implements CouponUserDAO {
         LocalDate reg_date = newSet.getDate("registration_date_time").toLocalDate();
         long couponId = newSet.getLong("coupon_id");
         long user_id = newSet.getLong("user_id");
-        return new CouponUser(id, reg_date, couponId, user_id);
+        Coupon coupon = new Coupon();
+        User user = new User();
+        return new CouponUser(id, reg_date, coupon, user);
     }
 }

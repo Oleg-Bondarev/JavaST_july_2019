@@ -1,5 +1,6 @@
-package by.training.final_task.controller;
+package by.training.final_task.controller.servlet;
 
+import by.training.final_task.controller.ControllerException;
 import by.training.final_task.service.validator.PropertyValidator;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import org.apache.logging.log4j.Level;

@@ -1,5 +1,6 @@
 package by.training.final_task.dao.sql;
 
+import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CompanyProviderDAO;
 import by.training.final_task.entity.CompanyProvider;
 import by.training.final_task.dao.PersistentException;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CompanyProviderDaoImpl extends BaseDaoImpl
+public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         implements CompanyProviderDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -31,7 +32,7 @@ public class CompanyProviderDaoImpl extends BaseDaoImpl
     private static final String UPDATE_COMPANY_STATUS = "UPDATE company_provider SET company_provider.blocking = false WHERE company_provider.id=?";
     //private static final String DELETE_COMPANY = "DELETE FROM company_provider WHERE id = ?";
 
-    public CompanyProviderDaoImpl(final Connection newConnection) {
+    public CompanyProviderDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
 

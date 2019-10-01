@@ -5,7 +5,7 @@ import by.training.final_task.dao.PersistentException;
 
 import java.util.List;
 
-public interface CategoryDAO {
+public interface CategoryDAO extends DAO<Category> {
     Category get() throws PersistentException;
     Category get(long id) throws PersistentException;
     List<Category> getAll() throws PersistentException;
