@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService {
         DataInputReader reader = new DataInputReader();
         List<String> inputInformation = new ArrayList<>();
         try {
-            inputInformation = reader.readInformatIonFromFile(pathToFile);
+            inputInformation = reader.readInformationFromFile(pathToFile);
         } catch (FileReaderException eNew) {
             throw new ServiceException("Problems with reading file." + eNew);
         }

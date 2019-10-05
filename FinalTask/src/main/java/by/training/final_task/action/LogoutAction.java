@@ -21,7 +21,7 @@ public class LogoutAction extends AuthorizedUserAction {
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if (user != null) {
-                LOGGER.log(Level.INFO, user.getLogin() + " has logged out");
+                LOGGER.log(Level.INFO, "{} has logged out", user.getLogin());
                 session.invalidate();
                 request.setAttribute("message", "loggedOutSuccessfully");
                 return new Forward("/login.html");

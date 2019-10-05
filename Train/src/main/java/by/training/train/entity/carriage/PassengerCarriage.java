@@ -9,22 +9,22 @@ public abstract class PassengerCarriage extends TrainCarriage {
     /**The maximum number of passengers for which the carriage is designed.*/
     private int countOfPassengers;
     /**Maximum baggage allowance per passenger (in kilograms).*/
-    private double bagageOnPassenger;
+    private double baggageOnPassenger;
     /**Air conditioner in the carriage.*/
     private boolean conditioner;
-    /**Classes of servise.*/
+    /**Classes of service.*/
     private ServiceEnum serviceEnum;
     /**Default count of passengers.*/
     private static final int DEFAULT_COUNT_PASSENGERS = 56;
     /**Default weight of baggage allowance per passenger (in kilograms).*/
-    private static final double DEFAULT_WEIGHTHT = 20;
+    private static final double DEFAULT_WEIGHTH = 20;
     /**Observer.*/
     private PassengerTrainRepository observer;
     /**Default constructor.*/
     public PassengerCarriage() {
         super();
         countOfPassengers = DEFAULT_COUNT_PASSENGERS;
-        bagageOnPassenger = DEFAULT_WEIGHTHT;
+        baggageOnPassenger = DEFAULT_WEIGHTH;
         conditioner = false;
         serviceEnum = ServiceEnum.ECONOM;
     }
@@ -39,7 +39,7 @@ public abstract class PassengerCarriage extends TrainCarriage {
             final ServiceEnum newServiceEnum) {
         super(newBrig);
         this.countOfPassengers = newCountPassengers;
-        this.bagageOnPassenger = newBaggageWeight;
+        this.baggageOnPassenger = newBaggageWeight;
         this.conditioner = hasConditioner;
         this.serviceEnum = newServiceEnum;
     }
@@ -48,7 +48,7 @@ public abstract class PassengerCarriage extends TrainCarriage {
     public PassengerCarriage(final PassengerCarriage passengerCarriageNew) {
         super(passengerCarriageNew.getBrigade());
         this.countOfPassengers = passengerCarriageNew.countOfPassengers;
-        this.bagageOnPassenger = passengerCarriageNew.bagageOnPassenger;
+        this.baggageOnPassenger = passengerCarriageNew.baggageOnPassenger;
         this.conditioner = passengerCarriageNew.conditioner;
         this.serviceEnum = passengerCarriageNew.serviceEnum;
     }
@@ -63,12 +63,12 @@ public abstract class PassengerCarriage extends TrainCarriage {
         notifyObservers();
     }
     /**@return weighth of baggage allowance per passenger(in kg)*/
-    public double getBagageOnPassenger() {
-        return bagageOnPassenger;
+    public double getBaggageOnPassenger() {
+        return baggageOnPassenger;
     }
     /**@param newBaggageOnPassenger - baggage weighth.*/
-    public void setBagageOnPassenger(final double newBaggageOnPassenger) {
-        this.bagageOnPassenger = newBaggageOnPassenger;
+    public void setBaggageOnPassenger(final double newBaggageOnPassenger) {
+        this.baggageOnPassenger = newBaggageOnPassenger;
         notifyObservers();
     }
     /**@return does the carriage have air conditioning.*/
@@ -105,7 +105,7 @@ public abstract class PassengerCarriage extends TrainCarriage {
         }
         PassengerCarriage that = (PassengerCarriage) o;
         return countOfPassengers == that.countOfPassengers
-                && Double.compare(that.bagageOnPassenger, bagageOnPassenger)
+                && Double.compare(that.baggageOnPassenger, baggageOnPassenger)
                     == 0
                 && conditioner == that.conditioner
                 && serviceEnum == that.serviceEnum;
@@ -114,14 +114,14 @@ public abstract class PassengerCarriage extends TrainCarriage {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), countOfPassengers,
-                bagageOnPassenger, conditioner, serviceEnum);
+                baggageOnPassenger, conditioner, serviceEnum);
     }
     /**@return object in string representation.*/
     @Override
     public String toString() {
         return  super.toString()
-                + "countOfPassengers=" + countOfPassengers
-                + ", bagageOnPassenger=" + bagageOnPassenger
+                + "count of passengers=" + countOfPassengers
+                + ", baggage on passenger=" + baggageOnPassenger
                 + ", conditioner=" + conditioner
                 + ", serviceEnum=" + serviceEnum
                 + ", ";

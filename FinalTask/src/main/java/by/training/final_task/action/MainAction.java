@@ -10,6 +10,6 @@ public class MainAction extends Action {
     public Forward executeRequest(final HttpServletRequest request,
                                   final HttpServletResponse response)
             throws ServiceException {
-        return new Forward("/index.html");
+        return null;
     }
 }

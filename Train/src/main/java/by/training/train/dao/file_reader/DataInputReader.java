@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import by.training.train.dao.exception.FileReaderException;
 import by.training.train.validator.FileValidator;
@@ -18,7 +19,7 @@ public class DataInputReader {
      * @return list of carriages.
      * @throws FileReaderException in readLine.
      */
-    public ArrayList<String> readInformatIonFromFile(final String path)
+    public List<String> readInformationFromFile(final String path)
             throws FileReaderException {
         ArrayList<String> informationList = new ArrayList<>();
         File file = new File(path);

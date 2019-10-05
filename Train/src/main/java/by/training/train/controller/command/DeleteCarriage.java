@@ -42,7 +42,7 @@ public class DeleteCarriage implements Command {
         CarriageService carriageService = serviceFactory.getCarriageService();
         List<PassengerCarriage> deleteCerriage = carriageService.
                                 query(new FindByIdSpecification(identificator));
-        if (deleteCerriage.size() != 0) {
+        if (!deleteCerriage.isEmpty()) {
             carriageService.removeCarriage(deleteCerriage.get(0));
             report.append("Carriage removal was successful.");
             return report.toString();

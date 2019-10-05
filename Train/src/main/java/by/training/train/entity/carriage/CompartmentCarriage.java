@@ -36,7 +36,7 @@ public class CompartmentCarriage extends PassengerCarriage {
     public CompartmentCarriage(final CompartmentCarriage compartCarriageNew) {
         super(compartCarriageNew.getBrigade(),
                 compartCarriageNew.getCountOfPassengers(),
-                compartCarriageNew.getBagageOnPassenger(),
+                compartCarriageNew.getBaggageOnPassenger(),
                 compartCarriageNew.isConditioner(),
                 compartCarriageNew.getServiceEnum());
         this.countCompartments = compartCarriageNew.countCompartments;

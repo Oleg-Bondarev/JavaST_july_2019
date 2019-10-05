@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class StockServiceServlet extends HttpServlet {
+public final class StockServiceServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private ServletConfiguration servletConfig;
+    private ServletConfiguration servletConfig = new ServletConfiguration();
+
+    public StockServiceServlet() throws ControllerException {
+    }
 
     @Override
-    public void init() /*throws ControllerException*/ {
+    public void init() {
         try {
-            servletConfig = new ServletConfiguration();
-            //TODO what to do with logging?
-            //TODO factory to get connection pool?
             ConnectionPool.getInstance().initialize(
                             servletConfig.getDbDriverClass(),
                             servletConfig.getDbURL(),
@@ -32,11 +32,9 @@ public class StockServiceServlet extends HttpServlet {
                             servletConfig.getDbPoolMaxSize(),
                             servletConfig.getDbPoolCheckConnectionTimeout());
             LOGGER.log(Level.DEBUG, "Successful init servlet.");
-        } catch (ControllerException newE) {
-            //TODO what to do here?
         } catch (PersistentException newE) {
             LOGGER.log(Level.ERROR, "It is impossible to initialize" +
-                    " application. ", newE.getMessage(), newE);
+                    " application. " + newE.getMessage(), newE);
             destroy();
         }
     }
@@ -58,6 +56,6 @@ public class StockServiceServlet extends HttpServlet {
     private void requestProcess(final HttpServletRequest request,
                                 final HttpServletResponse response)
             throws ServletException {
-
+        //TODO
     }
 }

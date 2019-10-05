@@ -29,7 +29,7 @@ public class DataInputReaderTest {
 
     @Test
     public void testReadInformationFromFile() throws FileReaderException {
-        actualList = dataInputReader.readInformatIonFromFile(passToFile);
+        actualList = dataInputReader.readInformationFromFile(passToFile);
         assertEquals(expectList, actualList);
     }
 }

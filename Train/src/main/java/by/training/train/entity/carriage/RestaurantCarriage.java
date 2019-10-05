@@ -32,7 +32,7 @@ public class RestaurantCarriage extends PassengerCarriage {
     public RestaurantCarriage(final RestaurantCarriage restaurantCarriageNew) {
         super(restaurantCarriageNew.getBrigade(),
                 restaurantCarriageNew.getCountOfPassengers(),
-                restaurantCarriageNew.getBagageOnPassenger(),
+                restaurantCarriageNew.getBaggageOnPassenger(),
                 restaurantCarriageNew.isConditioner(),
                 restaurantCarriageNew.getServiceEnum());
         this.sitingPlaces = restaurantCarriageNew.sitingPlaces;

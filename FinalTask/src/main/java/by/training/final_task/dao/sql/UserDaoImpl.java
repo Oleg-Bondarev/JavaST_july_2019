@@ -37,6 +37,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             + " user.first_name, user.second_name, user.mobile_phone,"
             + " user.registration_date_time, user.blocking FROM user" +
             " WHERE user.login = ? AND user.password = ?";
+    private static final String GET_USER_BY_LOGIN = "SELECT user.id, user.login," +
+            "user.password, user.role, user.email, user.avatar, user.first_name," +
+            "user.second_name, user.mobile_phone, user.registration_date_time," +
+            "user.blocking FROM user WHERE user.login = ?";
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
@@ -187,6 +191,25 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
         return user;
     }
+
+    @Override
+    public User getUserByLogin(final String login) throws PersistentException {
+        User user = null;
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_USER_BY_LOGIN)) {
+            preparedStatement.setNString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = takeUser(resultSet);
+                }
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+        return user;
+    }
+
     //+
     @Override
     public List<User> getAll(final int offset, final int limit)

@@ -19,7 +19,7 @@ public class CalculateBaggage {
                 if (obj instanceof RestaurantCarriage) {
                     continue;
                 } else {
-                    weigh += obj.getBagageOnPassenger()
+                    weigh += obj.getBaggageOnPassenger()
                             * obj.getCountOfPassengers();
                 }
             }

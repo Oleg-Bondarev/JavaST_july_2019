@@ -35,8 +35,8 @@ public class FindByBaggageSpecification
             if (this.lowerBorder < 0 || this.upperBorder < 0) {
                 continue;
             }
-            if ((obj.getBagageOnPassenger() >= this.lowerBorder)
-                    && (obj.getBagageOnPassenger() <= this.upperBorder)) {
+            if ((obj.getBaggageOnPassenger() >= this.lowerBorder)
+                    && (obj.getBaggageOnPassenger() <= this.upperBorder)) {
                 resultList.add(obj);
             }
         }

@@ -15,7 +15,7 @@ public class SortByCountPassengersThenByBaggage
     @Override
     public Comparator<PassengerCarriage> getComparator() {
         return Comparator.comparing(PassengerCarriage::getCountOfPassengers).
-                thenComparing(PassengerCarriage::getBagageOnPassenger);
+                thenComparing(PassengerCarriage::getBaggageOnPassenger);
     }
     /**
      * @param list - start up list for sorting.

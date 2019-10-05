@@ -3,7 +3,7 @@ package by.training.train.entity.carriage;
 import java.util.Objects;
 
 public abstract class TrainCarriage {
-    /**Unique carrriage identifier.*/
+    /**Unique carriage identifier.*/
     private final long identificator;
     /***/
     private static long id = 0;

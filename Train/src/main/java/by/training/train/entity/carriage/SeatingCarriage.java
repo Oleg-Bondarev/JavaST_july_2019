@@ -33,7 +33,7 @@ public class SeatingCarriage extends PassengerCarriage {
     public SeatingCarriage(final SeatingCarriage seatingCarriageNew) {
         super(seatingCarriageNew.getBrigade(),
                 seatingCarriageNew.getCountOfPassengers(),
-                seatingCarriageNew.getBagageOnPassenger(),
+                seatingCarriageNew.getBaggageOnPassenger(),
                 seatingCarriageNew.isConditioner(),
                 seatingCarriageNew.getServiceEnum());
         this.television = seatingCarriageNew.television;

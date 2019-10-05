@@ -67,9 +67,9 @@ public class DiagonalCreator implements Runnable {
                 LOGGER.log(Level.ERROR, e.getMessage());
                 Thread.currentThread().interrupt();
             }
-            LOGGER.log(Level.INFO, "Thread: " + thread.getName() + " ->["
-                    + thread.getNumberForThread() + "] update position ("
-                    + position + "," + position + ")");
+            LOGGER.log(Level.INFO, "Thread: {} ->[{}] update position"
+                            + " ({},{})", thread.getName(),
+                    thread.getNumberForThread(), position, position);
         }
         loksList.get(position).unlock();
     }

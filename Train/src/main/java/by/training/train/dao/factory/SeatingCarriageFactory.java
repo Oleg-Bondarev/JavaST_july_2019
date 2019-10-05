@@ -43,8 +43,8 @@ public final class SeatingCarriageFactory implements CarriageFactoryInterface {
                 ServiceEnum.valueOf(initParameters[THREE].toUpperCase());
         double baggage = Double.parseDouble(initParameters[FOUR]);
         boolean hasConditioner =
-                Boolean.valueOf(initParameters[FIVE].toLowerCase());
-        boolean hasTV = Boolean.valueOf(initParameters[SIX]);
+                Boolean.parseBoolean(initParameters[FIVE].toLowerCase());
+        boolean hasTV = Boolean.parseBoolean(initParameters[SIX]);
         return new SeatingCarriage(brigade, serviceType, countPassengers,
                 baggage, hasConditioner, hasTV);
     }

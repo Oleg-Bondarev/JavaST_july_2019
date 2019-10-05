@@ -23,6 +23,11 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public int create(final User newUser) throws ServiceException {
+        User dbUser = get(newUser.getLogin());
+        if (dbUser != null) {
+            throw new ServiceException("alreadyExistUser");
+        }
+
         try (AbstractConnectionManager connectionManager =
                 new ConnectionManager()) {
             try {
@@ -82,6 +87,21 @@ public class UserServiceImpl extends AbstractService
             try {
                 UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
                 return userDAO.get(id);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
+    public User get(final String login) throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getUserByLogin(login);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);

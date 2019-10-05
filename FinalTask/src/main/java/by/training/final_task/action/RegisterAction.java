@@ -1,6 +1,7 @@
 package by.training.final_task.action;
 
 import by.training.final_task.dao.sql.DAOEnum;
+import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
@@ -26,22 +27,19 @@ public class RegisterAction extends Action {
                 || (session.getAttribute("authorizedUser") == null)) {
             List<String> userRegistrationParameter = new ArrayList<>();
             addRegistrationParametersToList(request, userRegistrationParameter);
-            if (userRegistrationParameter.stream().anyMatch(e -> e != null)) {
-                try {
-                    User user = userParser.parse(this, userRegistrationParameter);
-                    UserService userService = (UserService) factory
-                            .createService(DAOEnum.USER);
-                    //role-?
-                    int userIdGenerated = userService.create(user);
-                    request.setAttribute("message", "registeredSuccessfully");
-                } catch (ServiceException newE) {
-                    request.setAttribute("message", newE.getMessage());
-                    return null;
-                }
-                return new Forward("/login.html");
-            } else {
+
+            User user = userParser.parse(this, userRegistrationParameter);
+            user.setRole(Role.USER);
+            UserService userService = (UserService)
+                    factory.createService(DAOEnum.USER);
+            try {
+                int generatedUserId = userService.create(user);
+                user.setId(generatedUserId);
+            } catch (ServiceException newE) {
+                request.setAttribute("message", newE.getMessage());
                 return null;
             }
+            return new Forward("/login.html");
         } else {
             session.setAttribute("message", "alreadyLoggedIn");
             return null;

@@ -14,7 +14,7 @@ public class SortByBaggageSpecification
      */
     @Override
     public Comparator<PassengerCarriage> getComparator() {
-        return Comparator.comparing(PassengerCarriage::getBagageOnPassenger);
+        return Comparator.comparing(PassengerCarriage::getBaggageOnPassenger);
     }
 
     /**

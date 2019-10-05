@@ -55,7 +55,7 @@ public class EconomClassCarriage extends PassengerCarriage {
     public EconomClassCarriage(final EconomClassCarriage econClassCarriageNew) {
         super(econClassCarriageNew.getBrigade(),
                 econClassCarriageNew.getCountOfPassengers(),
-                econClassCarriageNew.getBagageOnPassenger(),
+                econClassCarriageNew.getBaggageOnPassenger(),
                 econClassCarriageNew.isConditioner(),
                 econClassCarriageNew.getServiceEnum());
         this.countBays = econClassCarriageNew.countBays;

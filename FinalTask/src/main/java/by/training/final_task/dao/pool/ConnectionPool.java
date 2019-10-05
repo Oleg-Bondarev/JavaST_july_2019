@@ -101,11 +101,14 @@ public final class ConnectionPool {
         }
     }
 
-    private PooledConnection createNewConnection() throws PersistentException, SQLException {
+    private PooledConnection createNewConnection() throws PersistentException,
+            SQLException {
         if ((usedConnections.size() + freeConnections.size()) < maxCountConnection) {
-            return new PooledConnection(DriverManager.getConnection(url, login, password));
+            return new PooledConnection(DriverManager
+                    .getConnection(url, login, password));
         }
-        throw new PersistentException("Cannot create connections more than max amount of connections.");
+        throw new PersistentException("Cannot create connections more than" +
+                " max amount of connections.");
     }
 
     public void freeConnection(final PooledConnection newConnection) {
@@ -124,7 +127,8 @@ public final class ConnectionPool {
             try {
                 newConnection.close();
             } catch (SQLException newE1) {
-                LOGGER.log(Level.ERROR, "Could not clear connection.", newE1);
+                LOGGER.log(Level.ERROR, "Could not clear connection.",
+                        newE1);
                 //TODO next?
             }
         }

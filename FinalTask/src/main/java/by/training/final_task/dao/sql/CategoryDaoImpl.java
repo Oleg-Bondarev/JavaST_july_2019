@@ -9,11 +9,9 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,7 +69,7 @@ public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDA
     @Override
     public List<Category> getAll(final int offset, final int limit)
             throws PersistentException {
-        List<Category> categories = new ArrayList<>();
+        List<Category> categories = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_CATEGORIES)) {
             preparedStatement.setInt(1, limit);

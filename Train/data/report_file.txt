@@ -158,3 +158,11 @@ CompartmentCarriage{  id=3, brigade=2, countOfPassengers=25, bagageOnPassenger=5
 EconomClassCarriage{  id=4, brigade=2, countOfPassengers=54, bagageOnPassenger=10.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=RESERVEDSEAT} 
 EconomClassCarriage{  id=5, brigade=1, countOfPassengers=77, bagageOnPassenger=5.0, conditioner=false, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
 SeatingCarriage{  id=6, brigade=1, countOfPassengers=26, bagageOnPassenger=6.5, conditioner=true, serviceEnum=LUX, , television=true} 
+==========================
+Wed Jul 31 09:50:19 MSK 2019
+CompartmentCarriage{  id=1, brigade=2, count of passengers=30, baggage on passenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+EconomClassCarriage{  id=2, brigade=2, count of passengers=22, baggage on passenger=10.0, conditioner=true, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 
+==========================
+Wed Jul 31 10:20:47 MSK 2019
+CompartmentCarriage{  id=1, brigade=2, count of passengers=30, baggage on passenger=11.0, conditioner=true, serviceEnum=LUX, countCompartments=9} 
+EconomClassCarriage{  id=2, brigade=2, count of passengers=22, baggage on passenger=10.0, conditioner=true, serviceEnum=ECONOM, , countBays=9, economClassEnum=COMMON} 

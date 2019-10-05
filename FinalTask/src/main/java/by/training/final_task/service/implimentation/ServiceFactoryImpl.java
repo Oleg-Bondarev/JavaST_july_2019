@@ -15,8 +15,13 @@ public class ServiceFactoryImpl implements ServiceFactory {
     AbstractService abstractService = new AbstractService();
     ConnectionManager connectionManager;
 
-    public ServiceFactoryImpl() throws PersistentException {
-        connectionManager = new ConnectionManager();
+    //is it norm?
+    public ServiceFactoryImpl() throws ServiceException {
+        try {
+            connectionManager = new ConnectionManager();
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE.getMessage(), newE);
+        }
     }
 
     @Override

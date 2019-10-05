@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String MESSAGE = "message";
 
     @Override
     public Forward executeRequest(final HttpServletRequest request,
@@ -35,11 +36,11 @@ public class LoginAction extends AuthorizedUserAction {
                     LOGGER.log(Level.INFO, "User {} is logged in from {}"
                             + " ({}:{})", login, request.getRemoteAddr(),
                             request.getRemoteHost(), request.getRemotePort());
-                    request.setAttribute("message", "loggedInSuccessfully");
+                    request.setAttribute(MESSAGE, "loggedInSuccessfully");
 
-                    return new Forward("/index.html");
+                    return new Forward("/user/profile.html");
                 } else {
-                    request.setAttribute("message",
+                    request.setAttribute(MESSAGE,
                             "couldNotFindLoginPassword");
                     LOGGER.log(Level.INFO, "User {} unsuccessfully tried" +
                             " to login from {} ({},{})", login,
@@ -47,9 +48,10 @@ public class LoginAction extends AuthorizedUserAction {
                             request.getRemotePort());
                 }
             } else {
-                request.setAttribute("message", "alreadyLoggedInUser");
+                request.setAttribute(MESSAGE, "alreadyLoggedInUser");
             }
         }
+        request.setAttribute(MESSAGE,"fillAllFields");
         return null;
     }
 }
