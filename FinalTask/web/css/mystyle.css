@@ -1,0 +1,70 @@
+html, body {
+    min-width: 320px;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+    color: #000000;
+    background-color: #f5ede7;
+    height: 100%;
+}
+header .navbar-light {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #b93879;
+    margin-bottom: 10px;
+}
+header .nav-item {
+    text-transform: uppercase;
+    margin-left: 50px;
+}
+header .nav-item a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: black;
+    height: 1px;
+    transform: scale(0);
+    transition: all 0.4s;
+}
+header .nav-item a:hover::after {
+    transform: scale(1);
+}
+footer {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #b93879;
+}
+.footer-left a {
+    color: #000000;
+    margin-right: 20px;
+}
+.footer-right a {
+    color: #000000;
+    margin-left: 20px;
+}
+.footer-fixed {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+#wrap {
+    min-height: 90%;
+}
+main {
+    padding-bottom: 100px;
+    /*Высота футера*/
+}
+.jumbotron-cover-image {
+    background: #000 url("../img/banner.jpg") center center;
+    width: 100%;
+    height: 80%;
+    background-size: cover;
+    color: #fff;
+}
+.div-shadow {
+    width: 80%;
+    margin: 2em auto;
+    padding: 1em;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+
+

@@ -52,7 +52,7 @@ public final class ConnectionPool {
                         try {
                             connection.getConnection().close();
                         } catch (SQLException newE) {
-                            LOGGER.log(Level.WARN, newE);
+                            LOGGER.log(Level.WARN, newE.getMessage(), newE);
                             throw new PersistentException(newE.getMessage(), newE);
                         }
                         connection = null;
@@ -65,9 +65,7 @@ public final class ConnectionPool {
                     throw new PersistentException();
                 }
             } catch (SQLException newE) {
-                LOGGER.log(Level.ERROR, "Cannot connect to database." +
-                                " SQL state: {}, SQL message: {}",
-                        newE.getSQLState(), newE.getMessage());
+                LOGGER.log(Level.ERROR, "Cannot connect to database.", newE);
                 throw new PersistentException(newE.getMessage(), newE);
             }
         }

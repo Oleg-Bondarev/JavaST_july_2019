@@ -3,4 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    
+    <description>Gift vouchers and certificates.</description>
+    <display-name>Certificate market</display-name>
+    
+    <request-character-encoding>utf-8</request-character-encoding>
+    
+    <welcome-file-list>
+        <welcome-file>/WEB-INF/jsp/homepage.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <servlet>
+        <servlet-name>StockServiceServlet</servlet-name>
+        <servlet-class>by.training.final_task.controller.servlet.StockServiceServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>StockServiceServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>by.training.final_task.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>SessionLocaleFilter</filter-name>
+        <filter-class>by.training.final_task.filter.SessionLocaleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionLocaleFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ActionFormUriFilter</filter-name>
+        <filter-class>by.training.final_task.filter.ActionFormUriFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ActionFormUriFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
 </web-app>

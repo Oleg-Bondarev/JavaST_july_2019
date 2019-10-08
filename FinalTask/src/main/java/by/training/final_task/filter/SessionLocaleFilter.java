@@ -16,14 +16,13 @@ public class SessionLocaleFilter implements Filter {
                          final FilterChain newFilterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) newServletRequest;
-        if (request.getParameter("language") != null) {
-            request.getSession().setAttribute("SessionLang",
-                    request.getParameter("language"));
+        if (request.getParameter("lang") != null) {
+            request.getSession().setAttribute("sessionLang",
+                    request.getParameter("lang"));
         }
         newFilterChain.doFilter(newServletRequest, newServletResponse);
     }
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {    }
 }
