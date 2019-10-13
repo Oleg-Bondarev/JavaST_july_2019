@@ -23,6 +23,9 @@ public interface UserService extends Service {
 
     List<User> getAll(int offset, int limit) throws ServiceException;
 
+    List<User> getAllUsersByRoleAndName(String name, Role role, int offset,
+                                        int limit) throws ServiceException;
+
     List<User> getAllUsersByRole(final Role newRole, int offset, int limit)
             throws ServiceException;
 

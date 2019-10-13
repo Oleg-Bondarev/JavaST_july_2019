@@ -9,7 +9,7 @@ import java.util.Set;
 public abstract class AuthorizedUserAction extends Action {
 
     private HttpSession session;
-    private Set<Role> allowedRoles = new HashSet<>();
+    protected Set<Role> allowedRoles = new HashSet<>();
 
     public HttpSession getSession() {
         return session;

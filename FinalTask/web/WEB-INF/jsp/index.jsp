@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Redirecting</title>
+        <link rel="icon" href="/img/logomak_logo.png" type="image/x-icon">
     </head>
 
     <body>

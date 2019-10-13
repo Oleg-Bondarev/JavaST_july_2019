@@ -12,7 +12,7 @@ import java.util.Map;
 public abstract class Action {
 
     private User authorizedUser;
-    private String userLogin;
+    private String name;
     public ServiceFactory factory;
 
     public User getAuthorizedUser() {
@@ -23,12 +23,12 @@ public abstract class Action {
         authorizedUser = newAuthorizedUser;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getName() {
+        return name;
     }
 
-    public void setUserLogin(final String newLogin) {
-        userLogin = newLogin;
+    public void setName(final String newName) {
+        name = newName;
     }
 
     public void setFactory(final ServiceFactory newFactory) {

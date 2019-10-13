@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ResourceBundle;
 
-public class ServletConfiguration {
+public final class ServletConfiguration {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private String dbDriverClass;
@@ -20,7 +20,8 @@ public class ServletConfiguration {
     private int dbPoolMaxSize;
     private int dbPoolCheckConnectionTimeout;
 
-    public ServletConfiguration() throws ControllerException {
+    //TODO what to do with exception?
+    public ServletConfiguration() /*throws ControllerException*/ {
         ResourceBundle resourceBundle = ResourceBundle
                 .getBundle("servlet_configuration");
         readProperties(resourceBundle);
@@ -55,10 +56,10 @@ public class ServletConfiguration {
     }
 
     private void readProperties(final ResourceBundle resourceBundle)
-            throws ControllerException {
-        int startSize;
-        int maxSize;
-        int timeout;
+            /*throws ControllerException*/ {
+        int startSize = 0;
+        int maxSize = 0;
+        int timeout = 0;
         try {
             startSize = Integer.parseInt(resourceBundle.getString("dbPoolStartSize"));
             maxSize = Integer.parseInt(resourceBundle.getString("dbPoolMaxSize"));
@@ -66,7 +67,7 @@ public class ServletConfiguration {
         } catch (ParseException newE) {
             LOGGER.log(Level.ERROR, "Pool size and timeout checking" +
                     " parameter must be an integer numbers.");
-            throw new ControllerException(newE.getMessage(), newE);
+            //throw new ControllerException(newE.getMessage(), newE);
         }
         //надо ли через фабрику какую получать объект валидатора?
         if (PropertyValidator.isValidIntegerPropParameters(startSize, maxSize, timeout)) {

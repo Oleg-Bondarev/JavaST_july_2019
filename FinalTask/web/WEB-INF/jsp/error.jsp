@@ -7,6 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctgg" tagdir="/WEB-INF/tags" %>
 
 <html>
 
@@ -15,20 +16,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/logomak_logo.png" type="image/x-icon">
 
     <c:url value="/WEB-INF/jsp/login.html" var="loginActionURL"/>
     <c:url value="/WEB-INF/jsp/register.html" var="registerActionURL"/>
     <c:url value="/WEB-INF/jsp/logout.html" var="logoutActionURL"/>
     <c:url value="/WEB-INF/jsp/user/profile.html" var="profileActionURL"/>
-    <fmt:setLocale value="${sessionLang}"/>
-    <fmt:setBundle basename="by.training.finaltask.resource.localization"/>
-    <title><fmt:message key="title"/></title>
+    <c:set var="language" value="${not empty param.language ? param.language : not
+        empty language ? language : pageContext.request.locale}" scope="session" />
+    <fmt:setLocale value="${language}" />
+    <fmt:setBundle basename="local" var="lang"/>
+    <title><fmt:message key="title" bundle="${lang}"/></title>
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/mystyle.css" rel="stylesheet">
 </head>
 
-<body>
+<body lang="${language}">
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
 <div id="wrap">
     <jsp:include page="/WEB-INF/jsp/special/header.jsp" flush="true"/>
@@ -39,13 +43,14 @@
         <br>
         <c:if test="${not empty message}">
             <div style="text-align: center;">
-                <label class="text text-danger" for="navbarResponsive">
-                    <fmt:message key="${message}"/></label>
+                <label class="text text-danger">
+                    <fmt:message key="${message}" bundle="${lang}"/></label>
             </div>
         </c:if>
     </main>
 </div>
-<jsp:include page="/WEB-INF/jsp/special/footer.jsp" flush="true"/>
+<ctgg:footer/>
+<%--<jsp:include page="/WEB-INF/jsp/special/footer.jsp" flush="true"/>--%>
 
 </body>
 </html>

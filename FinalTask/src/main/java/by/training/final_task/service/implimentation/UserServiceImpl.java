@@ -144,6 +144,23 @@ public class UserServiceImpl extends AbstractService
     }
 
     @Override
+    public List<User> getAllUsersByRoleAndName(final String name, final Role role,
+                                               final int offset, final int limit)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAllUsersByRoleAndName(name, role, offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
     public List<User> getAllUsersByRole(final Role newRole, final int offset,
                                         final int limit)
             throws ServiceException {

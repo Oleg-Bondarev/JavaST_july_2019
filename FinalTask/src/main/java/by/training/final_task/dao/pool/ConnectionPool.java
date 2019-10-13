@@ -16,12 +16,11 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    //TODO hardCode
-    private String url = "jdbc:mysql://localhost:3306/stock_gift_coupons_db?serverTimezone=UTC";
-    private String login = "root";
-    private String password = "root";
-    private int connectionTimeLimit = 0;
-    private int maxCountConnection = 1000;
+    private String url;
+    private String login;
+    private String password;
+    private int connectionTimeLimit;
+    private int maxCountConnection;
     private ReentrantLock classLocker = new ReentrantLock();
     private static ConnectionPool INSTANCE = null;
     private Queue<PooledConnection> freeConnections = new LinkedList<>();

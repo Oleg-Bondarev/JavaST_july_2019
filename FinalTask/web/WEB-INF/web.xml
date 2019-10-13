@@ -5,7 +5,7 @@
          version="4.0">
     
     <description>Gift vouchers and certificates.</description>
-    <display-name>Certificate market</display-name>
+    <display-name>Сoupon market</display-name>
     
     <request-character-encoding>utf-8</request-character-encoding>
     

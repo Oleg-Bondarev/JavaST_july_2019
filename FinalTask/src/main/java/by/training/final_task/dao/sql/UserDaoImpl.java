@@ -61,6 +61,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             + " user.mobile_phone, user.registration_date_time, user.blocking" +
             " FROM user WHERE user.blocking=false AND user.role = ?" +
             " ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_USERS_BY_NAME_AND_ROLE =
+            "SELECT user.id, user.login, user.password, user.role, user.email,"
+            + " user.avatar, user.first_name, user.second_name,"
+            + " user.mobile_phone, user.registration_date_time, user.blocking"
+            + " FROM user WHERE user.blocking=false AND user.first_name = ?"
+            + " AND user.role = ? ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
             + " user.avatar, user.first_name, user.second_name,"
@@ -311,6 +317,29 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(1, newRole.getOrdinal());
             preparedStatement.setInt(2, limit);
             preparedStatement.setInt(3, offset);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    users.add(takeUser(resultSet));
+                }
+            }
+            return users;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+    }
+
+    @Override
+    public List<User> getAllUsersByRoleAndName(final String name, final Role role,
+                                               final int offset, final int limit)
+            throws PersistentException {
+        List<User> users = new LinkedList<>();
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_ALL_USERS_BY_NAME_AND_ROLE)) {
+            preparedStatement.setNString(1, name);
+            preparedStatement.setInt(2, role.getOrdinal());
+            preparedStatement.setInt(3, limit);
+            preparedStatement.setInt(4, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     users.add(takeUser(resultSet));
