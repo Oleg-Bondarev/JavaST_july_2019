@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class FindAdminByFirstNameAction extends AuthorizedUserAction {
+public class FindStaffByFirstNameAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String NAME_PARAM = "firstnameParameter";
     private static final int ROWS_IN_PAGE = 5;
 
-    public FindAdminByFirstNameAction() {
+    public FindStaffByFirstNameAction() {
         allowedRoles.add(Role.ADMIN);
     }
 

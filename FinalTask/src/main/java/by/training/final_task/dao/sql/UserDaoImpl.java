@@ -176,27 +176,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
         return user;
     }
-    //+
-    @Override
-    public User getUserByLoginAndPassword(final String login,
-                                          final String password)
-            throws PersistentException {
-        User user = null;
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD)) {
-            preparedStatement.setNString(1, login);
-            preparedStatement.setNString(2, password);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    user = takeUser(resultSet);
-                }
-            }
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
-        return user;
-    }
 
     @Override
     public User getUserByLogin(final String login) throws PersistentException {

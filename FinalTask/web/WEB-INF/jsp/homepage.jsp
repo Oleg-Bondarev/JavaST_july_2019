@@ -74,7 +74,7 @@
                 <div class="col-sm-6">
                     <div class="card height-body-card contact-card">
                         <div class="card-body div-bg2">
-                            <h2 class="card-title text-center">Социальные сети</h2>
+                            <h2 class="card-title text-center"><fmt:message key="socialNetworks" bundle="${lang}"/></h2>
                             <form class="p-5">
                                 <div class="md-form form-sm">
                                     <div><fmt:message key="vkTitle" bundle="${lang}"/>: <a href="https://vk.com/oleg_bondarev">vk</a> </div>

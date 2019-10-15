@@ -5,18 +5,19 @@
 <c:set var="language" value="${not empty param.language ? param.language : not
  empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
-<fmt:setBundle basename="local" var="lang"/>
-<c:url value="/login.html" var="loginActionURL"/>
+<fmt:bundle basename="local">
+<c:url value="/loginpage.html" var="loginPageActionURL"/>
 <c:url value="/logout.html" var="logoutActionURL"/>
 <c:url value="/homepage.html" var="titleActionURL"/>
-<c:url value="/register.html" var="registerActionURL"/>
+<c:url value="/registration.html" var="registrationPageActionURL"/>
 <c:url value="/user/profile.html" var="profileActionURL"/>
 <c:url value="/coupons.html?page=1" var="couponsActionURL"/>
-<c:url value="/user/admin/addadmin.html" var="addadminActionURL"/>
+<c:url value="/user/admin/addadminpage.html" var="addadminActionPageURL"/>
 <c:url value="/user/admin/findadmin.html?page=1" var="findadminActionURL"/>
 <c:url value="/coupon/addcoupon.html" var="addCouponActionURL"/>
 <c:url value="/coupon/findpurchase.html" var="findPurchaseActionURL"/>
 <c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
+<c:url value="/user/admin/alluserspage.html?page=1" var="allUsersActionURL"/>
 
 <header lang="${language}">
     <div>
@@ -31,54 +32,54 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="${couponsActionURL}"><fmt:message key="coupons" bundle="${lang}"/><span class="sr-only">(current)</span></a> </li>
+                    <li class="nav-item"><a class="nav-link" href="${couponsActionURL}"><fmt:message key="coupons" /><span class="sr-only">(current)</span></a> </li>
 
                     <c:if test="${not empty authorizedUser}">
-                        <c:choose>
-                            <c:when test="${authorizedUser.userRole == 'ADMIN'}">
+
+                            <c:if test="${authorizedUser.role == 'ADMIN'}">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${findadminActionURL}"><fmt:message key="findAdmin" bundle="${lang}"/></a>
+                                    <a class="nav-link" href="${findadminActionURL}"><fmt:message key="findAdmin" /></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${addadminActionURL}"><fmt:message key="addAdmin" bundle="${lang}"/> </a>
+                                    <a class="nav-link" href="${addadminActionPageURL}"><fmt:message key="addAdmin" /> </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${addCouponActionURL}"><fmt:message key="addCoupon" bundle="${lang}"/><span class="sr-only">(current)</span> </a>
+                                    <a class="nav-link" href="${addCouponActionURL}"><fmt:message key="addCoupon" /><span class="sr-only">(current)</span> </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${findPurchaseActionURL}"><fmt:message key="findPurchase" bundle="${lang}"/><span class="sr-only">(current)</span> </a>
+                                    <a class="nav-link" href="${allUsersActionURL}"><fmt:message key="allUsers" /><span class="sr-only">(current)</span> </a>
                                 </li>
-                            </c:when>
-                            <c:when test="${authorizedUser.userRole == 'USER'}">
+                            </c:if>
+
+                            <c:if test="${authorizedUser.role == 'USER'}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="${myCouponsActionURL}">
-                                        <fmt:message key="findPurchase" bundle="${lang}"/><span class="sr-only">(current)</span>
+                                        <fmt:message key="findPurchase" /><span class="sr-only">(current)</span>
                                     </a>
                                 </li>
-                            </c:when>
-                        </c:choose>
+                            </c:if>
+
                         <li class="nav-item">
                             <a class="nav-link" href="${profileActionURL}">
-                                <fmt:message key="profile" bundle="${lang}"/>
-                                (${authorizedUser.username})
+                                <fmt:message key="profileTitle" />
+                                (${authorizedUser.login})
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${logoutActionURL}">
-                                <fmt:message key="logout" bundle="${lang}"/>
+                                <fmt:message key="logout" />
                             </a>
                         </li>
                     </c:if>
                     <c:if test="${empty authorizedUser}">
                         <li class="nav-item">
-                            <a class="nav-link" href="${loginActionURL}">
-                                <fmt:message key="login" bundle="${lang}"/><span class="sr-only">(current)</span>
+                            <a class="nav-link" href="${loginPageActionURL}">
+                                <fmt:message key="login" /><span class="sr-only">(current)</span>
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="${registerActionURL}">
-                                <fmt:message key="register" bundle="${lang}"/><span class="sr-only">(current)</span>
+                            <a class="nav-link" href="${registrationPageActionURL}">
+                                <fmt:message key="register" /><span class="sr-only">(current)</span>
                             </a>
                         </li>
                     </c:if>
@@ -87,9 +88,9 @@
                     <li class="nav-link dropdown">
                         <form action="">
                             <select name="language" onchange="submit()">
-                                <option value="ru" ${language == 'ru' ? 'selected' : ''}><fmt:message key="russian" bundle="${lang}"/></option>
-                                <option value="en" ${language == 'en' ? 'selected' : ''}><fmt:message key="english" bundle="${lang}"/></option>
-                                <option value="de" ${language == 'en' ? 'selected' : ''}><fmt:message key="german" bundle="${lang}"/></option>
+                                <option value="ru" ${language == 'ru' ? 'selected' : ''}><fmt:message key="russian" /></option>
+                                <option value="en" ${language == 'en' ? 'selected' : ''}><fmt:message key="english" /></option>
+                                <option value="de" ${language == 'de' ? 'selected' : ''}><fmt:message key="german" /></option>
                             </select>
                         </form>
                     </li>
@@ -99,3 +100,4 @@
         ${exception}
     </div>
 </header>
+</fmt:bundle>

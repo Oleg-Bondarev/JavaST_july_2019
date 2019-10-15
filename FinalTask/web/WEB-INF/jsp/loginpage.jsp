@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctgg" tagdir="/WEB-INF/tags" %>
 
+<fmt:bundle basename="local">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,15 +19,15 @@
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css">
 
+    <c:url value="/login.html" var="loginActionURL"/>
     <c:url value="/js/bootstrap.bundle.min.js" var="jsURL"/>
     <script src="${jsURL}" type="text/javascript"></script>
     <c:set var="language" value="${not empty param.language ? param.language : not
      empty language ? language : pageContext.request.locale}" scope="session" />
     <fmt:setLocale value="${language}" />
-    <fmt:setBundle basename="local" var="lang"/>
-    <title><fmt:message key="login" bundle="${lang}"/></title>
+    <title><fmt:message key="login"/></title>
 </head>
-<body lang="${language}">
+<body>
 <div id="wrap">
     <jsp:include page="/WEB-INF/jsp/special/header.jsp" flush="true"/>
     <main>
@@ -34,11 +35,11 @@
             <div class="div-shadow div-login">
                 <form action="${loginActionURL}" method="post">
                     <div class="text-center">
-                        <h2><b><fmt:message key="login"  bundle="${lang}"/></b></h2>
+                        <h2><b><fmt:message key="login"/></b></h2>
                     </div>
                     <div class="form-group">
                         <label for="validationDefaultUser">
-                            <fmt:message key="username"  bundle="${lang}"/>
+                            <fmt:message key="username"/>
                         </label>
                         <input pattern="^[a-zA-Z0-9]{4,16}$" id="validationDefaultUser"
                                type="text" class="form-control" name="login"
@@ -46,21 +47,22 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">
-                            <fmt:message key="password"  bundle="${lang}"/>
+                            <fmt:message key="password"/>
                         </label>
                         <input pattern="^[a-zA-Z0-9]{8,16}$" id="inputPassword"
-                               type="password" class="form-control"
-                               placeholder="Enter password" aria-describedby="passwordHelp" required>
+                               type="password" class="form-control" name="password"
+                               placeholder="Enter password"
+                               aria-describedby="passwordHelp" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">
-                            <fmt:message key="loginbutton"  bundle="${lang}"/>
+                            <fmt:message key="loginbutton"/>
                         </button>
                     </div>
                     <br>
                     <c:if test="${not empty message}">
                         <div class="text-center">
-                            <label class="text"><fmt:message key="${message}"  bundle="${lang}"/></label>
+                            <label class="text"><fmt:message key="${message}"/></label>
                         </div>
                     </c:if>
                 </form>
@@ -75,3 +77,4 @@
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
+</fmt:bundle>

@@ -32,7 +32,7 @@ public class UserEditAction extends AuthorizedUserAction {
             if (user != null) {
                 UserService userService = (UserService) factory.createService(
                         DAOEnum.USER);
-                request.setAttribute("oldUserInformation", user);
+                /*request.setAttribute("oldUserInformation", user);*/
                 List<String> userParameters = new ArrayList<>();
                 addUserParameters(request, userParameters);
                 if ((userParameters.get(PASSWORD_INDEX) == null)
@@ -45,6 +45,7 @@ public class UserEditAction extends AuthorizedUserAction {
                     User changeUser = userParser.parse(this, userParameters);
                     changeUser.setId(user.getId());
                     changeUser.setRole(user.getRole());
+                    changeUser.setPathToAvatar(user.getPathToAvatar());
                     userService.update(changeUser);
                     session.setAttribute("authorizedUser", changeUser);
                     return new Forward("/user/profile.html", true);
@@ -69,6 +70,17 @@ public class UserEditAction extends AuthorizedUserAction {
         parameters.add(request.getParameter("email"));
         parameters.add(request.getParameter("firstName"));
         parameters.add(request.getParameter("secondName"));
-        parameters.add(request.getParameter("mobilePhone"));
+        //check phone
+        String mobilePhone = readCorrectPhone(request.getParameter("mobilePhone"));
+        parameters.add(mobilePhone);
+    }
+
+    private String readCorrectPhone(final String phone) {
+        String code = "+375";
+        if (phone.contains(code)) {
+            int index = phone.indexOf(code) + code.length();
+            code = phone.substring(index);
+        }
+        return code;
     }
 }

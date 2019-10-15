@@ -17,13 +17,16 @@ import java.util.List;
 public class UserServiceImpl extends AbstractService
         implements UserService {
 
+    private Argon2 argon2 =
+            Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+
     public UserServiceImpl(final DaoFactory newFactory) {
         super(newFactory);
     }
 
     @Override
     public int create(final User newUser) throws ServiceException {
-        User dbUser = get(newUser.getLogin());
+        User dbUser = get(newUser.getLogin(), newUser.getPassword());
         if (dbUser != null) {
             throw new ServiceException("alreadyExistUser");
         }
@@ -97,27 +100,17 @@ public class UserServiceImpl extends AbstractService
     }
 
     @Override
-    public User get(final String login) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
-            try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getUserByLogin(login);
-            } catch (PersistentException newE) {
-                connectionManager.rollbackChange();
-                throw new ServiceException(newE.getMessage(), newE);
-            }
-        } catch (PersistentException newE) {
-            throw new ServiceException(newE);
-        }
-    }
-
-    @Override
-    public User getUserByLoginAndPassword(final String login, final String password)
+    public User get(final String login, final String password)
             throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
             try {
                 UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getUserByLoginAndPassword(login, password);
+                User userForCheck = userDAO.getUserByLogin(login);
+                if (userForCheck == null) {
+                    return null;
+                } else {
+                    return verifyUser(userForCheck, password) ? userForCheck : null;
+                }
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -260,9 +253,10 @@ public class UserServiceImpl extends AbstractService
     }
 
     private String argonTwoHashAlgorithm(final String newPassword) {
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String password = argon2.hash(4, 1024 * 1024, 4,
-                newPassword);
-        return password;
+        return argon2.hash(2, 256 * 256, 4, newPassword);
+    }
+
+    private boolean verifyUser(final User user, final String password) {
+        return argon2.verify(user.getPassword(), password);
     }
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LogoutAction extends AuthorizedUserAction {
+public class UserEditPageAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -18,18 +18,18 @@ public class LogoutAction extends AuthorizedUserAction {
                                   final HttpServletResponse response)
             throws ServiceException {
         HttpSession session = request.getSession(false);
+
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if (user != null) {
-                LOGGER.log(Level.INFO, "{} has logged out", user.getLogin());
-                session.invalidate();
-                request.setAttribute("message", "loggedOutSuccessfully");
-                return new Forward("/loginpage.html");
+                request.setAttribute("oldUserInformation", user);
+                return null;
             } else {
-                request.setAttribute("message", "errorInLogout");
-                return new Forward("/loginpage.html");
+                throw new ServiceException("forbiddenAccess");
             }
         }
-        return new Forward("/loginpage.html");
+        LOGGER.log(Level.INFO, "{} - attempted to access {} and failed",
+                request.getRemoteAddr(), request.getRequestURI());
+        throw new ServiceException("forbiddenAccess");
     }
 }

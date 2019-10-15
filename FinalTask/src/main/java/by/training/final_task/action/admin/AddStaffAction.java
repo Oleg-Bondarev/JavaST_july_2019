@@ -17,12 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddAdminAction extends AuthorizedUserAction {
+public class AddStaffAction extends AuthorizedUserAction {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static final UserFormParser userFormParser = new UserFormParser();
 
-    public AddAdminAction() {
+    public AddStaffAction() {
         allowedRoles.add(Role.ADMIN);
     }
 

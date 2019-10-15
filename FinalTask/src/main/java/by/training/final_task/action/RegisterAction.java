@@ -15,7 +15,6 @@ import java.util.List;
 
 public class RegisterAction extends Action {
 
-    //must be received through the service factory?
     private static final UserFormParser userParser = new UserFormParser();
 
     @Override
@@ -30,6 +29,8 @@ public class RegisterAction extends Action {
 
             User user = userParser.parse(this, userRegistrationParameter);
             user.setRole(Role.USER);
+            //default avatar for new users
+            user.setPathToAvatar("img/user/user_profile.jpg");
             UserService userService = (UserService)
                     factory.createService(DAOEnum.USER);
             try {
@@ -39,7 +40,7 @@ public class RegisterAction extends Action {
                 request.setAttribute("message", newE.getMessage());
                 return null;
             }
-            return new Forward("/login.html");
+            return new Forward("/loginpage.html");
         } else {
             session.setAttribute("message", "alreadyLoggedIn");
             return null;

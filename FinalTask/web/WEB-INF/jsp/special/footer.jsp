@@ -8,16 +8,17 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="local" var="lang"/>
 <c:set var="language" value="${not empty param.language ? param.language : not
  empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
-<fmt:setBundle basename="local" var="lang"/>
+
 <!-- Footer -->
 <footer lang="${language}">
     <div class="container">
         <div class="d-flex justify-content-between">
             <div class="footer-left">
-                <div class="col-md-6">
+                <div>
                     <fmt:message key="createdBy" bundle="${lang}"/>
                     <a href="https://github.com/Oleg-Bondarev/"><br>
                         Github

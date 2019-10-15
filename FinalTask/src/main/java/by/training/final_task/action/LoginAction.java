@@ -29,7 +29,7 @@ public class LoginAction extends AuthorizedUserAction {
             if (session.getAttribute("authorizedUser") == null) {
                 UserService service = (UserService) factory
                         .createService(DAOEnum.USER);
-                User user = service.getUserByLoginAndPassword(login, password);
+                User user = service.get(login, password);
                 if (user != null) {
                     session.setAttribute("authorizedUser", user);
                     session.setAttribute("userName", user.getLogin());
