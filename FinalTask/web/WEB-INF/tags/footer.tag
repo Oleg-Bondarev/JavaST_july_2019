@@ -1,17 +1,19 @@
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setLocale value="${sessionLang}"/>
+
+<c:set var="language" value="${not empty param.language ? param.language : not
+ empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
 <fmt:bundle basename="local">
 
-<footer>
+<footer lang="${language}">
     <div class="container">
         <div class="d-flex justify-content-between">
             <div class="footer-left">
-                <div class="col-md-6"><fmt:message key="createdBy"/>
+                <div><fmt:message key="createdBy"/>
                     <a href="https://github.com/Oleg-Bondarev/"><br>
                         Github
-                    </a>
+                    </a><br>
                     <a href="https://vk.com/oleg_bondarev/">
                         VK
                     </a>

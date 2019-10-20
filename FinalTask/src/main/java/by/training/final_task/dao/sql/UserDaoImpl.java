@@ -52,6 +52,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE =
             "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?"
                     + " AND user.role = ?";
+    private static final String GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME =
+            "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?" +
+            " AND user.second_name = ? AND user.role = ?";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_EMAIL =
             "SELECT COUNT(user.email) FROM user WHERE user.email = ?" +
             " AND user.blocking = false";
@@ -72,7 +75,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             + " user.avatar, user.first_name, user.second_name,"
             + " user.mobile_phone, user.registration_date_time, user.blocking"
             + " FROM user WHERE user.blocking=false AND (user.first_name = ?" +
-            " AND user.second_name = ?) ORDER BY id";
+            " AND user.second_name = ? AND user.role=?) ORDER BY id";
 
     private static final String GET_ALL_ACTIVE_USERS =
             "SELECT user.id, user.login, user.password, user.role, user.email," +
@@ -256,7 +259,27 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    
+    @Override
+    public int getAmountOfAllUsersByFirstAndSecondName(final String firstName,
+                                       final String secondName, final Role role)
+            throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(
+                    GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME)) {
+            preparedStatement.setNString(1, firstName);
+            preparedStatement.setNString(2, secondName);
+            preparedStatement.setInt(3, role.getOrdinal());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+    }
+
+
     @Override
     public int getAmountOfAllUsersByEmail(final String email)
             throws PersistentException {
@@ -331,15 +354,16 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
-            final String secondName) throws PersistentException {
+                                  final String secondName, final Role role)
+            throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME)) {
             preparedStatement.setNString(1, firstName);
             preparedStatement.setNString(2, secondName);
+            preparedStatement.setInt(3, role.getOrdinal());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     users.add(takeUser(resultSet));

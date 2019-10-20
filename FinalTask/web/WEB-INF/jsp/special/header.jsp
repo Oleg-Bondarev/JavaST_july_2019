@@ -12,8 +12,8 @@
 <c:url value="/registration.html" var="registrationPageActionURL"/>
 <c:url value="/user/profile.html" var="profileActionURL"/>
 <c:url value="/coupons.html?page=1" var="couponsActionURL"/>
-<c:url value="/user/admin/addadminpage.html" var="addadminActionPageURL"/>
-<c:url value="/user/admin/findadmin.html?page=1" var="findadminActionURL"/>
+<c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
+<c:url value="/user/admin/findstaff.html" var="findstaffActionURL"/>
 <c:url value="/coupon/addcoupon.html" var="addCouponActionURL"/>
 <c:url value="/coupon/findpurchase.html" var="findPurchaseActionURL"/>
 <c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
@@ -38,16 +38,19 @@
 
                             <c:if test="${authorizedUser.role == 'ADMIN'}">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${findadminActionURL}"><fmt:message key="findAdmin" /></a>
+                                    <a class="nav-link" href="${findstaffActionURL}"><fmt:message key="findStaff" /></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${addadminActionPageURL}"><fmt:message key="addAdmin" /> </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${addCouponActionURL}"><fmt:message key="addCoupon" /><span class="sr-only">(current)</span> </a>
+                                    <a class="nav-link" href="${addstaffActionPageURL}"><fmt:message key="addStaff" /> </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${allUsersActionURL}"><fmt:message key="allUsers" /><span class="sr-only">(current)</span> </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${authorizedUser.role == 'STAFF'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${addCouponActionURL}"><fmt:message key="addCoupon" /><span class="sr-only">(current)</span> </a>
                                 </li>
                             </c:if>
 

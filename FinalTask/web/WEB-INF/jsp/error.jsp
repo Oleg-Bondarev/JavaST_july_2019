@@ -27,6 +27,8 @@
     <fmt:setLocale value="${language}" />
     <fmt:setBundle basename="local" var="lang"/>
     <title><fmt:message key="title" bundle="${lang}"/></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Playfair+Display|Ubuntu:300&display=swap">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/mystyle.css" rel="stylesheet">
@@ -51,6 +53,8 @@
 </div>
 <ctgg:footer/>
 <%--<jsp:include page="/WEB-INF/jsp/special/footer.jsp" flush="true"/>--%>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>

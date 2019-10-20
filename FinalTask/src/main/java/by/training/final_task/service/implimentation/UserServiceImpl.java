@@ -172,12 +172,12 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
-                                                      final String secondName)
+                                      final String secondName, final Role role)
             throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
             try {
                 UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getAllUsersByFirstAndSecondName(firstName, secondName);
+                return userDAO.getAllUsersByFirstAndSecondName(firstName, secondName, role);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -227,6 +227,25 @@ public class UserServiceImpl extends AbstractService
             try {
                 UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
                 return userDAO.getAmountOfAllUsersByFirstNameAndRole(firstName, role);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
+    public int getAmountOfAllUsersByFirstAndSecondName(final String firstName,
+                                       final String secondName, final Role role)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager
+                     = new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByFirstAndSecondName(firstName,
+                        secondName, role);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);

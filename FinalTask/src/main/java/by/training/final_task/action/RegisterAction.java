@@ -30,7 +30,7 @@ public class RegisterAction extends Action {
             User user = userParser.parse(this, userRegistrationParameter);
             user.setRole(Role.USER);
             //default avatar for new users
-            user.setPathToAvatar("img/user/user_profile.jpg");
+            user.setPathToAvatar("img/user/user_profile.jpg");//img/user/user_profile.jpg
             UserService userService = (UserService)
                     factory.createService(DAOEnum.USER);
             try {

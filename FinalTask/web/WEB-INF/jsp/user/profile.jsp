@@ -22,7 +22,6 @@
     <title><fmt:message key="profileTitle" bundle="${lang}"/></title>
 
     <c:url value="/user/usereditpage.html" var="userEditPageURL"/>
-    <c:url value="/user/userblocking.html" var="userBlockingURL"/>
     <c:url value="/coupon/user/mypurcases.html?page=1" var="mypurchasesPageAction"/>
 </head>
 
@@ -32,52 +31,52 @@
         <main>
             <c:if test="${not empty message}">
                 <div class="text-center">
-                    <label class="text" for="navbarResponsive">
+                    <label class="text">
                         <fmt:message key="${message}" bundle="${lang}"/>
                     </label>
                 </div>
             </c:if>
 
-
-
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 div-shadow">
                     <div class="card  user-avatar-div">
                         <div class="card-body">
                             <img class="card-img-top" src="<%=request.getContextPath()%>/${user.pathToAvatar}" alt="User avatar">
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 div-shadow" style="display: grid;">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><fmt:message key="userCredentialsData" bundle="${lang}"/></h5>
-                            <p class="card-text">
-                                <fmt:message key="username" bundle="${lang}"/>: ${user.login}<br>
-                                <fmt:message key="userRole" bundle="${lang}"/>: ${user.role}<br>
-                            </p>
-                            <h5 class="card-title"><fmt:message key="userInformation" bundle="${lang}"/></h5>
-                            <p class="card-text">
-                                <fmt:message key="firstName" bundle="${lang}"/>: ${user.firstName}<br>
-                                <fmt:message key="lastName" bundle="${lang}"/>: ${user.secondName}<br>
-                                <fmt:message key="email" bundle="${lang}"/>: ${user.email}<br>
-                                <fmt:message key="phoneTitle" bundle="${lang}"/>: +375${user.mobilePhone}<br>
-                                <fmt:message key="registrationDate" bundle="${lang}"/>: ${user.registrationDate}
-                            </p>
-                            <a href="${userEditPageURL}" class="btn btn-primary">
-                                <fmt:message key="editProfilButton" bundle="${lang}"/>
-                            </a>
-                            <c:if test="${authorizedUser.role == 'USER'}">
-                                <a href="${mypurchasesPageAction}" class="btn btn-primary">
-                                    <fmt:message key="myPurchasesButton" bundle="${lang}"/>
+                            <div class="profile-div">
+                                <h5 class="card-title text-center"><fmt:message key="userCredentialsData" bundle="${lang}"/></h5>
+                                <p class="card-text">
+                                    <fmt:message key="username" bundle="${lang}"/>: ${user.login}<br>
+                                    <fmt:message key="userRole" bundle="${lang}"/>: ${user.role}<br>
+                                </p>
+                            </div>
+                            <div class="profile-div">
+                                <h5 class="card-title text-center"><fmt:message key="userInformation" bundle="${lang}"/></h5>
+                                <p class="card-text">
+                                    <fmt:message key="firstName" bundle="${lang}"/>: ${user.firstName}<br>
+                                    <fmt:message key="lastName" bundle="${lang}"/>: ${user.secondName}<br>
+                                    <fmt:message key="email" bundle="${lang}"/>: ${user.email}<br>
+                                    <fmt:message key="phoneTitle" bundle="${lang}"/>: +375${user.mobilePhone}<br>
+                                    <fmt:message key="registrationDate" bundle="${lang}"/>: ${user.registrationDate}
+                                </p>
+                            </div>
+
+                            <div class="profile-button-div row">
+                                <a class="btn btn-primary button-a" href="${userEditPageURL}">
+                                    <fmt:message key="editProfilButton" bundle="${lang}"/>
                                 </a>
-                            </c:if>
-                            <c:if test="${authorizedUser.role == 'ADMIN'}">
-                                <form type="post" action="${userBlockingURL}">
-                                    <input type="hidden" name="userToBlocking" value="${authorizedUser.id}">
-                                    <input type="submit" class="btn btn-primary" value="<fmt:message key="blockProfile" bundle="${lang}"/> ">
-                                </form>
-                            </c:if>
+                                <c:if test="${authorizedUser.role == 'USER'}">
+                                    <a href="${mypurchasesPageAction}" class="btn btn-primary button-a">
+                                        <fmt:message key="myPurchasesButton" bundle="${lang}"/>
+                                    </a>
+                                </c:if>
+                            </div>
+
                         </div>
                     </div>
                 </div>

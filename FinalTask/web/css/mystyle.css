@@ -51,11 +51,10 @@ footer {
     width: 100%;
 }
 #wrap {
-    min-height: 90%;
+    min-height: 100%;
 }
 main {
-    padding-bottom: 100px;
-    /*Высота футера*/
+    padding-bottom: 10%;
 }
 .jumbotron-cover-image {
     background: #000 url("../img/banner.jpg") center center;
@@ -85,4 +84,14 @@ main {
     padding: 20px;
 }
 
-
+.profile-div {
+    border: 1px black solid;
+    margin-top: 16px;
+}
+.profile-button-div {
+    margin-top: 16px;
+}
+.button-a {
+    height: 40px;
+    margin-right: 16px;
+}

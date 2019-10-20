@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+//and second name
 public class FindStaffByFirstNameAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String NAME_PARAM = "firstnameParameter";
+    private static final String NAME_PARAM = "firstNameParameter";
+    private static final String SURNAME_PARAM = "secondNameParameter";
     private static final int ROWS_IN_PAGE = 5;
 
     public FindStaffByFirstNameAction() {
@@ -33,21 +35,38 @@ public class FindStaffByFirstNameAction extends AuthorizedUserAction {
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if ((user != null) && allowedRoles.contains(user.getRole())) {
-                String nameForSearch = getNameForSearch(request);
-                session.setAttribute(NAME_PARAM, nameForSearch);
-                UserService userService = (UserService)
-                        factory.createService(DAOEnum.USER);
-                //"%"+NAME_PARAM+"%?
-                PagePagination pagination = new PagePagination(userService
-                        .getAmountOfAllUsersByFirstNameAndRole(nameForSearch, Role.ADMIN),
-                        ROWS_IN_PAGE, request.getParameter("page"));
-                Forward forward = new Forward("user/admin/findadmin.html&page=1");
-                forward.getAttributes().put("amountOfPages", pagination.getPagesAmount());
-                List<User> userList = userService.getAllUsersByRoleAndName(nameForSearch,
-                        Role.ADMIN, pagination.getPageOffset(), ROWS_IN_PAGE);
-                forward.getAttributes().put("resultUsers", userList);
-                forward.getAttributes().put("paginationURL", "/user/admin/findadminbyfirsname.html");
-                return forward;
+                String[] params = getNameAndSurnameForSearch(request);
+                if (!params[0].isEmpty()) {
+                    session.setAttribute(NAME_PARAM, params[0]);
+                    session.setAttribute(SURNAME_PARAM, params[1]);
+                    UserService userService = (UserService)
+                            factory.createService(DAOEnum.USER);
+                    PagePagination pagination;
+                    if (!params[1].isEmpty()) {
+                        pagination = new PagePagination(userService
+                            .getAmountOfAllUsersByFirstAndSecondName(params[0],
+                                params[1], Role.STAFF), ROWS_IN_PAGE,
+                                request.getParameter("page"));
+                    } else {
+                        pagination = new PagePagination(userService
+                            .getAmountOfAllUsersByFirstNameAndRole(params[0],
+                                Role.STAFF), ROWS_IN_PAGE,
+                                request.getParameter("page"));
+                    }
+                    Forward forward = new Forward("/user/admin/findstaff.html");
+                    forward.getAttributes().put("amountOfPages", pagination.getPagesAmount());
+                    List<User> userList;
+                    if (!params[1].isEmpty()) {
+                        userList = userService.getAllUsersByFirstAndSecondName(
+                                params[0], params[1], Role.STAFF);
+                    } else {
+                        userList = userService.getAllUsersByRoleAndName(params[0],
+                                Role.STAFF, pagination.getPageOffset(), ROWS_IN_PAGE);
+                    }
+                    forward.getAttributes().put("resultUsers", userList);
+                    forward.getAttributes().put("paginationURL", "/user/admin/findstaffbyfirstname.html");
+                    return forward;
+                }
             }
         }
         LOGGER.log(Level.INFO, "{} - attempted to access {} anf failed",
@@ -55,12 +74,14 @@ public class FindStaffByFirstNameAction extends AuthorizedUserAction {
         throw new ServiceException("forbiddenAccess");
     }
 
-    private String getNameForSearch(final HttpServletRequest request) {
+    private String[] getNameAndSurnameForSearch(final HttpServletRequest request) {
         String name = request.getParameter(NAME_PARAM);
-        if (name == null) {
+        String surname = request.getParameter(SURNAME_PARAM);
+        if (surname == null) {
             HttpSession session = request.getSession(false);
-            name = (String) session.getAttribute(NAME_PARAM);
+            surname = (String) session.getAttribute(SURNAME_PARAM);
         }
-        return name;
+        String[] array = {name, surname};
+        return array;
     }
 }

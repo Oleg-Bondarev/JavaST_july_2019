@@ -61,7 +61,7 @@ CREATE TABLE user
     CONSTRAINT UC_user_email UNIQUE (email),
     CONSTRAINT PK_user PRIMARY KEY (id),
     CONSTRAINT CH_user_mobile CHECK (mobile_phone > 0),
-    CONSTRAINT CH_user_role CHECK (role IN (0, 1))
+    CONSTRAINT CH_user_role CHECK (role IN (0, 1, 2))
 );
 
 CREATE UNIQUE INDEX IDX_user_login ON user (login);

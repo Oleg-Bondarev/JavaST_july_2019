@@ -37,19 +37,19 @@ public class FindStaffAction extends AuthorizedUserAction {
                 List<User> userList = (List<User>) request.getAttribute("resultUsers");
                 if (userList == null) {
                     PagePagination pagination = new PagePagination(userService
-                            .getAmountOfAllUsersByRole(Role.ADMIN), ROWCOUNT,
+                            .getAmountOfAllUsersByRole(Role.STAFF), ROWCOUNT,
                             request.getParameter("page"));
                     request.setAttribute("amountOfPages", pagination.getPagesAmount());
-                    userList = userService.getAllUsersByRole(Role.ADMIN,
+                    userList = userService.getAllUsersByRole(Role.STAFF,
                             pagination.getPageOffset(), ROWCOUNT);
                     request.setAttribute("resultUsers", userList);
-                    request.setAttribute("paginationURL", "/user/admin/findadmin.html");
+                    request.setAttribute("paginationURL", "/user/admin/findstaff.html");
                 }
                 return null;
             } else {
                 return new Forward("/login.html", true);
             }
         }
-        throw new ServiceException("forbiddenAccess");
+        throw  new ServiceException("forbiddenAccess");
     }
 }

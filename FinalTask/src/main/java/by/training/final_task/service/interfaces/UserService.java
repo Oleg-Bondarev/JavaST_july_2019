@@ -27,7 +27,7 @@ public interface UserService extends Service {
             throws ServiceException;
 
     List<User> getAllUsersByFirstAndSecondName(final String firstName,
-                                final String secondName) throws ServiceException;
+                    final String secondName, Role role) throws ServiceException;
 
     List<User> getAllActiveUsers(final int offset, final int limit)
             throws ServiceException;
@@ -36,6 +36,10 @@ public interface UserService extends Service {
 
     int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
                                 final Role role) throws ServiceException;
+
+    int getAmountOfAllUsersByFirstAndSecondName(String firstName,
+                                                String secondName, Role role)
+            throws ServiceException;
 
     int getAmountOfAllUsersByEmail(final String email) throws ServiceException;
 

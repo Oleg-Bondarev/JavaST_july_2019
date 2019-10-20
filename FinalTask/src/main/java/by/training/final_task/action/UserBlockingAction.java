@@ -23,7 +23,7 @@ public class UserBlockingAction extends AuthorizedUserAction {
 
     public UserBlockingAction() {
         this.getAllowedRoles().add(Role.ADMIN);
-        this.getAllowedRoles().add(Role.USER);
+        //this.getAllowedRoles().add(Role.USER);//??????
     }
 
 
@@ -37,7 +37,7 @@ public class UserBlockingAction extends AuthorizedUserAction {
             User user = (User) session.getAttribute("authorizedUser");
             if ((user != null) && this.getAllowedRoles().contains(
                     user.getRole())) {
-                long userId = Long.parseLong(request.getParameter("userToDelete"));
+                long userId = Long.parseLong(request.getParameter("userToBlock"));
                 UserService userService = (UserService) factory.createService(
                         DAOEnum.USER);
                 userService.updateUserState(userId);

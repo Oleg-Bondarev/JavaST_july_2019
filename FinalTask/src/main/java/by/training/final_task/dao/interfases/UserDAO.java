@@ -13,11 +13,14 @@ public interface UserDAO  extends DAO<User> {
     List<User> getAllUsersByRoleAndName(String name, Role role, int offset,
                                         int limit) throws PersistentException;
     List<User> getAllUsersByFirstAndSecondName(String firstName,
-                                               String secondName)
+                                               String secondName, Role role)
             throws PersistentException;
     List<User> getAllActiveUsers(int limit, int offset) throws PersistentException;
     int getAmountOfAllUsersByRole(Role role) throws PersistentException;
     int getAmountOfAllUsersByFirstNameAndRole(String firstName, Role role)
+            throws PersistentException;
+    int getAmountOfAllUsersByFirstAndSecondName(String firstName,
+                                                String secondName, Role role)
             throws PersistentException;
     int getAmountOfAllUsersByEmail(String email) throws PersistentException;
     boolean updateUserState(long id) throws PersistentException;

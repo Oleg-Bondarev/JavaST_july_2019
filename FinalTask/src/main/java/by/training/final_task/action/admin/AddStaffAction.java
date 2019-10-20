@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AddStaffAction extends AuthorizedUserAction {
 
@@ -32,20 +33,22 @@ public class AddStaffAction extends AuthorizedUserAction {
             throws ServiceException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            User user = (User) session.getAttribute("authorizedUser");
-            if ((user != null) && allowedRoles.contains(user.getRole())) {
+            User user1 = (User) session.getAttribute("authorizedUser");
+            if ((user1 != null) && allowedRoles.contains(user1.getRole())) {
                 List<String> userParameters = new ArrayList<>();
                 addUserParameters(request, userParameters);
                 try {
-                    User newAdmin = userFormParser.parse(this,
+                    User user = userFormParser.parse(this,
                             userParameters);
-                    newAdmin.setRole(Role.ADMIN);
+                    user.setRole(Role.STAFF);
+                    user.setPathToAvatar("img/staff/user5.jpg");
                     UserService userService = (UserService) factory
                             .createService(DAOEnum.USER);
-                    int userIdGenerated = userService.create(newAdmin);
-                    newAdmin.setId(userIdGenerated);
-                    Forward forward = new Forward("/user/admin/addadmin.html", true);
-                    forward.getAttributes().put("successMessage", "adminAdded");
+                    int userIdGenerated = userService.create(user);
+                    user.setId(userIdGenerated);
+                    Forward forward = new Forward("/user/admin/addstaffpage.html", true);
+                    ResourceBundle rb = ResourceBundle.getBundle("local");
+                    forward.getAttributes().put("successMessage", rb);
                     return forward;
                 } catch (ServiceException newE) {
                     request.setAttribute("message", newE.getMessage());
