@@ -9,7 +9,7 @@ public class CompanyParametersValidator extends Validator implements Valid {
     private static final int COMPANY_ADDRESS_INDEX = 1;
     private static final int COMPANY_PHONE_INDEX = 2;
 
-    private static final String REGEX_FOR_COMPANY_NAME = "^[a-zA-Zа-яА-Я0-9- ]+$";
+    private static final String REGEX_FOR_COMPANY_NAME = "^[a-zA-Zа-яА-Я0-9-\" ]+$";
     private static final String REGEX_FOR_COMPANY_ADDRESS = "^[a-zA-Zа-яА-Я0-9-\",. ]+$";
     private static final String REGEX_FOR_PHONE = "^((25)|(29)|(33)|(44))([0-9]{7}$)";
 

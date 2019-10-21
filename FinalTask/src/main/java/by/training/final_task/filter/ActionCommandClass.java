@@ -5,6 +5,9 @@ import by.training.final_task.action.admin.AddStaffAction;
 import by.training.final_task.action.admin.FindStaffAction;
 import by.training.final_task.action.admin.FindStaffByFirstNameAction;
 import by.training.final_task.action.staff.AddCompanyAction;
+import by.training.final_task.action.staff.CompanyBlockingAction;
+import by.training.final_task.action.staff.FindCompanyAction;
+import by.training.final_task.action.staff.FindCompanyByPhoneAction;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,8 +37,9 @@ public class ActionCommandClass {
         actionMap.put("/coupon/user/mypurchases", new MainAction());
         actionMap.put("/companyprovider/addcompanypage", new MainAction());
         actionMap.put("/companyprovider/addcompany", new AddCompanyAction());
-        actionMap.put("/companyprovider/findcompany", new MainAction());
-        actionMap.put("/companyprovider/findcompanybyphone", new FindStaffByFirstNameAction());
+        actionMap.put("/companyprovider/findcompany", new FindCompanyAction());
+        actionMap.put("/companyprovider/findcompanybyphone", new FindCompanyByPhoneAction());
+        actionMap.put("/companyprovider/companyblocking", new CompanyBlockingAction());
     }
 
     public Action getAction(final String url) {

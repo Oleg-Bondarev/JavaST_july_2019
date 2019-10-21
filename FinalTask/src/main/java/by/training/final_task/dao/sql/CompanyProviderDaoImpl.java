@@ -29,7 +29,7 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
     private static final String ADD_COMPANY = "INSERT INTO company_provider (address, name, mobile_phone, blocking) VALUES (?, ?, ?, ?)";
     private static final String GET_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.id = ?";
     private static final String UPDATE_COMPANY = "UPDATE company_provider SET company_provider.id=?, company_provider.address=?, company_provider.name=?, company_provider.mobile_phone=?, company_provider.blocking=? WHERE company_provider.id=?";
-    private static final String UPDATE_COMPANY_STATUS = "UPDATE company_provider SET company_provider.blocking = false WHERE company_provider.id=?";
+    private static final String UPDATE_COMPANY_STATUS = "UPDATE company_provider SET company_provider.blocking = true WHERE company_provider.id=?";
     //private static final String DELETE_COMPANY = "DELETE FROM company_provider WHERE id = ?";
 
     public CompanyProviderDaoImpl(final AbstractConnectionManager newConnection) {

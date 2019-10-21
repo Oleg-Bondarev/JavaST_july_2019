@@ -23,7 +23,7 @@
     <title><fmt:message key="companies" bundle="${lang}"/></title>
 
     <c:url value="/companyprovider/findcompanybyphone.html" var="findByPhoneActionURL"/>
-
+    <c:url value="/companyprovider/companyblocking.html" var="companyBlockingActionURL"/>
 </head>
 <body>
 <div id="wrap">
@@ -31,7 +31,7 @@
     <main>
         <div class="text-center">
             <h2>
-                <fmt:message key="findStaff" bundle="${lang}"/>
+                <fmt:message key="companies" bundle="${lang}"/>
             </h2>
         </div>
         <div class="row">
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="row align-content-center">
+        <div class="row">
             <div class="card-body">
                 <div class="table-wrap">
                     <table>
@@ -93,10 +93,10 @@
                             <tr>
                                 <td><c:out value="${comp.companyName}"/></td>
                                 <td><c:out value="${comp.companyAddress}"/></td>
-                                <td><c:out value="${comp.mobilePhone}"/></td>
+                                <td><c:out value="+375${comp.mobilePhone}"/></td>
                                 <td>
-                                    <form action="${userBlockingActionURL}" method="post">
-                                        <input type="hidden" name="userToBlock" value="${staff.id}">
+                                    <form action="${companyBlockingActionURL}" method="post">
+                                        <input type="hidden" name="companyToBlock" value="${comp.id}">
                                         <button class="btn btn-danger" type="submit">
                                             <fmt:message key="blockCompany" bundle="${lang}"/>
                                         </button>
@@ -107,6 +107,34 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 mx-auto">
+                <ul class="pagination" style="justify-content: center">
+                    <c:if test="${param.page > 1}">
+                        <li class="page-item">
+                            <a class="page-link" href="<c:url value="${paginationURL += '?page='
+                         += (param.page - 1)}"/>">
+                                <fmt:message key="previousPage" bundle="${lang}"/>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="i" begin="1" end="${amountOfPages}">
+                        <a class="page-link" href="<c:url value="${paginationURL += '?page=' += i}"/>">
+                            <c:out value="${i}"/>
+                        </a>
+                    </c:forEach>
+                    <c:if test="${param.page < amountOfPages}">
+                        <li class="page-item">
+                            <a class="page-link" href="<c:url value="${paginationURL += '?page='
+                         += (param.page + 1)}"/>">
+                                <fmt:message key="nextPage" bundle="${lang}"/>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
             </div>
         </div>
     </main>

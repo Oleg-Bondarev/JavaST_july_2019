@@ -1,5 +1,7 @@
 package by.training.final_task.action;
 
+import by.training.final_task.service.parser.FormParser;
+
 import java.util.Objects;
 
 public class PagePagination {
@@ -14,6 +16,8 @@ public class PagePagination {
         } else {
             pagesAmount = amountRowsFound / rowcount + 1;
         }
+        pageNumber = FormParser.parsePageNumber(pageParameter, pagesAmount);
+        pageOffset = (pageNumber - 1) * rowcount;
     }
 
     public int getPagesAmount() {

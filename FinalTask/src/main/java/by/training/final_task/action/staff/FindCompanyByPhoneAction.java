@@ -24,7 +24,7 @@ public class FindCompanyByPhoneAction extends AuthorizedUserAction {
     private static final String PHONE_PARAMETER = "phoneParameter";
     private static final int ROWS_IN_PAGE = 5;
 
-    FindCompanyByPhoneAction() {
+    public FindCompanyByPhoneAction() {
         allowedRoles.add(Role.STAFF);
     }
 
