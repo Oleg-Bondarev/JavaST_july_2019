@@ -35,4 +35,9 @@ public class Validator {
             }
         }
     }
+
+    public static boolean validateCompanyName(final String name) {
+        final String companyNameRegex = "^[a-zA-Zа-яА-Я0-9-\" ]+$";
+        return name.matches(companyNameRegex);
+    }
 }

@@ -20,12 +20,34 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String GET_BY_ADDRESS = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.address = ?";
-    private static final String GET_BY_PHONE = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.mobile_phone = ?";
-    private static final String GET_ALL_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider ORDER BY id LIMIT ? OFFSET ?";
-    private static final String GET_ALL_AVAILABLE_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider WHERE company_provider.blocking = false ORDER BY id LIMIT ? OFFSET ?";
-    private static final String GET_AMOUNT_OF_ALL_COMPANY = "SELECT COUNT(company_provider.id) FROM company_provider";
-    private static final String GET_AMOUNT_OF_ALL_AVAILABLE_COMPANY = "SELECT COUNT(company_provider.id) FROM company_provider WHERE company_provider.blocking = false";
+    private static final String GET_BY_PHONE = "SELECT company_provider.id," +
+            " company_provider.address, company_provider.name," +
+            " company_provider.mobile_phone, company_provider.blocking" +
+            " FROM company_provider  WHERE company_provider.mobile_phone = ?";
+    private static final String GET_ALL_COMPANY = "SELECT company_provider.id," +
+            " company_provider.address, company_provider.name," +
+            " company_provider.mobile_phone, company_provider.blocking" +
+            " FROM company_provider ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COMPANIES_BY_NAME = "SELECT company_provider.id," +
+            " company_provider.address, company_provider.name," +
+            " company_provider.mobile_phone, company_provider.blocking" +
+            " FROM company_provider WHERE company_provider.blocking = false" +
+            " AND company_provider.name=? LIMIT ? OFFSET ?";
+    private static final String GET_ALL_AVAILABLE_COMPANY =
+            "SELECT company_provider.id, company_provider.address," +
+            " company_provider.name, company_provider.mobile_phone," +
+            " company_provider.blocking FROM company_provider" +
+            " WHERE company_provider.blocking = false" +
+            " ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_AMOUNT_BY_NAME =
+            "SELECT COUNT(company_provider.id) FROM company_provider" +
+            " WHERE company_provider.blocking = false" +
+            " AND company_provider.name=?";
+    private static final String GET_AMOUNT_OF_ALL_COMPANY =
+            "SELECT COUNT(company_provider.id) FROM company_provider";
+    private static final String GET_AMOUNT_OF_ALL_AVAILABLE_COMPANY =
+            "SELECT COUNT(company_provider.id) FROM company_provider" +
+            " WHERE company_provider.blocking = false";
     private static final String ADD_COMPANY = "INSERT INTO company_provider (address, name, mobile_phone, blocking) VALUES (?, ?, ?, ?)";
     private static final String GET_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.id = ?";
     private static final String UPDATE_COMPANY = "UPDATE company_provider SET company_provider.id=?, company_provider.address=?, company_provider.name=?, company_provider.mobile_phone=?, company_provider.blocking=? WHERE company_provider.id=?";
@@ -36,25 +58,6 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         super(newConnection);
     }
 
-    //+
-    @Override
-    public CompanyProvider getByAddress(final String address)
-            throws PersistentException {
-        CompanyProvider company = null;
-        try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_BY_ADDRESS)) {
-            preparedStatement.setNString(1, address);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    company =  getNewCompany(resultSet);
-                }
-            }
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }
-        return company;
-    }
     //+
     @Override
     public CompanyProvider getByPhone(final int phone)
@@ -74,6 +77,29 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         }
         return company;
     }
+
+    @Override
+    public List<CompanyProvider> getByCompanyName(final String companyName,
+                                          final int offset, final int limit)
+            throws PersistentException {
+        List<CompanyProvider> companiesList = new LinkedList<>();
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_ALL_COMPANIES_BY_NAME)) {
+            preparedStatement.setNString(1, companyName);
+           /* preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);*/
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    companiesList.add(getNewCompany(resultSet));
+                }
+            }
+            return companiesList;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+    }
+
     //+
     @Override
     public List<CompanyProvider> getAll(final int offset, final int limit)
@@ -86,6 +112,23 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
             throws PersistentException {
         return getListByQuery(offset, limit, GET_ALL_AVAILABLE_COMPANY);
     }
+
+    @Override
+    public int getAmountByName(final String name) throws PersistentException {
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_AMOUNT_BY_NAME)) {
+            preparedStatement.setNString(1, name);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+    }
+
     //+
     @Override
     public int getAmountOfCompany() throws PersistentException {
@@ -210,17 +253,17 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
                                                  final int limit,
                                                  final String query)
             throws PersistentException {
-        List<CompanyProvider> coupons = new LinkedList<>();
+        List<CompanyProvider> companies = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(query)) {
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    coupons.add(getNewCompany(resultSet));
+                    companies.add(getNewCompany(resultSet));
                 }
             }
-            return coupons;
+            return companies;
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);

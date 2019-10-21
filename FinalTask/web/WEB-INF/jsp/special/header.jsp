@@ -18,7 +18,6 @@
 <c:url value="/user/admin/findstaff.html" var="findstaffActionURL"/>
 <c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
 <c:url value="/user/admin/alluserspage.html?page=1" var="allUsersActionURL"/>
-<c:url value="/companyprovider/addcompanypage.html" var="addCompanyProviderActionPageURL"/>
 <c:url value="/companyprovider/findcompany.html?page=1" var="findCompanyPageActionURL"/>
 
 <header lang="${language}">
@@ -59,11 +58,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${findCompanyPageActionURL}">
                                         <fmt:message key="companies"/> <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${addCompanyProviderActionPageURL}">
-                                        <fmt:message key="addCompanyProvider" /><span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                             </c:if>

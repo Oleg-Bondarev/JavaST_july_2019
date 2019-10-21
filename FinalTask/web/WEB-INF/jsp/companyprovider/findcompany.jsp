@@ -22,8 +22,11 @@
     <fmt:setBundle basename="local" var="lang"/>
     <title><fmt:message key="companies" bundle="${lang}"/></title>
 
+    <c:url value="/companyprovider/findcompany.html?page=1" var="findCompanyPageActionURL"/>
     <c:url value="/companyprovider/findcompanybyphone.html" var="findByPhoneActionURL"/>
+    <c:url value="/companyprovider/findcompanybyname.html?page=1" var="findByNameActionURL"/>
     <c:url value="/companyprovider/companyblocking.html" var="companyBlockingActionURL"/>
+    <c:url value="/companyprovider/addcompanypage.html" var="addCompanyProviderActionPageURL"/>
 </head>
 <body>
 <div id="wrap">
@@ -35,7 +38,7 @@
             </h2>
         </div>
         <div class="row">
-            <div class="col-md-4 align-content-center">
+            <div class="col-md-3 align-content-center">
                 <form class="form-inline" method="post" action="${findByPhoneActionURL}">
                     <div class="form-group">
                         <div>
@@ -51,13 +54,13 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 justify-content-center">
-                <form class="form-inline" method="post" action="${findByPhoneActionURL}">
+            <div class="col-md-3 justify-content-center">
+                <form class="form-inline" method="post" action="${findByNameActionURL}">
                     <div class="form-group">
                         <div>
-                            <input class="form-control mr-sm-2" name="phoneParameter"
-                                   type="search" placeholder="<fmt:message key="inputAddressPlaceholder" bundle="${lang}"/>"
-                                   value="${sessionScope.phoneParameter}" required>
+                            <input class="form-control mr-sm-2" name="nameParameter"
+                                   type="search" placeholder="<fmt:message key="inputNamePlaceholder" bundle="${lang}"/>"
+                                   value="${sessionScope.nameParameter}" required>
                         </div>
                         <div>
                             <button class="btn btn-outline-success" type="submit">
@@ -67,10 +70,17 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 justify-content-center">
-                <form class="col-md-6" action="${findStaffAction}" method="post">
+            <div class="col-md-3 justify-content-center">
+                <form class="col-md-6" action="${findCompanyPageActionURL}" method="post">
                     <button class="btn btn-outline-success" type="submit" >
                         <fmt:message key="showAllCompaniesButton" bundle="${lang}"/>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-3 justify-content-center">
+                <form class="col-md-6" action="${addCompanyProviderActionPageURL}" method="post">
+                    <button class="btn btn-outline-success" type="submit" >
+                        <fmt:message key="addCompanyProvider" bundle="${lang}"/>
                     </button>
                 </form>
             </div>
