@@ -5,6 +5,7 @@ import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
+import by.training.final_task.service.parser.InvalidFormDataException;
 import by.training.final_task.service.parser.UserFormParser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,17 +27,22 @@ public class RegisterAction extends Action {
                 || (session.getAttribute("authorizedUser") == null)) {
             List<String> userRegistrationParameter = new ArrayList<>();
             addRegistrationParametersToList(request, userRegistrationParameter);
-
-            User user = userParser.parse(this, userRegistrationParameter);
-            user.setRole(Role.USER);
-            //default avatar for new users
-            user.setPathToAvatar("img/user/user_profile.jpg");//img/user/user_profile.jpg
-            UserService userService = (UserService)
-                    factory.createService(DAOEnum.USER);
+            User user;
             try {
-                int generatedUserId = userService.create(user);
-                user.setId(generatedUserId);
-            } catch (ServiceException newE) {
+                user = userParser.parse(this, userRegistrationParameter);
+                user.setRole(Role.USER);
+                //default avatar for new users
+                user.setPathToAvatar("img/user/user_profile.jpg");//img/user/user_profile.jpg
+                UserService userService = (UserService)
+                        factory.createService(DAOEnum.USER);
+                try {
+                    int generatedUserId = userService.create(user);
+                    user.setId(generatedUserId);
+                } catch (ServiceException newE) {
+                    request.setAttribute("message", newE.getMessage());
+                    return null;
+                }
+            } catch (InvalidFormDataException newE) {
                 request.setAttribute("message", newE.getMessage());
                 return null;
             }

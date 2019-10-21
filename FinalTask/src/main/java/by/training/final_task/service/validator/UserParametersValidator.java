@@ -1,18 +1,9 @@
 package by.training.final_task.service.validator;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserParametersValidator {
-    //TODO нужно ли про валидации логгировать возможные случаи sql injections?
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    private static Map<String, Boolean> validationMap = new HashMap<>();
+public class UserParametersValidator extends Validator implements Valid {
 
     private static final int USER_LOGIN = 0;
     private static final int USER_PASSWORD = 1;
@@ -29,24 +20,15 @@ public class UserParametersValidator {
     private static final String USER_SECOND_NAME_EN_REGEX = "^[a-zA-Z-]{2,20}$";
     private static final String USER_MOBILE_REGEX = "^((25)|(29)|(33)|(44))([0-9]{7}$)";
 
-    private static void InitMap() {
-        validationMap.put("incorrectLogin", true);
-        validationMap.put("incorrectPassword", true);
-        validationMap.put("incorrectEmail", true);
-        validationMap.put("incorrectFirstName", true);
-        validationMap.put("incorrectSecondName", true);
-        validationMap.put("incorrectMobilePhone", true);
-    }
+    private static final String[] params =
+                                {"incorrectLogin", "incorrectPassword",
+                                "incorrectEmail", "incorrectFirstName",
+                                "incorrectSecondName", "incorrectMobilePhone"};
 
-    public static Map<String, Boolean> ValidateUserParameters(final List<String> newParams) {
-        for (String temp : newParams) {
-            if (temp.contains("'")) {
-                LOGGER.log(Level.WARN, "Potential SQL injection attack: "
-                        + "{}", temp);
-            }
-        }
-
-        InitMap();
+    public Map<String, Boolean> validate(final List<String> newParams) {
+        Validator validator = new Validator();
+        validator.checkPotentialAttack(newParams);
+        Map<String, Boolean> validationMap = validator.initValidationMap(params);
 
         if (newParams.get(USER_LOGIN).matches(USER_LOGIN_REGEX)) {
             validationMap.put("incorrectLogin", false);

@@ -6,6 +6,7 @@ import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
+import by.training.final_task.service.parser.InvalidFormDataException;
 import by.training.final_task.service.parser.UserFormParser;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -50,7 +51,7 @@ public class AddStaffAction extends AuthorizedUserAction {
                     ResourceBundle rb = ResourceBundle.getBundle("local");
                     forward.getAttributes().put("successMessage", rb);
                     return forward;
-                } catch (ServiceException newE) {
+                } catch (InvalidFormDataException newE) {
                     request.setAttribute("message", newE.getMessage());
                     return null;
                 }

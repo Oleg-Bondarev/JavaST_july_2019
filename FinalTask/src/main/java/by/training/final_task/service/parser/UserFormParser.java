@@ -21,14 +21,14 @@ public class UserFormParser extends FormParser<User> {
     @Override
     public User parse(final Action newAction,
                       final List<String> newUserParameters)
-            throws ServiceException {
+            throws InvalidFormDataException {
         if (!newUserParameters.isEmpty() && !newUserParameters.contains(null)
                 && !newUserParameters.contains("")) {
-            Map<String, Boolean> validationMap = UserParametersValidator
-                    .ValidateUserParameters(newUserParameters);
+            UserParametersValidator validator = new UserParametersValidator();
+            Map<String, Boolean> validationMap = validator.validate(newUserParameters);
             for (Map.Entry<String, Boolean> entry : validationMap.entrySet()) {
                 if (entry.getValue()) {
-                    throw new ServiceException(entry.getKey());
+                    throw new InvalidFormDataException(entry.getKey());
                 }
             }
             String login = newUserParameters.get(USER_LOGIN);
@@ -44,6 +44,6 @@ public class UserFormParser extends FormParser<User> {
             return new User(0, login, password, null, email, null, firstName,
                     secondName, mobilePhone, registrationDate, false);
         }
-        throw new ServiceException("fillAllFields");
+        throw new InvalidFormDataException("fillAllFields");
     }
 }

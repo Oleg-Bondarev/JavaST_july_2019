@@ -10,14 +10,16 @@
 <c:url value="/logout.html" var="logoutActionURL"/>
 <c:url value="/homepage.html" var="titleActionURL"/>
 <c:url value="/registration.html" var="registrationPageActionURL"/>
-<c:url value="/user/profile.html" var="profileActionURL"/>
 <c:url value="/coupons.html?page=1" var="couponsActionURL"/>
-<c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
-<c:url value="/user/admin/findstaff.html" var="findstaffActionURL"/>
 <c:url value="/coupon/addcoupon.html" var="addCouponActionURL"/>
 <c:url value="/coupon/findpurchase.html" var="findPurchaseActionURL"/>
+<c:url value="/user/profile.html" var="profileActionURL"/>
+<c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
+<c:url value="/user/admin/findstaff.html" var="findstaffActionURL"/>
 <c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
 <c:url value="/user/admin/alluserspage.html?page=1" var="allUsersActionURL"/>
+<c:url value="/companyprovider/addcompanypage.html" var="addCompanyProviderActionPageURL"/>
+<c:url value="/companyprovider/findcompany.html?page=1" var="findCompanyPageActionURL"/>
 
 <header lang="${language}">
     <div>
@@ -50,7 +52,19 @@
 
                             <c:if test="${authorizedUser.role == 'STAFF'}">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${addCouponActionURL}"><fmt:message key="addCoupon" /><span class="sr-only">(current)</span> </a>
+                                    <a class="nav-link" href="${addCouponActionURL}">
+                                        <fmt:message key="addCoupon" /><span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${findCompanyPageActionURL}">
+                                        <fmt:message key="companies"/> <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${addCompanyProviderActionPageURL}">
+                                        <fmt:message key="addCompanyProvider" /><span class="sr-only">(current)</span>
+                                    </a>
                                 </li>
                             </c:if>
 

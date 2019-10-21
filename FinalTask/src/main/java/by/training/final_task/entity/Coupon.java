@@ -20,7 +20,8 @@ public class Coupon extends Entity {
 
     public Coupon() { }
 
-    public Coupon(final long newId, final String newCouponName, final String newPathToPicture,
+    public Coupon(final long newId, final String newCouponName,
+                  final String newPathToPicture,
                   final String newCouponDescription,
                   final BigDecimal newCouponPrice, final LocalDate newCouponAddDate,
                   final String newHoldingAddress, final Category newCategory,

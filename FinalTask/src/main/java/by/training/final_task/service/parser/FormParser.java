@@ -20,7 +20,7 @@ public abstract class FormParser<T> {
 
     public abstract T parse(final Action newAction,
                             final List<String> newParameters)
-            throws ServiceException;
+            throws InvalidFormDataException;
 
     public static int parsePageNumber(final String pageParameter,
                                       final int amountOfPages) {

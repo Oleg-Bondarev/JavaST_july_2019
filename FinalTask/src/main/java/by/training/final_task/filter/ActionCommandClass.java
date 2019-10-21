@@ -4,6 +4,7 @@ import by.training.final_task.action.*;
 import by.training.final_task.action.admin.AddStaffAction;
 import by.training.final_task.action.admin.FindStaffAction;
 import by.training.final_task.action.admin.FindStaffByFirstNameAction;
+import by.training.final_task.action.staff.AddCompanyAction;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +32,10 @@ public class ActionCommandClass {
         actionMap.put("/user/admin/findstaff", new FindStaffAction());
         actionMap.put("/user/admin/findstaffbyfirstname", new FindStaffByFirstNameAction());
         actionMap.put("/coupon/user/mypurchases", new MainAction());
+        actionMap.put("/companyprovider/addcompanypage", new MainAction());
+        actionMap.put("/companyprovider/addcompany", new AddCompanyAction());
+        actionMap.put("/companyprovider/findcompany", new MainAction());
+        actionMap.put("/companyprovider/findcompanybyphone", new FindStaffByFirstNameAction());
     }
 
     public Action getAction(final String url) {

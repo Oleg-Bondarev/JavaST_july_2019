@@ -4,6 +4,7 @@ import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
+import by.training.final_task.service.parser.InvalidFormDataException;
 import by.training.final_task.service.parser.UserFormParser;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +50,7 @@ public class UserEditAction extends AuthorizedUserAction {
                     userService.update(changeUser);
                     session.setAttribute("authorizedUser", changeUser);
                     return new Forward("/user/profile.html", true);
-                } catch (ServiceException newE) {
+                } catch (InvalidFormDataException newE) {
                     request.setAttribute("message", newE.getMessage());
                     return null;
                 }
