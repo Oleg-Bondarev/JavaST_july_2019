@@ -40,8 +40,9 @@
             <div class="row">
                 <div class="col-sm-6 div-shadow">
                     <div class="card  user-avatar-div">
-                        <div class="card-body">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/${user.pathToAvatar}" alt="User avatar">
+                        <div class="card-body text-center">
+                            <img class="card-img-top profile-avatar"
+                                 src="<%=request.getContextPath()%>/${user.pathToAvatar}" alt="User avatar">
                         </div>
                     </div>
                 </div>

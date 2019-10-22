@@ -83,6 +83,17 @@ main {
 .user-avatar-div {
     padding: 20px;
 }
+.user-avatar-size {
+    max-width: 250px;
+    max-height: 250px;
+}
+.profile-avatar {
+    max-width: 400px;
+    max-height: 400px;
+}
+.avatar-align {
+    justify-content: center;
+}
 
 .profile-div {
     border: 1px black solid;

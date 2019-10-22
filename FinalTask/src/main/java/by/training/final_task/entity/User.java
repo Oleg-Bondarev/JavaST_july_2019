@@ -165,6 +165,8 @@ public class User extends Entity {
         builder.append(password);
         builder.append(", e-mail=");
         builder.append(email);
+        builder.append(", path to avatar=");
+        builder.append(pathToAvatar);
         builder.append(", first name=");
         builder.append(firstName);
         builder.append(", second name=");

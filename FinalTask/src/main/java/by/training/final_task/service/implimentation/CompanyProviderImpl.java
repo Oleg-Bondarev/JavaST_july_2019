@@ -29,6 +29,22 @@ public class CompanyProviderImpl extends AbstractService
     }
 
     @Override
+    public CompanyProvider get(final int id) throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.get(id);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
     public CompanyProvider getByPhone(final int phone) throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
             try {
@@ -49,8 +65,26 @@ public class CompanyProviderImpl extends AbstractService
             throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 return companyProviderDAO.getAllAvailableCompany(offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
+    public List<CompanyProvider> getAvailableCompanyList()
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getAvailableCompanyList();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);

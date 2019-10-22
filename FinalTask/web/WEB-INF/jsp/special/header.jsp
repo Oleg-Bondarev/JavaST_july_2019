@@ -11,13 +11,12 @@
 <c:url value="/homepage.html" var="titleActionURL"/>
 <c:url value="/registration.html" var="registrationPageActionURL"/>
 <c:url value="/coupons.html?page=1" var="couponsActionURL"/>
-<c:url value="/coupon/addcoupon.html" var="addCouponActionURL"/>
+<c:url value="/user/staff/addcouponpage.html" var="addCouponActionURL"/>
 <c:url value="/coupon/findpurchase.html" var="findPurchaseActionURL"/>
 <c:url value="/user/profile.html" var="profileActionURL"/>
-<c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
-<c:url value="/user/admin/findstaff.html" var="findstaffActionURL"/>
+<c:url value="/user/admin/findstaff.html?page=1" var="findstaffActionURL"/>
+<c:url value="/user/admin/findusers.html?page=1" var="allUsersActionURL"/>
 <c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
-<c:url value="/user/admin/alluserspage.html?page=1" var="allUsersActionURL"/>
 <c:url value="/companyprovider/findcompany.html?page=1" var="findCompanyPageActionURL"/>
 
 <header lang="${language}">
@@ -40,9 +39,6 @@
                             <c:if test="${authorizedUser.role == 'ADMIN'}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="${findstaffActionURL}"><fmt:message key="findStaff" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${addstaffActionPageURL}"><fmt:message key="addStaff" /> </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${allUsersActionURL}"><fmt:message key="allUsers" /><span class="sr-only">(current)</span> </a>

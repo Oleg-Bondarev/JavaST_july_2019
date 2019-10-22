@@ -2,6 +2,7 @@ package by.training.final_task.service.parser;
 
 import by.training.final_task.action.Action;
 import by.training.final_task.entity.Coupon;
+import by.training.final_task.service.interfaces.CategoryService;
 import by.training.final_task.service.validator.CouponParametersValidator;
 
 import java.math.BigDecimal;
@@ -30,6 +31,7 @@ public class CouponFormParser extends FormParser<Coupon> {
             BigDecimal couponPrice = new BigDecimal(stringPrice);
             String holdingAddress = newParameters.get(validator.getHoldingAddressIndex());
             LocalDate registrationDate = LocalDate.now();
+
             return new Coupon(0, couponName, null, couponDescription,
                     couponPrice, registrationDate, holdingAddress,
                     null, null, false);

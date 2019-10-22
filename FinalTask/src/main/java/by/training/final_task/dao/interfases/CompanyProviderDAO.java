@@ -12,6 +12,7 @@ public interface CompanyProviderDAO extends DAO<CompanyProvider> {
             throws PersistentException;
     List<CompanyProvider> getAllAvailableCompany(int offset, int limit)
             throws PersistentException;
+    List<CompanyProvider> getAvailableCompanyList() throws PersistentException;
     int getAmountByName(String name) throws PersistentException;
     int getAmountOfCompany() throws PersistentException;
     int getAmountOfAvailableCompany() throws PersistentException;

@@ -1,9 +1,7 @@
 package by.training.final_task.filter;
 
 import by.training.final_task.action.*;
-import by.training.final_task.action.admin.AddStaffAction;
-import by.training.final_task.action.admin.FindStaffAction;
-import by.training.final_task.action.admin.FindStaffByFirstNameAction;
+import by.training.final_task.action.admin.*;
 import by.training.final_task.action.staff.*;
 
 import java.util.Map;
@@ -30,6 +28,8 @@ public class ActionCommandClass {
         actionMap.put("/user/admin/addstaffpage", new MainAction());
         actionMap.put("/user/admin/addstaff", new AddStaffAction());
         actionMap.put("/user/admin/findstaff", new FindStaffAction());
+        actionMap.put("/user/admin/findusers", new FindUserAction());
+        actionMap.put("/user/admin/finduserbyfirstname", new FindUserByNameAction());//
         actionMap.put("/user/admin/findstaffbyfirstname", new FindStaffByFirstNameAction());
         actionMap.put("/coupon/user/mypurchases", new MainAction());
         actionMap.put("/companyprovider/addcompanypage", new MainAction());
@@ -38,6 +38,9 @@ public class ActionCommandClass {
         actionMap.put("/companyprovider/findcompanybyphone", new FindCompanyByPhoneAction());
         actionMap.put("/companyprovider/findcompanybyname", new FindCompanyByNameAction());
         actionMap.put("/companyprovider/companyblocking", new CompanyBlockingAction());
+
+        actionMap.put("/user/staff/addcouponpage", new AddCouponPageAction());
+        actionMap.put("/user/staff/addcoupon", new AddCouponAction());
     }
 
     public Action getAction(final String url) {

@@ -24,7 +24,8 @@
 
     <c:url value="/user/userblocking.html" var="userBlockingActionURL"/>
     <c:url value="/user/admin/findstaffbyfirstname.html" var="findStaffByFirstNameAction"/>
-    <c:url value="/user/admin/findstaff.html" var="findStaffAction"/>
+    <c:url value="/user/admin/findstaff.html?page=1" var="findStaffAction"/>
+    <c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
 </head>
 <body>
     <div id="wrap">
@@ -36,7 +37,7 @@
                 </h2>
             </div>
             <div class="row">
-                <div class="col-md-6 justify-content-center">
+                <div class="col-md-4 justify-content-center">
                     <form class="form-inline" method="post" action="${findStaffByFirstNameAction}">
                         <div class="form-group">
                             <div>
@@ -57,10 +58,17 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6 justify-content-center">
+                <div class="col-md-4 justify-content-center">
                     <form class="col-md-6" action="${findStaffAction}" method="post">
                         <button class="btn btn-outline-success" type="submit" >
                             <fmt:message key="showAllStaffButton" bundle="${lang}"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-4 justify-content-center">
+                    <form class="col-md-6" action="${addstaffActionPageURL}" method="post">
+                        <button class="btn btn-outline-success" type="submit" >
+                            <fmt:message key="addStaff" bundle="${lang}"/>
                         </button>
                     </form>
                 </div>
@@ -74,43 +82,71 @@
 
             <div class="row align-content-center">
                 <div>
-                        <div class="card-body">
-                            <div class="table-wrap">
-                                <table>
-                                    <thead>
-                                    <tr style="background-color: #7c6354">
-                                        <th><fmt:message key="username" bundle="${lang}"/> </th>
-                                        <th><fmt:message key="firstName" bundle="${lang}"/> </th>
-                                        <th><fmt:message key="lastName" bundle="${lang}"/> </th>
-                                        <th><fmt:message key="email" bundle="${lang}"/> </th>
-                                        <th><fmt:message key="phoneTitle" bundle="${lang}"/> </th>
-                                        <th><fmt:message key="registrationDate" bundle="${lang}"/> </th>
-                                        <th></th>
+                    <div class="card-body">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                <tr style="background-color: #7c6354">
+                                    <th><fmt:message key="username" bundle="${lang}"/> </th>
+                                    <th><fmt:message key="firstName" bundle="${lang}"/> </th>
+                                    <th><fmt:message key="lastName" bundle="${lang}"/> </th>
+                                    <th><fmt:message key="email" bundle="${lang}"/> </th>
+                                    <th><fmt:message key="phoneTitle" bundle="${lang}"/> </th>
+                                    <th><fmt:message key="registrationDate" bundle="${lang}"/> </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${resultUsers}" var="staff">
+                                    <tr>
+                                        <td><c:out value="${staff.login}"/></td>
+                                        <td><c:out value="${staff.firstName}"/></td>
+                                        <td><c:out value="${staff.secondName}"/></td>
+                                        <td><c:out value="${staff.email}"/></td>
+                                        <td><c:out value="+375${staff.mobilePhone}"/></td>
+                                        <td><c:out value="${staff.registrationDate}"/></td>
+                                        <td>
+                                            <form action="${userBlockingActionURL}" method="post">
+                                                <input type="hidden" name="userToBlock" value="${staff.id}">
+                                                <button class="btn btn-danger" type="submit">
+                                                    <fmt:message key="blockProfile" bundle="${lang}"/>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${resultUsers}" var="staff">
-                                        <tr>
-                                            <td><c:out value="${staff.login}"/></td>
-                                            <td><c:out value="${staff.firstName}"/></td>
-                                            <td><c:out value="${staff.secondName}"/></td>
-                                            <td><c:out value="${staff.email}"/></td>
-                                            <td><c:out value="+375${staff.mobilePhone}"/></td>
-                                            <td><c:out value="${staff.registrationDate}"/></td>
-                                            <td>
-                                                <form action="${userBlockingActionURL}" method="post">
-                                                    <input type="hidden" name="userToBlock" value="${staff.id}">
-                                                    <button class="btn btn-danger" type="submit">
-                                                        <fmt:message key="blockProfile" bundle="${lang}"/>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 mx-auto">
+                        <ul class="pagination" style="justify-content: center">
+                            <c:if test="${param.page > 1}">
+                                <li class="page-item">
+                                    <a class="page-link" href="<c:url value="${paginationURL += '?page='
+                         += (param.page - 1)}"/>">
+                                        <fmt:message key="previousPage" bundle="${lang}"/>
+                                    </a>
+                                </li>
+                            </c:if>
+                            <c:forEach var="i" begin="1" end="${amountOfPages}">
+                                <a class="page-link" href="<c:url value="${paginationURL += '?page=' += i}"/>">
+                                    <c:out value="${i}"/>
+                                </a>
+                            </c:forEach>
+                            <c:if test="${param.page < amountOfPages}">
+                                <li class="page-item">
+                                    <a class="page-link" href="<c:url value="${paginationURL += '?page='
+                         += (param.page + 1)}"/>">
+                                        <fmt:message key="nextPage" bundle="${lang}"/>
+                                    </a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </main>

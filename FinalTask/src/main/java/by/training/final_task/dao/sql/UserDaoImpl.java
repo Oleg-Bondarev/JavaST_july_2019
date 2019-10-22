@@ -209,7 +209,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(takeUser(resultSet));
+                    User user = protectPassword(takeUser(resultSet));
+                    users.add(user);
                 }
             }
             return users;
@@ -321,7 +322,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(takeUser(resultSet));
+                    User user = protectPassword(takeUser(resultSet));
+                    users.add(user);
                 }
             }
             return users;
@@ -344,7 +346,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(4, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(takeUser(resultSet));
+                    User user = protectPassword(takeUser(resultSet));
+                    users.add(user);
                 }
             }
             return users;
@@ -366,7 +369,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(3, role.getOrdinal());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(takeUser(resultSet));
+                    User user = protectPassword(takeUser(resultSet));
+                    users.add(user);
                 }
             }
             return users;
@@ -387,7 +391,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    users.add(takeUser(resultSet));
+                    User user = protectPassword(takeUser(resultSet));
+                    users.add(user);
                 }
             }
             return users;
@@ -395,6 +400,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
         }
+    }
+
+    private User protectPassword(final User user) {
+        user.setPassword("");
+        return user;
     }
 
     private User takeUser(final ResultSet resultSet) throws SQLException {

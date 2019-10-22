@@ -18,6 +18,6 @@ VALUES ('entertainment and showprogram'),
 
 INSERT INTO user (login, password, role, email, avatar, first_name, second_name,
                   mobile_phone, registration_date_time, blocking)/*argon2 password*/
-VALUES ('admin1', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
-        0, 'admin1@mail.ru', 'img/users/admin1.jpg', 'Виктория', 'Елисеева', 296887733,
-        '2017-08-13', false);
+VALUES ('olegAdmin', '$argon2id$v=19$m=65536,t=2,p=4$ivR5jACDbtSDwV8pEFAkpQ$0GwdQV9NOa1nVrNS2G4nDcAzG/DYA6pogFYzJ4TR7Gk',
+        0, 'oleg@mail.ru', 'img/user/user_profile.jpg', 'Oleg', 'Bondarev', 336494933,
+        '2017-10-14', false);/**1234567890*/

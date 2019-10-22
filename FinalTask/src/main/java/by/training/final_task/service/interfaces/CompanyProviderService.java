@@ -6,9 +6,11 @@ import by.training.final_task.service.ServiceException;
 import java.util.List;
 
 public interface CompanyProviderService extends Service {
+    CompanyProvider get(int id) throws ServiceException;
     CompanyProvider getByPhone(int phone) throws ServiceException;
     List<CompanyProvider> getAllAvailableCompany(int offset, int limit)
         throws ServiceException;
+    List<CompanyProvider> getAvailableCompanyList() throws ServiceException;
     List<CompanyProvider> getByCompanyName(String name, int offset, int limit)
         throws ServiceException;
     int getAmountOfCompany() throws ServiceException;

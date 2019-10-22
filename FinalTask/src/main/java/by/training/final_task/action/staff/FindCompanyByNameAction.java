@@ -42,7 +42,6 @@ public class FindCompanyByNameAction extends AuthorizedUserAction {
                     List<CompanyProvider> companiesList = (List<CompanyProvider>)
                             request.getAttribute("resultCompanies");
                     if (companiesList == null) {
-                        int n = companyService.getAmountByCompanyName(companyName);
                         PagePagination pagination = new PagePagination(
                             companyService.getAmountByCompanyName(companyName),
                                 ROWCOUNT, request.getParameter("page"));

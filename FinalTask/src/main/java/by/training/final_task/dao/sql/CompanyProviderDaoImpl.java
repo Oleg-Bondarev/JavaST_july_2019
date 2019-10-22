@@ -39,6 +39,11 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
             " company_provider.blocking FROM company_provider" +
             " WHERE company_provider.blocking = false" +
             " ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_AVAILABLE_COMPANY_LIST =
+            "SELECT company_provider.id, company_provider.address," +
+            " company_provider.name, company_provider.mobile_phone," +
+            " company_provider.blocking FROM company_provider" +
+            " WHERE company_provider.blocking = false ORDER BY id";
     private static final String GET_AMOUNT_BY_NAME =
             "SELECT COUNT(company_provider.id) FROM company_provider" +
             " WHERE company_provider.blocking = false" +
@@ -86,8 +91,8 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_COMPANIES_BY_NAME)) {
             preparedStatement.setNString(1, companyName);
-           /* preparedStatement.setInt(2, limit);
-            preparedStatement.setInt(3, offset);*/
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     companiesList.add(getNewCompany(resultSet));
@@ -111,6 +116,24 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
     public List<CompanyProvider> getAllAvailableCompany(int offset, int limit)
             throws PersistentException {
         return getListByQuery(offset, limit, GET_ALL_AVAILABLE_COMPANY);
+    }
+
+    @Override
+    public List<CompanyProvider> getAvailableCompanyList()
+            throws PersistentException {
+        List<CompanyProvider> companies = new LinkedList<>();
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_ALL_AVAILABLE_COMPANY_LIST)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    companies.add(getNewCompany(resultSet));
+                }
+            }
+            return companies;
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
     }
 
     @Override
