@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mystyle.css">
     <title><fmt:message key="title" bundle="${lang}"/></title>
+
+    <c:url value="/coupons.html?page=1" var="couponsActionURL"/>
 </head>
 <body>
 
@@ -44,8 +46,9 @@
                 </div>
                 <div>
                     <a class="btn btn-primary btn-lg jumbotron-button"
-                       href="<%=request.getContextPath()%>/WEB-INF/jsp/coupons.jsp"
-                       role="button"><fmt:message key="coupons" bundle="${lang}"/></a>
+                       href="${couponsActionURL}" role="button">
+                        <fmt:message key="coupons" bundle="${lang}"/>
+                    </a>
                 </div>
             </div>
         </div>

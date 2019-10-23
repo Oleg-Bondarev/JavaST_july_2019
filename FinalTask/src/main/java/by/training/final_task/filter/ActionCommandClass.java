@@ -19,19 +19,24 @@ public class ActionCommandClass {
         actionMap.put("/logout", new LogoutAction());
         actionMap.put("/register", new RegisterAction());
         actionMap.put("/registration", new MainAction());
-        actionMap.put("/coupons", new MainAction());
+        actionMap.put("/coupons", new CouponAction());
         actionMap.put("/user/profile", new ProfileAction());
+
         actionMap.put("/user/userblocking", new UserBlockingAction());
         actionMap.put("/user/usereditpage", new UserEditPageAction());
         actionMap.put("/user/useredit", new UserEditAction());
         actionMap.put("/user/userblock", new UserBlockingAction());
+
         actionMap.put("/user/admin/addstaffpage", new MainAction());
         actionMap.put("/user/admin/addstaff", new AddStaffAction());
         actionMap.put("/user/admin/findstaff", new FindStaffAction());
         actionMap.put("/user/admin/findusers", new FindUserAction());
         actionMap.put("/user/admin/finduserbyfirstname", new FindUserByNameAction());//
         actionMap.put("/user/admin/findstaffbyfirstname", new FindStaffByFirstNameAction());
-        actionMap.put("/coupon/user/mypurchases", new MainAction());
+
+        actionMap.put("/coupon/user/findpurchases", new MainAction());
+        actionMap.put("/coupon/moreinfo", new MoreInfoAction());
+
         actionMap.put("/companyprovider/addcompanypage", new MainAction());
         actionMap.put("/companyprovider/addcompany", new AddCompanyAction());
         actionMap.put("/companyprovider/findcompany", new FindCompanyAction());

@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CouponService extends Service {
+    Coupon get(long id) throws ServiceException;
     List<Coupon> getAllByCompanyProvider(String name, int offset, int limit)
             throws ServiceException;
     List<Coupon> getAllByCategory(Category category, int offset, int limit)

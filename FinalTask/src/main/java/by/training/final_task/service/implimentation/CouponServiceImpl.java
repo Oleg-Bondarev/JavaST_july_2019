@@ -28,6 +28,21 @@ public class CouponServiceImpl extends AbstractService implements CouponService 
     }
 
     @Override
+    public Coupon get(final long id) throws ServiceException {
+        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                return couponDAO.get(id);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
     public List<Coupon> getAllByCompanyProvider(final String name,
                                                 final int offset,
                                                 final int limit)

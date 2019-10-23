@@ -29,7 +29,7 @@ public class CompanyProviderImpl extends AbstractService
     }
 
     @Override
-    public CompanyProvider get(final int id) throws ServiceException {
+    public CompanyProvider get(final long id) throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
             try {
                 CompanyProviderDAO companyProviderDAO = getDaoFactory()

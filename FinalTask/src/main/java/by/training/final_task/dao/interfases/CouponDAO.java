@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CouponDAO extends DAO<Coupon> {
-    //нужно ли имя компании or id?
     List<Coupon> getAllByCompanyProvider(String name, int offset, int limit)
             throws PersistentException;
     List<Coupon> getAllByCategory(Category category, int offset, int limit)
