@@ -18,7 +18,6 @@ public class UserEditPageAction extends AuthorizedUserAction {
                                   final HttpServletResponse response)
             throws ServiceException {
         HttpSession session = request.getSession(false);
-
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if (user != null) {

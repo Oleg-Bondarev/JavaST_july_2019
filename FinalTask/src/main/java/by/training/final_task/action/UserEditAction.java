@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserEditAction extends AuthorizedUserAction {
-
     private static final Logger LOGGER = LogManager.getLogger();
     private static UserFormParser userParser = new UserFormParser();
     private static final int PASSWORD_INDEX = 1;
@@ -27,7 +26,6 @@ public class UserEditAction extends AuthorizedUserAction {
                                   final HttpServletResponse response)
             throws ServiceException {
         HttpSession session = request.getSession(false);
-
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if (user != null) {
@@ -43,7 +41,8 @@ public class UserEditAction extends AuthorizedUserAction {
                 }
 
                 try {
-                    User changeUser = userParser.parse(this, userParameters);
+                    User changeUser = userParser.parse(this,
+                                                        userParameters);
                     changeUser.setId(user.getId());
                     changeUser.setRole(user.getRole());
                     changeUser.setPathToAvatar(user.getPathToAvatar());

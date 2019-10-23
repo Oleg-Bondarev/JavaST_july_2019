@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Oleg
-  Date: 23.10.2019
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,14 +22,13 @@
     <fmt:setBundle basename="local" var="lang"/>
     <title><fmt:message key="couponTitle" bundle="${lang}"/></title>
 
-    <c:url value="/"
-
+    <c:url value="/user/staff/editcouponpage.html" var="editCouponPageURL"/>
 </head>
 <body>
 <div id="wrap">
     <jsp:include page="/WEB-INF/jsp/special/header.jsp" flush="true"/>
     <main>
-        <div class="container div-shadow">
+        <div class="container div-shadow" style="background-color: white">
             <div class="text-center">
                 <img class="card-img-top profile-avatar"
                      src="<%=request.getContextPath()%>/${coupon.pathToPicture}"
@@ -82,6 +75,7 @@
             <div class="row" style="justify-content: center">
                 <c:if test="${authorizedUser.role != 'STAFF' and authorizedUser.role != 'ADMIN'}">
                     <form action="${buyCouponAction}" method="post">
+                        <input type="hidden" name="couponID" value="${coupon.id}">
                         <button class="btn btn-primary coupon-profile-button" type="submit" >
                             <fmt:message key="buyCouponButton" bundle="${lang}"/>
                         </button>
@@ -89,6 +83,7 @@
                 </c:if>
                 <c:if test="${authorizedUser.role == 'STAFF'}">
                     <form action="${editCouponPageURL}" method="post">
+                        <input type="hidden" name="couponID" value="${coupon.id}">
                         <button class="btn btn-primary coupon-profile-button" type="submit">
                             <fmt:message key="editButton" bundle="${lang}"/>
                         </button>

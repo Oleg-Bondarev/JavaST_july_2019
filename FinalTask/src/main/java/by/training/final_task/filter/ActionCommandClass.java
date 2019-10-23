@@ -46,6 +46,8 @@ public class ActionCommandClass {
 
         actionMap.put("/user/staff/addcouponpage", new AddCouponPageAction());
         actionMap.put("/user/staff/addcoupon", new AddCouponAction());
+        actionMap.put("/user/staff/edditcoupon", new EditCouponAction());
+        actionMap.put("/user/staff/editcouponpage", new EditCouponPageAction());
     }
 
     public Action getAction(final String url) {

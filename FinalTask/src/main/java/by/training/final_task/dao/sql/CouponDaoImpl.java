@@ -357,7 +357,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(UPDATE_COUPON)) {
             setPreparedStatement(newCoupon, preparedStatement);
-            preparedStatement.setLong(9, newCoupon.getId());
+            preparedStatement.setLong(10, newCoupon.getId());
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException newE) {

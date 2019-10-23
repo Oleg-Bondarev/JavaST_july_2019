@@ -31,12 +31,14 @@
             <form method="post" action="${usereditActionURL}">
                 <c:if test="${not empty successMessage}">
                     <div class="text-center text-info">
-                        <p>Attention: <fmt:message key="${successMessage}" bundle="${lang}"/></p>
+                        <p><fmt:message key="attantion" bundle="${lang}"/>:
+                            <fmt:message key="${successMessage}" bundle="${lang}"/></p>
                     </div>
                 </c:if>
                 <c:if test="${not empty message}">
                     <div class="text-center text-warning">
-                        <p>Attention: <fmt:message key="${message}"/> </p>
+                        <p><fmt:message key="attantion" bundle="${lang}"/>:
+                            <fmt:message key="${message}"/> </p>
                     </div>
                 </c:if>
 
@@ -71,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </main>
