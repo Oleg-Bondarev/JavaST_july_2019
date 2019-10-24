@@ -23,6 +23,8 @@
     <title><fmt:message key="couponTitle" bundle="${lang}"/></title>
 
     <c:url value="/user/staff/editcouponpage.html" var="editCouponPageURL"/>
+    <c:url value="/user/buycoupon.html" var="buyCouponAction"/>
+    <c:url value="/user/staff/blockcoupon.html" var="blockCouponAction"/>
 </head>
 <body>
 <div id="wrap">
@@ -82,12 +84,22 @@
                     </form>
                 </c:if>
                 <c:if test="${authorizedUser.role == 'STAFF'}">
-                    <form action="${editCouponPageURL}" method="post">
-                        <input type="hidden" name="couponID" value="${coupon.id}">
-                        <button class="btn btn-primary coupon-profile-button" type="submit">
-                            <fmt:message key="editButton" bundle="${lang}"/>
-                        </button>
-                    </form>
+                    <div class="col-md-6 text-center">
+                        <form action="${editCouponPageURL}" method="post">
+                            <input type="hidden" name="couponID" value="${coupon.id}">
+                            <button class="btn btn-primary coupon-profile-button" type="submit">
+                                <fmt:message key="editButton" bundle="${lang}"/>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <form action="${blockCouponAction}" method="post">
+                            <input type="hidden" name="couponID" value="${coupon.id}">
+                            <button class="btn btn-primary coupon-profile-button" type="submit">
+                                <fmt:message key="blockButton" bundle="${lang}"/>
+                            </button>
+                        </form>
+                    </div>
                 </c:if>
             </div>
 

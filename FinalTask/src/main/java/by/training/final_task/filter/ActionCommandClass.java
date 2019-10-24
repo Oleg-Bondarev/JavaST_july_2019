@@ -3,6 +3,7 @@ package by.training.final_task.filter;
 import by.training.final_task.action.*;
 import by.training.final_task.action.admin.*;
 import by.training.final_task.action.staff.*;
+import by.training.final_task.action.user.BuyCouponAction;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,12 +21,13 @@ public class ActionCommandClass {
         actionMap.put("/register", new RegisterAction());
         actionMap.put("/registration", new MainAction());
         actionMap.put("/coupons", new CouponAction());
-        actionMap.put("/user/profile", new ProfileAction());
 
+        actionMap.put("/user/profile", new ProfileAction());
         actionMap.put("/user/userblocking", new UserBlockingAction());
         actionMap.put("/user/usereditpage", new UserEditPageAction());
         actionMap.put("/user/useredit", new UserEditAction());
-        actionMap.put("/user/userblock", new UserBlockingAction());
+        actionMap.put("/user/userblock", new UserBlockingAction());//
+        actionMap.put("/user/buycoupon", new BuyCouponAction());
 
         actionMap.put("/user/admin/addstaffpage", new MainAction());
         actionMap.put("/user/admin/addstaff", new AddStaffAction());
@@ -48,6 +50,7 @@ public class ActionCommandClass {
         actionMap.put("/user/staff/addcoupon", new AddCouponAction());
         actionMap.put("/user/staff/edditcoupon", new EditCouponAction());
         actionMap.put("/user/staff/editcouponpage", new EditCouponPageAction());
+        actionMap.put("/user/staff/blockcoupon", new CouponBlockingAction());
     }
 
     public Action getAction(final String url) {
