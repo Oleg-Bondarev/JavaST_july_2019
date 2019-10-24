@@ -36,6 +36,11 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             " coupon.name, coupon.picture, coupon.description, coupon.price," +
             " coupon.adding_date_time, coupon.holding_address, coupon.blocking" +
             " FROM coupon WHERE coupon.id = ?";
+    private static final String GET_IF_AVAILABLE =
+            "SELECT coupon.id, coupon.category_id, coupon.company_provider_id,"
+            + " coupon.name, coupon.picture, coupon.description, coupon.price,"
+            + " coupon.adding_date_time, coupon.holding_address, coupon.blocking"
+            + " FROM coupon WHERE coupon.id = ? AND coupon.blocking=false";
     private static final String GET_ALL_COUPONS =
             "SELECT coupon.id, coupon.category_id, coupon.company_provider_id," +
             " coupon.name, coupon.picture, coupon.description, coupon.price," +
@@ -134,6 +139,24 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
         }
+    }
+
+    @Override
+    public Coupon getIfAvailable(final long id) throws PersistentException {
+        Coupon coupon = null;
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_IF_AVAILABLE)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    coupon = getNewCoupon(resultSet);
+                }
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+        return coupon;
     }
 
     //+
