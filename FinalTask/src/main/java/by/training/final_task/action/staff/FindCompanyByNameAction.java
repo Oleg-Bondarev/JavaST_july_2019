@@ -35,7 +35,7 @@ public class FindCompanyByNameAction extends AuthorizedUserAction {
             User user = (User) session.getAttribute("authorizedUser");
             if ((user != null) && allowedRoles.contains(user.getRole())) {
                 String companyName = getCompanyName(request);
-                if (Validator.validateCompanyName(companyName)) {
+                if (validator.validateCompanyName(companyName)) {
                     CompanyProviderService companyService =
                             (CompanyProviderService) factory
                                     .createService(DAOEnum.COMPANYPROVIDER);

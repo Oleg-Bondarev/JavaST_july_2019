@@ -11,14 +11,14 @@ public class UserParametersValidator extends Validator implements Valid {
     private static final int USER_FIRST_NAME = 3;
     private static final int USER_SECOND_NAME = 4;
     private static final int USER_MOBILE_PHONE = 5;
-    private static final String USER_LOGIN_REGEX = "^[a-zA-Z0-9]{4,16}$";
-    private static final String USER_PASSWORD_REGEX = "^[a-zA-Z0-9]{8,16}$";
-    private static final String USER_EMAIL_REGEX = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
-    private static final String USER_FIRST_NAME_RU_REGEX = "^[а-яА-Я-]{2,10}$";
-    private static final String USER_SECOND_NAME_RU_REGEX = "^[а-яА-Я-]{2,20}$";
-    private static final String USER_FIRST_NAME_EN_REGEX = "^[a-zA-Z-]{2,10}$";
-    private static final String USER_SECOND_NAME_EN_REGEX = "^[a-zA-Z-]{2,20}$";
-    private static final String USER_MOBILE_REGEX = "^((25)|(29)|(33)|(44))([0-9]{7}$)";
+    public static final String USER_LOGIN_REGEX = "^[a-zA-Z0-9]{4,16}$";
+    public static final String USER_PASSWORD_REGEX = "^[a-zA-Z0-9]{8,16}$";
+    public static final String USER_EMAIL_REGEX = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
+    public static final String USER_FIRST_NAME_RU_REGEX = "^[а-яА-Я-]{2,10}$";
+    public static final String USER_SECOND_NAME_RU_REGEX = "^[а-яА-Я-]{2,20}$";
+    public static final String USER_FIRST_NAME_EN_REGEX = "^[a-zA-Z-]{2,10}$";
+    public static final String USER_SECOND_NAME_EN_REGEX = "^[a-zA-Z-]{2,20}$";
+    public static final String USER_MOBILE_REGEX = "^((25)|(29)|(33)|(44))([0-9]{7}$)";
 
     private static final String[] params =
                                 {"incorrectLogin", "incorrectPassword",

@@ -19,6 +19,9 @@ public interface CouponService extends Service {
     List<Coupon> getAllByPriceRange(BigDecimal minBorder, BigDecimal maxBorder,
                                     int offset, int limit)
             throws ServiceException;
+    List<Coupon> getAllGreaterThanCurrentPrice(BigDecimal minBorder,
+                                            int offset, int limit)
+            throws ServiceException;
     List<Coupon> getAllAvailableCoupons(int offset, int limit)
             throws ServiceException;
     int getAmountOfAllCoupons() throws ServiceException;
@@ -27,6 +30,8 @@ public interface CouponService extends Service {
             throws ServiceException;
     int getAmountByName(String name) throws ServiceException;
     int getAmountByPriceRange(BigDecimal minBorder, BigDecimal maxBorder)
+            throws ServiceException;
+    int getAmountGreaterThanCurrentPrice(BigDecimal minBorder)
             throws ServiceException;
     int create(Coupon coupon) throws ServiceException;
     boolean update(Coupon coupon) throws ServiceException;

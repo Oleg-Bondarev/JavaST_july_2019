@@ -5,28 +5,43 @@ import java.util.Objects;
 /**
  * Represent coupon category.
  * */
-public class Category extends  Entity{
-    private String name;
-
+public class Category extends Entity {
+    /**
+     * Default class constructor.
+     * */
     public Category() { }
-
-    public Category(final long newId) {
-        id = newId;
-    }
-
+    /**
+     * Category name.
+     * */
+    private String name;
+    /**
+     * Constructor.
+     * @param newId id to be set to {@link #id}
+     * @param newName category name to be set to {@link #name}
+     * */
     public Category(final long newId, final String newName) {
         id = newId;
         name = newName;
     }
-
+    /**
+     * Returns category name.
+     * @return category name.
+     * */
     public String getName() {
         return name;
     }
-
+    /**
+     * Sets category name.
+     * @param newName category name to be set to {@link #name}
+     * */
     public void setName(final String newName) {
         name = newName;
     }
-
+    /**
+     * Override equals method.
+     * @param newO object to compare.
+     * @return boolean expression true if object equals, else - return false.
+     * */
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) {
@@ -41,62 +56,19 @@ public class Category extends  Entity{
         Category category = (Category) newO;
         return name.equals(category.name);
     }
-
+    /**
+     * Hashcode method.
+     * @return object hashcode.
+     * */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name);
     }
-
+    /**
+     * @return object string representation.
+     * */
     @Override
     public String toString() {
-        return "Category{" + super.toString() +
-                "name='" + name + '\'' +
-                '}';
+        return "Category{" + super.toString() + "name='" + name + '\'' + '}';
     }
 }
-/*
-public enum Category {
-    ENTERTAINMENT("entertainment and showprogram"),
-    EXCLUSIVE("exclusive"),
-    QUESTS("quests"),
-    LEISURE("leisure"),
-    PETS("pets"),
-    PHOTO_VIDEO("photo and video"),
-    TRAVELS("travels"),
-    ROMANTIC("romantic"),
-    HEALTH_BEAUTY("health and beauty"),
-    GOURMENTS("gourments"),
-    MOTORISTS("motorists"),
-    TRAINING("training and master classes"),
-    GIFF_BASKETS("gift baskets"),
-    FITNESS_SPORT("fitness and sport");
-
-    private String value;
-
-    Category(final String newValue) {
-        value = newValue;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public static Category fromValue(final String newValue)
-            throws WrongEnumTupeException {
-        for (Category category : Category.values()) {
-            if (category.value.equals(newValue)) {
-                return category;
-            }
-        }
-        throw new WrongEnumTupeException(newValue);
-    }
-
-    public static Category valueOf(final int index) {
-        return Category.values()[index];
-    }
-
-    public int getOrdinal() {
-        return ordinal();
-    }
-}
-*/

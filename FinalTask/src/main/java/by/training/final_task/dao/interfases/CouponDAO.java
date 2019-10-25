@@ -17,6 +17,8 @@ public interface CouponDAO extends DAO<Coupon> {
             throws PersistentException;
     List<Coupon> getAllByPriceRange(BigDecimal minBorder, BigDecimal maxBorder,
                             int offset, int limit) throws PersistentException;
+    List<Coupon> getAllGreaterThanCurrentPrice(BigDecimal minBorder,
+                            int offset, int limit) throws PersistentException;
     List<Coupon> getAllAvailableCoupons(int offset, int limit)
             throws PersistentException;
     int getAmountOfAllCoupons() throws PersistentException;
@@ -27,6 +29,8 @@ public interface CouponDAO extends DAO<Coupon> {
             throws PersistentException;
     int getAmountByName(String name) throws PersistentException;
     int getAmountByPriceRange(BigDecimal minBorder, BigDecimal maxBorder)
+            throws PersistentException;
+    int getAmountGreaterThanCurrentPrice(BigDecimal minBorder)
             throws PersistentException;
     boolean updateAvailableStatus(long id) throws PersistentException;
 }

@@ -3,7 +3,6 @@ package by.training.final_task.action;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
-import by.training.final_task.service.interfaces.ServiceFactory;
 import by.training.final_task.service.interfaces.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Represent login action.
+ * */
 public class LoginAction extends AuthorizedUserAction {
+    /**
+     * Class logger.
+     * */
     private static final Logger LOGGER = LogManager.getLogger();
+    /**
+     * Name of the attribute.
+     * */
     private static final String MESSAGE = "message";
 
     @Override
@@ -42,8 +50,8 @@ public class LoginAction extends AuthorizedUserAction {
                 } else {
                     request.setAttribute(MESSAGE,
                             "couldNotFindLoginPassword");
-                    LOGGER.log(Level.INFO, "User {} unsuccessfully tried" +
-                            " to login from {} ({},{})", login,
+                    LOGGER.log(Level.INFO, "User {} unsuccessfully tried"
+                            + " to login from {} ({},{})", login,
                             request.getRemoteAddr(), request.getRemoteHost(),
                             request.getRemotePort());
                 }
@@ -51,7 +59,7 @@ public class LoginAction extends AuthorizedUserAction {
                 request.setAttribute(MESSAGE, "alreadyLoggedInUser");
             }
         }
-        request.setAttribute(MESSAGE,"fillAllFields");
+        request.setAttribute(MESSAGE, "fillAllFields");
         return null;
     }
 }

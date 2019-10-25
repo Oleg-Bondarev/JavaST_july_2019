@@ -115,11 +115,33 @@ public class CouponServiceImpl extends AbstractService implements CouponService 
                                            final BigDecimal maxBorder,
                                            final int offset, final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponDAO couponDAO = getDaoFactory().createCouponDAO(connectionManager);
+                CouponDAO couponDAO = getDaoFactory()
+                        .createCouponDAO(connectionManager);
                 return couponDAO.getAllByPriceRange(minBorder, maxBorder,
                         offset, limit);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
+    public List<Coupon> getAllGreaterThanCurrentPrice(final BigDecimal minBorder,
+                                              final int offset, final int limit)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory()
+                        .createCouponDAO(connectionManager);
+                return couponDAO.getAllGreaterThanCurrentPrice(minBorder,
+                                                                offset, limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -224,6 +246,23 @@ public class CouponServiceImpl extends AbstractService implements CouponService 
             throw new ServiceException(newE);
         }
     }
+
+    @Override
+    public int getAmountGreaterThanCurrentPrice(final BigDecimal minBorder)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
+            try {
+                CouponDAO couponDAO = getDaoFactory()
+                        .createCouponDAO(connectionManager);
+                return couponDAO.getAmountGreaterThanCurrentPrice(minBorder);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }    }
 
     @Override
     public int create(final Coupon coupon) throws ServiceException {

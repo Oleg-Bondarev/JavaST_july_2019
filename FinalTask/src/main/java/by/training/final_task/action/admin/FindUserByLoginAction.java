@@ -37,7 +37,7 @@ public class FindUserByLoginAction extends AuthorizedUserAction {
                 Forward forward = new Forward(
                         "/user/admin/findusers.html");
                 if (!userLogin.isEmpty()) {
-                    if (Validator.validateUserLogin(userLogin)) {
+                    if (validator.validateUserLogin(userLogin)) {
                         UserService userService = (UserService) factory
                                 .createService(DAOEnum.USER);
                         User findUser = userService.getByLogin(userLogin);

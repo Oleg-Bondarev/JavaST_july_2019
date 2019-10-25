@@ -23,6 +23,8 @@
 
     <c:url value="/coupons.html?page=1" var="allCouponsPageURL"/>
     <c:url value="/coupon/moreinfo.html" var="moreInfoPageURL"/>
+    <c:url value="/coupon/findbycategory.html?page=1" var="findByCategoryAction"/>
+    <c:url value="/coupon/findbyprice.html?page=1" var="findByPriceAction"/>
 </head>
 
 <body>
@@ -43,12 +45,12 @@
                         <div>
                             <input class="form-control mr-sm-2" name="minPriceRange"
                                    type="search" placeholder="<fmt:message key="minPricePlaceholder" bundle="${lang}"/>"
-                                   value="${sessionScope.minPriceRange}">
+                                   value="${sessionScope.minPriceRange}" pattern="^[1-9]{1}[\d]{0,2}\.[\d]{2}$">
                         </div>
                         <div>
                             <input class="form-control mr-sm-2" name="maxPriceRange"
                                    type="search" placeholder="<fmt:message key="maxPricePlaceholder" bundle="${lang}"/>"
-                                   value="${sessionScope.maxPriceRange}">
+                                   value="${sessionScope.maxPriceRange}" pattern="^[1-9]{1}[\d]{0,2}\.[\d]{2}$">
                         </div>
                         <div>
                             <button class="btn btn-outline-success" type="submit">
