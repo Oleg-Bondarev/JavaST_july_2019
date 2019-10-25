@@ -16,7 +16,7 @@
 <c:url value="/user/profile.html" var="profileActionURL"/>
 <c:url value="/user/admin/findstaff.html?page=1" var="findstaffActionURL"/>
 <c:url value="/user/admin/findusers.html?page=1" var="allUsersActionURL"/>
-<c:url value="/user/mycoupons.html?page=1" var="myCouponsActionURL"/>
+<c:url value="/coupon/user/mypurchases.html?page=1" var="myCouponsActionURL"/>
 <c:url value="/companyprovider/findcompany.html?page=1" var="findCompanyPageActionURL"/>
 
 <header lang="${language}">

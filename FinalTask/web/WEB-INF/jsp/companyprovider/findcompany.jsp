@@ -37,14 +37,32 @@
                 <fmt:message key="companies" bundle="${lang}"/>
             </h2>
         </div>
-        <div class="row">
-            <div class="col-md-3 align-content-center">
+        <c:if test="${not empty message}">
+            <div>
+                <label class="text text-danger">
+                    <fmt:message key="${message}" bundle="${lang}"/>
+                </label>
+            </div>
+        </c:if>
+        <c:if test="${not empty successMessage}">
+            <div>
+                <label class="text text-danger">
+                    <fmt:message key="${successMessage}"/>
+                </label>
+            </div>
+        </c:if>
+        <div class="row" style="justify-content: center; padding-top: 20px">
+            <div class="col-md-6">
                 <form class="form-inline" method="post" action="${findByPhoneActionURL}">
                     <div class="form-group">
                         <div>
-                            <input class="form-control mr-sm-2" name="phoneParameter"
-                                   type="search" placeholder="<fmt:message key="phonePlaceholder" bundle="${lang}"/>"
-                                   value="${sessionScope.phoneParameter}" required>
+                            <lable>
+                                <fmt:message key="phoneSearchLable" bundle="${lang}"/>
+                            </lable>
+                            <input class="form-control mr-sm-2 hover" name="phoneParameter"
+                                   type="search" placeholder="(25)|(29)|(33)|(44)6494933"
+                                   value="${sessionScope.phoneParameter}" required
+                                    pattern="((25)|(29)|(33)|(44))([0-9]{7}$)">
                         </div>
                         <div>
                             <button class="btn btn-outline-success" type="submit">
@@ -54,10 +72,22 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-3 justify-content-center">
+            <div class="col-md-6 text-center">
+                <form class="col-md-6" action="${findCompanyPageActionURL}" method="post">
+                    <button class="btn btn-outline-success" type="submit" >
+                        <fmt:message key="showAllCompaniesButton" bundle="${lang}"/>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+            <div class="col-md-6">
                 <form class="form-inline" method="post" action="${findByNameActionURL}">
                     <div class="form-group">
                         <div>
+                            <lable>
+                                <fmt:message key="companyNameSearch" bundle="${lang}"/>
+                            </lable>
                             <input class="form-control mr-sm-2" name="nameParameter"
                                    type="search" placeholder="<fmt:message key="inputNamePlaceholder" bundle="${lang}"/>"
                                    value="${sessionScope.nameParameter}" required>
@@ -70,14 +100,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-3 justify-content-center">
-                <form class="col-md-6" action="${findCompanyPageActionURL}" method="post">
-                    <button class="btn btn-outline-success" type="submit" >
-                        <fmt:message key="showAllCompaniesButton" bundle="${lang}"/>
-                    </button>
-                </form>
-            </div>
-            <div class="col-md-3 justify-content-center">
+            <div class="col-md-6 text-center">
                 <form class="col-md-6" action="${addCompanyProviderActionPageURL}" method="post">
                     <button class="btn btn-outline-success" type="submit" >
                         <fmt:message key="addCompanyProvider" bundle="${lang}"/>

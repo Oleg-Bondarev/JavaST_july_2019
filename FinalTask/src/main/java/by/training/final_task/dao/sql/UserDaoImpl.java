@@ -40,7 +40,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
     private static final String GET_USER_BY_LOGIN = "SELECT user.id, user.login," +
             "user.password, user.role, user.email, user.avatar, user.first_name," +
             "user.second_name, user.mobile_phone, user.registration_date_time," +
-            "user.blocking FROM user WHERE user.login = ?";
+            "user.blocking FROM user WHERE user.login = ? AND user.blocking=false";
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"

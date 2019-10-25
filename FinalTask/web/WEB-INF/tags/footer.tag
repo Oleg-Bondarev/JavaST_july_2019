@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="footer-right">
-                <span>Follow us:</span>
+                <span><fmt:message key="followUs"/>:</span>
                 <div class="row right-padding">
                     <div><a href="https://ru-ru.facebook.com/"><em class="fab fa-facebook-f"></em></a></div>
                     <div><a href="https://twitter.com/"><em class="fab fa-twitter"></em></a></div>

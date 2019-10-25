@@ -22,7 +22,7 @@
     <title><fmt:message key="profileTitle" bundle="${lang}"/></title>
 
     <c:url value="/user/usereditpage.html" var="userEditPageURL"/>
-    <c:url value="/coupon/user/mypurcases.html?page=1" var="mypurchasesPageAction"/>
+    <c:url value="/coupon/user/mypurchases.html?page=1" var="mypurchasesPageAction"/>
 </head>
 
 <body>

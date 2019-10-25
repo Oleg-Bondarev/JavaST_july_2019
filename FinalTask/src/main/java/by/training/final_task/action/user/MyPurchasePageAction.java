@@ -1,13 +1,13 @@
-package by.training.final_task.action.staff;
+package by.training.final_task.action.user;
 
 import by.training.final_task.action.AuthorizedUserAction;
 import by.training.final_task.action.PagePagination;
 import by.training.final_task.dao.sql.DAOEnum;
-import by.training.final_task.entity.CompanyProvider;
+import by.training.final_task.entity.Coupon;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
-import by.training.final_task.service.interfaces.CompanyProviderService;
+import by.training.final_task.service.interfaces.CouponUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class FindCompanyAction extends AuthorizedUserAction {
+public class MyPurchasePageAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final int ROWCOUNT = 5;
+    private static final int ROWCOUNT = 3;
 
-    public FindCompanyAction() {
-        allowedRoles.add(Role.STAFF);
+    public MyPurchasePageAction() {
+        allowedRoles.add(Role.USER);
     }
 
     @Override
@@ -32,21 +32,23 @@ public class FindCompanyAction extends AuthorizedUserAction {
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if ((user != null) && allowedRoles.contains(user.getRole())) {
-                CompanyProviderService companyService = (CompanyProviderService)
-                        factory.createService(DAOEnum.COMPANYPROVIDER);
-                List<CompanyProvider> companiesList = (List<CompanyProvider>)
-                        request.getAttribute("resultCompanies");
-                if (companiesList == null) {
+                CouponUserService couponUserService = (CouponUserService)
+                        factory.createService(DAOEnum.COUPONUSER);
+                List<Coupon> userPurchaseList = (List<Coupon>)
+                        request.getAttribute("resultUserPurchases");
+                if (userPurchaseList == null) {
                     PagePagination pagination = new PagePagination(
-                            companyService.getAmountOfAvailableCompany(),
-                            ROWCOUNT, request.getParameter("page"));
+                        couponUserService.getCountCouponNameCurrentUser(
+                        user.getId()), ROWCOUNT, request.getParameter("page"));
                     request.setAttribute("amountOfPages", pagination
                             .getPagesAmount());
-                    companiesList = companyService.getAllAvailableCompany(
-                            pagination.getPageOffset(), ROWCOUNT);
-                    request.setAttribute("resultCompanies", companiesList);
+                    userPurchaseList = couponUserService
+                            .getAllCouponsCurrentUser(user.getId(), pagination
+                                    .getPageOffset(), ROWCOUNT);
+                    request.setAttribute("resultCoupons",
+                                                userPurchaseList);
                     request.setAttribute("paginationURL",
-                            "/companyprovider/findcompany.html");
+                                        "/coupon/user/mypurchases.html");
                 }
                 return null;
             } else {

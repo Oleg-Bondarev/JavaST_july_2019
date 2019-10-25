@@ -44,13 +44,13 @@ public class FindUserByNameAction extends AuthorizedUserAction {
                     PagePagination pagination;
                     if (!params[1].isEmpty()) {
                         pagination = new PagePagination(userService
-                                .getAmountOfAllUsersByFirstAndSecondName(params[0],
-                                        params[1], Role.USER), ROWS_IN_PAGE,
+                                .getAmountOfAllUsersByFirstAndSecondName(
+                                params[0], params[1], Role.USER), ROWS_IN_PAGE,
                                 request.getParameter("page"));
                     } else {
                         pagination = new PagePagination(userService
                                 .getAmountOfAllUsersByFirstNameAndRole(params[0],
-                                        Role.STAFF), ROWS_IN_PAGE,
+                                        Role.USER), ROWS_IN_PAGE,
                                 request.getParameter("page"));
                     }
                     Forward forward = new Forward(
@@ -62,11 +62,12 @@ public class FindUserByNameAction extends AuthorizedUserAction {
                                 params[0], params[1], Role.USER);
                     } else {
                         userList = userService.getAllUsersByRoleAndName(params[0],
-                                Role.STAFF, pagination.getPageOffset(), ROWS_IN_PAGE);
+                                Role.USER, pagination.getPageOffset(), ROWS_IN_PAGE);
                     }
                     forward.getAttributes().put("resultUsers", userList);
                     return forward;
                 }
+                return new Forward("/user/admin/findusers.html");
             }
         }
         LOGGER.log(Level.INFO, "{} - attempted to access {} anf failed",

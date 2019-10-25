@@ -121,6 +121,22 @@ public class UserServiceImpl extends AbstractService
     }
 
     @Override
+    public User getByLogin(final String login) throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                return userDAO.getUserByLogin(login);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    @Override
     public List<User> getAll(final int offset, final int limit)
             throws ServiceException {
         try (AbstractConnectionManager connectionManager = new ConnectionManager()) {

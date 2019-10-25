@@ -40,4 +40,9 @@ public class Validator {
         final String companyNameRegex = "^[a-zA-Zа-яА-Я0-9-\" ]+$";
         return name.matches(companyNameRegex);
     }
+
+    public static boolean validateUserLogin(final String login) {
+        final String loginRegex = "^[a-zA-Z0-9]{4,16}$";
+        return login.matches(loginRegex);
+    }
 }

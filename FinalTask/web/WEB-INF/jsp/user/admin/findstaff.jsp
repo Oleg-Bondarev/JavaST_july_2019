@@ -23,7 +23,7 @@
     <title><fmt:message key="findStaffTitle" bundle="${lang}"/></title>
 
     <c:url value="/user/userblocking.html" var="userBlockingActionURL"/>
-    <c:url value="/user/admin/findstaffbyfirstname.html" var="findStaffByFirstNameAction"/>
+    <c:url value="/user/admin/findstaffbyfirstname.html?page=1" var="findStaffByFirstNameAction"/>
     <c:url value="/user/admin/findstaff.html?page=1" var="findStaffAction"/>
     <c:url value="/user/admin/addstaffpage.html" var="addstaffActionPageURL"/>
 </head>
@@ -120,33 +120,33 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-sm-12 mx-auto">
-                        <ul class="pagination" style="justify-content: center">
-                            <c:if test="${param.page > 1}">
-                                <li class="page-item">
-                                    <a class="page-link" href="<c:url value="${paginationURL += '?page='
+            <div class="row">
+                <div class="col-sm-12 mx-auto">
+                    <ul class="pagination" style="justify-content: center">
+                        <c:if test="${param.page > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="<c:url value="${paginationURL += '?page='
                          += (param.page - 1)}"/>">
-                                        <fmt:message key="previousPage" bundle="${lang}"/>
-                                    </a>
-                                </li>
-                            </c:if>
-                            <c:forEach var="i" begin="1" end="${amountOfPages}">
-                                <a class="page-link" href="<c:url value="${paginationURL += '?page=' += i}"/>">
-                                    <c:out value="${i}"/>
+                                    <fmt:message key="previousPage" bundle="${lang}"/>
                                 </a>
-                            </c:forEach>
-                            <c:if test="${param.page < amountOfPages}">
-                                <li class="page-item">
-                                    <a class="page-link" href="<c:url value="${paginationURL += '?page='
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${amountOfPages}">
+                            <a class="page-link" href="<c:url value="${paginationURL += '?page=' += i}"/>">
+                                <c:out value="${i}"/>
+                            </a>
+                        </c:forEach>
+                        <c:if test="${param.page < amountOfPages}">
+                            <li class="page-item">
+                                <a class="page-link" href="<c:url value="${paginationURL += '?page='
                          += (param.page + 1)}"/>">
-                                        <fmt:message key="nextPage" bundle="${lang}"/>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </div>
+                                    <fmt:message key="nextPage" bundle="${lang}"/>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
                 </div>
             </div>
         </main>

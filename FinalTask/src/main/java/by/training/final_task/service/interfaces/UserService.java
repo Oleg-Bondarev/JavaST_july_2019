@@ -17,6 +17,7 @@ public interface UserService extends Service {
     User get(long id) throws ServiceException;
 
     User get(String login, String password) throws ServiceException;
+    User getByLogin(String login) throws ServiceException;
 
     List<User> getAll(int offset, int limit) throws ServiceException;
 

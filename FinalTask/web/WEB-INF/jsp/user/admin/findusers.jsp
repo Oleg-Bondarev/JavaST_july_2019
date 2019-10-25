@@ -25,7 +25,8 @@
 
     <c:url value="/user/userblocking.html" var="userBlockingActionURL"/>
     <c:url value="/user/admin/findusers.html?page=1" var="findUsersPageAction"/>
-    <c:url value="/user/admin/finduserbyfirstname.html" var="findUserByFirstSecondNameURL"/>
+    <c:url value="/user/admin/finduserbyfirstname.html?page=1" var="findUserByFirstSecondNameURL"/>
+    <c:url value="/user/admin/finduserbylogin.html" var="findUserByLoginURL"/>
 </head>
 <body>
 <div id="wrap">
@@ -59,41 +60,60 @@
                 </form>
             </div>
             <div class="col-md-4 justify-content-center">
-                <form class="col-md-6" action="${findStaffAction}" method="post">
+                <form class="col-md-6" action="${findUsersPageAction}" method="post">
                     <button class="btn btn-outline-success" type="submit" >
                         <fmt:message key="showAllStaffButton" bundle="${lang}"/>
                     </button>
                 </form>
             </div>
+            <div class="col-md-4 justify-content-center">
+                <form class="form-inline" method="post" action="${findUserByLoginURL}">
+                    <div class="form-group">
+                        <div>
+                            <input class="form-control mr-sm-2" name="userLogin"
+                                   type="search" placeholder="<fmt:message key="userLoginPlaceholder"  bundle="${lang}"/>"
+                                   value="${sessionScope.userLogin}" required>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-success" type="submit">
+                                <fmt:message key="searchButton" bundle="${lang}"/>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <c:forEach items="${resultUsers}" var="user">
-            <div class="row">
-                <div class="card col-md-4">
-                    <div class="card-body text-center">
-                        <img class="card-img-top user-avatar-size" src="<%=request.getContextPath()%>/${user.pathToAvatar}" alt="User avatar">
+        <c:if test="${!resultUsers.isEmpty()}">
+            <c:forEach items="${resultUsers}" var="user">
+                <div class="row">
+                    <div class="card col-md-4">
+                        <div class="card-body text-center">
+                            <img class="card-img-top user-avatar-size" src="<%=request.getContextPath()%>/${user.pathToAvatar}" alt="User avatar">
+                        </div>
+                    </div>
+                    <div class="card col-md-8">
+                        <div class="card-body">
+                            <fmt:message key="username" bundle="${lang}"/>: <c:out value="${user.login}"/><br>
+                            <fmt:message key="firstName" bundle="${lang}"/>: <c:out value="${user.firstName}"/><br>
+                            <fmt:message key="lastName" bundle="${lang}"/>: <c:out value="${user.secondName}"/><br>
+                            <fmt:message key="email" bundle="${lang}"/>: <c:out value="${user.email}"/><br>
+                            <fmt:message key="phoneTitle" bundle="${lang}"/>: <c:out value="+375${user.mobilePhone}"/><br>
+                            <fmt:message key="registrationDate" bundle="${lang}"/>: <c:out value="${user.registrationDate}"/><br>
+                        </div>
+                        <div>
+                            <form action="${userBlockingActionURL}" method="post">
+                                <input type="hidden" name="userToBlock" value="${user.id}">
+                                <button class="btn btn-danger" type="submit">
+                                    <fmt:message key="blockProfile" bundle="${lang}"/>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="card col-md-8">
-                    <div class="card-body">
-                        <fmt:message key="username" bundle="${lang}"/>: <c:out value="${user.login}"/><br>
-                        <fmt:message key="firstName" bundle="${lang}"/>: <c:out value="${user.firstName}"/><br>
-                        <fmt:message key="lastName" bundle="${lang}"/>: <c:out value="${user.secondName}"/><br>
-                        <fmt:message key="email" bundle="${lang}"/>: <c:out value="${user.email}"/><br>
-                        <fmt:message key="phoneTitle" bundle="${lang}"/>: <c:out value="+375${user.mobilePhone}"/><br>
-                        <fmt:message key="registrationDate" bundle="${lang}"/>: <c:out value="${user.registrationDate}"/><br>
-                    </div>
-                    <div>
-                        <form action="${userBlockingActionURL}" method="post">
-                            <input type="hidden" name="userToBlock" value="${user.id}">
-                            <button class="btn btn-danger" type="submit">
-                                <fmt:message key="blockProfile" bundle="${lang}"/>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </c:if>
+
 
         <div class="row">
             <div class="col-sm-12 mx-auto">
