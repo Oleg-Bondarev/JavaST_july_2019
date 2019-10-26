@@ -22,7 +22,7 @@
     <title><fmt:message key="coupons"  bundle="${lang}"/></title>
 
     <c:url value="/coupons.html?page=1" var="allCouponsPageURL"/>
-    <c:url value="/coupon/moreinfo.html" var="moreInfoPageURL"/>
+    <%--<c:url value="/coupon/moreinfo.html" var="moreInfoPageURL"/>--%>
     <c:url value="/coupon/findbycategory.html?page=1" var="findByCategoryAction"/>
     <c:url value="/coupon/findbyprice.html?page=1" var="findByPriceAction"/>
 </head>
@@ -98,7 +98,7 @@
         <div class="row" style="justify-content: center">
             <c:forEach items="${resultCoupons}" var="coup">
                 <div class="card" style="width: 18rem;">
-                    <form action="${moreInfoPageURL}" method="post">
+                    <form action="<c:url value="/coupon/moreinfo.html?id=${coup.id}"/>" method="post">
                         <img class="card-img-top photo-padding"
                              src="<%=request.getContextPath()%>/${coup.pathToPicture}"
                              alt="Coupon avatar">

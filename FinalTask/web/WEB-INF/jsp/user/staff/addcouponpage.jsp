@@ -36,12 +36,14 @@
                     </div>
                     <c:if test="${not empty successMessage}">
                         <div class="text-center text-info">
-                            <p><fmt:message key='${redirectedData.getValue("successMessage")}'/></p>
+                            <p><fmt:message key="${successMessage}" bundle="${lang}"/></p>
                         </div>
                     </c:if>
                     <c:if test="${not empty message}">
                         <div class="text-center text-warning">
-                            <p><fmt:message key="attantion" bundle="${lang}"/>: <fmt:message key="${message}"/></p>
+                            <p><fmt:message key="attantion" bundle="${lang}"/>:
+                                <fmt:message key="${message}" bundle="${lang}"/>
+                            </p>
                         </div>
                     </c:if>
 
@@ -49,9 +51,9 @@
                         <label><fmt:message key="couponName" bundle="${lang}"/> </label>
                         <input pattern="^[a-zA-Zа-яА-Я\d- ]{3,20}$" name="couponName" class="form-control" type="text" required>
                         <label><fmt:message key="couponPrice" bundle="${lang}"/></label>
-                        <input name="couponPrice" class="form-control" type="text" required>
+                        <input name="couponPrice" class="form-control" type="text" pattern="^[1-9]{1}[\d]{0,2}\.[\d]{2}$" required>
                         <label><fmt:message key="locationAddress" bundle="${lang}"/></label>
-                        <input name="holdingAddress" class="form-control" type="text" required>
+                        <input name="holdingAddress" class="form-control" type="text" pattern="^[a-zA-Zа-яёА-ЯЁ\d-",. ]+$" required>
                         <label><fmt:message key="couponCategory" bundle="${lang}"/></label>
                         <select required name="category" class="form-control">
                             <c:forEach items="${categoryList}" var="i">

@@ -41,6 +41,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             "user.password, user.role, user.email, user.avatar, user.first_name," +
             "user.second_name, user.mobile_phone, user.registration_date_time," +
             "user.blocking FROM user WHERE user.login = ? AND user.blocking=false";
+    private static final String GET_USER_BY_EMAIL = "SELECT user.id, user.login," +
+            "user.password, user.role, user.email, user.avatar, user.first_name," +
+            "user.second_name, user.mobile_phone, user.registration_date_time," +
+            "user.blocking FROM user WHERE user.email = ? AND user.blocking=false";
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
@@ -186,6 +190,24 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_USER_BY_LOGIN)) {
             preparedStatement.setNString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = takeUser(resultSet);
+                }
+            }
+        } catch (SQLException newE) {
+            LOGGER.log(Level.WARN, newE.getMessage(), newE);
+            throw new PersistentException(newE.getMessage(), newE);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByEmail(final String email) throws PersistentException {
+        User user = null;
+        try (PreparedStatement preparedStatement = getConnection()
+                .prepareStatement(GET_USER_BY_EMAIL)) {
+            preparedStatement.setNString(1, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = takeUser(resultSet);

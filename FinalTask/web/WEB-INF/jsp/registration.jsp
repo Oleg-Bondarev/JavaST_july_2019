@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <form class="form" action="${registerActionURL}" method="post" id="contact_form">
-                            <c:if test="${not empty successMessage}">
+                            <c:if test="${not empty message}">
                                 <div class="text-info text-center">
                                     <p><fmt:message key="attantion" bundle="${lang}"/>:
                                         <fmt:message key="${message}"  bundle="${lang}"/> </p>

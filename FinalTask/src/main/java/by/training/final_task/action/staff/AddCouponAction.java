@@ -47,8 +47,10 @@ public class AddCouponAction extends AuthorizedUserAction {
 
                     coupon.setPathToPicture("img/coupon/default.jpg");
                     couponService.create(coupon);
-                    return new Forward("/user/staff/addcouponpage.html",
+                    Forward forward = new Forward("/user/staff/addcouponpage.html",
                             true);
+                    forward.getAttributes().put("successMessage", "addedCoupon");
+                    return forward;
                 } catch (InvalidFormDataException newE) {
                     request.setAttribute("message", newE.getMessage());
                     return null;

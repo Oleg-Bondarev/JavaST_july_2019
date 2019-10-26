@@ -30,6 +30,14 @@ public class UserServiceImpl extends AbstractService
         if (dbUser != null) {
             throw new ServiceException("alreadyExistUser");
         }
+        dbUser = getByLogin(newUser.getLogin());
+        if (dbUser != null) {
+            throw new ServiceException("alreadyUsedLogin");
+        }
+        dbUser = getByEmail(newUser.getEmail());
+        if (dbUser != null) {
+            throw new ServiceException("alreadyUsedEmail");
+        }
 
         try (AbstractConnectionManager connectionManager =
                 new ConnectionManager()) {
@@ -127,6 +135,22 @@ public class UserServiceImpl extends AbstractService
             try {
                 UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
                 return userDAO.getUserByLogin(login);
+            } catch (PersistentException newE) {
+                connectionManager.rollbackChange();
+                throw new ServiceException(newE.getMessage(), newE);
+            }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    private User getByEmail(final String email) throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
+            try {
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                return userDAO.getUserByEmail(email);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);

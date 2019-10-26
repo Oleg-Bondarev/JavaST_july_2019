@@ -15,6 +15,8 @@ public abstract class Action {
     private String name;
     public ServiceFactory factory;
 
+
+
     public User getAuthorizedUser() {
         return authorizedUser;
     }

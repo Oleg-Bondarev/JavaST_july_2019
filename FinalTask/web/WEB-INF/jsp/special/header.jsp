@@ -97,8 +97,8 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-link dropdown">
-                        <form action="">
-                            <select name="language" onchange="submit()">
+                        <form method="post" onchange="submit()">
+                            <select name="language">
                                 <option value="ru" ${language == 'ru' ? 'selected' : ''}><fmt:message key="russian" /></option>
                                 <option value="en" ${language == 'en' ? 'selected' : ''}><fmt:message key="english" /></option>
                                 <option value="de" ${language == 'de' ? 'selected' : ''}><fmt:message key="german" /></option>

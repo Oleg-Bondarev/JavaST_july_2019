@@ -120,7 +120,7 @@ public final class StockServiceServlet extends HttpServlet {
             LOGGER.log(Level.ERROR, "It is impossible to process request", newE);
             request.setAttribute("message", "cannotProcessData");
             request.setAttribute("exception", /*newE.getMessage()*/"Error processing data");
-            getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp")
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/error404.jsp")
                     .forward(request, response);
         }
     }

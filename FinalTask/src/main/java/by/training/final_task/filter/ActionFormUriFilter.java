@@ -52,7 +52,7 @@ public class ActionFormUriFilter implements Filter {
                 httpRequest.setAttribute("error", String.format(
                         "Requested address %s cannot be processed", uri));
                 httpRequest.getServletContext().getRequestDispatcher(
-                "/WEB-INF/jsp/error.jsp").forward(newServletRequest,
+                "/WEB-INF/jsp/error404.jsp").forward(newServletRequest,
                         newServletResponse);
             }
         } else {

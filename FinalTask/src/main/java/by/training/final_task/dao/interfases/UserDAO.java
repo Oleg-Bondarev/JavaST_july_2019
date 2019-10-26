@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserDAO  extends DAO<User> {
     User getUserByLogin(String login) throws PersistentException;
+    User getUserByEmail(String email) throws PersistentException;
     List<User> getAllUsersByRole(Role role, int offset, int limit)
             throws PersistentException;
     List<User> getAllUsersByRoleAndName(String name, Role role, int offset,

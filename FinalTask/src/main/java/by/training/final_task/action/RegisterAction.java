@@ -26,36 +26,40 @@ public class RegisterAction extends Action {
         if ((session == null)
                 || (session.getAttribute("authorizedUser") == null)) {
             List<String> userRegistrationParameter = new ArrayList<>();
-            addRegistrationParametersToList(request, userRegistrationParameter);
+            addUserParametersToList(request, userRegistrationParameter);
             User user;
             try {
                 user = userParser.parse(this, userRegistrationParameter);
                 user.setRole(Role.USER);
                 //default avatar for new users
-                user.setPathToAvatar("img/user/user_profile.jpg");//img/user/user_profile.jpg
+                user.setPathToAvatar("img/user/user_profile.jpg");
                 UserService userService = (UserService)
                         factory.createService(DAOEnum.USER);
                 try {
                     int generatedUserId = userService.create(user);
                     user.setId(generatedUserId);
                 } catch (ServiceException newE) {
-                    request.setAttribute("message", newE.getMessage());
+                    session.setAttribute("message", "alreadyLoggedIn");
                     return null;
                 }
             } catch (InvalidFormDataException newE) {
-                request.setAttribute("message", newE.getMessage());
-                return null;
+                Forward forward = new Forward("/registration.html");
+                forward.getAttributes().put("message", newE.getMessage());
+                return forward;
+                /*request.setAttribute("message", newE.getMessage());
+                return null;*/
             }
             return new Forward("/loginpage.html");
         } else {
-            session.setAttribute("message", "alreadyLoggedIn");
-            return null;
+            Forward forward = new Forward("/loginpage.html");
+            forward.getAttributes().put("message", "alreadyLoggedIn");
+            return forward;
+            /*session.setAttribute("message", "alreadyLoggedIn");
+            return null;*/
         }
     }
 
-    //TODO what about path for user avatar?
-    private void addRegistrationParametersToList(final HttpServletRequest request,
-                                         final List<String> parametersList) {
+    public static void addUserParametersToList(HttpServletRequest request, List<String> parametersList) {
         parametersList.add(request.getParameter("login"));
         parametersList.add(request.getParameter("password"));
         parametersList.add(request.getParameter("email"));

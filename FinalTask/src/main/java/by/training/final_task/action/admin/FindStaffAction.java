@@ -16,11 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Represent search staff action.
+ * */
 public class FindStaffAction extends AuthorizedUserAction {
-
-    private static final Logger LOGGER = LogManager.getLogger();
+    /**
+     * Count of objects in the page. Use for pagination.
+     * */
     private static final int ROWCOUNT = 5;
 
+    /**
+     * Sets users role that can execute this request.
+     * */
     public FindStaffAction() {
         allowedRoles.add(Role.ADMIN);
     }
@@ -33,17 +40,21 @@ public class FindStaffAction extends AuthorizedUserAction {
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
             if ((user != null) && allowedRoles.contains(user.getRole())) {
-                UserService userService = (UserService) factory.createService(DAOEnum.USER);
-                List<User> userList = (List<User>) request.getAttribute("resultUsers");
+                UserService userService = (UserService) factory
+                        .createService(DAOEnum.USER);
+                List<User> userList = (List<User>)
+                        request.getAttribute("resultUsers");
                 if (userList == null) {
                     PagePagination pagination = new PagePagination(userService
                             .getAmountOfAllUsersByRole(Role.STAFF), ROWCOUNT,
                             request.getParameter("page"));
-                    request.setAttribute("amountOfPages", pagination.getPagesAmount());
+                    request.setAttribute("amountOfPages",
+                            pagination.getPagesAmount());
                     userList = userService.getAllUsersByRole(Role.STAFF,
                             pagination.getPageOffset(), ROWCOUNT);
                     request.setAttribute("resultUsers", userList);
-                    request.setAttribute("paginationURL", "/user/admin/findstaff.html");
+                    request.setAttribute("paginationURL",
+                            "/user/admin/findstaff.html");
                 }
                 return null;
             } else {

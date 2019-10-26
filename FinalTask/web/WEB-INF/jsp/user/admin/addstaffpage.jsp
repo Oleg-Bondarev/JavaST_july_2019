@@ -35,29 +35,31 @@
                         </div>
                         <c:if test="${not empty successMessage}">
                             <div class="text-center text-info">
-                                <p><fmt:message key='${redirectedData.getValue("successMessage")}'/></p>
+                                <p><fmt:message key="${successMessage}" bundle="${lang}"/></p>
                             </div>
                         </c:if>
                         <c:if test="${not empty message}">
                             <div class="text-center text-warning">
-                                <p>Attention: <fmt:message key="${message}"/></p>
+                                <p><fmt:message key="attantion" bundle="${lang}"/>:
+                                    <fmt:message key="${message}" bundle="${lang}"/>
+                                </p>
                             </div>
                         </c:if>
                         <div class="card-body form-group">
                             <label><fmt:message key="firstName" bundle="${lang}"/> </label>
-                            <input name="firstName" class="form-control" type="text">
+                            <input name="firstName" class="form-control" type="text" min="2" max="10" pattern="^[a-zA-Zа-яА-ЯёЁ-]+$" required>
                             <label><fmt:message key="lastName" bundle="${lang}"/></label>
-                            <input name="secondName" class="form-control"  type="text">
+                            <input name="secondName" class="form-control"  type="text" min="2" max="15" pattern="[a-zA-Zа-яА-ЯёЁ-]+$" required>
                             <label><fmt:message key="username" bundle="${lang}"/></label>
-                            <input name="login" class="form-control" type="text">
+                            <input name="login" class="form-control" type="text" min="4" max="16" pattern="^[a-zA-Z0-9]+$" required>
 
                             <label><fmt:message key="password" bundle="${lang}"/></label>
-                            <input name="password" class="form-control" type="password">
+                            <input name="password" class="form-control" type="password" min="8" max="16" pattern="^[a-zA-Z0-9]+$" required>
 
                             <label><fmt:message key="email" bundle="${lang}"/></label>
-                            <input name="email" class="form-control" type="text">
+                            <input name="email" class="form-control" type="text" pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$" required>
                             <label><fmt:message key="phoneTitle" bundle="${lang}"/></label>
-                            <input name="mobilePhone" class="form-control" type="text">
+                            <input name="mobilePhone" class="form-control" type="text" pattern="^((25)|(29)|(33)|(44))([0-9]{7}$)" required>
                             <div>
                                 <button type="submit" class="btn btn-primary">
                                     <fmt:message key="addStaff" bundle="${lang}"/>

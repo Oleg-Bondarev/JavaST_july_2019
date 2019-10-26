@@ -11,7 +11,7 @@
  empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="local" var="lang"/>
-<html lang="${language}">
+<html>
 <head>
     <link rel="icon" href="${pageContext.request.contextPath}/img/logomak_logo.png" type="image/x-icon">
     <!-- Required meta tags -->

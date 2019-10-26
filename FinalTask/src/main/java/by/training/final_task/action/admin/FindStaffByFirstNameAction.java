@@ -16,13 +16,31 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-//and second name
+/**
+ * Represent search staff action by first name if second name empty and search
+ * by first and second name if both parameters not empty.
+ * */
 public class FindStaffByFirstNameAction extends AuthorizedUserAction {
+    /**
+     * Class logger.
+     * */
     private static final Logger LOGGER = LogManager.getLogger();
+    /**
+     * Parameter name to get first name from request.
+     * */
     private static final String NAME_PARAM = "firstNameParameter";
+    /**
+     * Parameter name to get second name from request.
+     * */
     private static final String SURNAME_PARAM = "secondNameParameter";
+    /**
+     * Count of objects in the page. Use for pagination.
+     * */
     private static final int ROWS_IN_PAGE = 5;
 
+    /**
+     * Sets users role that can execute this request.
+     * */
     public FindStaffByFirstNameAction() {
         allowedRoles.add(Role.ADMIN);
     }
@@ -54,17 +72,20 @@ public class FindStaffByFirstNameAction extends AuthorizedUserAction {
                                 request.getParameter("page"));
                     }
                     Forward forward = new Forward("/user/admin/findstaff.html");
-                    forward.getAttributes().put("amountOfPages", pagination.getPagesAmount());
+                    forward.getAttributes().put("amountOfPages",
+                            pagination.getPagesAmount());
                     List<User> userList;
                     if (!params[1].isEmpty()) {
                         userList = userService.getAllUsersByFirstAndSecondName(
                                 params[0], params[1], Role.STAFF);
                     } else {
-                        userList = userService.getAllUsersByRoleAndName(params[0],
-                                Role.STAFF, pagination.getPageOffset(), ROWS_IN_PAGE);
+                        userList = userService.getAllUsersByRoleAndName(
+                                params[0], Role.STAFF, pagination
+                                        .getPageOffset(), ROWS_IN_PAGE);
                     }
                     forward.getAttributes().put("resultUsers", userList);
-                    forward.getAttributes().put("paginationURL", "/user/admin/findstaffbyfirstname.html");
+                    forward.getAttributes().put("paginationURL",
+                            "/user/admin/findstaffbyfirstname.html");
                     return forward;
                 }
             }

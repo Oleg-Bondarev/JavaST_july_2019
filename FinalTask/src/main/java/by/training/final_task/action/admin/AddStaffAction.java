@@ -1,6 +1,7 @@
 package by.training.final_task.action.admin;
 
 import by.training.final_task.action.AuthorizedUserAction;
+import by.training.final_task.action.RegisterAction;
 import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
@@ -19,11 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Represent adding stuff action to a system.
+ * */
 public class AddStaffAction extends AuthorizedUserAction {
-
+    /**
+     * Class logger.
+     * */
     private static final Logger LOGGER = LogManager.getLogger();
+    /**
+     * For parsing input parameters from registration form.
+     * */
     private static final UserFormParser userFormParser = new UserFormParser();
-
+    /**
+     * Set roles th
+     * */
     public AddStaffAction() {
         allowedRoles.add(Role.ADMIN);
     }
@@ -47,9 +58,9 @@ public class AddStaffAction extends AuthorizedUserAction {
                             .createService(DAOEnum.USER);
                     int userIdGenerated = userService.create(user);
                     user.setId(userIdGenerated);
-                    Forward forward = new Forward("/user/admin/addstaffpage.html", true);
-                    ResourceBundle rb = ResourceBundle.getBundle("local");
-                    forward.getAttributes().put("successMessage", rb);
+                    Forward forward = new Forward(
+                            "/user/admin/addstaffpage.html", true);
+                    forward.getAttributes().put("successMessage", "staffAdded");
                     return forward;
                 } catch (InvalidFormDataException newE) {
                     request.setAttribute("message", newE.getMessage());
@@ -63,13 +74,13 @@ public class AddStaffAction extends AuthorizedUserAction {
         return new Forward("/login.html", true);
     }
 
+    /**
+     * Call method that get user parameters from request and add them to list.
+     * @param request on action.
+     * @param userParameters list to fill user parameters.
+     * */
     private void addUserParameters(final HttpServletRequest request,
                                    final List<String> userParameters) {
-        userParameters.add(request.getParameter("login"));
-        userParameters.add(request.getParameter("password"));
-        userParameters.add(request.getParameter("email"));
-        userParameters.add(request.getParameter("firstName"));
-        userParameters.add(request.getParameter("secondName"));
-        userParameters.add(request.getParameter("mobilePhone"));
+        RegisterAction.addUserParametersToList(request, userParameters);
     }
 }

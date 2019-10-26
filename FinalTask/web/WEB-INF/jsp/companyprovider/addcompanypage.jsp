@@ -49,11 +49,11 @@
                         </c:if>
                         <div class="card-body form-group">
                             <label><fmt:message key="companyName" bundle="${lang}"/> </label>
-                            <input name="companyName" class="form-control" type="text">
+                            <input name="companyName" class="form-control" type="text" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" required>
                             <label><fmt:message key="addressTitle" bundle="${lang}"/></label>
-                            <input name="companyAddress" class="form-control"  type="text">
+                            <input name="companyAddress" class="form-control"  type="text" pattern="^[a-zA-Zа-яА-Я0-9-,. ]+$" required>
                             <label><fmt:message key="phoneTitle" bundle="${lang}"/></label>
-                            <input name="companyPhone" class="form-control" type="text">
+                            <input name="companyPhone" class="form-control" type="text" pattern="^((25)|(29)|(33)|(44))([0-9]{7}$)" required>
                             <div>
                                 <button type="submit" class="btn btn-primary">
                                     <fmt:message key="addCompany" bundle="${lang}"/>
