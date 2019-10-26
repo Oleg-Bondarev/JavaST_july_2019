@@ -39,23 +39,17 @@ public class RegisterAction extends Action {
                     int generatedUserId = userService.create(user);
                     user.setId(generatedUserId);
                 } catch (ServiceException newE) {
-                    session.setAttribute("message", "alreadyLoggedIn");
-                    return null;
+                    return executeForward("/registration.html",
+                            "message", newE.getMessage());
                 }
             } catch (InvalidFormDataException newE) {
-                Forward forward = new Forward("/registration.html");
-                forward.getAttributes().put("message", newE.getMessage());
-                return forward;
-                /*request.setAttribute("message", newE.getMessage());
-                return null;*/
+                return executeForward("/registration.html",
+                        "message", newE.getMessage());
             }
             return new Forward("/loginpage.html");
         } else {
-            Forward forward = new Forward("/loginpage.html");
-            forward.getAttributes().put("message", "alreadyLoggedIn");
-            return forward;
-            /*session.setAttribute("message", "alreadyLoggedIn");
-            return null;*/
+            return executeForward("/loginpage.html",
+                    "message", "alreadyLoggedIn");
         }
     }
 

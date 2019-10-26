@@ -37,13 +37,24 @@
                     <div class="text-center">
                         <h2><b><fmt:message key="login" bundle="${lang}"/></b></h2>
                     </div>
+
+                    <c:if test="${not empty message}">
+                        <div class="text-center text-warning">
+                            <label class="text">
+                                <fmt:message key="attantion" bundle="${lang}"/>:
+                                <fmt:message key="${message}" bundle="${lang}"/>
+                            </label>
+                        </div>
+                    </c:if>
+
                     <div class="form-group">
                         <label for="validationDefaultUser">
                             <fmt:message key="username" bundle="${lang}"/>
                         </label>
                         <input pattern="^[a-zA-Z0-9]{4,16}$" id="validationDefaultUser"
                                type="text" class="form-control" name="login"
-                               placeholder="Enter username" value="${param.login}" required>
+                               placeholder="<fmt:message key="enterUserName" bundle="${lang}"/>"
+                               value="${param.login}" required>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">
@@ -51,7 +62,7 @@
                         </label>
                         <input pattern="^[a-zA-Z0-9]{8,16}$" id="inputPassword"
                                type="password" class="form-control" name="password"
-                               placeholder="Enter password"
+                               placeholder="<fmt:message key="enterPassword" bundle="${lang}"/>"
                                aria-describedby="passwordHelp" required>
                     </div>
                     <div class="text-center">
@@ -59,12 +70,6 @@
                             <fmt:message key="loginbutton" bundle="${lang}"/>
                         </button>
                     </div>
-                    <br>
-                    <c:if test="${not empty message}">
-                        <div class="text-center">
-                            <label class="text"><fmt:message key="${message}" bundle="${lang}"/></label>
-                        </div>
-                    </c:if>
                 </form>
             </div>
         </div>

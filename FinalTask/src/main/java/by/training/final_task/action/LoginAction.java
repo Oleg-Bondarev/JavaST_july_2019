@@ -24,6 +24,10 @@ public class LoginAction extends AuthorizedUserAction {
      * Name of the attribute.
      * */
     private static final String MESSAGE = "message";
+    /**
+     * Url for redirect.
+     * */
+    private static final String LOGIN_URL = "/loginpage.html";
 
     @Override
     public Forward executeRequest(final HttpServletRequest request,
@@ -33,7 +37,7 @@ public class LoginAction extends AuthorizedUserAction {
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
 
-        if ((login != null) && (password != null)) {
+        if ((!login.isEmpty()) && (!password.isEmpty())) {
             if (session.getAttribute("authorizedUser") == null) {
                 UserService service = (UserService) factory
                         .createService(DAOEnum.USER);
@@ -48,18 +52,18 @@ public class LoginAction extends AuthorizedUserAction {
 
                     return new Forward("/user/profile.html");
                 } else {
-                    request.setAttribute(MESSAGE,
-                            "couldNotFindLoginPassword");
                     LOGGER.log(Level.INFO, "User {} unsuccessfully tried"
-                            + " to login from {} ({},{})", login,
+                                    + " to login from {} ({},{})", login,
                             request.getRemoteAddr(), request.getRemoteHost(),
                             request.getRemotePort());
+                    return executeForward(LOGIN_URL, MESSAGE,
+                            "couldNotFindLoginPassword");
                 }
             } else {
-                request.setAttribute(MESSAGE, "alreadyLoggedInUser");
+                return executeForward(LOGIN_URL, MESSAGE,
+                        "alreadyLoggedInUser");
             }
         }
-        request.setAttribute(MESSAGE, "fillAllFields");
-        return null;
+        return executeForward(LOGIN_URL, MESSAGE, "fillAllFields");
     }
 }
