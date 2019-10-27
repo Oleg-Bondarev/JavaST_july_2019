@@ -139,4 +139,13 @@ public class Validator {
         }
         return false;
     }
+    /**
+     * Validate id parameter in get request.
+     * @param newId id from get request.
+     * @return true if it is a digit, false - otherwise.
+     * */
+    public boolean validateIdParameter(final String newId) {
+        final String regex = "^[\\d]+$";
+        return newId.matches(regex);
+    }
 }

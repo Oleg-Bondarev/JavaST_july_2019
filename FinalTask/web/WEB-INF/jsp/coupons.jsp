@@ -31,12 +31,6 @@
 
 <div id="wrap">
     <jsp:include page="/WEB-INF/jsp/special/header.jsp" flush="true"/>
-    <br>
-    <c:if test="${not empty message}">
-        <div style="text-align: center;">
-            <label class="text"><fmt:message key="${message}" bundle="${lang}"/></label>
-        </div>
-    </c:if>
     <main>
         <div class="row">
             <div class="col-md-6 align-content-center">

@@ -30,6 +30,16 @@
 <div id="wrap">
     <jsp:include page="/WEB-INF/jsp/special/header.jsp" flush="true"/>
     <main>
+
+        <c:if test="${not empty message}">
+            <div class="text-center text-warning">
+                <label class="text">
+                    <fmt:message key="attantion" bundle="${lang}"/>:
+                    <fmt:message key="${message}" bundle="${lang}"/>
+                </label>
+            </div>
+        </c:if>
+
         <div class="container div-shadow" style="background-color: white">
             <div class="text-center">
                 <img class="card-img-top profile-avatar"

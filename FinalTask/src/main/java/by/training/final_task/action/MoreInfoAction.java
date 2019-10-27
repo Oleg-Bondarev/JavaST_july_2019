@@ -24,12 +24,13 @@ public class MoreInfoAction extends AuthorizedUserAction {
                                   final HttpServletResponse response)
             throws ServiceException {
         //long couponID = Long.parseLong(request.getParameter("couponID"));
-        long couponID = 0;
-        try {
-            couponID = Long.parseLong(request.getParameter("id"));
-        } catch (NumberFormatException newE) {
-            LOGGER.log(Level.ERROR, newE);
+        String tempId = request.getParameter("id");
+        if (!validator.validateIdParameter(tempId)) {
+            LOGGER.log(Level.DEBUG, "Incorrect id parameter {}", tempId);
+            return executeForward("/coupons.html?page=1",
+                    "message", "incorrectIdParam");
         }
+        long couponID = Long.parseLong(tempId);
 
         CouponService couponService = (CouponService)
                 factory.createService(DAOEnum.COUPON);
