@@ -15,15 +15,19 @@ public class CompanyFormParser extends FormParser<CompanyProvider> {
             throws InvalidFormDataException {
         if (!newParameters.isEmpty() && !newParameters.contains(null)
             && !newParameters.contains("")) {
-            CompanyParametersValidator validator = new CompanyParametersValidator();
-            Map<String, Boolean> validationMap = validator.validate(newParameters);
+            CompanyParametersValidator validator =
+                    new CompanyParametersValidator();
+            Map<String, Boolean> validationMap =
+                    validator.validate(newParameters);
             for (Map.Entry<String, Boolean> entry : validationMap.entrySet()) {
                 if (entry.getValue()) {
                     throw new InvalidFormDataException(entry.getKey());
                 }
             }
-            String companyName = newParameters.get(validator.getCompanyNameIndex());
-            String companyAddress = newParameters.get(validator.getCompanyAddressIndex());
+            String companyName = newParameters.get(validator
+                    .getCompanyNameIndex());
+            String companyAddress = newParameters.get(validator
+                    .getCompanyAddressIndex());
             Integer companyPhone = Integer.parseInt(newParameters
                     .get(validator.getCompanyPhoneIndex()));
             return new CompanyProvider(0, companyAddress, companyName,

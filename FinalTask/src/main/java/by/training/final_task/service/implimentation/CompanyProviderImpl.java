@@ -46,9 +46,11 @@ public class CompanyProviderImpl extends AbstractService
 
     @Override
     public CompanyProvider getByPhone(final int phone) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 return companyProviderDAO.getByPhone(phone);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -63,7 +65,8 @@ public class CompanyProviderImpl extends AbstractService
     public List<CompanyProvider> getAllAvailableCompany(final int offset,
                                                         final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
                 CompanyProviderDAO companyProviderDAO = getDaoFactory()
                         .createCompanyProviderDAO(connectionManager);
@@ -80,7 +83,8 @@ public class CompanyProviderImpl extends AbstractService
     @Override
     public List<CompanyProvider> getAvailableCompanyList()
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
                 CompanyProviderDAO companyProviderDAO = getDaoFactory()
                         .createCompanyProviderDAO(connectionManager);
@@ -98,11 +102,13 @@ public class CompanyProviderImpl extends AbstractService
     public List<CompanyProvider> getByCompanyName(final String name,
                                               final int offset, final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
                 CompanyProviderDAO companyProviderDAO = getDaoFactory()
                         .createCompanyProviderDAO(connectionManager);
-                return companyProviderDAO.getByCompanyName(name, offset - 1, limit);
+                return companyProviderDAO.getByCompanyName(name,
+                        offset - 1, limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -114,9 +120,11 @@ public class CompanyProviderImpl extends AbstractService
 
     @Override
     public int getAmountOfCompany() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 return companyProviderDAO.getAmountOfCompany();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -129,9 +137,11 @@ public class CompanyProviderImpl extends AbstractService
 
     @Override
     public int getAmountOfAvailableCompany() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 return companyProviderDAO.getAmountOfAvailableCompany();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -143,7 +153,8 @@ public class CompanyProviderImpl extends AbstractService
     }
 
     @Override
-    public int getAmountByCompanyName(final String name) throws ServiceException {
+    public int getAmountByCompanyName(final String name)
+            throws ServiceException {
         try (AbstractConnectionManager connectionManager =
                      new ConnectionManager()) {
             try {
@@ -161,9 +172,17 @@ public class CompanyProviderImpl extends AbstractService
 
     @Override
     public int create(final CompanyProvider company) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProvider dbCompany = findByPhone(company
+                        .getMobilePhone());
+                if (dbCompany != null) {
+                    throw new ServiceException("alreadyExistCompany");
+                }
+
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 int companyProviderId = companyProviderDAO.create(company);
                 company.setId(companyProviderId);
                 connectionManager.commitChange();
@@ -172,6 +191,18 @@ public class CompanyProviderImpl extends AbstractService
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
             }
+        } catch (PersistentException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
+    private CompanyProvider findByPhone(final int newPhone)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
+                return companyProviderDAO.getByPhone(newPhone);
         } catch (PersistentException newE) {
             throw new ServiceException(newE);
         }
@@ -197,9 +228,11 @@ public class CompanyProviderImpl extends AbstractService
 
     @Override
     public boolean updateCompanyStatus(final long id) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CompanyProviderDAO companyProviderDAO = getDaoFactory().createCompanyProviderDAO(connectionManager);
+                CompanyProviderDAO companyProviderDAO = getDaoFactory()
+                        .createCompanyProviderDAO(connectionManager);
                 boolean statement = companyProviderDAO.updateCompanyStatus(id);
                 connectionManager.commitChange();
                 return statement;

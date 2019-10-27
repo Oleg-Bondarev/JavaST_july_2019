@@ -14,7 +14,6 @@ import java.util.List;
 
 public class CategoryServiceImpl extends AbstractService
                                  implements CategoryService {
-    
     public CategoryServiceImpl() {
         super();
     }
@@ -26,9 +25,11 @@ public class CategoryServiceImpl extends AbstractService
     //+
     @Override
     public Category get(final long id) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CategoryDAO categoryDAO = getDaoFactory().createCategoryDAO(connectionManager);
+                CategoryDAO categoryDAO = getDaoFactory()
+                        .createCategoryDAO(connectionManager);
                 return categoryDAO.get(id);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -41,9 +42,11 @@ public class CategoryServiceImpl extends AbstractService
 
     @Override
     public List<Category> getAll() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CategoryDAO categoryDAO = getDaoFactory().createCategoryDAO(connectionManager);
+                CategoryDAO categoryDAO = getDaoFactory()
+                        .createCategoryDAO(connectionManager);
                 return categoryDAO.getAll();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -56,9 +59,11 @@ public class CategoryServiceImpl extends AbstractService
 
     @Override
     public int getAmountOfCategory() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CategoryDAO categoryDAO = getDaoFactory().createCategoryDAO(connectionManager);
+                CategoryDAO categoryDAO = getDaoFactory()
+                        .createCategoryDAO(connectionManager);
                 return categoryDAO.getAmountOfCategory();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -71,9 +76,11 @@ public class CategoryServiceImpl extends AbstractService
 
     @Override
     public int create(final Category category) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CategoryDAO categoryDAO = getDaoFactory().createCategoryDAO(connectionManager);
+                CategoryDAO categoryDAO = getDaoFactory()
+                        .createCategoryDAO(connectionManager);
                 int categoryId = categoryDAO.create(category);
                 category.setId(categoryId);
                 connectionManager.commitChange();

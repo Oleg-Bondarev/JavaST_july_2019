@@ -20,24 +20,24 @@ import java.util.List;
 
 /**
  * Represent search company by mobile phone.
- * */
+ */
 public class FindCompanyByPhoneAction extends AuthorizedUserAction {
     /**
      * Class logger.
-     * */
+     */
     private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Parameter name.
-     * */
+     */
     private static final String PHONE_PARAMETER = "phoneParameter";
     /**
      * Count objects in the page for pagination.
-     * */
+     */
     private static final int ROWS_IN_PAGE = 5;
 
     /**
      * Set roles that can perform current action.
-     * */
+     */
     public FindCompanyByPhoneAction() {
         allowedRoles.add(Role.STAFF);
     }
@@ -75,11 +75,13 @@ public class FindCompanyByPhoneAction extends AuthorizedUserAction {
                 request.getRemoteAddr(), request.getRequestURI());
         throw new ServiceException("forbiddenAccess");
     }
+
     /**
      * Get company phone from request.
+     *
      * @param request for action.
      * @return phone number in string representation.
-     * */
+     */
     private String getCompanyPhone(final HttpServletRequest request) {
         String phone = request.getParameter(PHONE_PARAMETER);
         if (phone == null) {

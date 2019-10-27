@@ -41,8 +41,8 @@ public abstract class Action {
                                     final HttpServletResponse response)
             throws ServiceException;
 
-    Forward executeForward(final String newUrl, final String newParam,
-                                   final String newMsg) {
+    protected Forward executeForward(final String newUrl, final String newParam,
+                                     final String newMsg) {
         Forward forward = new Forward(newUrl);
         forward.getAttributes().put(newParam, newMsg);
         return forward;

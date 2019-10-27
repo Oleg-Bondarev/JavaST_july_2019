@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,40 +21,48 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String GET_ALL_REVIEWS_OF_CURRENT_USER =
-        "SELECT reviews.id, reviews.review, reviews.coupon_id, reviews.user_id " +
-            "FROM reviews JOIN user ON reviews.user_id = user.id" +
-            " WHERE user.id = ? LIMIT ? OFFSET ?";
+            "SELECT reviews.id, reviews.review, reviews.coupon_id,"
+                    + " reviews.user_id FROM reviews JOIN user"
+                    + " ON reviews.user_id = user.id WHERE user.id = ?"
+                    + " LIMIT ? OFFSET ?";
     private static final String GET_ALL_REVIEWS_FOR_CURRENT_COUPON =
-        "SELECT  reviews.id, reviews.review, reviews.coupon_id, reviews.user_id " +
-            "FROM reviews JOIN coupon ON reviews.coupon_id = coupon.id " +
-            "WHERE coupon.id = ? LIMIT ? OFFSET ?";
+            "SELECT  reviews.id, reviews.review, reviews.coupon_id,"
+                    + " reviews.user_id FROM reviews JOIN coupon "
+                    + "ON reviews.coupon_id = coupon.id WHERE coupon.id = ? "
+                    + "LIMIT ? OFFSET ?";
     private static final String GET_ALL_AMOUNT_REVIEWS =
-        "SELECT COUNT(reviews.id) FROM reviews";
+            "SELECT COUNT(reviews.id) FROM reviews";
     private static final String GET_AMOUNT_REVIEWS_FOR_CURRENT_USER =
-        "SELECT COUNT(reviews.id) FROM reviews JOIN user ON reviews.user_id = user.id " +
-            "WHERE  user.id = ?";
+            "SELECT COUNT(reviews.id) FROM reviews JOIN user "
+                    + "ON reviews.user_id = user.id WHERE  user.id = ?";
     private static final String GET_AMOUNT_REVIEWS_FOR_CURRENT_COUPON =
-        "SELECT COUNT(reviews.id) FROM reviews JOIN coupon ON reviews.coupon_id = coupon.id " +
-                "WHERE coupon.id = ?";
-    private static final String ADD_REVIEW = "INSERT INTO reviews " +
-        "(review, coupon_id, user_id) VALUES (?,?,?)";
-    private static final String GET_REVIEW = "SELECT reviews.id, reviews.review," +
-        "reviews.coupon_id, reviews.user_id FROM reviews WHERE reviews.id = ?";
-    private static final String GET_ALL_REVIEWS = "SELECT reviews.id, reviews.review, " +
-        "reviews.coupon_id, reviews.user_id FROM reviews ORDER BY id LIMIT ? OFFSET ?";
-    private static final String UPDATE_REVIEW = "UPDATE reviews SET " +
-            "reviews.id=?, reviews.review=?, reviews.coupon_id=?," +
-            " reviews.user_id=? WHERE reviews.id = ?";
-    private static final String DELETE_REVIEW = "DELETE FROM reviews " +
-            "WHERE reviews.id = ?";
+            "SELECT COUNT(reviews.id) FROM reviews JOIN coupon "
+                    + "ON reviews.coupon_id = coupon.id WHERE coupon.id = ?";
+    private static final String ADD_REVIEW = "INSERT INTO reviews "
+            + "(review, coupon_id, user_id) VALUES (?,?,?)";
+    private static final String GET_REVIEW =
+            "SELECT reviews.id, reviews.review, reviews.coupon_id,"
+                    + " reviews.user_id FROM reviews WHERE reviews.id = ?";
+    private static final String GET_ALL_REVIEWS =
+            "SELECT reviews.id, reviews.review, reviews.coupon_id, "
+                    + "reviews.user_id FROM reviews ORDER BY id"
+                    + " LIMIT ? OFFSET ?";
+    private static final String UPDATE_REVIEW = "UPDATE reviews SET "
+            + "reviews.id=?, reviews.review=?, reviews.coupon_id=?,"
+            + " reviews.user_id=? WHERE reviews.id = ?";
+    private static final String DELETE_REVIEW = "DELETE FROM reviews "
+            + "WHERE reviews.id = ?";
 
     public ReviewsDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
+
     //+
     @Override
     public List<Reviews> getAllReviewsCurrentUser(final long userId,
-            final int offset, final int limit) throws PersistentException {
+                                                  final int offset,
+                                                  final int limit)
+            throws PersistentException {
         List<Reviews> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_REVIEWS_OF_CURRENT_USER)) {
@@ -73,10 +80,13 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public List<Reviews> getAllReviewsCurrentCoupon(final long couponId,
-            final int offset, final int limit) throws PersistentException {
+                                                    final int offset,
+                                                    final int limit)
+            throws PersistentException {
         List<Reviews> coupons = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(GET_ALL_REVIEWS_FOR_CURRENT_COUPON)) {
@@ -94,6 +104,7 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public int getAllCount() throws PersistentException {
@@ -108,6 +119,7 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public int getCountReviewsCurrentUser(final long userId)
@@ -124,6 +136,7 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public int getCountReviewsCurrentCoupon(final long couponId)
@@ -164,11 +177,13 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
         return 0;
     }
+
     //+
     @Override
     public Reviews get() throws PersistentException {
         return get(1);
     }
+
     //+
     @Override
     public Reviews get(final long id) throws PersistentException {
@@ -187,6 +202,7 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
         return review;
     }
+
     //+
     @Override
     public List<Reviews> getAll(final int offset, final int limit)
@@ -255,9 +271,11 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
     }
 
     private void setPreparedStatement(final Reviews newReview,
-            final PreparedStatement preparedStatement) throws SQLException {
+                                      final PreparedStatement preparedStatement)
+            throws SQLException {
         preparedStatement.setNString(1, newReview.getReview());
-        preparedStatement.setLong(2, newReview.getCoupon().getId());
+        preparedStatement.setLong(2,
+                newReview.getCoupon().getId());
         preparedStatement.setLong(3, newReview.getUser().getId());
     }
 }

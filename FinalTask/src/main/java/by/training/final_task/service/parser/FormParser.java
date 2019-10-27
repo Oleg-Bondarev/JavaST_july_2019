@@ -28,8 +28,8 @@ public abstract class FormParser<T> {
         if (pageParameter.matches(numberRegex)) {
             int pageNumber = Integer.parseInt(pageParameter);
             if (pageNumber > amountOfPages) {
-                LOGGER.log(Level.DEBUG, "Page number greater then amount " +
-                        "of pages.");
+                LOGGER.log(Level.DEBUG, "Page number greater then amount"
+                        + " of pages.");
                 return 1;
             } else {
                 return pageNumber;
@@ -38,6 +38,7 @@ public abstract class FormParser<T> {
         LOGGER.log(Level.DEBUG, "Incorrect page number format.");
         return 1;
     }
+
     //min date 2000-01-01
     public static LocalDate parseDate(final String format,
                                       final String stringDate)
@@ -61,7 +62,7 @@ public abstract class FormParser<T> {
     }
 
     private static boolean isValidDate(final DateFormat dateFormat,
-                                final String newDate)
+                                       final String newDate)
             throws InvalidFormDataException {
         String minDate = "2000-01-01";
         Calendar startDate = Calendar.getInstance();

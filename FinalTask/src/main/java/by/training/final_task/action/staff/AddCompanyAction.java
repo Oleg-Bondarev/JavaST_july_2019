@@ -47,21 +47,21 @@ public class AddCompanyAction extends AuthorizedUserAction {
                                     .createService(DAOEnum.COMPANYPROVIDER);
                     int companyIdGenerated = companyService.create(company);
                     company.setId(companyIdGenerated);
-                    Forward forward = new Forward(
+
+                    return executeForward(
                             "/companyprovider/addcompanypage.html",
-                            true);
-                    forward.getAttributes().put("successMessage", "companyAdded");
-                    return forward;
-                } catch (InvalidFormDataException newE) {
-                    request.setAttribute("message", newE.getMessage());
-                    return null;
+                            "successMessage", "companyAdded");
+                } catch (InvalidFormDataException | ServiceException newE) {
+                    return executeForward(
+                            "/companyprovider/addcompanypage.html",
+                            "message", newE.getMessage());
                 }
             }
-            return new Forward("/login.html", true);
+            return new Forward("/loginpage.html", true);
         }
         LOGGER.log(Level.INFO, "{} - attempted to access {} and failed",
                 request.getRemoteAddr(), request.getRequestURI());
-        return new Forward("/login.html", true);
+        return new Forward("/loginpage.html", true);
     }
 
     private void addCompanyParameters(final HttpServletRequest request,

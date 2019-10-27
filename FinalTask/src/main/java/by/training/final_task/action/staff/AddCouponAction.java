@@ -47,30 +47,34 @@ public class AddCouponAction extends AuthorizedUserAction {
 
                     coupon.setPathToPicture("img/coupon/default.jpg");
                     couponService.create(coupon);
-                    Forward forward = new Forward("/user/staff/addcouponpage.html",
-                            true);
-                    forward.getAttributes().put("successMessage", "addedCoupon");
-                    return forward;
+                    return executeForward("/user/staff/addcouponpage.html",
+                            "successMessage", "addedCoupon");
                 } catch (InvalidFormDataException newE) {
-                    request.setAttribute("message", newE.getMessage());
-                    return null;
+                    return executeForward("/user/staff/addcouponpage.html",
+                            "message", newE.getMessage());
                 }
             }
-            LOGGER.log(Level.INFO, "{} - attempted to access {} and" +
-                    " stopped due to not enough privileges",
+            LOGGER.log(Level.INFO, "{} - attempted to access {} and"
+                            + " stopped due to not enough privileges",
                     request.getRemoteAddr(), request.getRequestURI());
         }
         throw new ServiceException("forbiddenAccess");
     }
 
-    private void addCouponParametersToList(final HttpServletRequest newServletRequest,
-                                          final List<String> couponParameters) {
-        couponParameters.add(newServletRequest.getParameter("couponName"));
-        couponParameters.add(newServletRequest.getParameter("couponDescription"));
-        couponParameters.add(newServletRequest.getParameter("couponPrice"));
-        couponParameters.add(newServletRequest.getParameter("holdingAddress"));
-        couponParameters.add(newServletRequest.getParameter("category"));
-        couponParameters.add(newServletRequest.getParameter("companyProvider"));
+    private void addCouponParametersToList(final HttpServletRequest
+                   newServletRequest, final List<String> couponParameters) {
+        couponParameters.add(newServletRequest.
+                getParameter("couponName"));
+        couponParameters.add(newServletRequest
+                .getParameter("couponDescription"));
+        couponParameters.add(newServletRequest
+                .getParameter("couponPrice"));
+        couponParameters.add(newServletRequest
+                .getParameter("holdingAddress"));
+        couponParameters.add(newServletRequest
+                .getParameter("category"));
+        couponParameters.add(newServletRequest
+                .getParameter("companyProvider"));
     }
 
     private void fillCategoryCompany(final Coupon newCoupon,

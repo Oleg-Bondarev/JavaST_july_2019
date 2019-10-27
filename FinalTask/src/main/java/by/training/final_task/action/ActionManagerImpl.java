@@ -1,6 +1,5 @@
 package by.training.final_task.action;
 
-import by.training.final_task.controller.ControllerException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.ServiceFactory;
 

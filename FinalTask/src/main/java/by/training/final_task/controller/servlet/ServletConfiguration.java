@@ -1,6 +1,5 @@
 package by.training.final_task.controller.servlet;
 
-import by.training.final_task.controller.ControllerException;
 import by.training.final_task.service.validator.PropertyValidator;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import org.apache.logging.log4j.Level;
@@ -56,32 +55,37 @@ public final class ServletConfiguration {
     }
 
     private void readProperties(final ResourceBundle resourceBundle)
-            /*throws ControllerException*/ {
+        /*throws ControllerException*/ {
         int startSize = 0;
         int maxSize = 0;
         int timeout = 0;
         try {
-            startSize = Integer.parseInt(resourceBundle.getString("dbPoolStartSize"));
-            maxSize = Integer.parseInt(resourceBundle.getString("dbPoolMaxSize"));
-            timeout = Integer.parseInt(resourceBundle.getString("dbPoolCheckTimeout"));
+            startSize = Integer.parseInt(resourceBundle
+                    .getString("dbPoolStartSize"));
+            maxSize = Integer.parseInt(resourceBundle
+                    .getString("dbPoolMaxSize"));
+            timeout = Integer.parseInt(resourceBundle
+                    .getString("dbPoolCheckTimeout"));
         } catch (ParseException newE) {
             LOGGER.log(Level.ERROR, "Pool size and timeout checking" +
                     " parameter must be an integer numbers.");
             //throw new ControllerException(newE.getMessage(), newE);
         }
         //надо ли через фабрику какую получать объект валидатора?
-        if (PropertyValidator.isValidIntegerPropParameters(startSize, maxSize, timeout)) {
-            dbDriverClass =  resourceBundle.getString("dbDriverClass");
-            dbURL =  resourceBundle.getString("dbURl");
-            dbUserLogin =  resourceBundle.getString("dbUser");
+        if (PropertyValidator.isValidIntegerPropParameters(startSize, maxSize,
+                timeout)) {
+            dbDriverClass = resourceBundle.getString("dbDriverClass");
+            dbURL = resourceBundle.getString("dbURl");
+            dbUserLogin = resourceBundle.getString("dbUser");
             dbUserPassword = resourceBundle.getString("dbPassword");
             dbPoolStartSize = startSize;
             dbPoolMaxSize = maxSize;
             dbPoolCheckConnectionTimeout = timeout;
         } else {
             LOGGER.log(Level.ERROR, "Incorrect integer values: " +
-                "start pool size={}, max pool size={}, timeout={}",
-                dbPoolStartSize, dbPoolMaxSize, dbPoolCheckConnectionTimeout);
+                            "start pool size={}, max pool size={}, timeout={}",
+                    dbPoolStartSize, dbPoolMaxSize,
+                    dbPoolCheckConnectionTimeout);
         }
     }
 }

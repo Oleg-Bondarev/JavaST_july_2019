@@ -40,10 +40,12 @@ public class UserServiceImpl extends AbstractService
         }
 
         try (AbstractConnectionManager connectionManager =
-                new ConnectionManager()) {
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                newUser.setPassword(argonTwoHashAlgorithm(newUser
+                        .getPassword()));
                 int userId = userDAO.create(newUser);
                 newUser.setId(userId);
                 connectionManager.commitChange();
@@ -58,11 +60,24 @@ public class UserServiceImpl extends AbstractService
     }
 
     @Override
-    public boolean update(final User newUser) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+    public boolean update(final User newUser, final User oldUser)
+            throws ServiceException {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                newUser.setPassword(argonTwoHashAlgorithm(newUser.getPassword()));
+                User dbUser = getByLogin(newUser.getLogin());
+                if ((dbUser != null) && !dbUser.equals(oldUser)) {
+                    throw new ServiceException("alreadyUsedLogin");
+                }
+                dbUser = getByEmail(newUser.getEmail());
+                if ((dbUser != null) && !dbUser.equals(oldUser)) {
+                    throw new ServiceException("alreadyUsedEmail");
+                }
+
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                newUser.setPassword(argonTwoHashAlgorithm(newUser
+                        .getPassword()));
                 boolean statement = userDAO.update(newUser);
                 connectionManager.commitChange();
                 return statement;
@@ -77,9 +92,11 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public boolean updateUserState(final long id) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 boolean statement = userDAO.updateUserState(id);
                 connectionManager.commitChange();
                 return statement;
@@ -94,9 +111,11 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public User get(final long id) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.get(id);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -110,14 +129,17 @@ public class UserServiceImpl extends AbstractService
     @Override
     public User get(final String login, final String password)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 User userForCheck = userDAO.getUserByLogin(login);
                 if (userForCheck == null) {
                     return null;
                 } else {
-                    return verifyUser(userForCheck, password) ? userForCheck : null;
+                    return verifyUser(userForCheck, password) ? userForCheck :
+                            null;
                 }
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -133,7 +155,8 @@ public class UserServiceImpl extends AbstractService
         try (AbstractConnectionManager connectionManager =
                      new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getUserByLogin(login);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -163,9 +186,11 @@ public class UserServiceImpl extends AbstractService
     @Override
     public List<User> getAll(final int offset, final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getAll(offset, limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -177,13 +202,18 @@ public class UserServiceImpl extends AbstractService
     }
 
     @Override
-    public List<User> getAllUsersByRoleAndName(final String name, final Role role,
-                                               final int offset, final int limit)
+    public List<User> getAllUsersByRoleAndName(final String name,
+                                               final Role role,
+                                               final int offset,
+                                               final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getAllUsersByRoleAndName(name, role, offset, limit);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                return userDAO.getAllUsersByRoleAndName(name, role, offset,
+                        limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -197,9 +227,11 @@ public class UserServiceImpl extends AbstractService
     public List<User> getAllUsersByRole(final Role newRole, final int offset,
                                         final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getAllUsersByRole(newRole, offset, limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -212,12 +244,16 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
-                                      final String secondName, final Role role)
+                                                      final String secondName,
+                                                      final Role role)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getAllUsersByFirstAndSecondName(firstName, secondName, role);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                return userDAO.getAllUsersByFirstAndSecondName(firstName,
+                        secondName, role);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -230,9 +266,11 @@ public class UserServiceImpl extends AbstractService
     @Override
     public List<User> getAllActiveUsers(final int offset, final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getAllActiveUsers(offset, limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -246,9 +284,11 @@ public class UserServiceImpl extends AbstractService
     @Override
     public int getAmountOfAllUsersByRole(final Role newRole)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getAmountOfAllUsersByRole(newRole);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -263,10 +303,13 @@ public class UserServiceImpl extends AbstractService
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
                                                      final Role role)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getAmountOfAllUsersByFirstNameAndRole(firstName, role);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByFirstNameAndRole(firstName,
+                        role);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -278,14 +321,16 @@ public class UserServiceImpl extends AbstractService
 
     @Override
     public int getAmountOfAllUsersByFirstAndSecondName(final String firstName,
-                                       final String secondName, final Role role)
+                                                       final String secondName,
+                                                       final Role role)
             throws ServiceException {
         try (AbstractConnectionManager connectionManager
                      = new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
-                return userDAO.getAmountOfAllUsersByFirstAndSecondName(firstName,
-                        secondName, role);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
+                return userDAO.getAmountOfAllUsersByFirstAndSecondName(
+                        firstName, secondName, role);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -298,9 +343,11 @@ public class UserServiceImpl extends AbstractService
     @Override
     public int getAmountOfAllUsersByEmail(final String email)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                UserDAO userDAO = getDaoFactory().createUserDAO(connectionManager);
+                UserDAO userDAO = getDaoFactory()
+                        .createUserDAO(connectionManager);
                 return userDAO.getAmountOfAllUsersByEmail(email);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();

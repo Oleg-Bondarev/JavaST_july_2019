@@ -10,14 +10,18 @@ public class CouponParametersValidator extends Validator implements Valid {
     private static final int COUPON_PRICE = 2;
     private static final int HOLDING_ADDRESS = 3;
 
-    public static final String REGEX_FOR_COUPON_NAME = "^[a-zA-Zа-яёА-ЯЁ0-9- ]+$";
-    public static final String REGEX_FOR_COUPON_DESCRIPTION = "^[a-zA-Zа-яёА-ЯЁ0-9-\",.!? ]+$";
-    public static final String REGEX_FOR_COUPON_PRICE = "^[1-9]{1}[\\d]{0,2}\\.[\\d]{2}$";
-    public static final String REGEX_FOR_ADDRESS = "^[a-zA-Zа-яёА-ЯЁ\\d-\",. ]+$";
+    public static final String REGEX_FOR_COUPON_NAME =
+            "^[a-zA-Zа-яёА-ЯЁ0-9- ]+$";
+    public static final String REGEX_FOR_COUPON_DESCRIPTION =
+            "^[a-zA-Zа-яёА-ЯЁ0-9-\",.!? ]+$";
+    public static final String REGEX_FOR_COUPON_PRICE =
+            "^[1-9]{1}[\\d]{0,2}\\.[\\d]{2}$";
+    public static final String REGEX_FOR_ADDRESS =
+            "^[a-zA-Zа-яёА-ЯЁ\\d-\",. ]+$";
 
     private static final String[] params =
-                                {"incorrectCouponName", "incorrectDescription",
-                                "incorrectPrice", "incorrectAddress"};
+            {"incorrectCouponName", "incorrectDescription",
+                    "incorrectPrice", "incorrectAddress"};
 
     public int getCouponNameIndex() {
         return COUPON_NAME;
@@ -39,7 +43,8 @@ public class CouponParametersValidator extends Validator implements Valid {
     public Map<String, Boolean> validate(List<String> parameters) {
         Validator validator = new Validator();
         validator.checkPotentialAttack(parameters);
-        Map<String, Boolean> validationMap = validator.initValidationMap(params);
+        Map<String, Boolean> validationMap =
+                validator.initValidationMap(params);
 
         if (parameters.get(COUPON_NAME).matches(REGEX_FOR_COUPON_NAME)) {
             validationMap.put("incorrectCouponName", false);

@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Represent adding stuff action to a system.
@@ -31,9 +30,13 @@ public class AddStaffAction extends AuthorizedUserAction {
     /**
      * For parsing input parameters from registration form.
      * */
-    private static final UserFormParser userFormParser = new UserFormParser();
+    private final UserFormParser userFormParser = new UserFormParser();
     /**
-     * Set roles th
+     * Url.
+     * */
+    private static final String URL_PATH = "/user/admin/addstaffpage.html";
+    /**
+     * Set roles that can execute this request.
      * */
     public AddStaffAction() {
         allowedRoles.add(Role.ADMIN);
@@ -58,13 +61,11 @@ public class AddStaffAction extends AuthorizedUserAction {
                             .createService(DAOEnum.USER);
                     int userIdGenerated = userService.create(user);
                     user.setId(userIdGenerated);
-                    Forward forward = new Forward(
-                            "/user/admin/addstaffpage.html", true);
-                    forward.getAttributes().put("successMessage", "staffAdded");
-                    return forward;
-                } catch (InvalidFormDataException newE) {
-                    request.setAttribute("message", newE.getMessage());
-                    return null;
+                    return executeForward(URL_PATH, "successMessage",
+                            "staffAdded");
+                } catch (InvalidFormDataException | ServiceException newE) {
+                    return executeForward(URL_PATH, "message",
+                            newE.getMessage());
                 }
             }
             return new Forward("/login.html", true);

@@ -11,7 +11,8 @@ import by.training.final_task.service.interfaces.ReviewService;
 
 import java.util.List;
 
-public class ReviewServiceImpl extends AbstractService implements ReviewService {
+public class ReviewServiceImpl extends AbstractService
+        implements ReviewService {
 
     public ReviewServiceImpl(final DaoFactory newFactory) {
         super(newFactory);
@@ -23,12 +24,16 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public List<Reviews> getAllReviewsCurrentUser(final long userId,
-                                            final int offset, final int limit)
+                                                  final int offset,
+                                                  final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
-                return reviewsDAO.getAllReviewsCurrentUser(userId, offset, limit);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
+                return reviewsDAO.getAllReviewsCurrentUser(userId, offset,
+                        limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -40,12 +45,16 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public List<Reviews> getAllReviewsCurrentCoupon(final long couponId,
-                                        final int offset, final int limit)
+                                                    final int offset,
+                                                    final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
-                return reviewsDAO.getAllReviewsCurrentCoupon(couponId, offset, limit);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
+                return reviewsDAO.getAllReviewsCurrentCoupon(couponId, offset,
+                        limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -57,9 +66,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public int getAllCount() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 return reviewsDAO.getAllCount();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -73,9 +84,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
     @Override
     public int getCountReviewsCurrentUser(final long userId)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 return reviewsDAO.getCountReviewsCurrentUser(userId);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -89,9 +102,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
     @Override
     public int getCountReviewsCurrentCoupon(final long couponId)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 return reviewsDAO.getCountReviewsCurrentCoupon(couponId);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -104,9 +119,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public int create(final Reviews review) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 int userId = reviewsDAO.create(review);
                 review.setId(userId);
                 connectionManager.commitChange();
@@ -122,9 +139,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public boolean update(final Reviews element) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 boolean statement = reviewsDAO.update(element);
                 connectionManager.commitChange();
                 return statement;
@@ -139,9 +158,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public boolean delete(final Reviews element) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 boolean statment = reviewsDAO.delete(element);
                 connectionManager.commitChange();
                 return statment;
@@ -156,9 +177,11 @@ public class ReviewServiceImpl extends AbstractService implements ReviewService 
 
     @Override
     public boolean delete(final long id) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                ReviewsDAO reviewsDAO = getDaoFactory().createReviewsDAO(connectionManager);
+                ReviewsDAO reviewsDAO = getDaoFactory()
+                        .createReviewsDAO(connectionManager);
                 boolean statement = reviewsDAO.delete(id);
                 connectionManager.commitChange();
                 return statement;

@@ -15,15 +15,15 @@ import java.util.List;
 
 /**
  * Represent search coupons by category action.
- * */
+ */
 public class FindCouponByCategoryAction extends AuthorizedUserAction {
     /**
      * Class logger.
-     * */
+     */
     private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Count objects in the page for pagination.
-     * */
+     */
     private static final int ROWCOUNT = 10;
 
     @Override

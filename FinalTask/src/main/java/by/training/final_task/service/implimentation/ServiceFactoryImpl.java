@@ -11,11 +11,10 @@ import org.apache.logging.log4j.Logger;
 
 public class ServiceFactoryImpl implements ServiceFactory {
 
-    private static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     AbstractService abstractService = new AbstractService();
     ConnectionManager connectionManager;
 
-    //is it norm?
     public ServiceFactoryImpl() throws ServiceException {
         try {
             connectionManager = new ConnectionManager();
@@ -33,7 +32,6 @@ public class ServiceFactoryImpl implements ServiceFactory {
         return null;
     }
 
-    //TODO ??
     @Override
     public void close() throws ServiceException {
         try {
@@ -58,8 +56,8 @@ public class ServiceFactoryImpl implements ServiceFactory {
             case USER:
                 return new UserServiceImpl(abstractService.getDaoFactory());
             default:
-                throw new IllegalArgumentException("Cannot create service instance! " +
-                        "- Incorrect ENUM type.");
+                throw new IllegalArgumentException("Cannot create service"
+                        + " instance! - Incorrect ENUM type.");
         }
     }
 }

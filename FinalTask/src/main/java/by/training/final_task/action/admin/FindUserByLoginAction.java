@@ -6,7 +6,6 @@ import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.UserService;
-import by.training.final_task.service.validator.Validator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

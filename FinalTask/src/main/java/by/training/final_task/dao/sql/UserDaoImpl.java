@@ -19,7 +19,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
 
     private static final String ADD_USER = "INSERT INTO user (login, password,"
             + " role, email, avatar, first_name, second_name, mobile_phone,"
-            + " registration_date_time, blocking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + " registration_date_time, blocking)"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE user SET user.login=?,"
             + " user.password=?, user.role=?, user.email=?, user.avatar=?,"
             + " user.first_name=?, user.second_name=?, user.mobile_phone=?,"
@@ -30,66 +31,79 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
     private static final String GET_USER = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
-            + " user.registration_date_time, user.blocking FROM user WHERE id = ?";
+            + " user.registration_date_time, user.blocking FROM user"
+            + " WHERE id = ?";
 
-    private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user.id,"
-            + " user.login, user.password, user.role, user.email, user.avatar,"
-            + " user.first_name, user.second_name, user.mobile_phone,"
-            + " user.registration_date_time, user.blocking FROM user" +
-            " WHERE user.login = ? AND user.password = ?";
-    private static final String GET_USER_BY_LOGIN = "SELECT user.id, user.login," +
-            "user.password, user.role, user.email, user.avatar, user.first_name," +
-            "user.second_name, user.mobile_phone, user.registration_date_time," +
-            "user.blocking FROM user WHERE user.login = ? AND user.blocking=false";
-    private static final String GET_USER_BY_EMAIL = "SELECT user.id, user.login," +
-            "user.password, user.role, user.email, user.avatar, user.first_name," +
-            "user.second_name, user.mobile_phone, user.registration_date_time," +
-            "user.blocking FROM user WHERE user.email = ? AND user.blocking=false";
+    private static final String GET_USER_BY_LOGIN_AND_PASSWORD =
+            "SELECT user.id,"
+                    + " user.login, user.password, user.role, user.email,"
+                    + " user.avatar,"
+                    + " user.first_name, user.second_name, user.mobile_phone,"
+                    + " user.registration_date_time, user.blocking FROM user" +
+                    " WHERE user.login = ? AND user.password = ?";
+    private static final String GET_USER_BY_LOGIN =
+            "SELECT user.id, user.login,"
+                    + "user.password, user.role, user.email, user.avatar,"
+                    + " user.first_name,"
+                    + "user.second_name, user.mobile_phone,"
+                    + " user.registration_date_time, user.blocking FROM user"
+                    + " WHERE user.login = ? AND user.blocking=false";
+    private static final String GET_USER_BY_EMAIL =
+            "SELECT user.id, user.login, user.password, user.role, user.email,"
+                    + " user.avatar, user.first_name, user.second_name,"
+                    + " user.mobile_phone, user.registration_date_time,"
+                    + "user.blocking FROM user WHERE user.email = ? "
+                    + "AND user.blocking=false";
     private static final String GET_ALL_USERS = "SELECT user.id, user.login,"
             + " user.password, user.role, user.email, user.avatar,"
             + " user.first_name, user.second_name, user.mobile_phone,"
-            + " user.registration_date_time, user.blocking FROM user" +
-            " WHERE user.blocking=false ORDER BY id LIMIT ? OFFSET ?";
+            + " user.registration_date_time, user.blocking FROM user"
+            + " WHERE user.blocking=false ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_ROLE = "SELECT"
-            + " COUNT(user.role) FROM user WHERE user.role = ?" +
-            " AND user.blocking = false";
+            + " COUNT(user.role) FROM user WHERE user.role = ?"
+            + " AND user.blocking = false";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE =
             "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?"
                     + " AND user.role = ?";
-    private static final String GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME =
-            "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?" +
-            " AND user.second_name = ? AND user.role = ?";
+    private static final String
+            GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME =
+            "SELECT COUNT(user.role) FROM user WHERE user.first_name = ?"
+                    + " AND user.second_name = ? AND user.role = ?";
     private static final String GET_AMOUNT_OF_ALL_USERS_BY_EMAIL =
-            "SELECT COUNT(user.email) FROM user WHERE user.email = ?" +
-            " AND user.blocking = false";
+            "SELECT COUNT(user.email) FROM user WHERE user.email = ?"
+                    + " AND user.blocking = false";
     private static final String GET_ALL_USERS_BY_ROLE =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
-            + " user.avatar, user.first_name, user.second_name,"
-            + " user.mobile_phone, user.registration_date_time, user.blocking" +
-            " FROM user WHERE user.blocking=false AND user.role = ?" +
-            " ORDER BY id LIMIT ? OFFSET ?";
+                    + " user.avatar, user.first_name, user.second_name,"
+                    + " user.mobile_phone, user.registration_date_time,"
+                    + " user.blocking FROM user WHERE user.blocking=false"
+                    + " AND user.role = ? ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_USERS_BY_NAME_AND_ROLE =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
-            + " user.avatar, user.first_name, user.second_name,"
-            + " user.mobile_phone, user.registration_date_time, user.blocking"
-            + " FROM user WHERE user.blocking=false AND user.first_name = ?"
-            + " AND user.role = ? ORDER BY id LIMIT ? OFFSET ?";
+                    + " user.avatar, user.first_name, user.second_name,"
+                    + " user.mobile_phone, user.registration_date_time,"
+                    + " user.blocking FROM user WHERE user.blocking=false"
+                    + " AND user.first_name = ?"
+                    + " AND user.role = ? ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_USERS_BY_FIRST_AND_SECOND_NAME =
             "SELECT user.id, user.login, user.password, user.role, user.email,"
-            + " user.avatar, user.first_name, user.second_name,"
-            + " user.mobile_phone, user.registration_date_time, user.blocking"
-            + " FROM user WHERE user.blocking=false AND (user.first_name = ?" +
-            " AND user.second_name = ? AND user.role=?) ORDER BY id";
+                    + " user.avatar, user.first_name, user.second_name,"
+                    + " user.mobile_phone, user.registration_date_time,"
+                    + " user.blocking FROM user WHERE user.blocking=false"
+                    + " AND (user.first_name = ? AND user.second_name = ?"
+                    + " AND user.role=?) ORDER BY id";
 
     private static final String GET_ALL_ACTIVE_USERS =
-            "SELECT user.id, user.login, user.password, user.role, user.email," +
-            " user.avatar, user.first_name, user.second_name," +
-            " user.mobile_phone, user.registration_date_time, user.blocking" +
-            " FROM user WHERE user.blocking = false ORDER BY id LIMIT ? OFFSET ?";
+            "SELECT user.id, user.login, user.password, user.role, user.email,"
+                    + " user.avatar, user.first_name, user.second_name,"
+                    + " user.mobile_phone, user.registration_date_time,"
+                    + " user.blocking FROM user WHERE user.blocking = false"
+                    + " ORDER BY id LIMIT ? OFFSET ?";
 
     public UserDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
+
     //+
     @Override
     public int create(final User newUser) throws PersistentException {
@@ -97,18 +111,25 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             return 0;
         }
         try (PreparedStatement preparedStatement = getConnection()
-            .prepareStatement(ADD_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                .prepareStatement(ADD_USER, PreparedStatement
+                        .RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, newUser.getLogin());
             preparedStatement.setString(2, newUser.getPassword());
-            preparedStatement.setInt(3, newUser.getRole().getOrdinal());
+            preparedStatement.setInt(3, newUser.getRole()
+                    .getOrdinal());
             preparedStatement.setString(4, newUser.getEmail());
-            preparedStatement.setString(5, newUser.getPathToAvatar());
-            preparedStatement.setString(6, newUser.getFirstName());
-            preparedStatement.setString(7, newUser.getSecondName());
+            preparedStatement.setString(5, newUser
+                    .getPathToAvatar());
+            preparedStatement.setString(6, newUser
+                    .getFirstName());
+            preparedStatement.setString(7, newUser
+                    .getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
             //TODO check cast
-            preparedStatement.setDate(9, Date.valueOf(newUser.getRegistrationDate()));
-            preparedStatement.setBoolean(10, newUser.getBlocking());
+            preparedStatement.setDate(9, Date.valueOf(newUser
+                    .getRegistrationDate()));
+            preparedStatement.setBoolean(10, newUser
+                    .getBlocking());
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
@@ -117,7 +138,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             } catch (SQLException newE) {
                 LOGGER.log(Level.WARN, newE.getMessage(), newE);
                 throw new PersistentException("Could not get generated keys!\n"
-                    + newE.getMessage(), newE);
+                        + newE.getMessage(), newE);
             }
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
@@ -133,15 +154,21 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
                 .prepareStatement(UPDATE_USER)) {
             preparedStatement.setString(1, newUser.getLogin());
             preparedStatement.setString(2, newUser.getPassword());
-            preparedStatement.setInt(3, newUser.getRole().getOrdinal());
+            preparedStatement.setInt(3, newUser.getRole()
+                    .getOrdinal());
             preparedStatement.setString(4, newUser.getEmail());
-            preparedStatement.setString(5, newUser.getPathToAvatar());
-            preparedStatement.setString(6, newUser.getFirstName());
-            preparedStatement.setString(7, newUser.getSecondName());
+            preparedStatement.setString(5, newUser
+                    .getPathToAvatar());
+            preparedStatement.setString(6, newUser
+                    .getFirstName());
+            preparedStatement.setString(7, newUser
+                    .getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
             //TODO check cast
-            preparedStatement.setDate(9, Date.valueOf(newUser.getRegistrationDate()));
-            preparedStatement.setBoolean(10, newUser.getBlocking());
+            preparedStatement.setDate(9, Date.valueOf(newUser
+                    .getRegistrationDate()));
+            preparedStatement.setBoolean(10, newUser
+                    .getBlocking());
             preparedStatement.setLong(11, newUser.getId());
             preparedStatement.executeUpdate();
             return true;
@@ -174,7 +201,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user =  takeUser(resultSet);
+                    user = takeUser(resultSet);
                 }
             }
         } catch (SQLException newE) {
@@ -241,6 +268,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public boolean delete(final long userId) throws PersistentException {
@@ -248,6 +276,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         throw new PersistentException("Invalid operation to delete user." +
                 " You can change coupon status on unavailable.");
     }
+
     //+
     @Override
     public int getAmountOfAllUsersByRole(final Role role)
@@ -264,12 +293,15 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
-            final Role role) throws PersistentException {
+                                                     final Role role)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE)) {
+                .prepareStatement(
+                        GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_ROLE)) {
             preparedStatement.setNString(1, firstName);
             preparedStatement.setInt(2, role.getOrdinal());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -284,11 +316,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
 
     @Override
     public int getAmountOfAllUsersByFirstAndSecondName(final String firstName,
-                                       final String secondName, final Role role)
+                                                       final String secondName,
+                                                       final Role role)
             throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(
-                    GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME)) {
+                        GET_AMOUNT_OF_ALL_USERS_BY_FIRST_NAME_AND_SECOND_NAME)) {
             preparedStatement.setNString(1, firstName);
             preparedStatement.setNString(2, secondName);
             preparedStatement.setInt(3, role.getOrdinal());
@@ -318,6 +351,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
     public boolean updateUserState(final long id) throws PersistentException {
@@ -332,9 +366,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
                     + newE.getMessage(), newE);
         }
     }
+
     //+
     @Override
-    public List<User> getAllUsersByRole(final Role newRole, int offset, int limit)
+    public List<User> getAllUsersByRole(final Role newRole, int offset,
+                                        int limit)
             throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
@@ -356,8 +392,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsersByRoleAndName(final String name, final Role role,
-                                               final int offset, final int limit)
+    public List<User> getAllUsersByRoleAndName(final String name,
+                                               final Role role,
+                                               final int offset,
+                                               final int limit)
             throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
@@ -381,7 +419,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
 
     @Override
     public List<User> getAllUsersByFirstAndSecondName(final String firstName,
-                                  final String secondName, final Role role)
+                                                      final String secondName,
+                                                      final Role role)
             throws PersistentException {
         List<User> users = new LinkedList<>();
         try (PreparedStatement preparedStatement = getConnection()
@@ -439,7 +478,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         String name = resultSet.getNString("first_name");
         String surname = resultSet.getNString("second_name");
         int mobilePhone = resultSet.getInt("mobile_phone");
-        Date registrationDateTime = resultSet.getDate("registration_date_time");
+        Date registrationDateTime = resultSet
+                .getDate("registration_date_time");
         boolean blocking = resultSet.getBoolean("blocking");
         return new User(id, login, password, role, email, avatar,
                 name, surname, mobilePhone, registrationDateTime.toLocalDate(),

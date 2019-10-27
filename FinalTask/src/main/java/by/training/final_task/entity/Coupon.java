@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * Represents coupon.
- * */
+ */
 public class Coupon extends Entity {
     private String couponName;
     private String pathToPicture;
@@ -18,14 +18,18 @@ public class Coupon extends Entity {
     private CompanyProvider companyProvider;
     private boolean blocking;
 
-    public Coupon() { }
+    public Coupon() {
+    }
 
     public Coupon(final long newId, final String newCouponName,
                   final String newPathToPicture,
                   final String newCouponDescription,
-                  final BigDecimal newCouponPrice, final LocalDate newCouponAddDate,
-                  final String newHoldingAddress, final Category newCategory,
-                  final CompanyProvider newCompanyProvider, final boolean newBlocking) {
+                  final BigDecimal newCouponPrice,
+                  final LocalDate newCouponAddDate,
+                  final String newHoldingAddress,
+                  final Category newCategory,
+                  final CompanyProvider newCompanyProvider,
+                  final boolean newBlocking) {
         id = newId;
         couponName = newCouponName;
         pathToPicture = newPathToPicture;
@@ -70,7 +74,7 @@ public class Coupon extends Entity {
         couponPrice = newCouponPrice;
     }
 
-    public LocalDate  getCouponAddDate() {
+    public LocalDate getCouponAddDate() {
         return couponAddDate;
     }
 
@@ -142,8 +146,9 @@ public class Coupon extends Entity {
 
     /**
      * To string method.
+     *
      * @return string class representation.
-     * */
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -35,18 +35,21 @@
                             <fmt:message key="${successMessage}" bundle="${lang}"/></p>
                     </div>
                 </c:if>
-                <c:if test="${not empty message}">
-                    <div class="text-center text-warning">
-                        <p><fmt:message key="attantion" bundle="${lang}"/>:
-                            <fmt:message key="${message}"/> </p>
-                    </div>
-                </c:if>
 
                 <div class="container contact div-bg div-pad-bottom">
                     <div class="card div-shadow">
                         <div class="card-header">
                             <h2 class="text-center"><fmt:message key="userEditTitle" bundle="${lang}"/> ${oldUserInformation.login}</h2>
                         </div>
+
+                        <c:if test="${not empty message}">
+                            <div class="text-center text-warning">
+                                <p><fmt:message key="attantion" bundle="${lang}"/>:
+                                    <fmt:message key="${message}" bundle="${lang}"/>
+                                </p>
+                            </div>
+                        </c:if>
+
                         <div class="card-body">
                             <label><fmt:message key="firstName" bundle="${lang}"/></label>
                             <input name="firstName" class="form-control" value="${oldUserInformation.firstName}" type="text">
@@ -54,6 +57,7 @@
                             <input name="secondName" class="form-control" value="${oldUserInformation.secondName}" type="text">
                             <label><fmt:message key="username" bundle="${lang}"/></label>
                             <input name="login" class="form-control" value="${authorizedUser.login}" type="text">
+                            <input type="hidden" name="oldLogin" value="${authorizedUser.login}">
                             <!--Check password-->
                             <label><fmt:message key="password" bundle="${lang}"/></label>
                             <input name="password" class="form-control" type="password">

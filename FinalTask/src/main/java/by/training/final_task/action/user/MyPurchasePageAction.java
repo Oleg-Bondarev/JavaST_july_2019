@@ -38,17 +38,18 @@ public class MyPurchasePageAction extends AuthorizedUserAction {
                         request.getAttribute("resultUserPurchases");
                 if (userPurchaseList == null) {
                     PagePagination pagination = new PagePagination(
-                        couponUserService.getCountCouponNameCurrentUser(
-                        user.getId()), ROWCOUNT, request.getParameter("page"));
+                            couponUserService.getCountCouponNameCurrentUser(
+                                    user.getId()), ROWCOUNT,
+                            request.getParameter("page"));
                     request.setAttribute("amountOfPages", pagination
                             .getPagesAmount());
                     userPurchaseList = couponUserService
                             .getAllCouponsCurrentUser(user.getId(), pagination
                                     .getPageOffset(), ROWCOUNT);
                     request.setAttribute("resultCoupons",
-                                                userPurchaseList);
+                            userPurchaseList);
                     request.setAttribute("paginationURL",
-                                        "/coupon/user/mypurchases.html");
+                            "/coupon/user/mypurchases.html");
                 }
                 return null;
             } else {

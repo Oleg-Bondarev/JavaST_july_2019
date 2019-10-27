@@ -29,7 +29,8 @@ public class RegisterAction extends Action {
             addUserParametersToList(request, userRegistrationParameter);
             User user;
             try {
-                user = userParser.parse(this, userRegistrationParameter);
+                user = userParser.parse(this,
+                        userRegistrationParameter);
                 user.setRole(Role.USER);
                 //default avatar for new users
                 user.setPathToAvatar("img/user/user_profile.jpg");
@@ -53,7 +54,8 @@ public class RegisterAction extends Action {
         }
     }
 
-    public static void addUserParametersToList(HttpServletRequest request, List<String> parametersList) {
+    public static void addUserParametersToList(HttpServletRequest request,
+                                               List<String> parametersList) {
         parametersList.add(request.getParameter("login"));
         parametersList.add(request.getParameter("password"));
         parametersList.add(request.getParameter("email"));

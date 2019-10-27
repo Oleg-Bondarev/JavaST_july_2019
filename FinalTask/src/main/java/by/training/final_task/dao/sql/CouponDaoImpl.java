@@ -492,8 +492,10 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         String pathToPicture = newResultSet.getNString("picture");
         String description = newResultSet.getNString("description");
         BigDecimal price = newResultSet.getBigDecimal("price");
-        LocalDate adding_date_time = newResultSet.getDate("adding_date_time").toLocalDate();
-        String holding_address = newResultSet.getNString("holding_address");
+        LocalDate adding_date_time = newResultSet
+                .getDate("adding_date_time").toLocalDate();
+        String holding_address = newResultSet
+                .getNString("holding_address");
         boolean blocking = newResultSet.getBoolean("blocking");
         return new Coupon(id, name, pathToPicture, description, price,
             adding_date_time, holding_address, category, companyProvider,

@@ -52,26 +52,28 @@ public final class ConnectionPool {
                             connection.getConnection().close();
                         } catch (SQLException newE) {
                             LOGGER.log(Level.WARN, newE.getMessage(), newE);
-                            throw new PersistentException(newE.getMessage(), newE);
+                            throw new PersistentException(newE.getMessage(),
+                                    newE);
                         }
                         connection = null;
                     }
                 } else if (usedConnections.size() < maxCountConnection) {
                     connection = createNewConnection();
                 } else {
-                    LOGGER.log(Level.ERROR, "Database connection limit" +
-                            " exceeded.");
+                    LOGGER.log(Level.ERROR, "Database connection limit"
+                            + " exceeded.");
                     throw new PersistentException();
                 }
             } catch (SQLException newE) {
-                LOGGER.log(Level.ERROR, "Cannot connect to database.", newE);
+                LOGGER.log(Level.ERROR, "Cannot connect to database.",
+                        newE);
                 throw new PersistentException(newE.getMessage(), newE);
             }
         }
         usedConnections.add(connection);
         LOGGER.log(Level.DEBUG, "Connection was used. Available" +
-                " connections: {}\nBusy connections: {}",
-                freeConnections.size(),  usedConnections.size());
+                        " connections: {}\nBusy connections: {}",
+                freeConnections.size(), usedConnections.size());
         return connection;
     }
 
@@ -100,9 +102,10 @@ public final class ConnectionPool {
 
     private PooledConnection createNewConnection() throws PersistentException,
             SQLException {
-        if ((usedConnections.size() + freeConnections.size()) < maxCountConnection) {
-            return new PooledConnection(DriverManager
-                    .getConnection(url, login, password));
+        if ((usedConnections.size() + freeConnections.size()) <
+                maxCountConnection) {
+            return new PooledConnection(DriverManager.getConnection(url,
+                    login, password));
         }
         throw new PersistentException("Cannot create connections more than" +
                 " max amount of connections.");

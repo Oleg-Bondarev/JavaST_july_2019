@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Represent admin and user account.
- * */
+ */
 public class User extends Entity {
     private String login;
     private String password;
@@ -18,11 +18,13 @@ public class User extends Entity {
     private LocalDate registrationDate;
     private boolean blocking;
 
-    public User(final long newId, final String newLogin, final String newPassword,
+    public User(final long newId, final String newLogin,
+                final String newPassword,
                 final Role newRole, final String newEmail,
                 final String newPathToAvatar, final String newFirstName,
                 final String newSecondName, final int newMobilePhone,
-                final LocalDate newRegistrationDate, final boolean newBlocking) {
+                final LocalDate newRegistrationDate,
+                final boolean newBlocking) {
         id = newId;
         login = newLogin;
         password = newPassword;
@@ -150,8 +152,9 @@ public class User extends Entity {
 
     /**
      * To string method.
+     *
      * @return string class representation.
-     * */
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -18,16 +18,16 @@ import java.util.List;
 
 /**
  * Represent search staff action.
- * */
+ */
 public class FindStaffAction extends AuthorizedUserAction {
     /**
      * Count of objects in the page. Use for pagination.
-     * */
+     */
     private static final int ROWCOUNT = 5;
 
     /**
      * Sets users role that can execute this request.
-     * */
+     */
     public FindStaffAction() {
         allowedRoles.add(Role.ADMIN);
     }
@@ -61,6 +61,6 @@ public class FindStaffAction extends AuthorizedUserAction {
                 return new Forward("/login.html", true);
             }
         }
-        throw  new ServiceException("forbiddenAccess");
+        throw new ServiceException("forbiddenAccess");
     }
 }

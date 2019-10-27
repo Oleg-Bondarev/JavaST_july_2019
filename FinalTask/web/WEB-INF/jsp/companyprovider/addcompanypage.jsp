@@ -43,7 +43,7 @@
                         <c:if test="${not empty message}">
                             <div class="text-center text-warning">
                                 <p><fmt:message key="attantion" bundle="${lang}"/>:
-                                    <fmt:message key="${message}"/>
+                                    <fmt:message key="${message}" bundle="${lang}"/>
                                 </p>
                             </div>
                         </c:if>

@@ -22,7 +22,6 @@ public class UserBlockingAction extends AuthorizedUserAction {
         this.getAllowedRoles().add(Role.ADMIN);
     }
 
-    //TODO fix pass for jsp pages
     @Override
     public Forward executeRequest(final HttpServletRequest request,
                                   final HttpServletResponse response)
@@ -41,7 +40,8 @@ public class UserBlockingAction extends AuthorizedUserAction {
                     return new Forward("/logout.html", true);
                 } else {
                     session.setAttribute("message", "userDeleted");
-                    return new Forward("/user/admin/findusers.html?page=1", true);
+                    return new Forward("/user/admin/findusers.html?page=1",
+                            true);
                 }
             } else {
                 throw new ServiceException("forbiddenAccess");

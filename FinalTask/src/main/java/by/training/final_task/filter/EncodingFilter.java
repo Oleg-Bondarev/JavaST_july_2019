@@ -6,7 +6,9 @@ import java.io.IOException;
 public class EncodingFilter implements Filter {
 
     @Override
-    public void init(final FilterConfig filterConfig) throws ServletException {}
+    public void init(final FilterConfig filterConfig) throws ServletException {
+
+    }
 
     @Override
     public void doFilter(final ServletRequest newServletRequest,
@@ -19,5 +21,6 @@ public class EncodingFilter implements Filter {
     }
 
     @Override
-    public void destroy() { }
+    public void destroy() {
+    }
 }

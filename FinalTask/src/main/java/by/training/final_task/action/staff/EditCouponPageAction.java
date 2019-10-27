@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditCouponPageAction extends AuthorizedUserAction {
@@ -35,9 +34,11 @@ public class EditCouponPageAction extends AuthorizedUserAction {
                         factory.createService(DAOEnum.COUPON);
                 CategoryService categoryService = (CategoryService) factory
                         .createService(DAOEnum.CATEGORY);
-                CompanyProviderService companyProviderService = (CompanyProviderService)
-                        factory.createService(DAOEnum.COMPANYPROVIDER);
-                long couponID = Long.parseLong(request.getParameter("couponID"));
+                CompanyProviderService companyProviderService =
+                        (CompanyProviderService) factory
+                                .createService(DAOEnum.COMPANYPROVIDER);
+                long couponID = Long.parseLong(request
+                        .getParameter("couponID"));
                 List<Category> categoryList = categoryService.getAll();
                 List<CompanyProvider> companyList =
                         companyProviderService.getAvailableCompanyList();
@@ -59,8 +60,10 @@ public class EditCouponPageAction extends AuthorizedUserAction {
     }
 
     private void prepareOldCouponsParameters(final Coupon newCoupon,
-                         final CategoryService newCategoryService,
-                         final CompanyProviderService newCompanyProviderService)
+                                             final CategoryService
+                                                     newCategoryService,
+                                             final CompanyProviderService
+                                                     newCompanyProviderService)
             throws ServiceException {
         Category category = newCategoryService.get(newCoupon.getCategory()
                 .getId());

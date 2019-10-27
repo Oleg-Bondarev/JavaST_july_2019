@@ -39,11 +39,13 @@ public class FindCompanyByNameAction extends AuthorizedUserAction {
                     CompanyProviderService companyService =
                             (CompanyProviderService) factory
                                     .createService(DAOEnum.COMPANYPROVIDER);
-                    List<CompanyProvider> companiesList = (List<CompanyProvider>)
-                            request.getAttribute("resultCompanies");
+                    List<CompanyProvider> companiesList =
+                            (List<CompanyProvider>) request
+                                    .getAttribute("resultCompanies");
                     if (companiesList == null) {
                         PagePagination pagination = new PagePagination(
-                            companyService.getAmountByCompanyName(companyName),
+                                companyService
+                                        .getAmountByCompanyName(companyName),
                                 ROWCOUNT, request.getParameter("page"));
                         request.setAttribute("amountOfPages", pagination
                                 .getPagesAmount());
@@ -52,7 +54,8 @@ public class FindCompanyByNameAction extends AuthorizedUserAction {
                                 ROWCOUNT);
                         Forward forward = new Forward(
                                 "/companyprovider/findcompany.html");
-                        forward.getAttributes().put("resultCompanies", companiesList);
+                        forward.getAttributes().put("resultCompanies",
+                                companiesList);
                         return forward;
                     }
                     return null;

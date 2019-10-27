@@ -3,7 +3,6 @@ package by.training.final_task.dao.sql;
 import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CategoryDAO;
 import by.training.final_task.entity.Category;
-import by.training.final_task.entity.WrongEnumTupeException;
 import by.training.final_task.dao.PersistentException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +14,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDAO {
+public class CategoryDaoImpl extends AbstractDao<Category>
+        implements CategoryDAO {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -25,10 +25,10 @@ public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDA
             "UPDATE category SET category.name=? WHERE category.id=?";
     private static final String GET_ALL_CATEGORIES =
             "SELECT category.id, category.name FROM category LIMIT ? OFFSET ?";
-    private static final String GET_CATEGORY = "SELECT category.id, category.name " +
-            "FROM category WHERE id = ?";
-    private static final String GET_ALL_USERS = "SELECT category.id, category.name " +
-            "FROM category ORDER BY id";
+    private static final String GET_CATEGORY =
+            "SELECT category.id, category.name FROM category WHERE id = ?";
+    private static final String GET_ALL_USERS =
+            "SELECT category.id, category.name FROM category ORDER BY id";
     private static final String GET_AMOUNT_OF_ALL_CATEGORY =
             "SELECT COUNT(category.id) FROM category";
 
@@ -38,8 +38,10 @@ public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDA
 
     @Override
     public int create(final Category newCategory) throws PersistentException {
-        LOGGER.log(Level.WARN, "Invalid operation create for category type.");
-        throw new PersistentException("Invalid operation create for category type.");
+        LOGGER.log(Level.WARN,
+                "Invalid operation create for category type.");
+        throw new PersistentException(
+                "Invalid operation create for category type.");
     }
 
     //+
@@ -95,14 +97,18 @@ public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDA
 
     @Override
     public boolean delete(final Category element) throws PersistentException {
-        LOGGER.log(Level.WARN, "Invalid operation to delete coupon category.");
-        throw new PersistentException("Invalid operation to delete coupon category.");
+        LOGGER.log(Level.WARN,
+                "Invalid operation to delete coupon category.");
+        throw new PersistentException(
+                "Invalid operation to delete coupon category.");
     }
-    //??
+
     @Override
     public boolean delete(final long id) throws PersistentException {
-        LOGGER.log(Level.WARN, "Invalid operation to delete coupon category.");
-        throw new PersistentException("Invalid operation to delete coupon category.");
+        LOGGER.log(Level.WARN,
+                "Invalid operation to delete coupon category.");
+        throw new PersistentException(
+                "Invalid operation to delete coupon category.");
     }
 
     //+

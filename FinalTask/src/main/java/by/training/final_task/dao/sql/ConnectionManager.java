@@ -16,8 +16,8 @@ public class ConnectionManager implements AbstractConnectionManager {
             connection = ConnectionPool.getInstance().getConnection();
             disableAutoCommit();
         } catch (PersistentException newE) {
-            throw new PersistentException("Unable to get connection from" +
-                    " the pool.", newE);
+            throw new PersistentException("Unable to get connection from"
+                    + " the pool.", newE);
         }
     }
 
@@ -28,7 +28,8 @@ public class ConnectionManager implements AbstractConnectionManager {
                 connection.setAutoCommit(false);
             }
         } catch (SQLException newE) {
-            throw new PersistentException("Could not set auto commit ino false.", newE);
+            throw new PersistentException("Could not set auto commit"
+                    + " ino false.", newE);
         }
     }
 
@@ -39,7 +40,8 @@ public class ConnectionManager implements AbstractConnectionManager {
 
             }
         } catch (SQLException newE) {
-            throw new PersistentException("Could not set auto commit in true.", newE);
+            throw new PersistentException("Could not set auto"
+                    + " commit in true.", newE);
         }
     }
 

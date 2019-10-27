@@ -5,5 +5,6 @@ import by.training.final_task.service.ServiceException;
 
 public interface ServiceFactory {
     Service createService(DAOEnum key) throws ServiceException;
+
     void close() throws ServiceException;
 }

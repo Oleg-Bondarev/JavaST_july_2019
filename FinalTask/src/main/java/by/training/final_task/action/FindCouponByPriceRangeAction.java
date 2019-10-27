@@ -14,19 +14,19 @@ import java.util.List;
 
 /**
  * Represent search coupons by price range.
- * */
+ */
 public class FindCouponByPriceRangeAction extends AuthorizedUserAction {
     /**
      * Class logger.
-     * */
+     */
     private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Count objects in the page for pagination.
-     * */
+     */
     private static final int ROWCOUNT = 10;
     /**
      * Minimal price for search.
-     * */
+     */
     private static final String MIN_PRICE_BORDER = "0.00";
 
     @Override
@@ -42,22 +42,24 @@ public class FindCouponByPriceRangeAction extends AuthorizedUserAction {
                 return findGreaterThanMinPrice(request, minBorder);
             } else if (minBorder.isEmpty() && !maxBorder.isEmpty()) {
                 return findBetweenMinAndMaxBorder(request, MIN_PRICE_BORDER,
-                                                maxBorder);
+                        maxBorder);
             } else {
                 return findBetweenMinAndMaxBorder(request, minBorder, maxBorder);
             }
         }
     }
+
     /**
      * Call method that search coupons with price greater than minimal price
      * range.
-     * @param request request for search.
+     *
+     * @param request     request for search.
      * @param newMinPrice minimal price border for search coupons.
-     * @throws ServiceException if have exception.
      * @return forward on some page.
-     * */
+     * @throws ServiceException if have exception.
+     */
     private Forward findGreaterThanMinPrice(final HttpServletRequest request,
-                                         final String newMinPrice)
+                                            final String newMinPrice)
             throws ServiceException {
         if (validator.validateCouponPrice(newMinPrice)) {
             BigDecimal minPrice = new BigDecimal(newMinPrice);
@@ -82,28 +84,34 @@ public class FindCouponByPriceRangeAction extends AuthorizedUserAction {
             return null;
         }
     }
+
     /**
      * Call method that search coupons with price lower than maximal price
      * range.
-     * @param request request for search.
+     *
+     * @param request     request for search.
      * @param newMaxPrice maximal price border for search coupons.
-     * @throws ServiceException if have exception.
      * @return forward to some page.
-     * */
+     * @throws ServiceException if have exception.
+     */
     private Forward findLowerThanMaxPrice(final HttpServletRequest request,
-                                       final String newMaxPrice)
-            throws ServiceException{
-        return findBetweenMinAndMaxBorder(request, "0.0", newMaxPrice);
+                                          final String newMaxPrice)
+            throws ServiceException {
+        return findBetweenMinAndMaxBorder(request, "0.0",
+                newMaxPrice);
     }
+
     /**
      * Call method that search coupons with price between maximal and maximal
      * price range.
-     * @param request request for search.
+     *
+     * @param request     request for search.
      * @param newMinPrice minimal price border for search coupons.
      * @param newMaxPrice maximal price border for search coupons.
-     * */
+     */
     private Forward findBetweenMinAndMaxBorder(final HttpServletRequest request,
-                        final String newMinPrice, final String newMaxPrice)
+                                               final String newMinPrice,
+                                               final String newMaxPrice)
             throws ServiceException {
         if (validator.validatePriceRange(newMinPrice, newMaxPrice)) {
             BigDecimal minPrice = new BigDecimal(newMinPrice);

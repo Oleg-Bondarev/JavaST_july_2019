@@ -31,27 +31,29 @@ public class UserEditAction extends AuthorizedUserAction {
             if (user != null) {
                 UserService userService = (UserService) factory.createService(
                         DAOEnum.USER);
-                /*request.setAttribute("oldUserInformation", user);*/
                 List<String> userParameters = new ArrayList<>();
                 addUserParameters(request, userParameters);
                 if ((userParameters.get(PASSWORD_INDEX) == null)
                         || (userParameters.get(PASSWORD_INDEX).isEmpty())) {
-                    request.setAttribute("message", "inputPasswordToSubmit");
-                    return null;
+                    return executeForward("/user/usereditpage.html",
+                            "message", "inputPasswordToSubmit");
                 }
 
                 try {
+                    String oldLogin = request.getParameter("oldLogin");
+                    User oldUser = userService.getByLogin(oldLogin);
+
                     User changeUser = userParser.parse(this,
-                                                        userParameters);
+                            userParameters);
                     changeUser.setId(user.getId());
                     changeUser.setRole(user.getRole());
                     changeUser.setPathToAvatar(user.getPathToAvatar());
-                    userService.update(changeUser);
+                    userService.update(changeUser, oldUser);
                     session.setAttribute("authorizedUser", changeUser);
                     return new Forward("/user/profile.html", true);
-                } catch (InvalidFormDataException newE) {
-                    request.setAttribute("message", newE.getMessage());
-                    return null;
+                } catch (InvalidFormDataException | ServiceException newE) {
+                    return executeForward("/user/usereditpage.html",
+                            "message", newE.getMessage());
                 }
             } else {
                 throw new ServiceException("forbiddenAccess");
@@ -62,7 +64,6 @@ public class UserEditAction extends AuthorizedUserAction {
         throw new ServiceException("forbiddenAccess");
     }
 
-    //TODO what about path for user avatar?
     private void addUserParameters(final HttpServletRequest request,
                                    final List<String> parameters) {
         parameters.add(request.getParameter("login"));
@@ -71,7 +72,8 @@ public class UserEditAction extends AuthorizedUserAction {
         parameters.add(request.getParameter("firstName"));
         parameters.add(request.getParameter("secondName"));
         //check phone
-        String mobilePhone = readCorrectPhone(request.getParameter("mobilePhone"));
+        String mobilePhone = readCorrectPhone(request
+                .getParameter("mobilePhone"));
         parameters.add(mobilePhone);
     }
 

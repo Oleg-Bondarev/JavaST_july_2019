@@ -256,7 +256,8 @@ public class PooledConnection implements Connection,
     }
 
     @Override
-    public void setClientInfo(final Properties arg0) throws SQLClientInfoException {
+    public void setClientInfo(final Properties arg0)
+            throws SQLClientInfoException {
         connection.setClientInfo(arg0);
     }
 

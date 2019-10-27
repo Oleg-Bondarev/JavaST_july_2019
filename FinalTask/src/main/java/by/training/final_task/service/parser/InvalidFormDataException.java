@@ -1,8 +1,9 @@
 package by.training.final_task.service.parser;
 
-public class InvalidFormDataException  extends Exception {
+public class InvalidFormDataException extends Exception {
 
-    public InvalidFormDataException(){}
+    public InvalidFormDataException() {
+    }
 
     public InvalidFormDataException(String message) {
         super(message);

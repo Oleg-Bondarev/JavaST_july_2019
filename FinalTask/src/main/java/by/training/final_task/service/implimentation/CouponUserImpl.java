@@ -4,22 +4,17 @@ import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CouponUserDAO;
 import by.training.final_task.dao.interfases.DaoFactory;
 import by.training.final_task.dao.sql.ConnectionManager;
-import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Coupon;
 import by.training.final_task.entity.CouponUser;
 import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.CouponUserService;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CouponUserImpl extends AbstractService implements CouponUserService {
+public class CouponUserImpl extends AbstractService
+        implements CouponUserService {
 
     public CouponUserImpl() {
         super();
@@ -34,10 +29,13 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
                                                  final int offset,
                                                  final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
-                return couponUserDAO.getAllCouponsCurrentUser(userId, offset, limit);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
+                return couponUserDAO.getAllCouponsCurrentUser(userId, offset,
+                        limit);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
                 throw new ServiceException(newE.getMessage(), newE);
@@ -49,12 +47,16 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
 
     @Override
     public List<Coupon> getAllBetweenDatesCurrentUser(final long userId,
-                          final LocalDate startDate, final LocalDate endDate,
-                          final int offset, final int limit)
+                                                      final LocalDate startDate,
+                                                      final LocalDate endDate,
+                                                      final int offset,
+                                                      final int limit)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 return couponUserDAO.getAllBetweenDatesCurrentUser(userId,
                         startDate, endDate, offset, limit);
             } catch (PersistentException newE) {
@@ -69,9 +71,11 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
     @Override
     public int getCountCouponNameCurrentUser(final long userId)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 return couponUserDAO.getCountCouponNameCurrentUser(userId);
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -84,11 +88,14 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
 
     @Override
     public int getCountBetweenDatesCurrentUser(final long userId,
-                             final LocalDate startDate, final LocalDate endDate)
+                                               final LocalDate startDate,
+                                               final LocalDate endDate)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 return couponUserDAO.getCountBetweenDatesCurrentUser(userId,
                         startDate, endDate);
             } catch (PersistentException newE) {
@@ -102,9 +109,11 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
 
     @Override
     public int getAllCount() throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 return couponUserDAO.getAllCount();
             } catch (PersistentException newE) {
                 connectionManager.rollbackChange();
@@ -117,9 +126,11 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
 
     @Override
     public int create(final CouponUser newCouponUser) throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 int couponUserId = couponUserDAO.create(newCouponUser);
                 newCouponUser.setId(couponUserId);
                 connectionManager.commitChange();
@@ -136,9 +147,11 @@ public class CouponUserImpl extends AbstractService implements CouponUserService
     @Override
     public boolean update(final CouponUser newCouponUser)
             throws ServiceException {
-        try (AbstractConnectionManager connectionManager = new ConnectionManager()) {
+        try (AbstractConnectionManager connectionManager =
+                     new ConnectionManager()) {
             try {
-                CouponUserDAO couponUserDAO = getDaoFactory().createCouponUserDAO(connectionManager);
+                CouponUserDAO couponUserDAO = getDaoFactory()
+                        .createCouponUserDAO(connectionManager);
                 boolean statement = couponUserDAO.update(newCouponUser);
                 connectionManager.commitChange();
                 return statement;

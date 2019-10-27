@@ -45,24 +45,27 @@ public class FindUserByNameAction extends AuthorizedUserAction {
                     if (!params[1].isEmpty()) {
                         pagination = new PagePagination(userService
                                 .getAmountOfAllUsersByFirstAndSecondName(
-                                params[0], params[1], Role.USER), ROWS_IN_PAGE,
+                                        params[0], params[1], Role.USER),
+                                ROWS_IN_PAGE,
                                 request.getParameter("page"));
                     } else {
                         pagination = new PagePagination(userService
-                                .getAmountOfAllUsersByFirstNameAndRole(params[0],
-                                        Role.USER), ROWS_IN_PAGE,
+                                .getAmountOfAllUsersByFirstNameAndRole(
+                                        params[0], Role.USER), ROWS_IN_PAGE,
                                 request.getParameter("page"));
                     }
                     Forward forward = new Forward(
                             "/user/admin/findusers.html");
-                    forward.getAttributes().put("amountOfPages", pagination.getPagesAmount());
+                    forward.getAttributes().put("amountOfPages",
+                            pagination.getPagesAmount());
                     List<User> userList;
                     if (!params[1].isEmpty()) {
                         userList = userService.getAllUsersByFirstAndSecondName(
                                 params[0], params[1], Role.USER);
                     } else {
-                        userList = userService.getAllUsersByRoleAndName(params[0],
-                                Role.USER, pagination.getPageOffset(), ROWS_IN_PAGE);
+                        userList = userService.getAllUsersByRoleAndName(
+                                params[0], Role.USER, pagination.getPageOffset(),
+                                ROWS_IN_PAGE);
                     }
                     forward.getAttributes().put("resultUsers", userList);
                     return forward;

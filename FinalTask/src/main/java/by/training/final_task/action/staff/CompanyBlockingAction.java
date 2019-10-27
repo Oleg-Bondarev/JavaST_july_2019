@@ -28,14 +28,17 @@ public class CompanyBlockingAction extends AuthorizedUserAction {
         HttpSession session = request.getSession(false);
         if (session != null) {
             User user = (User) session.getAttribute("authorizedUser");
-            if ((user != null) && this.getAllowedRoles().contains(user.getRole())) {
-                long companyId = Long.parseLong(request.getParameter("companyToBlock"));
+            if ((user != null) && this.getAllowedRoles()
+                    .contains(user.getRole())) {
+                long companyId = Long.parseLong(request
+                        .getParameter("companyToBlock"));
                 CompanyProviderService companyService = (CompanyProviderService)
                         factory.createService(DAOEnum.COMPANYPROVIDER);
                 companyService.updateCompanyStatus(companyId);
 
                 session.setAttribute("message", "companyBlocked");
-                return new Forward("/companyprovider/findcompany.html?page=1", true);
+                return new Forward("/companyprovider/findcompany.html?page=1",
+                        true);
             } else {
                 throw new ServiceException("forbiddenAccess");
             }

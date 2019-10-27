@@ -35,8 +35,9 @@ public class AddCouponPageAction extends AuthorizedUserAction {
             if ((user != null) && allowedRoles.contains(user.getRole())) {
                 CategoryService categoryService = (CategoryService) factory
                         .createService(DAOEnum.CATEGORY);
-                CompanyProviderService companyProviderService = (CompanyProviderService)
-                        factory.createService(DAOEnum.COMPANYPROVIDER);
+                CompanyProviderService companyProviderService =
+                        (CompanyProviderService) factory
+                                .createService(DAOEnum.COMPANYPROVIDER);
                 List<Category> categoryList = categoryService.getAll();
                 List<CompanyProvider> providersList = companyProviderService
                         .getAvailableCompanyList();
@@ -44,8 +45,8 @@ public class AddCouponPageAction extends AuthorizedUserAction {
                 request.setAttribute("providersList", providersList);
                 return null;
             }
-            LOGGER.log(Level.INFO, "{} - attempted to access {} and" +
-                            " stopped due to not enough privileges",
+            LOGGER.log(Level.INFO, "{} - attempted to access {} and"
+                            + " stopped due to not enough privileges",
                     request.getRemoteAddr(), request.getRequestURI());
         }
         throw new ServiceException("forbiddenAccess");

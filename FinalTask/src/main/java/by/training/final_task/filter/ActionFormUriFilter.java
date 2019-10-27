@@ -24,11 +24,12 @@ public class ActionFormUriFilter implements Filter {
                          final FilterChain newFilterChain)
             throws IOException, ServletException {
         if (newServletRequest instanceof HttpServletRequest) {
-            HttpServletRequest httpRequest = (HttpServletRequest) newServletRequest;
+            HttpServletRequest httpRequest = (HttpServletRequest)
+                    newServletRequest;
             String contextPath = httpRequest.getContextPath();
             String uri = httpRequest.getRequestURI();
-            LOGGER.log(Level.INFO, "Starting of processing of request for" +
-                    " URI {}", uri);
+            LOGGER.log(Level.INFO, "Starting of processing of request for"
+                    + " URI {}", uri);
             int beginAction = contextPath.length();
             int endAction = uri.lastIndexOf('.');
             String actionName;
@@ -36,7 +37,7 @@ public class ActionFormUriFilter implements Filter {
             if (endAction >= 0) {
                 actionName = uri.substring(beginAction, endAction);
             } else {
-                actionName =uri.substring(beginAction);
+                actionName = uri.substring(beginAction);
             }
 
             ActionCommandClass actionCommandClass = new ActionCommandClass();
@@ -52,7 +53,7 @@ public class ActionFormUriFilter implements Filter {
                 httpRequest.setAttribute("error", String.format(
                         "Requested address %s cannot be processed", uri));
                 httpRequest.getServletContext().getRequestDispatcher(
-                "/WEB-INF/jsp/error404.jsp").forward(newServletRequest,
+                        "/WEB-INF/jsp/error404.jsp").forward(newServletRequest,
                         newServletResponse);
             }
         } else {
@@ -64,7 +65,7 @@ public class ActionFormUriFilter implements Filter {
      * Clear all messages when new action is created.
      *
      * @param request -Servlet request.
-     * */
+     */
     private void clearSessionMessages(final HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {

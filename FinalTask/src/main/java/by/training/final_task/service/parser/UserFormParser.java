@@ -25,7 +25,8 @@ public class UserFormParser extends FormParser<User> {
         if (!newUserParameters.isEmpty() && !newUserParameters.contains(null)
                 && !newUserParameters.contains("")) {
             UserParametersValidator validator = new UserParametersValidator();
-            Map<String, Boolean> validationMap = validator.validate(newUserParameters);
+            Map<String, Boolean> validationMap = validator
+                    .validate(newUserParameters);
             for (Map.Entry<String, Boolean> entry : validationMap.entrySet()) {
                 if (entry.getValue()) {
                     throw new InvalidFormDataException(entry.getKey());
@@ -39,10 +40,9 @@ public class UserFormParser extends FormParser<User> {
             Integer mobilePhone = Integer.parseInt(newUserParameters
                     .get(USER_MOBILE_PHONE));
             LocalDate registrationDate = LocalDate.now();
-            //TODO 0 for long, is it norm?
-            //TODO null for path to avatar and role?
-            return new User(0, login, password, null, email, null, firstName,
-                    secondName, mobilePhone, registrationDate, false);
+            return new User(0, login, password, null, email,
+                    null, firstName, secondName, mobilePhone,
+                    registrationDate, false);
         }
         throw new InvalidFormDataException("fillAllFields");
     }

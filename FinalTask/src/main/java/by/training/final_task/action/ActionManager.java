@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface ActionManager {
 
-    Action.Forward execute(final Action action, final HttpServletRequest request,
-               final HttpServletResponse response) throws ControllerException, ServiceException;
+    Action.Forward execute(Action action, HttpServletRequest request,
+                           HttpServletResponse response)
+            throws ControllerException, ServiceException;
+
     void close() throws ServiceException;
 }

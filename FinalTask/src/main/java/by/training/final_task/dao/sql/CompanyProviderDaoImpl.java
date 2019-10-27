@@ -20,25 +20,26 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String GET_BY_PHONE = "SELECT company_provider.id," +
-            " company_provider.address, company_provider.name," +
-            " company_provider.mobile_phone, company_provider.blocking" +
-            " FROM company_provider  WHERE company_provider.mobile_phone = ?";
-    private static final String GET_ALL_COMPANY = "SELECT company_provider.id," +
-            " company_provider.address, company_provider.name," +
-            " company_provider.mobile_phone, company_provider.blocking" +
-            " FROM company_provider ORDER BY id LIMIT ? OFFSET ?";
-    private static final String GET_ALL_COMPANIES_BY_NAME = "SELECT company_provider.id," +
-            " company_provider.address, company_provider.name," +
-            " company_provider.mobile_phone, company_provider.blocking" +
-            " FROM company_provider WHERE company_provider.blocking = false" +
-            " AND company_provider.name=? LIMIT ? OFFSET ?";
+    private static final String GET_BY_PHONE = "SELECT company_provider.id,"
+            + " company_provider.address, company_provider.name,"
+            + " company_provider.mobile_phone, company_provider.blocking"
+            + " FROM company_provider  WHERE company_provider.mobile_phone = ?";
+    private static final String GET_ALL_COMPANY = "SELECT company_provider.id,"
+            + " company_provider.address, company_provider.name,"
+            + " company_provider.mobile_phone, company_provider.blocking"
+            + " FROM company_provider ORDER BY id LIMIT ? OFFSET ?";
+    private static final String GET_ALL_COMPANIES_BY_NAME =
+            "SELECT company_provider.id,"
+            + " company_provider.address, company_provider.name,"
+            + " company_provider.mobile_phone, company_provider.blocking"
+            + " FROM company_provider WHERE company_provider.blocking = false"
+            + " AND company_provider.name=? LIMIT ? OFFSET ?";
     private static final String GET_ALL_AVAILABLE_COMPANY =
-            "SELECT company_provider.id, company_provider.address," +
-            " company_provider.name, company_provider.mobile_phone," +
-            " company_provider.blocking FROM company_provider" +
-            " WHERE company_provider.blocking = false" +
-            " ORDER BY id LIMIT ? OFFSET ?";
+            "SELECT company_provider.id, company_provider.address,"
+            + " company_provider.name, company_provider.mobile_phone,"
+            + " company_provider.blocking FROM company_provider"
+            + " WHERE company_provider.blocking = false"
+            +" ORDER BY id LIMIT ? OFFSET ?";
     private static final String GET_ALL_AVAILABLE_COMPANY_LIST =
             "SELECT company_provider.id, company_provider.address," +
             " company_provider.name, company_provider.mobile_phone," +
@@ -249,17 +250,8 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
 
     @Override
     public boolean delete(final long id) throws PersistentException {
-        /*try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement(DELETE_COMPANY)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException newE) {
-            LOGGER.log(Level.WARN, newE.getMessage(), newE);
-            throw new PersistentException(newE.getMessage(), newE);
-        }*/
-        throw new PersistentException("Incorrect operation for Company provider" +
-                " type.");
+        throw new PersistentException("Incorrect operation for Company provider"
+                + " type.");
     }
 
     private CompanyProvider getNewCompany(ResultSet newResultSet)
@@ -293,7 +285,8 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         }
     }
 
-    private int getAmountByQuery(final String query) throws PersistentException {
+    private int getAmountByQuery(final String query)
+            throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
                 .prepareStatement(query)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -309,7 +302,8 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
     private void setPreparedStatement(final CompanyProvider company,
                                       final PreparedStatement preparedStatement)
             throws SQLException {
-        preparedStatement.setNString(1, company.getCompanyAddress());
+        preparedStatement.setNString(1,
+                company.getCompanyAddress());
         preparedStatement.setNString(2, company.getCompanyName());
         preparedStatement.setInt(3, company.getMobilePhone());
         preparedStatement.setBoolean(4, company.getBlocking());

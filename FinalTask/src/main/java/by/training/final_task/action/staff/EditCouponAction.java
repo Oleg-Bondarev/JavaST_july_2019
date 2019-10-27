@@ -45,18 +45,21 @@ public class EditCouponAction extends AuthorizedUserAction {
 
                 try {
                     Coupon changedCoupon = couponParser.parse(this,
-                                                            couponParameters);
+                            couponParameters);
                     long couponId = Long.parseLong(request
                             .getParameter("couponID"));
                     Coupon oldCoupon = couponService.get(couponId);
                     changedCoupon.setId(couponId);
-                    changedCoupon.setPathToPicture(oldCoupon.getPathToPicture());
-                    changedCoupon.setCouponAddDate(oldCoupon.getCouponAddDate());
+                    changedCoupon.setPathToPicture(oldCoupon
+                            .getPathToPicture());
+                    changedCoupon.setCouponAddDate(oldCoupon
+                            .getCouponAddDate());
                     addNewCategory(changedCoupon, couponParameters);
                     addNewCompanyProvider(changedCoupon, couponParameters);
                     couponService.update(changedCoupon);
 
-                    return new Forward("/coupons.html?page=1", true);
+                    return new Forward("/coupons.html?page=1",
+                            true);
                 } catch (InvalidFormDataException newE) {
                     request.setAttribute("message", newE.getMessage());
                     return null;
@@ -82,7 +85,8 @@ public class EditCouponAction extends AuthorizedUserAction {
     }
 
     private void addNewCategory(final Coupon newCoupon,
-                            final List<String> params) throws ServiceException {
+                                final List<String> params)
+            throws ServiceException {
         CategoryService categoryService = (CategoryService)
                 factory.createService(DAOEnum.CATEGORY);
         long categoryId = Long.parseLong(params.get(CATEGORY_INDEX));
@@ -91,7 +95,8 @@ public class EditCouponAction extends AuthorizedUserAction {
     }
 
     private void addNewCompanyProvider(final Coupon newCoupon,
-                           final List<String> params) throws ServiceException {
+                                       final List<String> params)
+            throws ServiceException {
         CompanyProviderService companyService = (CompanyProviderService)
                 factory.createService(DAOEnum.COMPANYPROVIDER);
         long companyId = Long.parseLong(params.get(COMPANY_INDEX));

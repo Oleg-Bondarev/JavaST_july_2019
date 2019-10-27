@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneValidator extends Validator {
-    private static final String REGEX_FOR_PHONE = "^((25)|(29)|(33)|(44))([0-9]{7}$)";
+    private static final String REGEX_FOR_PHONE =
+            "^((25)|(29)|(33)|(44))([0-9]{7}$)";
 
     public static boolean validate(final String newPhone) {
         Validator validator = new Validator();

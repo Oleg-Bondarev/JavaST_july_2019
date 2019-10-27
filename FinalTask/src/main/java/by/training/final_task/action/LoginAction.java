@@ -14,19 +14,19 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Represent login action.
- * */
+ */
 public class LoginAction extends AuthorizedUserAction {
     /**
      * Class logger.
-     * */
+     */
     private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Name of the attribute.
-     * */
+     */
     private static final String MESSAGE = "message";
     /**
      * Url for redirect.
-     * */
+     */
     private static final String LOGIN_URL = "/loginpage.html";
 
     @Override
@@ -46,7 +46,7 @@ public class LoginAction extends AuthorizedUserAction {
                     session.setAttribute("authorizedUser", user);
                     session.setAttribute("userName", user.getLogin());
                     LOGGER.log(Level.INFO, "User {} is logged in from {}"
-                            + " ({}:{})", login, request.getRemoteAddr(),
+                                    + " ({}:{})", login, request.getRemoteAddr(),
                             request.getRemoteHost(), request.getRemotePort());
                     request.setAttribute(MESSAGE, "loggedInSuccessfully");
 
@@ -61,7 +61,7 @@ public class LoginAction extends AuthorizedUserAction {
                 }
             } else {
                 return executeForward(LOGIN_URL, MESSAGE,
-                        "alreadyLoggedInUser");
+                        "alreadyLoggedIn");
             }
         }
         return executeForward(LOGIN_URL, MESSAGE, "fillAllFields");
