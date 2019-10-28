@@ -85,4 +85,4 @@
     - Вывод всех активных пользователей.
 
 ### Схема базы данных.
-![Database scheme](https://github.com/Oleg-Bondarev/ JavaST_july_2019/raw/master/FinalTask/img/Database.JPG)
+![Database scheme](https://github.com/Oleg-Bondarev/JavaST_july_2019/raw/master/FinalTask/img/Database.JPG)
