@@ -17,6 +17,7 @@ import java.util.List;
 public class RegisterAction extends Action {
 
     private static final UserFormParser userParser = new UserFormParser();
+    private static final String MESSAGE = "message";
 
     @Override
     public Forward executeRequest(final HttpServletRequest request,
@@ -41,16 +42,16 @@ public class RegisterAction extends Action {
                     user.setId(generatedUserId);
                 } catch (ServiceException newE) {
                     return executeForward("/registration.html",
-                            "message", newE.getMessage());
+                            MESSAGE, newE.getMessage());
                 }
             } catch (InvalidFormDataException newE) {
                 return executeForward("/registration.html",
-                        "message", newE.getMessage());
+                        MESSAGE, newE.getMessage());
             }
             return new Forward("/loginpage.html");
         } else {
             return executeForward("/loginpage.html",
-                    "message", "alreadyLoggedIn");
+                    MESSAGE, "alreadyLoggedIn");
         }
     }
 

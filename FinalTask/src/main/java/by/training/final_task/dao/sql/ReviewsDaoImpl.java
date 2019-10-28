@@ -57,7 +57,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         super(newConnection);
     }
 
-    //+
     @Override
     public List<Reviews> getAllReviewsCurrentUser(final long userId,
                                                   final int offset,
@@ -81,7 +80,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
     }
 
-    //+
     @Override
     public List<Reviews> getAllReviewsCurrentCoupon(final long couponId,
                                                     final int offset,
@@ -105,7 +103,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
     }
 
-    //+
     @Override
     public int getAllCount() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -120,7 +117,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
     }
 
-    //+
     @Override
     public int getCountReviewsCurrentUser(final long userId)
             throws PersistentException {
@@ -137,7 +133,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         }
     }
 
-    //+
     @Override
     public int getCountReviewsCurrentCoupon(final long couponId)
             throws PersistentException {
@@ -178,13 +173,11 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         return 0;
     }
 
-    //+
     @Override
     public Reviews get() throws PersistentException {
         return get(1);
     }
 
-    //+
     @Override
     public Reviews get(final long id) throws PersistentException {
         Reviews review = null;
@@ -203,7 +196,6 @@ public class ReviewsDaoImpl extends AbstractDao<Reviews> implements ReviewsDAO {
         return review;
     }
 
-    //+
     @Override
     public List<Reviews> getAll(final int offset, final int limit)
             throws PersistentException {

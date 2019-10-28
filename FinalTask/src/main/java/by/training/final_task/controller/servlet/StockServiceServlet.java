@@ -46,6 +46,7 @@ public final class StockServiceServlet extends HttpServlet {
         }
     }
 
+
     @Override
     public void doGet(final HttpServletRequest request,
                       final HttpServletResponse response)
@@ -68,7 +69,6 @@ public final class StockServiceServlet extends HttpServlet {
         return servletConfig;
     }
 
-    //todo where is it use?
     private void requestProcess(final HttpServletRequest request,
                                 final HttpServletResponse response)
             throws ServletException, IOException {

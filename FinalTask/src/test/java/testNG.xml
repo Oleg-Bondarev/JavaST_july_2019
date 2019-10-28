@@ -5,6 +5,7 @@
         <groups>
             <run>
                 <include name="Validator group"/>
+                <include name="User service group"/>
             </run>
         </groups>
         <classes>
@@ -14,6 +15,7 @@
             <class name="by.training.final_task.service.validator.PropertyValidatorTest"/>
             <class name="by.training.final_task.service.validator.UserParametersValidatorTest"/>
             <class name="by.training.final_task.service.validator.ValidatorTest"/>
+            <class name="by.training.final_task.service.implimentation.UserServiceImplTest"/>
         </classes>
     </test>
 </suite>

@@ -1,7 +1,6 @@
 package by.training.final_task.controller.servlet;
 
 import by.training.final_task.service.validator.PropertyValidator;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,11 +18,14 @@ public final class ServletConfiguration {
     private int dbPoolMaxSize;
     private int dbPoolCheckConnectionTimeout;
 
-    //TODO what to do with exception?
-    public ServletConfiguration() /*throws ControllerException*/ {
+    ServletConfiguration() {
         ResourceBundle resourceBundle = ResourceBundle
                 .getBundle("servlet_configuration");
         readProperties(resourceBundle);
+    }
+
+    public ServletConfiguration(final ResourceBundle newBundle) {
+        readProperties(newBundle);
     }
 
     public String getDbDriverClass() {
@@ -54,8 +56,7 @@ public final class ServletConfiguration {
         return dbPoolCheckConnectionTimeout;
     }
 
-    private void readProperties(final ResourceBundle resourceBundle)
-        /*throws ControllerException*/ {
+    private void readProperties(final ResourceBundle resourceBundle) {
         int startSize = 0;
         int maxSize = 0;
         int timeout = 0;
@@ -66,12 +67,10 @@ public final class ServletConfiguration {
                     .getString("dbPoolMaxSize"));
             timeout = Integer.parseInt(resourceBundle
                     .getString("dbPoolCheckTimeout"));
-        } catch (ParseException newE) {
+        } catch (NumberFormatException newE) {
             LOGGER.log(Level.ERROR, "Pool size and timeout checking" +
                     " parameter must be an integer numbers.");
-            //throw new ControllerException(newE.getMessage(), newE);
         }
-        //надо ли через фабрику какую получать объект валидатора?
         if (PropertyValidator.isValidIntegerPropParameters(startSize, maxSize,
                 timeout)) {
             dbDriverClass = resourceBundle.getString("dbDriverClass");

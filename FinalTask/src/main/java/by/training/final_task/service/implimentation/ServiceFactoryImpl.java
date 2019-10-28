@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 public class ServiceFactoryImpl implements ServiceFactory {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     AbstractService abstractService = new AbstractService();
     ConnectionManager connectionManager;
 
@@ -26,8 +25,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public Service createService(DAOEnum key) throws ServiceException {
         if (key != null) {
-            AbstractService service = createServiceInstance(key);
-            return service;
+            return createServiceInstance(key);
         }
         return null;
     }

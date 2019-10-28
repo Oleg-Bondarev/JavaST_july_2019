@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,7 +68,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         super(newConnection);
     }
 
-    //+
     @Override
     public List<Coupon> getAllCouponsCurrentUser(final long userId,
                                                  final int offset,
@@ -93,7 +91,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         }
     }
 
-    //+
     @Override
     public List<Coupon> getAllBetweenDatesCurrentUser(final long userId,
                                                       final LocalDate startDate,
@@ -126,7 +123,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         }
     }
 
-    //+
     @Override
     public int getCountCouponNameCurrentUser(final long userId)
             throws PersistentException {
@@ -143,7 +139,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         }
     }
 
-    //+
     @Override
     public int getCountBetweenDatesCurrentUser(long userId, LocalDate startDate,
                                                LocalDate endDate)
@@ -168,7 +163,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         }
     }
 
-    //+
     @Override
     public int getAllCount() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -208,13 +202,11 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         return 0;
     }
 
-    //+
     @Override
     public CouponUser get() throws PersistentException {
         return get(1);
     }
 
-    //+
     @Override
     public CouponUser get(final long id) throws PersistentException {
         CouponUser couponUser = null;
@@ -233,7 +225,6 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         return couponUser;
     }
 
-    //+
     @Override
     public List<CouponUser> getAll(final int offset, final int limit)
             throws PersistentException {
@@ -290,22 +281,22 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
         long id = newResultSet.getLong("id");
         Category category = new Category();
         CompanyProvider companyProvider = new CompanyProvider();
-        long category_id = newResultSet.getLong("category_id");
-        long company_provider_id = newResultSet
+        long categoryId = newResultSet.getLong("category_id");
+        long companyProviderId = newResultSet
                 .getLong("company_provider_id");
-        category.setId(category_id);
-        companyProvider.setId(company_provider_id);
+        category.setId(categoryId);
+        companyProvider.setId(companyProviderId);
         String name = newResultSet.getNString("name");
         String pathToPicture = newResultSet.getNString("picture");
         String description = newResultSet.getNString("description");
         BigDecimal price = newResultSet.getBigDecimal("price");
-        LocalDate adding_date_time = newResultSet
+        LocalDate addingDateTime = newResultSet
                 .getDate("adding_date_time").toLocalDate();
         String holding_address = newResultSet
                 .getNString("holding_address");
         boolean blocking = newResultSet.getBoolean("blocking");
         return new Coupon(id, name, pathToPicture, description, price,
-                adding_date_time, holding_address, category, companyProvider,
+                addingDateTime, holding_address, category, companyProvider,
                 blocking);
     }
 
@@ -322,12 +313,10 @@ public class CouponUserDaoImpl extends AbstractDao<CouponUser>
     private CouponUser takeNewCouponUser(final ResultSet newSet)
             throws SQLException {
         long id = newSet.getLong("id");
-        LocalDate reg_date = newSet
+        LocalDate regDate = newSet
                 .getDate("registration_date_time").toLocalDate();
-        long couponId = newSet.getLong("coupon_id");
-        long user_id = newSet.getLong("user_id");
         Coupon coupon = new Coupon();
         User user = new User();
-        return new CouponUser(id, reg_date, coupon, user);
+        return new CouponUser(id, regDate, coupon, user);
     }
 }

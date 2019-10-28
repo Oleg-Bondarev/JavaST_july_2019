@@ -137,7 +137,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         return coupon;
     }
 
-    //+
     @Override
     public List<Coupon> getAll(final int offset, final int limit)
             throws PersistentException {
@@ -176,7 +175,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         return coupon;
     }
 
-    //+
     @Override
     public List<Coupon> getAllByCompanyProvider(final String name,
             final int offset, final int limit) throws PersistentException {
@@ -197,7 +195,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //?
+
     @Override
     public List<Coupon> getAllByCategory(final Category category,
                                          final int offset, final int limit)
@@ -219,7 +217,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //+
+
     @Override
     public List<Coupon> getAllByName(final String name, final int offset,
                                      final int limit) throws PersistentException {
@@ -240,7 +238,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //+
+
     @Override
     public List<Coupon> getAllByPriceRange(final BigDecimal minBorder,
             final BigDecimal maxBorder, final int offset, int limit)
@@ -286,7 +284,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         }
     }
 
-    //+
     @Override
     public List<Coupon> getAllAvailableCoupons(final int offset,
            final int limit) throws PersistentException {
@@ -307,7 +304,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         }
     }
 
-    //+
     @Override
     public int getAmountOfAllCoupons() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -321,7 +317,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //+
+
     @Override
     public int getAmountByCategory(final Category category)
             throws PersistentException {
@@ -337,21 +333,20 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
             throw new PersistentException(newE.getMessage(), newE);
         }
     }
-    //+
+
     @Override
     public int getAmountByCompanyProvider(final String companyName)
             throws PersistentException {
         String query = GET_AMOUNT_BY_COMPANY_PROVIDER;
         return getAmountWithStringParameter(query, companyName);
     }
-    //+
+
     @Override
     public int getAmountByName(final String name) throws PersistentException {
         String query = GET_AMOUNT_BY_COUPON_NAME;
         return getAmountWithStringParameter(query, name);
     }
 
-    //+
     @Override
     public int getAmountByPriceRange(final BigDecimal minBorder,
              final BigDecimal maxBorder) throws PersistentException {
@@ -389,7 +384,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         return 0;
     }
 
-    //+
     @Override
     public boolean updateAvailableStatus(final long id)
             throws PersistentException {
@@ -427,7 +421,7 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
         }
         return 0;
     }
-    //нужен ли?
+
     @Override
     public Coupon get() throws PersistentException {
         return get(1);
@@ -466,7 +460,6 @@ public class CouponDaoImpl extends AbstractDao<Coupon> implements CouponDAO {
 
     private void setPreparedStatement(final Coupon newCoupon,
             final PreparedStatement newPreparedStatement) throws SQLException {
-        //newPreparedStatement.setLong(1, newCoupon.getId());
         newPreparedStatement.setLong(1, newCoupon.getCategory().getId());
         newPreparedStatement.setLong(2, newCoupon.getCompanyProvider().getId());
         newPreparedStatement.setNString(3, newCoupon.getCouponName());

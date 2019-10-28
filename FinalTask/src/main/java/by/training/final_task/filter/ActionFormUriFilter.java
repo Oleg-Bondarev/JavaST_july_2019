@@ -10,14 +10,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Url action filter.
+ * */
 public class ActionFormUriFilter implements Filter {
-
+    /**
+     * Class logger.
+     * */
     private static final Logger LOGGER = LogManager.getLogger();
-
+    /**
+     * Initialize.
+     *
+     * @param filterConfig filter config.
+     */
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
     }
-
+    /**
+     * Do filter.
+     *
+     * @param newServletRequest  request.
+     * @param newServletResponse response.
+     * @param newFilterChain     chain.
+     * @throws IOException       i/o exception.
+     * @throws ServletException  servlet exception.
+     */
     @Override
     public void doFilter(final ServletRequest newServletRequest,
                          final ServletResponse newServletResponse,
@@ -73,7 +90,9 @@ public class ActionFormUriFilter implements Filter {
             session.setAttribute("successMessage", null);
         }
     }
-
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
     }

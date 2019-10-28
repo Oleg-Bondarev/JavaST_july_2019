@@ -129,7 +129,7 @@ public final class ConnectionPool {
             } catch (SQLException newE1) {
                 LOGGER.log(Level.ERROR, "Could not clear connection.",
                         newE1);
-                //TODO next?
+                throw new RuntimeException();
             }
         }
     }
@@ -145,7 +145,7 @@ public final class ConnectionPool {
                     connection.getConnection().close();
                 } catch (SQLException newE) {
                     LOGGER.log(Level.WARN, newE.getMessage(), newE);
-                    //TODO next?
+                    throw new RuntimeException();
                 }
             }
             usedConnections.clear();

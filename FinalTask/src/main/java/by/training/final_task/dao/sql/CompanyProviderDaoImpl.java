@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,13 +57,11 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
     private static final String GET_COMPANY = "SELECT company_provider.id, company_provider.address, company_provider.name, company_provider.mobile_phone, company_provider.blocking FROM company_provider  WHERE company_provider.id = ?";
     private static final String UPDATE_COMPANY = "UPDATE company_provider SET company_provider.id=?, company_provider.address=?, company_provider.name=?, company_provider.mobile_phone=?, company_provider.blocking=? WHERE company_provider.id=?";
     private static final String UPDATE_COMPANY_STATUS = "UPDATE company_provider SET company_provider.blocking = true WHERE company_provider.id=?";
-    //private static final String DELETE_COMPANY = "DELETE FROM company_provider WHERE id = ?";
 
-    public CompanyProviderDaoImpl(final AbstractConnectionManager newConnection) {
+    CompanyProviderDaoImpl(final AbstractConnectionManager newConnection) {
         super(newConnection);
     }
 
-    //+
     @Override
     public CompanyProvider getByPhone(final int phone)
             throws PersistentException {
@@ -106,13 +103,12 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         }
     }
 
-    //+
     @Override
     public List<CompanyProvider> getAll(final int offset, final int limit)
             throws PersistentException {
         return getListByQuery(offset, limit, GET_ALL_COMPANY);
     }
-    //+
+
     @Override
     public List<CompanyProvider> getAllAvailableCompany(int offset, int limit)
             throws PersistentException {
@@ -153,12 +149,12 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         }
     }
 
-    //+
+
     @Override
     public int getAmountOfCompany() throws PersistentException {
         return getAmountByQuery(GET_AMOUNT_OF_ALL_COMPANY);
     }
-    //+
+
     @Override
     public int getAmountOfAvailableCompany() throws PersistentException {
         return getAmountByQuery(GET_AMOUNT_OF_ALL_AVAILABLE_COMPANY);
@@ -202,12 +198,12 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         }
         return 0;
     }
-    //+
+
     @Override
     public CompanyProvider get() throws PersistentException {
         return get(1);
     }
-    //+
+
     @Override
     public CompanyProvider get(final long id) throws PersistentException {
         CompanyProvider coupon = null;
@@ -259,9 +255,9 @@ public class CompanyProviderDaoImpl extends AbstractDao<CompanyProvider>
         long id = newResultSet.getLong("id");
         String address = newResultSet.getNString("address");
         String name = newResultSet.getNString("name");
-        int mobile_phone = newResultSet.getInt("mobile_phone");
+        int mobilePhone = newResultSet.getInt("mobile_phone");
         boolean blocking = newResultSet.getBoolean("blocking");
-        return new CompanyProvider(id, address, name, mobile_phone, blocking);
+        return new CompanyProvider(id, address, name, mobilePhone, blocking);
     }
 
     private List<CompanyProvider> getListByQuery(final int offset,

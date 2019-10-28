@@ -8,8 +8,6 @@ import by.training.final_task.entity.Role;
 import by.training.final_task.entity.User;
 import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.interfaces.CouponUserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class MyPurchasePageAction extends AuthorizedUserAction {
-    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final int ROWCOUNT = 3;
 
     public MyPurchasePageAction() {

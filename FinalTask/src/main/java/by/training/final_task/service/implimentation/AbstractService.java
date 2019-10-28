@@ -4,22 +4,32 @@ import by.training.final_task.dao.interfases.DaoFactory;
 import by.training.final_task.dao.sql.DaoFactoryImpl;
 import by.training.final_task.service.interfaces.Service;
 
-public class AbstractService implements Service {
+/**
+ * Abstract class for service.
+ * */
+class AbstractService implements Service {
+    /**
+     * Factory of DAO.
+     * */
     private DaoFactory daoFactory;
 
-    public AbstractService() {
+    /**
+     * Default constructor.
+     * */
+    AbstractService() {
         daoFactory = new DaoFactoryImpl();
     }
-
-    public AbstractService(final DaoFactory newDaoFactory) {
+    /**
+     * Constructor.
+     * @param newDaoFactory factory to be set to {@link #daoFactory}
+     * */
+    AbstractService(final DaoFactory newDaoFactory) {
         daoFactory = newDaoFactory;
     }
-
-    public DaoFactory getDaoFactory() {
+    /**
+     * @return {@link #daoFactory}
+     * */
+    DaoFactory getDaoFactory() {
         return daoFactory;
-    }
-
-    public void setDaoFactory(final DaoFactory newDaoFactory) {
-        daoFactory = newDaoFactory;
     }
 }

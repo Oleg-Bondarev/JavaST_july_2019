@@ -1,3 +1,5 @@
+USE coupons_test;
+
 CREATE TABLE category
 (
     id   int NOT NULL AUTO_INCREMENT,
@@ -48,7 +50,6 @@ CREATE TABLE user
     /*
      * 0 - administrator(Role.ADMINISTRATOR)
      * 1 - customer(Role.CUSTOMER)
-     * 2 - staff(Role.STAFF)
      */
     role                   tinyint      NOT NULL,
     email                  varchar(50)  NOT NULL,

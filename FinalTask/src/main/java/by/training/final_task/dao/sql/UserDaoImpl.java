@@ -25,7 +25,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             + " user.password=?, user.role=?, user.email=?, user.avatar=?,"
             + " user.first_name=?, user.second_name=?, user.mobile_phone=?,"
             + " user.registration_date_time=?, user.blocking=? WHERE user.id=?";
-    //private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
     private static final String UPDATE_USER_STATUS =
             "UPDATE user SET blocking = true WHERE user.id=?";
     private static final String GET_USER = "SELECT user.id, user.login,"
@@ -33,14 +32,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             + " user.first_name, user.second_name, user.mobile_phone,"
             + " user.registration_date_time, user.blocking FROM user"
             + " WHERE id = ?";
-
-    private static final String GET_USER_BY_LOGIN_AND_PASSWORD =
-            "SELECT user.id,"
-                    + " user.login, user.password, user.role, user.email,"
-                    + " user.avatar,"
-                    + " user.first_name, user.second_name, user.mobile_phone,"
-                    + " user.registration_date_time, user.blocking FROM user" +
-                    " WHERE user.login = ? AND user.password = ?";
     private static final String GET_USER_BY_LOGIN =
             "SELECT user.id, user.login,"
                     + "user.password, user.role, user.email, user.avatar,"
@@ -104,7 +95,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         super(newConnection);
     }
 
-    //+
     @Override
     public int create(final User newUser) throws PersistentException {
         if (newUser == null) {
@@ -125,7 +115,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setString(7, newUser
                     .getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
-            //TODO check cast
             preparedStatement.setDate(9, Date.valueOf(newUser
                     .getRegistrationDate()));
             preparedStatement.setBoolean(10, newUser
@@ -164,7 +153,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
             preparedStatement.setString(7, newUser
                     .getSecondName());
             preparedStatement.setInt(8, newUser.getMobilePhone());
-            //TODO check cast
             preparedStatement.setDate(9, Date.valueOf(newUser
                     .getRegistrationDate()));
             preparedStatement.setBoolean(10, newUser
@@ -186,7 +174,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
                 " You can change coupon status on unavailable.");
     }
 
-    //+нужен ли?
     @Override
     public User get() throws PersistentException {
         return get(1);
@@ -247,7 +234,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         return user;
     }
 
-    //+
     @Override
     public List<User> getAll(final int offset, final int limit)
             throws PersistentException {
@@ -269,7 +255,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+
     @Override
     public boolean delete(final long userId) throws PersistentException {
         LOGGER.log(Level.WARN, "Invalid operation to delete user.");
@@ -277,7 +262,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
                 " You can change coupon status on unavailable.");
     }
 
-    //+
     @Override
     public int getAmountOfAllUsersByRole(final Role role)
             throws PersistentException {
@@ -294,7 +278,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+
     @Override
     public int getAmountOfAllUsersByFirstNameAndRole(final String firstName,
                                                      final Role role)
@@ -335,7 +318,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-
     @Override
     public int getAmountOfAllUsersByEmail(final String email)
             throws PersistentException {
@@ -352,7 +334,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+
     @Override
     public boolean updateUserState(final long id) throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()
@@ -367,7 +348,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+
     @Override
     public List<User> getAllUsersByRole(final Role newRole, int offset,
                                         int limit)
@@ -441,7 +421,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDAO {
         }
     }
 
-    //+ //get customers and admins
     @Override
     public List<User> getAllActiveUsers(final int offset, final int limit)
             throws PersistentException {

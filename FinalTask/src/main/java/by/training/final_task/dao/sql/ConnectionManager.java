@@ -37,7 +37,7 @@ public class ConnectionManager implements AbstractConnectionManager {
     public void enableAutoCommit() throws PersistentException {
         try {
             if (!connection.getAutoCommit()) {
-
+                connection.setAutoCommit(true);
             }
         } catch (SQLException newE) {
             throw new PersistentException("Could not set auto"

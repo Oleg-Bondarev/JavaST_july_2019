@@ -4,7 +4,6 @@ import by.training.final_task.dao.interfases.AbstractConnectionManager;
 import by.training.final_task.dao.interfases.CategoryDAO;
 import by.training.final_task.dao.interfases.DaoFactory;
 import by.training.final_task.dao.sql.ConnectionManager;
-import by.training.final_task.dao.sql.DAOEnum;
 import by.training.final_task.entity.Category;
 import by.training.final_task.dao.PersistentException;
 import by.training.final_task.service.ServiceException;
@@ -18,11 +17,10 @@ public class CategoryServiceImpl extends AbstractService
         super();
     }
 
-    public CategoryServiceImpl(final DaoFactory newFactory) {
+    CategoryServiceImpl(final DaoFactory newFactory) {
         super(newFactory);
     }
 
-    //+
     @Override
     public Category get(final long id) throws ServiceException {
         try (AbstractConnectionManager connectionManager =

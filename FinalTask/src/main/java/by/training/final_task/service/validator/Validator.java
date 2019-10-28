@@ -111,14 +111,17 @@ public class Validator {
      * @return true if coupon price is valid, false - otherwise.
      */
     public boolean validateCouponPrice(final String newPrice) {
-        final String defaultMinPrice = "0.00";
-        if (!isPotentialXSS(newPrice) && !isPotentialSQLInjection(newPrice)) {
-            if ((newPrice.equals(defaultMinPrice)) || newPrice.matches(
-                    CouponParametersValidator.REGEX_FOR_COUPON_PRICE)) {
+        if (!isPotentialXSS(newPrice) && !isPotentialSQLInjection(newPrice)
+                && isDefaultMinOrSimplePrice(newPrice)) {
                 return true;
-            }
         }
         return false;
+    }
+
+    private boolean isDefaultMinOrSimplePrice(final String newPrice) {
+        final String defaultMinPrice = "0.00";
+        return (newPrice.equals(defaultMinPrice)) || newPrice.matches(
+                CouponParametersValidator.REGEX_FOR_COUPON_PRICE);
     }
 
     /**

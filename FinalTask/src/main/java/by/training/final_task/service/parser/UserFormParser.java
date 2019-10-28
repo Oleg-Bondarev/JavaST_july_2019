@@ -2,7 +2,6 @@ package by.training.final_task.service.parser;
 
 import by.training.final_task.action.Action;
 import by.training.final_task.entity.User;
-import by.training.final_task.service.ServiceException;
 import by.training.final_task.service.validator.UserParametersValidator;
 
 import java.time.LocalDate;
@@ -28,7 +27,7 @@ public class UserFormParser extends FormParser<User> {
             Map<String, Boolean> validationMap = validator
                     .validate(newUserParameters);
             for (Map.Entry<String, Boolean> entry : validationMap.entrySet()) {
-                if (entry.getValue()) {
+                if (Boolean.TRUE.equals(entry.getValue())) {
                     throw new InvalidFormDataException(entry.getKey());
                 }
             }

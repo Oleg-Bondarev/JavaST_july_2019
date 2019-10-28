@@ -23,7 +23,6 @@ public class MoreInfoAction extends AuthorizedUserAction {
     public Forward executeRequest(final HttpServletRequest request,
                                   final HttpServletResponse response)
             throws ServiceException {
-        //long couponID = Long.parseLong(request.getParameter("couponID"));
         String tempId = request.getParameter("id");
         if (!validator.validateIdParameter(tempId)) {
             LOGGER.log(Level.DEBUG, "Incorrect id parameter {}", tempId);

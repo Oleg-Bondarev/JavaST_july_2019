@@ -44,12 +44,11 @@ public class CategoryDaoImpl extends AbstractDao<Category>
                 "Invalid operation create for category type.");
     }
 
-    //+
     @Override
     public Category get() throws PersistentException {
         return get(1);
     }
-    //+
+
     @Override
     public Category get(final long id) throws PersistentException {
         Category category = null;
@@ -111,7 +110,6 @@ public class CategoryDaoImpl extends AbstractDao<Category>
                 "Invalid operation to delete coupon category.");
     }
 
-    //+
     @Override
     public List<Category> getAll() throws PersistentException {
         List<Category> users = new LinkedList<>();
@@ -126,8 +124,9 @@ public class CategoryDaoImpl extends AbstractDao<Category>
         } catch (SQLException newE) {
             LOGGER.log(Level.WARN, newE.getMessage(), newE);
             throw new PersistentException(newE.getMessage(), newE);
-        }    }
-    //+
+        }
+    }
+
     @Override
     public int getAmountOfCategory() throws PersistentException {
         try (PreparedStatement preparedStatement = getConnection()

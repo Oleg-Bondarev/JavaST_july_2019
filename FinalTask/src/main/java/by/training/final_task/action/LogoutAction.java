@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class LogoutAction extends AuthorizedUserAction {
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String LOGIN_PAGE = "/loginpage.html";
 
     @Override
     public Forward executeRequest(final HttpServletRequest request,
@@ -24,12 +25,12 @@ public class LogoutAction extends AuthorizedUserAction {
                 LOGGER.log(Level.INFO, "{} has logged out", user.getLogin());
                 session.invalidate();
                 request.setAttribute("message", "loggedOutSuccessfully");
-                return new Forward("/loginpage.html");
+                return new Forward(LOGIN_PAGE);
             } else {
                 request.setAttribute("message", "errorInLogout");
-                return new Forward("/loginpage.html");
+                return new Forward(LOGIN_PAGE);
             }
         }
-        return new Forward("/loginpage.html");
+        return new Forward(LOGIN_PAGE);
     }
 }

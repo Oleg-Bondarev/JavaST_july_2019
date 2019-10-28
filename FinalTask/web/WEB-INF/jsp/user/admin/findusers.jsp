@@ -62,7 +62,7 @@
             <div class="col-md-4 justify-content-center">
                 <form class="col-md-6" action="${findUsersPageAction}" method="post">
                     <button class="btn btn-outline-success" type="submit" >
-                        <fmt:message key="showAllStaffButton" bundle="${lang}"/>
+                        <fmt:message key="allUsers" bundle="${lang}"/>
                     </button>
                 </form>
             </div>

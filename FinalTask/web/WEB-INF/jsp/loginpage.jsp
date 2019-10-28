@@ -38,7 +38,7 @@
                         <h2><b><fmt:message key="login" bundle="${lang}"/></b></h2>
                     </div>
 
-                    <c:if test="${not empty message}">
+                    <c:if test="${not empty requestScope.get('message')}">
                         <div class="text-center text-warning">
                             <label class="text">
                                 <fmt:message key="attantion" bundle="${lang}"/>:
